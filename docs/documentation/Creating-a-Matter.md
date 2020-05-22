@@ -291,10 +291,10 @@ The matter items list is ordered as follows:
 
 - Matter Info (1)
 - (Client) (2)
-- Client’s Attorney - this is always the Smokeball firm. This relationship is hidden in the desktop UI but can be seen in the API.
+  - Client’s Attorney - this is always the Smokeball firm. This relationship is hidden in the desktop UI but can be seen in the API.
 - Matter Type (3)
 - (Other Side)
-- Other Side’s Attorney (4)
+  - Other Side’s Attorney (4)
 - Other Roles, Relationships and Layouts
 
 Matter sub items are shown indented under the matter item. Here `Lender` is a matter item, and `Attorney` and `Loan Details` are it’s subitems.
@@ -409,7 +409,7 @@ GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb
 
 Where available, the matter item will have a link to the relevant resource containing additional information.
 
-> Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the > matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
+> Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
 
 ![Matter Roles](/assets/images/matterparties.png)
 
