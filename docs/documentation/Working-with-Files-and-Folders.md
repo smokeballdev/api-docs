@@ -10,16 +10,16 @@ Every Matter has a familiar folder structure used to store files and documents:
 
 ![Folders and Files](/assets/images/filesandfolders.png)
 
-If you want to work with the folder/file structure, then you will need to use the [Folders](../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1folders) endpoint.
-Alternatively, if you prefer to work with a flat list of all Files on the Matter, you can use the [Files](../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files) endpoint.
- 
-The root folder of a matter will always have an **id** of `null` and if no **folder id** is specified when adding a File, this is the folder that will be used.
+If you want to work with the folder/file structure, then you will need to use the [Folders](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1folders/get) endpoint.
+Alternatively, if you prefer to work with a flat list of all Files on the Matter, you can use the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/get) endpoint.
 
-Every folder including the root folder, will have a a number of sub-folders and files. When retrieveing a folder from the API you will get a list of the sub-folders and files. Here is a response for the Matter shown above:
+The root folder of a matter will always have an **id** of `null` and if no **folder id** is specified when adding a File, this is the folder that will be used by default.
+
+Every folder including the root folder, will have a a number of sub-folders and files. When retrieveing a folder from the Folders endpoint you will get a list of the sub-folders and files in that folder. Here is a response for root folder of the Matter shown above:
 
 `GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders`
 
-``` json
+```json
 {
   "value": [
     {
@@ -76,9 +76,33 @@ Every folder including the root folder, will have a a number of sub-folders and 
 }
 ```
 
-
 ### 2. Adding a File
 
+Adding a File to a Matter is a two-step process involving creating the meta-data for the File by POSTing to the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/post) endpoint and then using the response to upload the actual files to the provided URL.
+
+Continuing with the Matter example above, if we wanted to add a File to the _Correspondence_ folder we would make the following request:
+
+```json http
+{
+  "method": "post",
+  "url": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\n  \"fileName\": \"Letter to Creditor.docx\",\n  \"folderId\": \"27e52eaf-fa51-4582-bd59-ec3ea5ab664b\",\n  //\"dateCreated\": if not specified, the current datetime will be used\n}"
+}
+```
+
+**Response**
+``` json
+{
+  "fileId": "e8ac0461-6bd9-477e-a95b-1d924332c91b",
+  "uploadUrl": "https://s3.amazonaws.com/MatterManagement.Staging/apiuploads/ODUyOGQwNjMtMjY2My00MWMwLTk0ZjQtN2JhMzNlYTRhNmQ0fGUzZjU0NWI0LTM0Y2YtNDllNS1iM2UyLTU1YWIwODc2YTg0Y3w1YmJjNGQ3Mi0zMDAxLTQ2YmYtYWNkNy1jOTBkZmY0ZGM5ZmF8MjdlNTJlYWYtZmE1MS00NTgyLWJkNTktZWMzZWE1YWI2NjRifGU4YWMwNDYxLTZiZDktNDc3ZS1hOTViLTFkOTI0MzMyYzkxYnxMZXR0ZXIgdG8gQ3JlZGl0b3IuZG9jeHw%3D?AWSAccessKeyId=ASIA364TCXVMR4RXEVO5&Expires=1590117388&x-amz-security-token=IQoJb3JpZ2luX2VjEOL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIFTtWItZ%2Bdjveha7XuP4a05FCTqJmEs0G4VawxdRSaQ1AiEAvi%2FCGd0kyF%2FdDugSrNbl1sMPWSOIgtD%2B4jEAHP3BPnAq3wEIOxAAGgw4MjIyNTc4MjcxNjEiDDEkwjUUF2iV7yoZVCq8AeptjefBs2u6Wn2hFiAdoPw%2F9rGsXkXGfsbyPCDKeJP2yBzpNLGsPiKZkrvrJNNY5t8eViRNqSw69qt2qH4I50Q3O5iwg8kYguCZmFRJ6Gu4g89Og5kdX5FfISdzzoz4zRyVqHUg8j1RkXvaw6o6hpBGjwyLZL24dKqtRvgylLY4faQixoZ2hWYRkT87cuxwj2BOTTt6SNpKze0Atqh6QOV2LokwpIiQo1%2Bd5Ua0nC0Xl39P4pej17W43bDmMOzUnPYFOuABSZPF2G1tnIhP%2BuLtK9HvMobUUPk5cFLcKN5QxIW2hjwlwTZF3IPsvUOVq0AO0UnJd%2By4NdfwCcpm2fUulDFl8y5wKh3%2B0BifQDfsclANHL4Bb6na0Qpp8076HWiN6kbj7HRFNW4mTtsga%2BhK4kYHwAVhS6JR9bm46bz%2FsylzvuhLnIR1eG%2BUpZLJos6LJONIn9MNK78CXY6HJxaDLaewoQ3tAhU8CF%2F6mT3Oel2ZXeY40wm3xh2aqZS%2F9nze94RpJr%2Bf2U%2FHPH8tkB8tsAjflFIA4rGX%2B0BEfqJEWWalQVo%3D&Signature=sQ%2BUezLoeweLtLhyCDK%2Fy1a6naY%3D",
+  "expiry": "2020-05-22T03:16:28.3870695Z"
+}
+```
+
+You will get back the **fileId** of the new File and an **uploadUrl** that you can use to upload the actual file. 
 
 
 ### 3. Uploading a new version
