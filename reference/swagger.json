@@ -1,8 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "API",
-    "version": "1.0"
+    "title": "Smokeball API",
+    "version": "1.0",
+    "description": "All requests to the API require a valid **id_token** and an **api-key** issued by Smokeball"
   },
   "paths": {
     "/contacts": {
@@ -329,7 +330,7 @@
           "Contacts"
         ],
         "summary": "Get a contact's tags.",
-        "description": "Sample request:\r\n            \r\n    GET /contacts/{id}/tags",
+        "description": "Sample request:\n            \n    GET /contacts/{id}/tags",
         "operationId": "GetContactTags",
         "parameters": [
           {
@@ -4728,6 +4729,10 @@
     {
       "url": "https://stagingapi.smokeball.com",
       "description": "Staging API"
+    },
+    {
+      "url": "https://api.smokeball.com",
+      "description": "Production API"
     }
   ],
   "security": [

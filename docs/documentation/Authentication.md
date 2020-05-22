@@ -1,3 +1,7 @@
+---
+tags: [Documentation]
+---
+
 # Authentication
 
 ![stuff](/assets/images/smokeball-logo-r.png)
@@ -10,7 +14,7 @@ Once you have supplied your oauth2 callback url(s), Smokeball will supply you wi
 
 ### 1. Request User Authorization
 
-Direct the user to <https://datastaging-auth.smokeball.com/oauth2/authorize> with the following parameters:
+Direct the user to `https://datastaging-auth.smokeball.com/oauth2/authorize` with the following parameters:
 
 Example:
 
@@ -75,12 +79,15 @@ Content-Type: application/json
  "expires_in":3600
 }
 ```
+
 The returned **id_token** is valid for 60 minutes but the **refresh_token** is valid for the time specified in the **expires_in** field. 
 
 <!-- theme: warning -->
->### **Note
-> The Smokeball API will *only* accept the **id_token** and not the access_token
 
+> ### \*\*Note
+>
+> The Smokeball API will _only_ accept the **id_token** and not the access_token
+>
 > See <https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html> for more information
 
 ### 3. Refreshing an Id Token
