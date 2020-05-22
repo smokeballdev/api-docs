@@ -2,13 +2,11 @@
 tags: [Documentation]
 ---
 
-# Authentication
-
-![stuff](/assets/images/smokeball-logo-r.png)
+# 1. Authentication
 
 ## Client Application Details
 
-Once you have supplied your oauth2 callback url(s), Smokeball will supply you with your **client_id** and **client_secret** that you will use throughout the oauth2 flow.
+Once you have supplied your oauth2 callback url(s), Smokeball will provide you with your **client_id** and **client_secret** that you will use throughout the oauth2 flow.
 
 ## Obtaining Authorization
 
@@ -40,6 +38,8 @@ If authorized, the user will be redirected to:
 ```
 
 > See <https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html> for more information.
+
+---
 
 ### 2. Request an Id Token
 
@@ -89,6 +89,8 @@ The returned **id_token** is valid for 60 minutes but the **refresh_token** is v
 > The Smokeball API will _only_ accept the **id_token** and not the access_token
 >
 > See <https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html> for more information
+
+---
 
 ### 3. Refreshing an Id Token
 

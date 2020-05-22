@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Making Requests
+# 2. Making Requests
 
 All requests to the API require a valid `api-key` issued by Smokeball and `id_token` (see [Authorization](Authentication.md)).
 

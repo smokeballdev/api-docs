@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Files and Folders
+# 4. Files and Folders
 
 ### 1. Structure
 
@@ -78,6 +78,8 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
 }
 ```
 
+---
+
 ### 2. Adding a File
 
 Adding a File to a Matter is a two-step process involving creating the meta-data for the File by POSTing to the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/post) endpoint and then using the response to upload the actual files to the provided URL.
@@ -108,7 +110,7 @@ You will get back the `fileId` of the new File and an `uploadUrl` that you can u
 
 >Refer to <https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html> for more information on uploading to an S3 pre-signed URL
 
-
+---
 
 ### 3. Uploading a new version
 
@@ -130,6 +132,8 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
 You will get back the an `uploadUrl` that you can use to upload the new version to AWS S3 with a PUT request. The uploadUrl will be valid up until the time specified in the `expiry` field.
 
 >Refer to <https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html> for more information on uploading to an S3 pre-signed URL
+
+---
 
 ### 4. Downloading a File
 

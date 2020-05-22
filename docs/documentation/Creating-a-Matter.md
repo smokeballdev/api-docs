@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Creating a Matter
+# 3. Creating a Matter
 
 ### 1. Understanding Matter Types
 
@@ -77,6 +77,8 @@ When creating a matter in Smokeball we can see
 
 > Here the important information to note is the `id` and `representativeOptions` of the matter type. We’ll need those when creating a matter. 
 
+---
+
 ### 2. Understanding Contacts
 
 In order to successfully create a matter, we’re going to need to provide a contact that is the client.
@@ -122,6 +124,8 @@ Alternatively, if the contact already exists in Smokeball, you can query for it,
 > ### _Tip!_
 >
 > When creating a contact you can pass in an `externalSystemId` if you want to store your own reference id with this contact.
+
+---
 
 ### 3. Staff
 
@@ -182,6 +186,8 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 }
 ```
 
+---
+
 ### 4. Matter Creation
 
 Now we have everything we need to create a matter.
@@ -235,6 +241,8 @@ The matter is now shown in Smokeball:
 
 ![Matter](/assets/images/newmatter.png)
 
+---
+
 ### 5. Retrieving a matter
 
 ```http
@@ -280,6 +288,8 @@ GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb
 Most of this information is unchanged from what we passed in when creating the matter. You’ll notice that the clients, staff and matter type properties have been expanded as links to resources with more information.
 
 There is also the items collection which we’ll explore in more detail next.
+
+---
 
 ### 6. Matter Items
 
@@ -412,6 +422,8 @@ Where available, the matter item will have a link to the relevant resource conta
 > Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
 
 ![Matter Roles](/assets/images/matterparties.png)
+
+---
 
 ### 7. Roles
 
