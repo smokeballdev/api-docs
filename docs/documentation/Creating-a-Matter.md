@@ -210,6 +210,7 @@ Now we have everything we need to create a matter.
 ```
 
 Here we have used:
+
 - The `matterTypeId` for ‘Financing’ retrieved earlier
 - The `clientId` which is the id of the contact we created earlier.
 - The `clientRole`, which is one of the matter type’s representativeOptions retrieved earlier.
@@ -221,7 +222,7 @@ Here we have used:
 
 **Response**
 
-``` json
+```json
 202 Accepted
 
 {
@@ -242,7 +243,7 @@ GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb
 
 **Response**
 
-``` json
+```json
 {
   "href": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9?MatterId=51cefb72-6247-4ca2-8926-5d14d65f7cb9",
   "id": "51cefb72-6247-4ca2-8926-5d14d65f7cb9",
@@ -287,8 +288,9 @@ A matter can contain various items and sub items that store hierarchical data re
 ![Matter Items](/assets/images/matteritems.png)
 
 The matter items list is ordered as follows:
--	Matter Info (1)
--	(Client) (2)
+
+- Matter Info (1)
+- (Client) (2)
 - Client’s Attorney - this is always the Smokeball firm. This relationship is hidden in the desktop UI but can be seen in the API.
 - Matter Type (3)
 - (Other Side)
@@ -298,28 +300,34 @@ The matter items list is ordered as follows:
 Matter sub items are shown indented under the matter item. Here `Lender` is a matter item, and `Attorney` and `Loan Details` are it’s subitems.
 
 There are different types of matter items and sub items, including:
-####
+
+#### 
 
 ###### Roles and Relationships
+
 A contact on a matter will be assigned to a specific role or relationship, based on how they relate to the matter. For example, in the above image, `Test Contact` is assigned to the `Borrower` role **(2)**. By convention, the first Role in the list is the firm’s client. The client role has an `Attorney` relationship that links to the Smokeball Firm (hidden in the Smokeball UI)
 
 Contacts can also be related to other contacts on the matter. For example in the above image, `Lender` is a Role with an `Attorney` relationship **(3)**. This attorney acts for this specific Lender. There could be other Lenders relationships on this matter that are related to other roles (not shown in image)
 
 Roles and relationships can be set in the API.
-####
+
+#### 
+
 ###### Layouts
+
 Layouts are data entry screens that are tailored to the area of law. In this example there is a `Loan Details` layout **(4)** that would store information about that Lender’s loan. A layout can either be a sub item linked to a matter item (e.g. Loan Details as shown here) or a matter item itself (e.g. Property Details, not shown)
 
 > Layouts can not be set or retrieved in the current version of the API.
 
 Here's an example request to GET the Matter Items:
 
-``` http
+```http
 GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/items
 ```
 
 **Response**
-``` json
+
+```json
 {
   "versionId": "9843e3cf-9720-4ac5-94cf-1b265c5e54d5",
   "items": [
@@ -401,21 +409,21 @@ GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb
 
 Where available, the matter item will have a link to the relevant resource containing additional information.
 
->Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the > matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
+> Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the > matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
 
 ![Matter Roles](/assets/images/matterparties.png)
-
 
 ### 7. Roles
 
 To find out which contact is assigned to a role, we can get retrieve the role details:
 
-``` http
+```http
 GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/441225f5-0803-412b-be45-c81fb893231f
 ```
 
 **Response**
-``` json
+
+```json
 {
   "id": "441225f5-0803-412b-be45-c81fb893231f",
   "name": "Borrower",
@@ -445,12 +453,13 @@ Here we can see the Borrower role has a contact assigned, and we can follow the 
 
 In our example, the Lender role did not have a contact assigned. To set this, we first need to know the id / link to the role we want to update. This was retrieved earlier with the MatterItems api call:
 
-``` http
+```http
 GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/items
 ```
 
 **Response**
-``` json
+
+```json
 {
   "versionId": "9843e3cf-9720-4ac5-94cf-1b265c5e54d5",
   "items": [
@@ -485,12 +494,19 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 ```json http
 {
   "method": "PUT",
-  "url": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1"
+  "url": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "contactId": "dcafdb9e-e46d-4720-a3f8-638b3dd4ca38"
+  }
 }
 ```
 
 **Response**
-``` json
+
+```json
 202 Accepted
 
 {
@@ -498,4 +514,5 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
   "href": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1"
 }
 ```
+
 ![New Role](/assets/images/newroleadded.png)
