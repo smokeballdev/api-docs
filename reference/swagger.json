@@ -3,7 +3,7 @@
   "info": {
     "title": "API",
     "version": "1.0",
-    "description": "https://stagingapi.smokeball.com/swagger/"
+    "description": "Explore and try the API at:\n\nhttps://stagingapi.smokeball.com/swagger/"
   },
   "paths": {
     "/contacts": {
