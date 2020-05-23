@@ -43,7 +43,7 @@ If authorized, the user will be redirected to:
 
 ### 2. Request an Id Token
 
-Once you have obtained an authorization code, you can now use it to get an access token which may be used to make requests to the API.
+Once you have obtained an authorization code, you can now use it to get an **id_token** which may be used to make requests to the API.
 
 Make a POST request to <https://datastaging-auth.smokeball.com/oauth2/token> with the following parameters and headers:
 
