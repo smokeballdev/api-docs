@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# 3. Creating a Matter
+# Creating a Matter
 
 ### 1. Understanding Matter Types
 

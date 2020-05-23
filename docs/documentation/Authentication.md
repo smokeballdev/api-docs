@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# 1. Authentication
+# Authentication
 
 ## Client Application Details
 

@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# 4. Files and Folders
+# Files and Folders
 
 ### 1. Structure
 
