@@ -4,17 +4,17 @@ tags: [Documentation]
 
 # Creating a Matter
 
-### 1. Understanding Matter Types
+### 1. Matter Types
 
 Smokeball comes with a range of pre-configured matter types for different areas of law. These are provided by Smokeball’s internal content team and are not user editable.
 
-A matter type defines what information can be saved to the matter, relevant to that area of law and state / location.
+A Matter Type defines what information can be saved to the matter, relevant to that area of law and state / location.
 
 ![Matter Types](/assets/images/mattertypes.png)
 
 When creating a matter in Smokeball we can see
 
-1. A list of matter types. Here, _Financing_ is a matter type, under the Real Estate category.
+1. A list of Matter Types. Here, _Financing_ is a matter type, under the _Real Estate_ category.
 2. Representative options for the _Financing_ matter type. This specifies who the Smokeball firm is acting for. In other words, who is their client.
 
 #### API - Getting a Matter Type
@@ -79,7 +79,7 @@ When creating a matter in Smokeball we can see
 
 ---
 
-### 2. Understanding Contacts
+### 2. Contacts
 
 In order to successfully create a matter, we’re going to need to provide a contact that is the client.
 
@@ -87,14 +87,14 @@ In Smokeball’s desktop app you can create a contact as a Person, Firm/Business
 Right now, the API supports the following contact types
 
 - Person
-- GroupOfPeople – 2 or more ‘Person’s
+- GroupOfPeople – 2 or more ‘Person’s on the same Contact
 - Company
 
 ![New Contact](/assets/images/newcontact.png)
 
 #### API - Creating a Contact
 
-To create a contact you can make the following request, which would create a person called ‘Test Contact’.
+To create a contact you can make the following request which would create a person called ‘Test Contact’.
 
 ```json http
 {
@@ -119,7 +119,7 @@ To create a contact you can make the following request, which would create a per
 ```
 
 Take note of the Contact’s `id` returned in the response, we’ll need that when creating a matter.
-Alternatively, if the contact already exists in Smokeball, you can query for it, to find it’s id
+Alternatively, if the contact already exists in Smokeball, you can query it to find it’s id.
 
 > ### _Tip!_
 >
@@ -217,14 +217,18 @@ Now we have everything we need to create a matter.
 
 Here we have used:
 
-- The `matterTypeId` for ‘Financing’ retrieved earlier
-- The `clientId` which is the id of the contact we created earlier.
-- The `clientRole`, which is one of the matter type’s representativeOptions retrieved earlier.
-- The `personResponsibleStaffId` and `personAssistingStaffId` are the ids of the staff members we retrieved earlier. These are optional.
-- The `number` is an internal reference number for the matter. Some firms have enabled ‘auto numbering’ in Smokeball settings. If you provide a value for this field via the API then the matter number will be overwritten.
-- The `description` which is a free text entry field.
-- The `status` of the matter, which can be `Open`, `Pending`, `Closed`, `Deleted` or `Cancelled` (note the Australian spelling with two L’s)
-- The `dateOpened` when the matter was opened (this can be backdated if required)
+
+Parameter | Description
+---------|----------
+ `matterTypeId` | We're using the id for `Financing` which we retrieved earlier 
+ `clientId` | The id of the `Test Contact` we created 
+ `clientRole` |  Set to _Borrower_ which is one of the matter type’s representativeOptions retrieved earlier
+ `personResponsibleStaffId`| Id of a staff member we retrieved from the GET Staff call
+ `personAssistingStaffId` | Id of a staff member we retrieved from the GET Staff call
+ `number` | Internal reference number for the matter. Some firms have enabled ‘auto numbering’ in Smokeball settings. If you provide a value for this field via the API then the matter number will be overwritten
+`description` | a free text entry field for the description of the matter
+`status` | can be `Open`, `Pending`, `Closed`, `Deleted` or `Cancelled`
+`dateOpened` | when the matter was opened (this can be backdated if required)
 
 **Response**
 
