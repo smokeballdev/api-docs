@@ -37,11 +37,6 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
           "name": "Contracts"
         },
         {
-          "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/b97f0fe6-32fb-427f-b6c7-30ea286736f7",
-          "id": "b97f0fe6-32fb-427f-b6c7-30ea286736f7",
-          "name": "Other"
-        },
-        {
           "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/6f447d01-5379-493b-a60d-25fb4d64ff8a",
           "id": "6f447d01-5379-493b-a60d-25fb4d64ff8a",
           "name": "Emails"
