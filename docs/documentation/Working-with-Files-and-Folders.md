@@ -8,7 +8,7 @@ tags: [Documentation]
 
 Every Matter has a familiar folder structure used to store files and documents:
 
-![Folders and Files](/assets/images/filesandfolders.png)
+![Folders and Files](/assets/images/filesandfolders2.png)
 
 If you want to work with the folder/file structure, then you will need to use the [Folders](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1folders/get) endpoint.
 Alternatively, if you prefer to work with a flat list of all Files on the Matter, you can use the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/get) endpoint.
