@@ -77,18 +77,21 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
 
 ### 2. Adding a File
 
-Adding a File to a Matter is a two-step process involving creating the meta-data for the File by POSTing to the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/post) endpoint and then using the response to upload the actual files to the provided URL.
+Adding a File to a Matter is a two-step process involving creating the meta-data for the File by POSTing to the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/post) endpoint and then using the response to upload the actual file to the provided URL.
 
 Continuing with the Matter example above, if we wanted to add a File to the _Correspondence_ folder we would make the following request:
 
 ```json http
 {
   "method": "post",
-  "url": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files",
+  "url": "https://stagingapi.smokeball.com/matters/{matterId}/documents/files",
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\n  \"fileName\": \"Letter to Creditor.docx\",\n  \"folderId\": \"27e52eaf-fa51-4582-bd59-ec3ea5ab664b\",\n  //\"dateCreated\": if not specified, the current datetime will be used\n}"
+  "body": "{\n  \"fileName\": \"Letter to Creditor.docx\",\n  \"folderId\": \"27e52eaf-fa51-4582-bd59-ec3ea5ab664b\",\n  //\"dateCreated\": if not specified, the current datetime will be used\n}",
+  "path": {
+    "matterId": "5bbc4d72-3001-46bf-acd7-c90dff4dc9fa"
+  }
 }
 ```
 
@@ -124,7 +127,7 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
 }
 ```
 
-You will get back the an `uploadUrl` that you can use to upload the new version to AWS S3 with a PUT request. The uploadUrl will be valid up until the time specified in the `expiry` field.
+You will get back an `uploadUrl` that you can use to upload the new version to AWS S3 with a PUT request. The uploadUrl will be valid up until the time specified in the `expiry` field.
 
 >Refer to <https://docs.aws.amazon.com/AmazonS3/latest/dev/PresignedUrlUploadObject.html> for more information on uploading to an S3 pre-signed URL
 
