@@ -80,7 +80,7 @@ Content-Type: application/json
 }
 ```
 
-The returned **id_token** is valid for 60 minutes but the **refresh_token** is valid for the time specified in the **expires_in** field. 
+The returned **id_token** is valid for 60 minutes.
 
 <!-- theme: warning -->
 
