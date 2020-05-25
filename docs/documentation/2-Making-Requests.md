@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Making Requests
 
-All requests to the API require a valid `api-key` issued by Smokeball and `id_token` (see [Authorization](Authentication.md)).
+All requests to the API require a valid `api-key` issued by Smokeball and `id_token` (see [Authorization](1-Authentication.md)).
 
 ### Example Request
 
