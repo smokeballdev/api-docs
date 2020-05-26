@@ -87,7 +87,6 @@ In Smokeball’s desktop app you can create a contact as a Person, Firm/Business
 Right now, the API supports the following contact types
 
 - Person
-- GroupOfPeople – 2 or more ‘Person’s on the same Contact
 - Company
 
 ![New Contact](/assets/images/newcontact.png)
