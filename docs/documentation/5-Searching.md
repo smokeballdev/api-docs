@@ -6,7 +6,7 @@ tags: [Documentation]
 
 ### 1. Overview
 
-Some endpoints will have a query parameter called `Search (array[string])` which allows you to specify multiple search terms. These terms will be combined using an **AND** operator. At the moment, there is no support for other logical operators.
+Some endpoints will have a query parameter called `search` _(array[[string]])_ which allows you to specify multiple search terms. These terms will be combined using an **AND** operator. At the moment, there is no support for other logical operators.
 
 In the Swagger documentation for an endpoint that supports searching, the description will detail what fields can be searched:
 
