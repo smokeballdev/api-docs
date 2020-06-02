@@ -302,13 +302,15 @@ A matter can contain various items and sub items that store hierarchical data re
 
 The matter items list is ordered as follows:
 
-- Matter Info (1)
-- (Client) (2)
-  - Client’s Attorney - this is always the Smokeball firm. This relationship is hidden in the desktop UI but can be seen in the API.
-- Matter Type (3)
-- (Other Side)
-  - Other Side’s Attorney (4)
-- Other Roles, Relationships and Layouts
+1. Matter Info
+2. Borrower (Client)
+
+    a. Client’s Attorney - this is always the Smokeball firm. This relationship is hidden in the desktop UI but can  be seen in the API.
+3. Matter Type
+4. Lender (Other Side)
+
+    a. Other Side’s Attorney
+5. Other Roles, Relationships and Layouts
 
 Matter sub items are shown indented under the matter item. Here `Lender` is a matter item, and `Attorney` and `Loan Details` are it’s subitems.
 
