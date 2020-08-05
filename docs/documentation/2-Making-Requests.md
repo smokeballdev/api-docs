@@ -4,9 +4,9 @@ tags: [Documentation]
 
 # Making Requests
 
-All requests to the API require a valid `api-key` issued by Smokeball and `id_token` (see [Authorization](1-Authentication.md)).
+All requests to the API require a valid `api-key` issued by Smokeball and `id_token` (see [Authentication](1-Authentication.md)).
 
-### Example Request
+### 1. Example Request
 
 ```json http
 {
@@ -68,7 +68,7 @@ All requests to the API require a valid `api-key` issued by Smokeball and `id_to
 
 
 
-### Paged Responses
+### 2. Paged Responses
 
 You will notice that some requests will have the optional parameters `limit` and `offset`. These are used to control how many results are returned in a request that returns a list of results. 
 
@@ -104,3 +104,72 @@ Property | Description
  `last` | A link to the last result set
 
 >By default, the `limit` will be set to a maximum of 500 results. 
+
+### 3. Server-to-Server requests
+
+When using the [Client Credentials Grant](1-Authentication.md#2-client-credentials-grant) to perform server-to-server requests, you must explcitily specify which account you are using by prefixing the url with the `accountId` in this format:
+
+> https://stagingapi.smokeball.com/{accountId}/{resource-path}
+
+Using the above contacts request as an example, the url is https://stagingapi.smokeball.com/contacts/
+For a server-to-server request using the `accountId: ea4ca7b9-b826-4840-a8k5-94e6c6937c65` the request would be:
+
+```json http
+{
+  "method": "get",
+  "url": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/",
+  "headers": {
+    "x-api-key": "Y2xpZW50X2lkOmNsaWV",
+    "Authorization": "Bearer Y2xpZW50X2lkOmNsaWV"
+  }
+}
+```
+
+**Response**
+
+> Note: all links in the repsonse will include the accountId prefix:
+
+``` json
+{
+  "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts",
+  "offset": 0,
+  "limit": 500,
+  "size": 761,
+  "first": {
+    "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts"
+  },
+  "next": {
+    "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts?limit=500&offset=500",
+    "rel": "collection"
+  },
+  "last": {
+    "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts?limit=500&offset=500",
+    "rel": "collection"
+  },
+  "value": [
+    {
+      "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/323f9755-045a-4b68-a536-eb566b8428ff",
+      "id": "323f9755-045a-4b68-a536-eb566b8428ff",
+      "groupOfPeople": {
+        "people": [
+          {
+            "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/a1d868da-1243-4b9f-a8e3-cfc5c4abda50"
+          },
+          {
+            "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/ea4ca7b9-b826-4840-a8b5-94e0c6977c65"
+          }
+        ],
+        "residentialAddress": {
+          "addressLine1": "1247 N Clark Street",
+          "city": "Chicago",
+          "state": "IL",
+          "zipCode": "60607",
+          "county": "Cook",
+          "country": "United States"
+        }
+      },
+    ...
+  ]
+  } 
+ } 
+```

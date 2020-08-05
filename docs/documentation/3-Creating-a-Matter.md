@@ -120,7 +120,7 @@ To create a contact you can make the following request which would create a pers
 Take note of the Contact’s `id` returned in the response, we’ll need that when creating a matter.
 Alternatively, if the contact already exists in Smokeball, you can query it to find it’s id.
 
-> ### _Tip!_
+> ### _Tip_
 >
 > When creating a contact you can pass in an `externalSystemId` if you want to store your own reference id with this contact.
 
