@@ -137,7 +137,7 @@ Content-Type: application/json
 ---
 
 ## 2. Client Credentials Grant
-The **Client Credentials** grant type is typically used for server-to-server API operations. In this scenario, you are not acting as a Smokeball user but a type of "service" that can operation on an Account level.
+The **Client Credentials** grant type is typically used for server-to-server API operations. In this scenario, you are not acting as a Smokeball user but a type of "service" that can perform operations on an Account level.
 
 ### 2.1 Request an Access Token
 

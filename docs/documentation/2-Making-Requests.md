@@ -107,7 +107,7 @@ Property | Description
 
 ### 3. Server-to-Server requests
 
-When using the [Client Credentials Grant](1-Authentication.md#2-client-credentials-grant) to perform server-to-server requests, you must explcitily specify which account you are using by prefixing the url with the `accountId` in this format:
+When using the [Client Credentials Grant](1-Authentication.md#2-client-credentials-grant) to perform server-to-server requests, you must explicitly specify which account you are using by prefixing the url with the `accountId` in this format:
 
 > https://stagingapi.smokeball.com/{accountId}/{resource-path}
 
