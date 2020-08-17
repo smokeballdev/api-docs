@@ -220,7 +220,7 @@ Here we have used:
 Parameter | Description
 ---------|----------
  `matterTypeId` | We're using the id for `Financing` which we retrieved earlier 
- `clientId` | The id of the `Test Contact` we created 
+ `clientIds` | An array containing the id of the `Test Contact` we created 
  `clientRole` |  Set to _Borrower_ which is one of the matter type’s representativeOptions retrieved earlier
  `personResponsibleStaffId`| Id of a staff member we retrieved from the GET Staff call
  `personAssistingStaffId` | Id of a staff member we retrieved from the GET Staff call
