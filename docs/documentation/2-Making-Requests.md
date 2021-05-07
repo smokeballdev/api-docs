@@ -66,8 +66,6 @@ All requests to the API require a valid `api-key` issued by Smokeball and `id_to
  } 
 ```
 
-
-
 ### 2. Paged Responses
 
 You will notice that some requests will have the optional parameters `limit` and `offset`. These are used to control how many results are returned in a request that returns a list of results. 
@@ -173,3 +171,11 @@ For a server-to-server request using the `accountId: ea4ca7b9-b826-4840-a8k5-94e
   } 
  } 
 ```
+
+### 4. Tracking your requests
+
+Since all POST/PUT requests are handled asynchronously by the Smokeball API, it is useful to be able to track the changes especially when using [Webhooks](6-Webhooks.md). This is acheived  by supplying the `RequestId` header with your requests. 
+
+If the `RequestId` header is supplied, it will be returned as a response header for every request you make. It will also be included in all webhook callbacks so you can track what data was impacted by your request.
+
+
