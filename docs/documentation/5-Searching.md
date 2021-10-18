@@ -10,7 +10,7 @@ Some endpoints will have a query parameter called `search` _(array[[string]])_ w
 
 In the Swagger documentation for an endpoint that supports searching, the description will detail what fields can be searched:
 
-![Search](/assets/images/contacts-search.png)
+![Search](../../assets/images/contacts-search.png)
 
 This **GET** Contacts endpoint supports searching for *email*, *phone*, and *name*.
 

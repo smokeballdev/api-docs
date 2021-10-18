@@ -89,7 +89,7 @@ Right now, the API supports the following contact types
 - Person
 - Company
 
-![New Contact](/assets/images/newcontact.png)
+![New Contact](../../assets/images/newcontact.png)
 
 #### API - Creating a Contact
 
@@ -130,7 +130,7 @@ Alternatively, if the contact already exists in Smokeball, you can query it to f
 
 In Smokeball, staff can be assigned to a matter as the **Attorney Responsible** or the **Person Assisting**. The matter list can then be filtered by Attorney responsible, etc.
 
-![Staff](/assets/images/staff.png)
+![Staff](../../assets/images/staff.png)
 
 If you want to specify the Attorney Responsible or Person Assisting when creating a matter via the API, then we will first need to retrieve the staff member’s id.
 
@@ -242,7 +242,7 @@ Parameter | Description
 
 The matter is now shown in Smokeball:
 
-![Matter](/assets/images/newmatter.png)
+![Matter](../../assets/images/newmatter.png)
 
 ---
 
@@ -298,7 +298,7 @@ There is also the items collection which we’ll explore in more detail next.
 
 A matter can contain various items and sub items that store hierarchical data relevant to that area of law.
 
-![Matter Items](/assets/images/matteritems.png)
+![Matter Items](../../assets/images/matteritems.png)
 
 The matter items list is ordered as follows:
 
@@ -426,7 +426,7 @@ Where available, the matter item will have a link to the relevant resource conta
 
 > Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
 
-![Matter Roles](/assets/images/matterparties.png)
+![Matter Roles](../../assets/images/matterparties.png)
 
 ---
 
@@ -532,4 +532,4 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 }
 ```
 
-![New Role](/assets/images/newroleadded.png)
+![New Role](../../assets/images/newroleadded.png)
