@@ -10,7 +10,7 @@ Smokeball comes with a range of pre-configured matter types for different areas 
 
 A Matter Type defines what information can be saved to the matter, relevant to that area of law and state / location.
 
-![Matter Types](/assets/images/mattertypes.png)
+![Matter Types](../../assets/images/mattertypes.png)
 
 When creating a matter in Smokeball we can see
 
