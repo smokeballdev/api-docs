@@ -312,28 +312,7 @@ The matter items list is ordered as follows:
     a. Other Side’s Attorney
 5. Other Roles, Relationships and Layouts
 
-Matter sub items are shown indented under the matter item. Here `Lender` is a matter item, and `Attorney` and `Loan Details` are it’s subitems.
-
-There are different types of matter items and sub items, including:
-
-#### 
-
-###### Roles and Relationships
-
-A contact on a matter will be assigned to a specific role or relationship, based on how they relate to the matter. For example, in the above image, `Test Contact` is assigned to the `Borrower` role **(2)**. By convention, the first Role in the list is the firm’s client. The client role has an `Attorney` relationship that links to the Smokeball Firm (hidden in the Smokeball UI)
-
-Contacts can also be related to other contacts on the matter. For example in the above image, `Lender` is a Role with an `Attorney` relationship **(3)**. This attorney acts for this specific Lender. There could be other Lenders relationships on this matter that are related to other roles (not shown in image)
-
-Roles and relationships can be set in the API.
-
-#### 
-
-###### Layouts
-
-Layouts are data entry screens that are tailored to the area of law. In this example there is a `Loan Details` layout **(4)** that would store information about that Lender’s loan. A layout can either be a sub item linked to a matter item (e.g. Loan Details as shown here) or a matter item itself (e.g. Property Details, not shown)
-
-> Layouts can not be set or retrieved in the current version of the API.
-
+Matter sub items are shown indented under the matter item. Here `Lender` is a matter item, and `Attorney` and `Loan Details` are its subitems.
 Here's an example request to GET the Matter Items:
 
 ```http
@@ -427,6 +406,93 @@ Where available, the matter item will have a link to the relevant resource conta
 > Some matter items can be hidden on the matter by default. This is usually done for roles that aren’t common on the matter. They are still exposed in the api as "visible: false”. Currently the visibility can only be changed in the Smokeball desktop app under Matter Settings (1).
 
 ![Matter Roles](../../assets/images/matterparties.png)
+
+There are different types of matter items and sub items, including:
+
+#### 
+
+###### Roles and Relationships
+
+A contact on a matter will be assigned to a specific role or relationship, based on how they relate to the matter. For example, in the above image, `Test Contact` is assigned to the `Borrower` role **(2)**. By convention, the first Role in the list is the firm’s client. The client role has an `Attorney` relationship that links to the Smokeball Firm (hidden in the Smokeball UI)
+
+Contacts can also be related to other contacts on the matter. For example in the above image, `Lender` is a Role with an `Attorney` relationship **(3)**. This attorney acts for this specific Lender. There could be other Lenders relationships on this matter that are related to other roles (not shown in image)
+
+Roles and relationships can be set in the API.
+
+#### 
+
+###### Layouts
+
+Layouts are data entry screens that are tailored to the area of law. In this example there is a `Loan Details` layout **(4)** that would store information about that Lender’s loan. A layout can either be a sub item linked to a matter item (e.g. Loan Details as shown here) or a matter item itself (e.g. Property Details, not shown).
+
+Following is a typical flow to get/set layout data.
+
+1. Get the layout design ID and currently set data by retrieving all the layout matter items
+``` http
+GET https://stagingapi.smokeball.com/matters/{matterId}/layouts
+```
+or a single layout matter item.
+``` http
+GET https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
+```
+Example response:
+``` json
+{
+    "id": "60efd655-cd1a-42cd-a170-a228cc09b5b1",
+    "href": "https://stagingapi.smokeball.com/matters/3f0cfc3d-be5d-4a70-88ac-e099a800d46d/layouts/60efd655-cd1a-42cd-a170-a228cc09b5b1",
+    "itemId": "60efd655-cd1a-42cd-a170-a228cc09b5b1",
+    "index": 0,
+    "layoutDesign": {
+        "id": "f2654144-ab55-45ec-9852-489a5caaa111",
+        "href": "https://stagingapi.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
+        "rel": "Layouts"
+    },
+    "values": [],
+    "events": []
+}
+```
+
+2. Retrieve the full list of fields for the given layout design.
+``` http
+GET https://stagingapi.smokeball.com/layouts/{layoutDesignId}
+```
+Example response:
+``` json
+{
+    "id": "f2654144-ab55-45ec-9852-489a5caaa111",
+    "href": "https://stagingapi.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
+    "fields": [
+        {
+            "name": "Matter/SettlementNegotiations/SettlementNegotiationsDetails/Note",
+            "type": "Text"
+        },
+        {
+            "name": "Matter/SettlementNegotiations/SettlementNegotiationsDetails/OfferDate",
+            "type": "DateTime"
+        },
+    ],
+    "name": "Settlement Negotiations - Personal Injury"
+}
+```
+
+3. Update the layout with new data values.
+```http
+PATCH https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
+
+{
+    "values": [
+        {
+            "key": "Matter/SettlementNegotiations/SettlementNegotiationsDetails/Note",
+            "value": "New note"
+        }
+    ]
+}
+```
+
+> Note: a field with type `Role` expects an ID of a role.
+
+> Note: a field with type `DateTime` expects a UTC date/time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (e.g. `2021-10-12T13:00:00.0000000Z`).
+
 
 ---
 
