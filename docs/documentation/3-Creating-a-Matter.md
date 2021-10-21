@@ -428,15 +428,20 @@ Layouts are data entry screens that are tailored to the area of law. In this exa
 Following is a typical flow to get/set layout data.
 
 1. Get the layout design ID and currently set data by retrieving all the layout matter items
-``` http
+
+```http
 GET https://stagingapi.smokeball.com/matters/{matterId}/layouts
 ```
+
 or a single layout matter item.
-``` http
+
+```http
 GET https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
 ```
+
 Example response:
-``` json
+
+```json
 {
     "id": "60efd655-cd1a-42cd-a170-a228cc09b5b1",
     "href": "https://stagingapi.smokeball.com/matters/3f0cfc3d-be5d-4a70-88ac-e099a800d46d/layouts/60efd655-cd1a-42cd-a170-a228cc09b5b1",
@@ -453,11 +458,14 @@ Example response:
 ```
 
 2. Retrieve the full list of fields for the given layout design.
-``` http
+
+```http
 GET https://stagingapi.smokeball.com/layouts/{layoutDesignId}
 ```
+
 Example response:
-``` json
+
+```json
 {
     "id": "f2654144-ab55-45ec-9852-489a5caaa111",
     "href": "https://stagingapi.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
@@ -476,6 +484,7 @@ Example response:
 ```
 
 3. Update the layout with new data values.
+
 ```http
 PATCH https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
 
