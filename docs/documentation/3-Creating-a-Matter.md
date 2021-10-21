@@ -489,7 +489,7 @@ PATCH https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
 }
 ```
 
-> Note: a field with type `Role` expects an ID of a role.
+> Note: a field with type `Role` expects an ID of a role. The name of the role needs to be the same as the layout field (e.g. for a field with key `Matter/CaseDetails/StandardCaseDetails/Judge` expected role name is `Judge`). 
 
 > Note: a field with type `DateTime` expects a UTC date/time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (e.g. `2021-10-12T13:00:00.0000000Z`).
 
