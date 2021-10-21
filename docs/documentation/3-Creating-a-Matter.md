@@ -477,7 +477,7 @@ Example response:
         {
             "name": "Matter/SettlementNegotiations/SettlementNegotiationsDetails/OfferDate",
             "type": "DateTime"
-        },
+        }
     ],
     "name": "Settlement Negotiations - Personal Injury"
 }
