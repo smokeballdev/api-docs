@@ -23,8 +23,7 @@ Example response:
       "rel": "layouts",
       "id": "b571beb4-9175-436c-a70e-e70acb0f4ed2",
       "providerId": "LayoutProvider",
-      "name": "Workers Comp Details",
-      "originalName": "Workers Comp Details"
+      "name": "Workers Comp Details"
     }
   ],
   "id": "9c6f59b6-3871-4fbd-a508-8fc43f03c6b4",
