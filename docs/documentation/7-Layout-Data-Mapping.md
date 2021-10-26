@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Layout data mapping
+# Layout Data Mapping
 
 How to get a list of layout fields that you can set up a mapping for:
 
