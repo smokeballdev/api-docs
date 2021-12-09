@@ -209,7 +209,8 @@ Now we have everything we need to create a matter.
     "status": "Open",
     "dateOpened": "2020-05-20T04:20:55.035Z",
     "personResponsibleStaffId": "c85d28cb-a760-4627-aa59-0a853c2e65ed",
-    "personAssistingStaffId": "66f7fa24-bb03-4d89-ac28-e19620cc1e45"
+    "personAssistingStaffId": "66f7fa24-bb03-4d89-ac28-e19620cc1e45",
+    "isLead": false
   }
 }
 ```
@@ -225,8 +226,9 @@ Parameter | Description
  `personResponsibleStaffId`| Id of a staff member we retrieved from the GET Staff call
  `personAssistingStaffId` | Id of a staff member we retrieved from the GET Staff call
  `number` | Internal reference number for the matter. Some firms have enabled ‘auto numbering’ in Smokeball settings. If you provide a value for this field via the API then the matter number will be overwritten
-`description` | a free text entry field for the description of the matter
-`status` | can be `Open`, `Pending`, `Closed`, `Deleted` or `Cancelled`
+`description` | A free text entry field for the description of the matter
+`status` | Can be `Open`, `Pending`, `Closed`, `Deleted` or `Cancelled`
+`isLead` | This is an optional boolean flag to indicate if the matter is being created as a `Lead` (see `Creating a Lead`). Must be set to `false` when creating a `Matter` (defaults to `false` if not provided)
 `dateOpened` | when the matter was opened (this can be backdated if required)
 
 **Response**

@@ -4466,6 +4466,12 @@
             "schema": {
               "type": "string"
             }
+          },{
+            "name": "IsLead",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
           },
           {
             "name": "LastUpdated",
@@ -5383,6 +5389,14 @@
             "description": "Return matter types from a specific category.",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "Return matter types by category type, where 0=MatterType (default) and 1=LeadType.",
+            "schema": {
+              "$ref": "#/components/schemas/TypeCategory"
             }
           },
           {
@@ -9741,6 +9755,9 @@
           "personAssistingStaffId": {
             "type": "string",
             "nullable": true
+          },
+          "isLead": {
+            "type": "boolean"
           }
         }
       },
@@ -10132,6 +10149,14 @@
             "$ref": "#/components/schemas/Link"
           }
         }
+      },
+      "TypeCategory": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "Memo": {
         "type": "object",
