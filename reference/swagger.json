@@ -11259,8 +11259,8 @@
   },
   "servers": [
     {
-      "url": "https://stagingapi.smokeball.com",
-      "description": "Staging API"
+      "url": "https://api.smokeball.com",
+      "description": "API"
     }
   ],
   "security": [
