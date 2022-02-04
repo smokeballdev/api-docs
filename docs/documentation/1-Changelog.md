@@ -16,7 +16,7 @@ tags: [Documentation]
 * Added functionality to create users with no password, and email is sent out with a temporary password.
 
 ##### Matters
-* Deprecated the following fields, this includes the fields in the Webhooks payload:
+* Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
   * `MatterTypeId`, instead use `MatterType`.
   * `ClientIds`, instead use `Clients`.
   * `OtherSideIds`, instead use `OtherSides`.
@@ -26,12 +26,12 @@ tags: [Documentation]
 * Added OriginatingStaff to matter.
 
 ##### Contacts
-* Deprecated the following fields, this includes the fields in the Webhooks payload:
+* Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
   * `StaffIds`, instead use `Staff`.
   * `PersonIds`, instead use `People`.
 
 ##### Roles
-* Deprecated the following fields, this includes the fields in the Webhooks payload:
+* Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
   * `ContactId`, instead use `Contact`.
   * `RepresentativeIds`, instead use `Representatives`.
   * `RelationshipIds`, instead use `Relationships`.
@@ -40,7 +40,7 @@ tags: [Documentation]
 * Fixed issues with Layout subitems not being created.
  
 ##### Relationships
-* Deprecated the following fields, this includes the fields in the Webhooks payload:
+* Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
   * `ContactId`, instead use `Contact`.
   * `RepresentativeIds`, instead use `Representatives`.
 
