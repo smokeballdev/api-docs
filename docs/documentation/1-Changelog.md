@@ -27,8 +27,8 @@ tags: [Documentation]
 
 ##### Contacts
 * Deprecated the following fields, this includes the fields in the Webhooks payload:
-  * `StaffIds`, instead use `Staff`
-  * `PersonIds`, instead use `People`
+  * `StaffIds`, instead use `Staff`.
+  * `PersonIds`, instead use `People`.
 
 ##### Roles
 * Deprecated the following fields, this includes the fields in the Webhooks payload:
