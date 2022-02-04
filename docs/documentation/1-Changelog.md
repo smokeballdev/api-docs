@@ -8,12 +8,12 @@ tags: [Documentation]
 
 ##### Matters
 * Deprecated the following fields, this includes the fields in the Webhooks payload:
- * `MatterTypeId`, instead use `MatterType`.
- * `ClientIds`, instead use `Clients`.
- * `OtherSideIds`, instead use `OtherSides`.
- * `PersonResponsibleStaffId`, instead use `PersonResponsible`.
- * `PersonAssistingStaffId`, instead use `PersonAssisting`.
- * `OriginatingStaffId`, instead use `OriginatingStaff`.
+  * `MatterTypeId`, instead use `MatterType`.
+  * `ClientIds`, instead use `Clients`.
+  * `OtherSideIds`, instead use `OtherSides`.
+  * `PersonResponsibleStaffId`, instead use `PersonResponsible`.
+  * `PersonAssistingStaffId`, instead use `PersonAssisting`.
+  * `OriginatingStaffId`, instead use `OriginatingStaff`.
 * Added OriginatingStaff to matter.
 
 ##### Contacts
