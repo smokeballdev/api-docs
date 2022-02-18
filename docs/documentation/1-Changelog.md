@@ -9,7 +9,7 @@ tags: [Documentation]
 ##### Firms
 * Added validation when creating a firm to ensure the user is not associated to another firm.
 * Added Product when creating a firm with 3 product types `(BillingOnly, SmokeballMid and Smokeball)`.
-* Added `IsInternal` field when creating a firm so that a firm can be flagged as an internal firm and skip patyment subscription.
+* Added `IsInternal` field when creating a firm so that a firm can be flagged as an internal firm and skip payment subscription.
 * Added `ABN`, `ACN` and postal details, `CareOf`, `PoBoxType` and `PoBoxNumber` to firm MailingAddress.
 
 ##### Users
