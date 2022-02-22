@@ -3208,7 +3208,7 @@
           "Firm"
         ],
         "summary": "Create firm",
-        "description": "Creates a firm for the current authenticated client and registers an existing user as a staff member and firm owner.\r\n            \r\n\r\nSample request:\r\n            \r\n    POST /firm\r\n    {\r\n        \"Product\": 3,\r\n        \"IsInternalAccount\": false,\r\n        \"Name\": \"Brown LLC\",\r\n        \"StreetAddress\": {\r\n            \"State\": \"NSW\",\r\n        }\r\n        \"Phone\": {\r\n            \"AreaCode\": \"555\",\r\n            \"Number\": \"1234567\"\r\n        }\r\n        \"Staff\": {\r\n            \"UserId\": \"b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2\",\r\n            \"FirstName\" \"Bob\",\r\n            \"LastName\": \"Jones\",\r\n            \"Initials\": \"BJ\",\r\n        }\r\n    }",
+        "description": "Creates a firm for the current authenticated client and registers an existing user as a staff member and firm owner.\r\n            \r\n\r\nSample request:\r\n            \r\n    POST /firm\r\n    {\r\n        \"Product\": 3,\r\n        \"IsInternal\": false,\r\n        \"Name\": \"Brown LLC\",\r\n        \"StreetAddress\": {\r\n            \"State\": \"NSW\",\r\n        }\r\n        \"Phone\": {\r\n            \"AreaCode\": \"555\",\r\n            \"Number\": \"1234567\"\r\n        }\r\n        \"Staff\": {\r\n            \"UserId\": \"b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2\",\r\n            \"FirstName\" \"Bob\",\r\n            \"LastName\": \"Jones\",\r\n            \"Initials\": \"BJ\",\r\n        }\r\n    }",
         "operationId": "CreateFirm",
         "requestBody": {
           "content": {
@@ -3241,7 +3241,7 @@
             }
           },
           "400": {
-            "description": "When staff does not exist or has not been provided.",
+            "description": "When staff user does not exist or is already associated with another firm.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3251,7 +3251,7 @@
             }
           },
           "403": {
-            "description": "When staff user is already associated with another firm.",
+            "description": "Forbidden",
             "content": {
               "application/json": {
                 "schema": {
@@ -3319,7 +3319,7 @@
         ],
         "summary": "Get firm staff/user mappings",
         "description": "Retrieves a list of staff/user mappings in the firm associated with the authenticated client.\r\n            \r\n\r\nSample request:\r\n            \r\n    GET /firmusers",
-        "operationId": "GetUserMappings",
+        "operationId": "GetFirmUsers",
         "responses": {
           "200": {
             "description": "When request is successful. Returns an array of one or more 'FirmUser' objects.",
@@ -3335,25 +3335,21 @@
             }
           }
         }
-      },
-      "put": {
+      }
+    },
+    "/firmusers/{id}": {
+      "get": {
         "tags": [
           "FirmUsers"
         ],
-        "summary": "Update firm staff/user mapping",
-        "description": "Updates a staff's user mapping in the firm associated with the authenticated client.\r\n            \r\n\r\nSample request:\r\n    PUT /firmusers",
-        "operationId": "UpdateUserMapping",
+        "summary": "Get firm staff/user mapping",
+        "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.\r\n            \r\n\r\nSample request:\r\n            \r\n    GET /firmusers",
+        "operationId": "GetFirmUserById",
         "parameters": [
           {
-            "name": "staffId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -3361,7 +3357,63 @@
         ],
         "responses": {
           "200": {
-            "description": "When mapping is successfully submitted for update."
+            "description": "When request is successful. Returns a 'FirmUser' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FirmUser"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "FirmUsers"
+        ],
+        "summary": "Update firm staff/user mapping",
+        "description": "Updates a staff/user mapping in the firm associated with the authenticated client.\r\n            \r\n\r\nSample request:\r\n    PUT /firmusers",
+        "operationId": "UpdateFirmUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FirmUserDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FirmUserDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FirmUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "When 'FirmUser' object is successfully submitted for update.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
           },
           "400": {
             "description": "When staff or user has not been provided.",
@@ -3384,7 +3436,7 @@
             }
           },
           "404": {
-            "description": "When staff does not exist.",
+            "description": "When 'FirmUser' does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3400,12 +3452,13 @@
           "FirmUsers"
         ],
         "summary": "Delete firm staff/user mapping",
-        "description": "Deletes a user's staff mapping in the firm associated with the authenticated client.\r\n            \r\n\r\nSample request:\r\n            \r\n    DELETE /firmusers",
-        "operationId": "DeleteUserMapping",
+        "description": "Removes the user from the firm associated with the authenticated client.\r\n            \r\n            \r\nThe associated staff member is set as a former staff member and if they are a user, becomes a former user.\r\n            \r\n\r\nSample request:\r\n            \r\n    DELETE /firmusers",
+        "operationId": "DeleteFirmUser",
         "parameters": [
           {
-            "name": "userId",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -3413,10 +3466,17 @@
         ],
         "responses": {
           "200": {
-            "description": "When user's staff mapping has been successfully submitted for deletion."
+            "description": "When 'FirmUser' object has been successfully submitted for deletion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
           },
           "404": {
-            "description": "When user's staff mapping does not exist.",
+            "description": "When 'FirmUser' object does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3609,6 +3669,46 @@
             }
           }
         },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When staff member does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Staff"
+        ],
+        "summary": "Deletes a firm staff member",
+        "description": "Sets the staff member from the firm associated with the authenticated client as a former staff member. \r\n            \r\n            \r\nThe staff member is set as a former staff member and if they are a user, becomes a former user. User access is also disabled.\r\n            \r\n\r\nSample request:\r\n            \r\n    DELETE /staff/{id}",
+        "operationId": "DeleteStaff",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be updated.",
@@ -4679,7 +4779,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
@@ -4741,7 +4848,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -4795,7 +4909,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
@@ -4866,7 +4987,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -4902,7 +5030,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
@@ -4955,7 +5090,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -5000,7 +5142,14 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
@@ -5062,7 +5211,64 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Remove a role from a matter.",
+        "description": "Sample request:\r\n            \r\n    DELETE /matters/{matterId}/roles",
+        "operationId": "RemoveRoleFromMatter",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The role has been accepted and will be created shortly",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -5080,7 +5286,8 @@
             "name": "Offset",
             "in": "query",
             "schema": {
-              "minimum": 1,
+              "maximum": 2147483647,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -5139,17 +5346,7 @@
           "200": {
             "description": "Returns the matter types",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
                 }
@@ -5181,17 +5378,7 @@
           "200": {
             "description": "Returns the matter type",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterType"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterType"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MatterType"
                 }
@@ -5201,17 +5388,7 @@
           "400": {
             "description": "Invalid id parameter",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -5221,17 +5398,7 @@
           "404": {
             "description": "Matter type not found",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -5827,15 +5994,6 @@
         "operationId": "GetTasks",
         "parameters": [
           {
-            "name": "updatedSince",
-            "in": "query",
-            "description": "Timestamp in ticks. Use this to only get tasks which have been updated",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
             "name": "Offset",
             "in": "query",
             "schema": {
@@ -5853,6 +6011,15 @@
               "minimum": 1,
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "updatedSince",
+            "in": "query",
+            "description": "Timestamp in ticks. Use this to only get tasks which have been updated",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           },
           {
@@ -7110,6 +7277,24 @@
             "type": "string",
             "description": "Country.",
             "nullable": true
+          },
+          "careOf": {
+            "type": "string",
+            "description": "Care of the addressee (if applicable).",
+            "nullable": true,
+            "readOnly": true
+          },
+          "poBoxType": {
+            "type": "string",
+            "description": "PO box type in address (if applicable).",
+            "nullable": true,
+            "readOnly": true
+          },
+          "poBoxNumber": {
+            "type": "string",
+            "description": "PO box Number in address (if applicable).",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -7180,6 +7365,21 @@
           "country": {
             "type": "string",
             "description": "Country.",
+            "nullable": true
+          },
+          "careOf": {
+            "type": "string",
+            "description": "Care of the addressee (if applicable).",
+            "nullable": true
+          },
+          "poBoxType": {
+            "type": "string",
+            "description": "PO box type in address (if applicable).",
+            "nullable": true
+          },
+          "poBoxNumber": {
+            "type": "string",
+            "description": "PO box Number in address (if applicable).",
             "nullable": true
           }
         },
@@ -8881,6 +9081,16 @@
             "description": "The name of the firm.",
             "nullable": true
           },
+          "abn": {
+            "type": "string",
+            "description": "Australian Business Number of the firm (if applicable).",
+            "nullable": true
+          },
+          "acn": {
+            "type": "string",
+            "description": "Australian Company Number of the firm (if applicable).",
+            "nullable": true
+          },
           "streetAddress": {
             "$ref": "#/components/schemas/AddressDto"
           },
@@ -8902,9 +9112,6 @@
           },
           "staff": {
             "$ref": "#/components/schemas/StaffDto"
-          },
-          "firm": {
-            "$ref": "#/components/schemas/FirmDto"
           }
         },
         "additionalProperties": false
@@ -8943,6 +9150,16 @@
             "description": "The name of the firm.",
             "nullable": true
           },
+          "abn": {
+            "type": "string",
+            "description": "Australian Business Number of the firm (if applicable).",
+            "nullable": true
+          },
+          "acn": {
+            "type": "string",
+            "description": "Australian Company Number of the firm (if applicable).",
+            "nullable": true
+          },
           "streetAddress": {
             "$ref": "#/components/schemas/Address"
           },
@@ -8954,6 +9171,11 @@
           },
           "fax": {
             "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "logo": {
+            "type": "string",
+            "description": "Logo of the firm.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -8964,6 +9186,16 @@
           "name": {
             "type": "string",
             "description": "The name of the firm.",
+            "nullable": true
+          },
+          "abn": {
+            "type": "string",
+            "description": "Australian Business Number of the firm (if applicable).",
+            "nullable": true
+          },
+          "acn": {
+            "type": "string",
+            "description": "Australian Company Number of the firm (if applicable).",
             "nullable": true
           },
           "streetAddress": {
@@ -8984,6 +9216,26 @@
       "FirmUser": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
           "staffId": {
             "type": "string",
             "description": "Unique identifier of the staff member.",
@@ -8992,6 +9244,26 @@
           "userId": {
             "type": "string",
             "description": "Unique identifier of the user.",
+            "nullable": true
+          },
+          "isFormerUser": {
+            "type": "boolean",
+            "description": "Returns true if this user is a former user."
+          }
+        },
+        "additionalProperties": false
+      },
+      "FirmUserDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "Unique identifier of the associated user.",
+            "nullable": true
+          },
+          "staffId": {
+            "type": "string",
+            "description": "Unique identifier of the associated staff member..",
             "nullable": true
           }
         },
@@ -9220,6 +9492,16 @@
           "name": {
             "type": "string",
             "description": "The name of the firm.",
+            "nullable": true
+          },
+          "abn": {
+            "type": "string",
+            "description": "Australian Business Number of the firm (if applicable).",
+            "nullable": true
+          },
+          "acn": {
+            "type": "string",
+            "description": "Australian Company Number of the firm (if applicable).",
             "nullable": true
           },
           "streetAddress": {
@@ -10423,6 +10705,9 @@
           },
           "isClient": {
             "type": "boolean"
+          },
+          "isOtherSide": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -10838,21 +11123,17 @@
           "self": {
             "$ref": "#/components/schemas/Link"
           },
-          "createdByStaffId": {
-            "type": "string",
-            "nullable": true
+          "createdBy": {
+            "$ref": "#/components/schemas/Link"
           },
-          "lastUpdatedByStaffId": {
-            "type": "string",
-            "nullable": true
+          "completedBy": {
+            "$ref": "#/components/schemas/Link"
           },
-          "completedByStaffId": {
-            "type": "string",
-            "nullable": true
+          "lastUpdatedBy": {
+            "$ref": "#/components/schemas/Link"
           },
-          "matterId": {
-            "type": "string",
-            "nullable": true
+          "matter": {
+            "$ref": "#/components/schemas/Link"
           },
           "parentTask": {
             "$ref": "#/components/schemas/Link"
@@ -10871,10 +11152,10 @@
           "isDeleted": {
             "type": "boolean"
           },
-          "assigneeIds": {
+          "assignees": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/Link"
             },
             "nullable": true
           },
@@ -10903,44 +11184,46 @@
             "nullable": true
           }
         },
-        "additionalProperties": false,
-        "description": "Returned to client"
+        "additionalProperties": false
       },
       "TaskDto": {
         "type": "object",
         "properties": {
-          "createdByStaffId": {
+          "staffId": {
             "type": "string",
-            "nullable": true
-          },
-          "lastUpdatedByStaffId": {
-            "type": "string",
-            "nullable": true
-          },
-          "completedByStaffId": {
-            "type": "string",
+            "description": "Staff member creating or updating the task.",
             "nullable": true
           },
           "matterId": {
             "type": "string",
+            "description": "Matter associated to the task.",
             "nullable": true
           },
           "subject": {
             "type": "string",
+            "description": "Subject of the task.",
             "nullable": true
           },
           "note": {
             "type": "string",
+            "description": "Notes on the task.",
+            "nullable": true
+          },
+          "completedByStaffId": {
+            "type": "string",
+            "description": "Staff member completing the task. Must only be set when {IsCompleted} is true.",
             "nullable": true
           },
           "isCompleted": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "True when the task is completed."
           },
           "assigneeIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
+            "description": "Staff members assigned to the task.",
             "nullable": true
           },
           "categories": {
@@ -10948,16 +11231,17 @@
             "items": {
               "type": "string"
             },
+            "description": "Categories for the task.",
             "nullable": true
           },
           "dueDate": {
             "type": "string",
+            "description": "Due date of the date.",
             "format": "date-time",
             "nullable": true
           }
         },
-        "additionalProperties": false,
-        "description": "Used for creating/updating tasks"
+        "additionalProperties": false
       },
       "TaskPagedCollection": {
         "type": "object",
