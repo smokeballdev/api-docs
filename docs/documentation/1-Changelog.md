@@ -4,6 +4,20 @@ tags: [Documentation]
 
 # Changelog
 
+## 2022-03-13 (v8.2)
+
+#### Firms
+* Added `Logo` field to GET responses.
+
+#### Contacts
+* Added `MaritalStatus` field.
+* Added `SpecialNeeds` field.
+
+#### Tasks
+* Added `CompletedDate` field.
+* Added `LastUpdated` field to GET responses.
+
+
 ## 2022-02-07 (v8.1)
 
 ##### Firms
