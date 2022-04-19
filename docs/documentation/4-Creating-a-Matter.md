@@ -81,7 +81,7 @@ When creating a matter in Smokeball we can see
 
 ### 2. Contacts
 
-In order to successfully create a matter, we’re going to need to provide a contact that is the client.
+In order to successfully create a matter, we’re going to need to provide one or more contacts that are clients and/or other-sides (if applicable).
 
 In Smokeball’s desktop app you can create a contact as a Person, Firm/Business/Organization or Trust.
 Right now, the API supports the following contact types
@@ -91,9 +91,9 @@ Right now, the API supports the following contact types
 
 ![New Contact](../../assets/images/newcontact.png)
 
-#### API - Creating a Contact
+#### API - Creating Contacts
 
-To create a contact you can make the following request which would create a person called ‘Test Contact’.
+To create a client contact you can make the following request which would create a person called ‘Test Contact’.
 
 ```json http
 {
@@ -103,6 +103,19 @@ To create a contact you can make the following request which would create a pers
     "Content-Type": "application/json"
   },
   "body": "{\n  \"person\": {\n    \"firstName\": \"Test\",\n    \"lastName\": \"Contact\",    \n    \"email\": \"test@gmail.com\",\n  }\n}\n\n"
+}
+```
+
+To create an other-side contact you can make the following request which would create a person called ‘Other Contact’.
+
+```json http
+{
+  "method": "POST",
+  "url": "https://stagingapi.smokeball.com/contacts",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\n  \"person\": {\n    \"firstName\": \"Other\",\n    \"lastName\": \"Contact\",    \n    \"email\": \"other@gmail.com\",\n  }\n}\n\n"
 }
 ```
 
@@ -204,7 +217,11 @@ Now we have everything we need to create a matter.
     "clientIds": [
       "9a9ce552-6bee-45e4-8eb1-afe2c18c489f"
     ],
+    "otherSidesIds": [
+      "52f551d9-6c1c-44d1-8bf7-ddce5a856134"
+    ],
     "clientRole": "Borrower",
+    "otherSideRole": "Lender",
     "description": "Created via API",
     "status": "Open",
     "dateOpened": "2020-05-20T04:20:55.035Z",
@@ -221,8 +238,10 @@ Here we have used:
 Parameter | Description
 ---------|----------
  `matterTypeId` | We're using the id for `Financing` which we retrieved earlier 
- `clientIds` | An array containing the id of the `Test Contact` we created 
+ `clientIds` | An array containing the id of the `Test Contact` we created
+ `otherSideIds` | An array containing the id of the `Other Contact` we created 
  `clientRole` |  Set to _Borrower_ which is one of the matter type’s representativeOptions retrieved earlier
+ `otherSideRole` |  Set to _Lender_ which is one of the matter type’s representativeOptions retrieved earlier
  `personResponsibleStaffId`| Id of a staff member we retrieved from the GET Staff call
  `personAssistingStaffId` | Id of a staff member we retrieved from the GET Staff call
  `number` | Internal reference number for the matter. Some firms have enabled ‘auto numbering’ in Smokeball settings. If you provide a value for this field via the API then the matter number will be overwritten
@@ -274,7 +293,13 @@ GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb
       "rel": "Contact"
     }
   ],
-  "otherSides": [],
+  "otherSides": [
+    {
+      "id": "52f551d9-6c1c-44d1-8bf7-ddce5a856134",
+      "href": "/contact/52f551d9-6c1c-44d1-8bf7-ddce5a856134",
+      "rel": "Contact"
+    }
+  ],
   "description": "Created via API",
   "status": "Open",
   "personResponsible": {
@@ -290,7 +315,7 @@ GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb
 }
 ```
 
-Most of this information is unchanged from what we passed in when creating the matter. You’ll notice that the clients, staff and matter type properties have been expanded as links to resources with more information.
+Most of this information is unchanged from what we passed in when creating the matter. You’ll notice that the clients, other-sides, staff and matter type properties have been expanded as links to resources with more information.
 
 There is also the items collection which we’ll explore in more detail next.
 
