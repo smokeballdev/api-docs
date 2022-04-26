@@ -6402,12 +6402,12 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Lists the available event types.",
-        "description": "Sample request:\r\n            \r\n    GET /webhooks/events",
+        "summary": "Get event types",
+        "description": "Returns the available event types.",
         "operationId": "GetEventTypes",
         "responses": {
           "200": {
-            "description": "Returns the available event types.",
+            "description": "When request is successful. Returns the available event types.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6427,7 +6427,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6454,8 +6454,8 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "List client's existing webhook subscriptions.",
-        "description": "Sample request:\r\n            \r\n    GET /webhooks",
+        "summary": "Get webhook subscriptions",
+        "description": "Returns existing webhook subscriptions.",
         "operationId": "GetSubscriptions",
         "parameters": [
           {
@@ -6481,7 +6481,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the webhook subscriptions",
+            "description": "When request is successful. Returns existing webhook subscriptions.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6501,7 +6501,7 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "When an unsupported request is made."
           }
         }
       },
@@ -6509,8 +6509,8 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Subscribe to a new webhook with the supplied subscription details.",
-        "description": "Sample request:\r\n            \r\n    POST /webhooks",
+        "summary": "Create new webhook subscription.",
+        "description": "Creates a new webhook subscription with the specified subscription details.",
         "operationId": "CreateSubscription",
         "requestBody": {
           "content": {
@@ -6538,7 +6538,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns the new webhook subscription",
+            "description": "When request is successful. Returns the new webhook subscriptions.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6558,7 +6558,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6585,8 +6585,8 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Retrieves details of a client's existing webhook subscription.",
-        "description": "Sample request:\r\n            \r\n    GET /webhooks/{id}",
+        "summary": "Get a webhook subscription",
+        "description": "Returns the webhook subscription.",
         "operationId": "GetSubscription",
         "parameters": [
           {
@@ -6600,7 +6600,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the webhook subscriptions",
+            "description": "When request is successful. Returns the webhook subscriptions.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6620,7 +6620,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6645,8 +6645,6 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Update a webhook subscription",
-        "description": "Sample request:\r\n            \r\n    PUT /webhooks",
         "operationId": "UpdateSubscription",
         "parameters": [
           {
@@ -6684,7 +6682,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns the updated webhook subscription",
+            "description": "Success",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6704,7 +6702,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6724,7 +6722,7 @@
             }
           },
           "404": {
-            "description": "Subscription not found",
+            "description": "Not Found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6749,8 +6747,8 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Unsubscribse from the existing webhook subscription",
-        "description": "Sample request:\r\n            \r\n    DELETE /webhooks",
+        "summary": "Deletes a webhook subscription",
+        "description": "Deletes and unsubscribes from the specified webhook subscription.",
         "operationId": "DeleteSubscription",
         "parameters": [
           {
@@ -6764,10 +6762,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The webhook subscription has been deleted"
+            "description": "When request is successful. Deletes the webhook subscription."
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6794,8 +6792,8 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Trigger webhook notification for the specified subscription.\r\nUsed for testing purposes.",
-        "description": "Sample request:\r\n            \r\n    POST /webhooks/{id}/Notify",
+        "summary": "Notify a webhook subscription",
+        "description": "Notifies a webhook subscription with a 'noop' event type.\r\n            \r\nUsed for testing purposes.",
         "operationId": "Notify",
         "parameters": [
           {
@@ -6809,27 +6807,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Webhook notification has been sent.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringCollection"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringCollection"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringCollection"
-                }
-              }
-            }
+            "description": "When request is successful. Notifies the webhook subscription."
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -12133,34 +12114,51 @@
           },
           "accountId": {
             "type": "string",
-            "nullable": true
-          },
-          "verificationToken": {
-            "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the associated account.",
+            "nullable": true,
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name or description of the subscription.",
+            "nullable": true,
+            "example": "Listen to matter and contact changes"
           },
           "eventTypes": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "The event types that the webhook subscription is subscribed to.",
+            "nullable": true,
+            "example": [
+              "matter.updated",
+              "contact.created"
+            ]
           },
           "eventNotificationUrl": {
             "type": "string",
-            "nullable": true
+            "description": "The uri to notify when an event has occurred.",
+            "nullable": true,
+            "example": "http://yourdomain.com/notify"
           },
           "createdDateUtc": {
             "type": "string",
-            "format": "date-time"
+            "description": "The webhook subscription creation date.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
           },
           "updatedDateUtc": {
             "type": "string",
-            "format": "date-time"
+            "description": "The webhook subscription last updated date.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "lastUpdated": {
+            "type": "integer",
+            "description": "Last updated timestamp",
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false
@@ -12170,22 +12168,33 @@
         "properties": {
           "key": {
             "type": "string",
-            "nullable": true
+            "description": "Unqiue key used for creating signature header in webhook notification requests.",
+            "nullable": true,
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name or description of the webhook subscription.",
+            "nullable": true,
+            "example": "Listen to matter and contact changes"
           },
           "eventTypes": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "The event types that the webhook subscription should be subscribed to.",
+            "nullable": true,
+            "example": [
+              "matter.updated",
+              "contact.created"
+            ]
           },
           "eventNotificationUrl": {
             "type": "string",
-            "nullable": true
+            "description": "The uri to notify when an event has occurred.",
+            "nullable": true,
+            "example": "http://yourdomain.com/notify"
           }
         },
         "additionalProperties": false
