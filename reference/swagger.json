@@ -10,7 +10,7 @@
         "tags": [
           "BankAccountBalances"
         ],
-        "summary": "Get a bank account balance.",
+        "summary": "Get a bank account balance",
         "description": "Retrieves a specified bank account balance.",
         "operationId": "GetBankAccountBalanceById",
         "parameters": [
@@ -95,7 +95,7 @@
         "tags": [
           "BankAccounts"
         ],
-        "summary": "Get a bank account.",
+        "summary": "Get a bank account",
         "description": "Retrieves a specified bank account.",
         "operationId": "GetBankAccountById",
         "parameters": [
@@ -180,7 +180,7 @@
         "tags": [
           "BankAccounts"
         ],
-        "summary": "Get bank accounts.",
+        "summary": "Get bank accounts",
         "description": "Returns a list of bank accounts.",
         "operationId": "GetBankAccounts",
         "responses": {
@@ -212,7 +212,7 @@
         "tags": [
           "ActivityCodes"
         ],
-        "summary": "Get activity code.",
+        "summary": "Get activity code",
         "description": "Retrieves a specified activity code.",
         "operationId": "GetActivityCodeById",
         "parameters": [
@@ -292,7 +292,7 @@
         "tags": [
           "ActivityCodes"
         ],
-        "summary": "Update an activity code.",
+        "summary": "Update an activity code",
         "description": "Updates a specified activity code.",
         "operationId": "UpdateActivityCode",
         "parameters": [
@@ -379,7 +379,7 @@
         "tags": [
           "ActivityCodes"
         ],
-        "summary": "Delete an activity code.",
+        "summary": "Delete an activity code",
         "description": "Deletes a specified activity code.",
         "operationId": "DeleteActivityCode",
         "parameters": [
@@ -444,7 +444,7 @@
         "tags": [
           "ActivityCodes"
         ],
-        "summary": "Get activity codes.",
+        "summary": "Get activity codes",
         "description": "Returns a list of activity codes.",
         "operationId": "GetActivityCodes",
         "parameters": [
@@ -505,7 +505,7 @@
         "tags": [
           "ActivityCodes"
         ],
-        "summary": "Create an activity code.",
+        "summary": "Create an activity code",
         "description": "Creates an activity code.",
         "operationId": "CreateActivityCode",
         "requestBody": {
@@ -2181,7 +2181,7 @@
         "tags": [
           "Expenses"
         ],
-        "summary": "Get expenses.",
+        "summary": "Get expenses",
         "description": "Returns a list of expenses.",
         "operationId": "GetExpenses",
         "parameters": [
@@ -2249,7 +2249,7 @@
         "tags": [
           "Expenses"
         ],
-        "summary": "Create an expense on the matter.",
+        "summary": "Create an expense on the matter",
         "description": "Creates an expense.",
         "operationId": "CreateExpense",
         "parameters": [
@@ -2335,7 +2335,7 @@
         "tags": [
           "Expenses"
         ],
-        "summary": "Get a expense.",
+        "summary": "Get a expense",
         "description": "Retrieves a specified expense.",
         "operationId": "GetExpenseById",
         "parameters": [
@@ -2423,7 +2423,7 @@
         "tags": [
           "Expenses"
         ],
-        "summary": "Update an expense on a matter.",
+        "summary": "Update an expense on a matter",
         "description": "Updates a specified expense.",
         "operationId": "UpdateExpense",
         "parameters": [
@@ -2518,7 +2518,7 @@
         "tags": [
           "Expenses"
         ],
-        "summary": "Delete an expense.",
+        "summary": "Delete an expense",
         "description": "Deletes a specified expense.",
         "operationId": "DeleteExpense",
         "parameters": [
@@ -2591,7 +2591,7 @@
         "tags": [
           "Expenses"
         ],
-        "summary": "Gets the upload url for uploading an expense.",
+        "summary": "Gets the upload url for uploading an expense",
         "operationId": "PostAttachment",
         "parameters": [
           {
@@ -2854,7 +2854,7 @@
         "tags": [
           "Fees"
         ],
-        "summary": "Create a fee.",
+        "summary": "Create a fee",
         "description": "Creates a fee.",
         "operationId": "CreateFee",
         "parameters": [
@@ -2915,7 +2915,7 @@
         "tags": [
           "Fees"
         ],
-        "summary": "Get a fee.",
+        "summary": "Get a fee",
         "description": "Retrieves a specified fee.",
         "operationId": "GetFeeById",
         "parameters": [
@@ -2973,7 +2973,7 @@
         "tags": [
           "Fees"
         ],
-        "summary": "Update a fee on a matter.",
+        "summary": "Update a fee on a matter",
         "description": "Updates a specified fee.",
         "operationId": "UpdateFee",
         "parameters": [
@@ -3043,7 +3043,7 @@
         "tags": [
           "Fees"
         ],
-        "summary": "Delete a fee.",
+        "summary": "Delete a fee",
         "description": "Deletes a specified fee.",
         "operationId": "DeleteFee",
         "parameters": [
@@ -7109,18 +7109,21 @@
           },
           "id": {
             "type": "string",
-            "description": "The id of the activity.",
-            "nullable": true
+            "description": "Unique identifier of the activity.",
+            "nullable": true,
+            "example": "23d2a4bc-8529-462e-8560-dfbf4fa24e49"
           },
           "versionId": {
             "type": "string",
-            "description": "The version id of the activity.",
-            "nullable": true
+            "description": "Unique version identifier of the activity.",
+            "nullable": true,
+            "example": "23d2a4bc-8529-462e-8560-dfbf4fa24e49"
           },
           "updatedByUserId": {
             "type": "string",
-            "description": "The id of the user that last updated the activity.",
-            "nullable": true
+            "description": "Unique identifier of the user that last updated the activity.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "type": {
             "$ref": "#/components/schemas/EntryType"
@@ -7128,16 +7131,19 @@
           "description": {
             "type": "string",
             "description": "Description of the activity.",
-            "nullable": true
+            "nullable": true,
+            "example": "Contract review"
           },
           "code": {
             "type": "string",
             "description": "Code of the activity.",
-            "nullable": true
+            "nullable": true,
+            "example": "CR"
           },
           "isBillable": {
             "type": "boolean",
-            "description": "True if the activity is billable."
+            "description": "True if the activity is billable.",
+            "example": true
           },
           "rateType": {
             "$ref": "#/components/schemas/ActivityRateType"
@@ -7145,24 +7151,29 @@
           "rate": {
             "type": "number",
             "description": "Rate of the activity in dollars.\r\nIf set, rate type must be OverrideRateForAllStaff",
-            "format": "double"
+            "format": "double",
+            "example": 23.2
           },
           "quantity": {
             "type": "number",
             "description": "Quantity for the activity.",
-            "format": "double"
+            "format": "double",
+            "example": 3
           },
           "taxInclusive": {
             "type": "boolean",
-            "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST."
+            "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\n\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\n\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST.",
+            "example": true
           },
           "taxExempt": {
             "type": "boolean",
-            "description": "Sets tax rate to 0 for the entry (e.g. expense)."
+            "description": "Sets tax rate to 0 for the entry (e.g. expense).",
+            "example": true
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "True if the activity is deleted."
+            "description": "True if the activity is deleted.",
+            "example": true
           }
         },
         "additionalProperties": false
@@ -7172,7 +7183,7 @@
         "properties": {
           "updatedByUserId": {
             "type": "string",
-            "description": "Unique identifier of the user updating the expense.\r\n\r\nThis field is reserved for server-to-server operations.",
+            "description": "Unique identifier of the user updating the activity.\r\n\r\nThis field is reserved for server-to-server operations.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
@@ -7201,7 +7212,7 @@
           },
           "rate": {
             "type": "number",
-            "description": "Rate of the activity in dollars.\r\n\r\nIf set, Billing.Activities.Api.Model.ActivityDto.RateType must be OverrideRateForAllStaff",
+            "description": "Rate of the activity in dollars.\r\n\r\nIf set, rateType must be OverrideRateForAllStaff",
             "format": "double",
             "nullable": true,
             "example": 23.21
