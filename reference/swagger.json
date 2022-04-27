@@ -4286,8 +4286,8 @@
         "tags": [
           "Matters"
         ],
-        "summary": "Get matters.",
-        "description": "Sample request:\r\n            \r\n    GET /matters",
+        "summary": "Get matters",
+        "description": "Returns a list of matters.",
         "operationId": "GetMatters",
         "parameters": [
           {
@@ -4313,36 +4313,48 @@
           {
             "name": "MatterTypeId",
             "in": "query",
+            "description": "Filter by matter type identifier.",
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "009f778f-83df-454a-b344-768a862a7e55"
+            },
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           {
             "name": "Status",
             "in": "query",
+            "description": "Filter by current status of matter.",
             "schema": {
-              "type": "string"
-            }
+              "type": "string",
+              "example": "Open"
+            },
+            "example": "Open"
           },
           {
             "name": "IsLead",
             "in": "query",
+            "description": "Boolean flag to restrict search to 'Leads'.",
             "schema": {
-              "type": "boolean"
-            }
+              "type": "boolean",
+              "example": true
+            },
+            "example": true
           },
           {
             "name": "LastUpdated",
             "in": "query",
+            "description": "Filter by last updated date of matter.",
             "schema": {
               "type": "string",
-              "format": "date-time"
-            }
+              "format": "date-time",
+              "example": "2022-04-23T14:00:00Z"
+            },
+            "example": "2022-04-23T14:00:00Z"
           }
         ],
         "responses": {
           "200": {
-            "description": "Returns the matters",
+            "description": "When request is successful. Returns a list of 'Matter' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4357,8 +4369,8 @@
         "tags": [
           "Matters"
         ],
-        "summary": "Create a matter.",
-        "description": "Sample request:\r\n            \r\n    POST /matters",
+        "summary": "Create a matter",
+        "description": "Creates a new matter.",
         "operationId": "CreateMatter",
         "requestBody": {
           "content": {
@@ -4381,7 +4393,7 @@
         },
         "responses": {
           "202": {
-            "description": "The matter has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4391,7 +4403,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When a mandatory field - i.e. client, matter type, status - is not provided.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4408,8 +4420,8 @@
         "tags": [
           "Matters"
         ],
-        "summary": "Get a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}",
+        "summary": "Get a matter",
+        "description": "Retrieves a specified matter.",
         "operationId": "GetMatterById",
         "parameters": [
           {
@@ -4424,7 +4436,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter",
+            "description": "When request is successful. Returns a 'Matter' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4434,7 +4446,7 @@
             }
           },
           "404": {
-            "description": "Matter not found",
+            "description": "When matter with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4449,8 +4461,8 @@
         "tags": [
           "Matters"
         ],
-        "summary": "Updates a matter.",
-        "description": "Sample request:\r\n            \r\n    PUT /matters/matterId",
+        "summary": "Update a matter",
+        "description": "Updates a specified matter.\r\n            \r\nThe following updates are currently not supported:\r\n            \r\n- 'matter type' cannot be changed\r\n            \r\n- 'client' list cannot be modified\r\n\r\n- 'lead' cannot be converted back to 'matter' and vice versa",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -4484,7 +4496,7 @@
         },
         "responses": {
           "202": {
-            "description": "The matter has been accepted and will be updated shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4494,7 +4506,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4504,7 +4516,7 @@
             }
           },
           "404": {
-            "description": "Matter not found",
+            "description": "When matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4519,8 +4531,8 @@
         "tags": [
           "Matters"
         ],
-        "summary": "Deletes a matter.",
-        "description": "Sample request:\r\n            \r\n    DELETE /matters/matterId",
+        "summary": "Delete a matter",
+        "description": "Deletes a specified matter.",
         "operationId": "DeleteMatter",
         "parameters": [
           {
@@ -4535,7 +4547,7 @@
         ],
         "responses": {
           "202": {
-            "description": "The matter has been accepted and will be deleted shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be deleted.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4545,7 +4557,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -4555,7 +4567,7 @@
             }
           },
           "404": {
-            "description": "Matter not found",
+            "description": ">When matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4572,8 +4584,8 @@
         "tags": [
           "Relationships"
         ],
-        "summary": "Get relationships on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/roles/{roleId}",
+        "summary": "Get relationships on a matter",
+        "description": "Returns associated relationships for a specified matter and role group.",
         "operationId": "GetRelationshipsOnRole",
         "parameters": [
           {
@@ -4597,7 +4609,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the relationships",
+            "description": "When request is successful. Returns a 'MatterRelationships' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4607,7 +4619,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter or role group does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4622,8 +4634,8 @@
         "tags": [
           "Relationships"
         ],
-        "summary": "Add another relationship to role.",
-        "description": "Sample request:\r\n            \r\n    POST /matters/{matterId}/roles/{roleId}/relationships",
+        "summary": "Add relationship to a role",
+        "description": "Appends a new relationship with an existing role in the specified matter.",
         "operationId": "AddAnotherRelationshipToRole",
         "parameters": [
           {
@@ -4666,7 +4678,7 @@
         },
         "responses": {
           "202": {
-            "description": "The relationship has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the relationship to be created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4676,7 +4688,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter or role does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4693,8 +4705,8 @@
         "tags": [
           "Relationships"
         ],
-        "summary": "Get a relationship on a role.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/roles/{roleId}/relationships/{id}",
+        "summary": "Get relationship on a role",
+        "description": "Returns a relationship with a specified role in a matter.",
         "operationId": "GetRelationshipOnRole",
         "parameters": [
           {
@@ -4727,7 +4739,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the relationship",
+            "description": "When request is successful. Returns a 'Relationship' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4737,7 +4749,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter, role group or role (within the specified role group) does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4752,8 +4764,8 @@
         "tags": [
           "Relationships"
         ],
-        "summary": "Updates a relationship on a matter",
-        "description": "Sample request:\r\n            \r\n    PUT /matters/{matterId}/roles/{id}/relationships/{id}",
+        "summary": "Update a relationship",
+        "description": "Updates a specified relationship on a matter.",
         "operationId": "UpdateRelationship",
         "parameters": [
           {
@@ -4805,7 +4817,7 @@
         },
         "responses": {
           "202": {
-            "description": "The relationship has been accepted and will be updated shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the relationship to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4815,7 +4827,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter, role or relationship does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4832,8 +4844,8 @@
         "tags": [
           "Roles"
         ],
-        "summary": "Get roles on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/roles",
+        "summary": "Get roles on a matter",
+        "description": "Returns associated roles for a specified matter.",
         "operationId": "GetRolesOnMatter",
         "parameters": [
           {
@@ -4848,7 +4860,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the roles",
+            "description": "When request is successful. Returns a 'MatterRoles' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4858,7 +4870,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4873,8 +4885,8 @@
         "tags": [
           "Roles"
         ],
-        "summary": "Add another role to matter.",
-        "description": "Sample request:\r\n            \r\n    POST /matters/{matterId}/roles",
+        "summary": "Add role to a matter",
+        "description": "Appends a new role in the specified matter.",
         "operationId": "AddAnotherRoleToMatter",
         "parameters": [
           {
@@ -4908,7 +4920,7 @@
         },
         "responses": {
           "202": {
-            "description": "The role has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the role to be created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4918,7 +4930,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4935,8 +4947,8 @@
         "tags": [
           "Roles"
         ],
-        "summary": "Get a role on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/roles/{id}",
+        "summary": "Get role on a matter",
+        "description": "Returns a role in a specified matter.",
         "operationId": "GetRoleOnMatter",
         "parameters": [
           {
@@ -4960,7 +4972,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the role",
+            "description": "When request is successful. Returns a 'Role' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4970,7 +4982,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4985,8 +4997,8 @@
         "tags": [
           "Roles"
         ],
-        "summary": "Update role on matter",
-        "description": "Sample request:\r\n            \r\n    PUT /matters/{matterId}/roles/{id}",
+        "summary": "Update role on a matter",
+        "description": "Updates a specified role on a matter.",
         "operationId": "UpdateRole",
         "parameters": [
           {
@@ -5029,7 +5041,7 @@
         },
         "responses": {
           "202": {
-            "description": "The role has been accepted and will be updated shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the role to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5039,7 +5051,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5054,8 +5066,8 @@
         "tags": [
           "Roles"
         ],
-        "summary": "Remove a role from a matter.",
-        "description": "Sample request:\r\n            \r\n    DELETE /matters/{matterId}/roles",
+        "summary": "Remove role from a matter",
+        "description": "Removes a specified role from a matter.",
         "operationId": "RemoveRoleFromMatter",
         "parameters": [
           {
@@ -5079,7 +5091,7 @@
         ],
         "responses": {
           "202": {
-            "description": "The role has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the role to be deleted.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5089,7 +5101,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": ">When matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6509,7 +6521,7 @@
         "tags": [
           "Webhooks"
         ],
-        "summary": "Create new webhook subscription.",
+        "summary": "Create new webhook subscription",
         "description": "Creates a new webhook subscription with the specified subscription details.",
         "operationId": "CreateSubscription",
         "requestBody": {
@@ -6645,6 +6657,8 @@
         "tags": [
           "Webhooks"
         ],
+        "summary": "Update a webhook subscription",
+        "description": "Updates a webhook subscription with the specified subscription details.",
         "operationId": "UpdateSubscription",
         "parameters": [
           {
@@ -6682,7 +6696,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns updated webhook subscriptions.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6702,7 +6716,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6721,8 +6735,11 @@
               }
             }
           },
+          "403": {
+            "description": "When webhook subscription with specified id is not associated with authenticated client."
+          },
           "404": {
-            "description": "Not Found",
+            "description": "When the webhook subscription is not found.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -7507,13 +7524,13 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Company's name",
+            "description": "Company's name.",
             "nullable": true,
             "example": "Brown LLC"
           },
           "type": {
             "type": "string",
-            "description": "Company's type\r\n\r\nAccepted values for USA - Corporation, Government Agency, Limited Liability Company, Sole Proprietor, Partnership, Not-for-Profit\r\n\r\nAccepted values for AUS - Company, Sole Proprietor, Partnership, Government Department",
+            "description": "Company's type.\r\n\r\nAccepted values for USA - Corporation, Government Agency, Limited Liability Company, Sole Proprietor, Partnership, Not-for-Profit.\r\n\r\nAccepted values for AUS - Company, Sole Proprietor, Partnership, Government Department.",
             "nullable": true,
             "example": "Corporation"
           },
@@ -7525,31 +7542,31 @@
           },
           "email": {
             "type": "string",
-            "description": "Company's email address",
+            "description": "Company's email address.",
             "nullable": true,
             "example": "contact@brown.com"
           },
           "notes": {
             "type": "string",
-            "description": "Additional notes for company (if applicable)",
+            "description": "Additional notes for company (if applicable).",
             "nullable": true,
             "example": "Construction company"
           },
           "abn": {
             "type": "string",
-            "description": "Company's Australian Business Number (only applicable for AUS)",
+            "description": "Company's Australian Business Number (only applicable for AUS).",
             "nullable": true,
             "example": "01234567890"
           },
           "companyNumberType": {
             "type": "string",
-            "description": "Company's Australian company number type (only applicable for AUS)\r\n\r\nAccepted values - ACN, ARBN",
+            "description": "Company's Australian company number type (only applicable for AUS).\r\n\r\nAccepted values - ACN, ARBN",
             "nullable": true,
             "example": "ACN"
           },
           "companyNumber": {
             "type": "string",
-            "description": "Company's Australian Company Number (only applicable for AUS)",
+            "description": "Company's Australian Company Number (only applicable for AUS).",
             "nullable": true,
             "example": "234567890"
           },
@@ -7564,7 +7581,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "Company's staff hypermedia links",
+            "description": "Company's staff hypermedia links.",
             "nullable": true,
             "readOnly": true
           }
@@ -7576,13 +7593,13 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Company's name",
+            "description": "Company's name.",
             "nullable": true,
             "example": "Brown LLC"
           },
           "type": {
             "type": "string",
-            "description": "Company's type\r\n\r\nAccepted values for USA - Corporation, Government Agency, Limited Liability Company, Sole Proprietor, Partnership, Not-for-Profit\r\n\r\nAccepted values for AUS - Company, Sole Proprietor, Partnership, Government Department",
+            "description": "Company's type.\r\n\r\nAccepted values for USA - Corporation, Government Agency, Limited Liability Company, Sole Proprietor, Partnership, Not-for-Profit.\r\n\r\nAccepted values for AUS - Company, Sole Proprietor, Partnership, Government Department.",
             "nullable": true,
             "example": "Corporation"
           },
@@ -7594,15 +7611,15 @@
           },
           "email": {
             "type": "string",
-            "description": "Company's email address",
+            "description": "Company's email address.",
             "nullable": true,
             "example": "contact@brown.com"
           },
           "notes": {
             "type": "string",
-            "description": "Additional notes for company (if applicable)",
+            "description": "Additional notes for company (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Recently merged with Cyberdyne Inc."
           },
           "businessAddress": {
             "$ref": "#/components/schemas/AddressDto"
@@ -7612,19 +7629,19 @@
           },
           "abn": {
             "type": "string",
-            "description": "Company's Australian Business Number (only applicable for AUS)",
+            "description": "Company's Australian Business Number (only applicable for AUS).",
             "nullable": true,
             "example": "01234567890"
           },
           "companyNumberType": {
             "type": "string",
-            "description": "Company's Australian company number type (only applicable for AUS)\r\n\r\nAccepted values - ACN, ARBN",
+            "description": "Company's Australian company number type (only applicable for AUS).\r\n\r\nAccepted values - ACN, ARBN.",
             "nullable": true,
             "example": "ACN"
           },
           "companyNumber": {
             "type": "string",
-            "description": "Company's Australian Company Number (only applicable for AUS)",
+            "description": "Company's Australian Company Number (only applicable for AUS).",
             "nullable": true,
             "example": "234567890"
           }
@@ -7674,6 +7691,9 @@
           "company": {
             "$ref": "#/components/schemas/Company"
           },
+          "trust": {
+            "$ref": "#/components/schemas/Trust"
+          },
           "groupOfPeople": {
             "$ref": "#/components/schemas/GroupOfPeople"
           },
@@ -7683,7 +7703,7 @@
           },
           "lastUpdated": {
             "type": "integer",
-            "description": "Last updated timestamp",
+            "description": "Last updated timestamp.",
             "format": "int64",
             "example": 637847425252027400
           }
@@ -7704,6 +7724,9 @@
           },
           "company": {
             "$ref": "#/components/schemas/CompanyDto"
+          },
+          "trust": {
+            "$ref": "#/components/schemas/TrustDto"
           },
           "groupOfPeople": {
             "$ref": "#/components/schemas/GroupOfPeopleDto"
@@ -7821,7 +7844,7 @@
             "items": {
               "type": "string"
             },
-            "description": "List of contact person Ids",
+            "description": "List of contact person Ids.",
             "nullable": true,
             "example": [
               "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2",
@@ -7919,7 +7942,7 @@
             "type": "string",
             "description": "Contact person's middle name (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Michael"
           },
           "lastName": {
             "type": "string",
@@ -7931,13 +7954,13 @@
             "type": "string",
             "description": "Contact person's name suffix (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "PhD"
           },
           "customName": {
             "type": "string",
             "description": "Contact person's custom name to be used in letters (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Johnny"
           },
           "residentialAddress": {
             "$ref": "#/components/schemas/Address"
@@ -8052,7 +8075,7 @@
             "type": "string",
             "description": "Contact person's middle name (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Michael"
           },
           "lastName": {
             "type": "string",
@@ -8064,13 +8087,13 @@
             "type": "string",
             "description": "Contact person's name suffix (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "PhD"
           },
           "customName": {
             "type": "string",
             "description": "Contact person's custom name to be used in letters (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Johnny"
           },
           "residentialAddress": {
             "$ref": "#/components/schemas/AddressDto"
@@ -8314,6 +8337,167 @@
           },
           "expressionProvider": {
             "$ref": "#/components/schemas/ISearchExpressionProvider"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Trust": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Trust's name.",
+            "nullable": true,
+            "example": "Trinity Trust"
+          },
+          "status": {
+            "type": "string",
+            "description": "Trust's status.\r\n\r\nStandard values are: as Trustee of, as Trustees of, as Co-Trustees of, as an Individual and as Trustee of, as Successor Trustee of.\r\nA custom value can be supplied instead.",
+            "nullable": true,
+            "example": "as Trustee of"
+          },
+          "trustNumber": {
+            "type": "string",
+            "description": "Trust's number.",
+            "nullable": true,
+            "example": "12345678"
+          },
+          "executedDate": {
+            "type": "string",
+            "description": "Date trust was executed.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "1980-07-01"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "fax": {
+            "$ref": "#/components/schemas/PhoneNumber"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "trustees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Trustee"
+            },
+            "description": "List of trustees.",
+            "nullable": true,
+            "example": [
+              {
+                "Name": "John Smith",
+                "Type": "Individual"
+              },
+              {
+                "Name": "Smithfield Steel",
+                "Type": "Company"
+              }
+            ]
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "description": "Trust's contacts hypermedia links.",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrustDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Trust's name.",
+            "nullable": true,
+            "example": "Trinity Trust"
+          },
+          "status": {
+            "type": "string",
+            "description": "Trust's status.\r\n\r\nStandard values are: as Trustee of, as Trustees of, as Co-Trustees of, as an Individual and as Trustee of, as Successor Trustee of.\r\n\r\nA custom value can be supplied instead.",
+            "nullable": true,
+            "example": "as Trustee of"
+          },
+          "trustNumber": {
+            "type": "string",
+            "description": "Trust's number.",
+            "nullable": true,
+            "example": "12345678"
+          },
+          "executedDate": {
+            "type": "string",
+            "description": "Date trust was executed.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "1980-07-01"
+          },
+          "phone": {
+            "$ref": "#/components/schemas/PhoneNumberDto"
+          },
+          "fax": {
+            "$ref": "#/components/schemas/PhoneNumberDto"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "trustees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrusteeDto"
+            },
+            "description": "List of trustees.",
+            "nullable": true,
+            "example": [
+              {
+                "Name": "John Smith",
+                "Type": "Individual"
+              },
+              {
+                "Name": "Smithfield Steel",
+                "Type": "Company"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Trustee": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Trustee's name.",
+            "nullable": true,
+            "example": "John Smith"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of trustee.\r\n\r\nStandard values are: Company, Individual.\r\nA custom value can be supplied instead.",
+            "nullable": true,
+            "example": "Individual"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TrusteeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Trustee's name.",
+            "nullable": true,
+            "example": "John Smith"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of trustee.\r\n\r\nStandard values are: Company, Individual.\r\n\r\nA custom value can be supplied instead.",
+            "nullable": true,
+            "example": "Individual"
           }
         },
         "additionalProperties": false
@@ -10728,21 +10912,27 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "externalSystemId": {
             "type": "string",
-            "description": "Id of this matter in an external system",
-            "nullable": true
+            "description": "External system id for the matter.",
+            "nullable": true,
+            "example": "EXT01"
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "number": {
             "type": "string",
-            "description": "Matter number",
-            "nullable": true
+            "description": "Human-friendly number assigned to matter.",
+            "nullable": true,
+            "example": "FUS-124"
           },
           "matterType": {
             "$ref": "#/components/schemas/Link"
@@ -10752,6 +10942,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "List of client contact id's associated with the matter.",
             "nullable": true
           },
           "otherSides": {
@@ -10759,15 +10950,20 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "List of other-side contact id's associated with the matter.",
             "nullable": true
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the matter.",
+            "nullable": true,
+            "example": "This is a brief description for the matter"
           },
           "status": {
             "type": "string",
-            "nullable": true
+            "description": "Current status of matter.",
+            "nullable": true,
+            "example": "Open"
           },
           "personResponsible": {
             "$ref": "#/components/schemas/Link"
@@ -10780,24 +10976,30 @@
           },
           "openedDate": {
             "type": "string",
-            "description": "Returns the date the matter was opened.",
+            "description": "Date the matter was opened.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           },
           "closedDate": {
             "type": "string",
-            "description": "Returns the date the matter was closed.",
+            "description": "Date the matter was closed.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           },
           "items": {
             "$ref": "#/components/schemas/Link"
           },
           "isMatterTemplate": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if the matter is a template.",
+            "example": false
           },
           "isLead": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if the matter is a lead.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -10807,56 +11009,74 @@
         "properties": {
           "externalSystemId": {
             "type": "string",
-            "format": "string",
-            "nullable": true
+            "description": "External system id for the matter.",
+            "nullable": true,
+            "example": "EXT01"
           },
           "number": {
             "type": "string",
-            "format": "string",
-            "nullable": true
+            "description": "Human-friendly number assigned to matter.",
+            "nullable": true,
+            "example": "FUS-124"
           },
           "matterTypeId": {
             "type": "string",
-            "description": "Should be a standard matter type when creating a 'Matter' and a lead matter type when creating a 'Lead'",
-            "nullable": true
+            "description": "Unique identifier of the matter type associated with the matter.\r\n\r\nShould be a standard matter type when creating a 'Matter' and a lead matter type when creating a 'Lead'",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "clientIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of client contact id's associated with the matter.",
+            "nullable": true,
+            "example": [
+              "832e778f-83df-454a-b344-768a862a7e67"
+            ]
           },
           "otherSideIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of other-side contact id's associated with the matter.",
+            "nullable": true,
+            "example": [
+              "776e778f-83df-454a-b344-768a862a6e58"
+            ]
           },
           "clientRole": {
             "type": "string",
-            "format": "string",
-            "nullable": true
+            "description": "Matter type representative option applicable to the matter clients.",
+            "nullable": true,
+            "example": "Buyer"
           },
           "otherSideRole": {
             "type": "string",
-            "format": "string",
-            "nullable": true
+            "description": "Matter type representative option applicable to the matter other-sides.",
+            "nullable": true,
+            "example": "Seller"
           },
           "description": {
             "type": "string",
-            "format": "string",
-            "nullable": true
+            "description": "Brief description of the matter.",
+            "nullable": true,
+            "example": "This is a brief description for the matter"
           },
           "status": {
             "type": "string",
-            "nullable": true
+            "description": "Current status of matter.\r\n\r\nAccepted values - Open, Pending, Closed, Deleted or Cancelled",
+            "nullable": true,
+            "example": "Open"
           },
           "dateOpened": {
             "type": "string",
+            "description": "Date when the matter was opened.\r\n\r\nNote - This can be backdated if required",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           },
           "personResponsibleStaffId": {
             "type": "string",
@@ -10875,7 +11095,8 @@
           },
           "isLead": {
             "type": "boolean",
-            "format": "boolean"
+            "description": "Optional boolean flag indicating if a 'Lead' is being created. This must be set to 'true' when creating a 'Lead'.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -10964,13 +11185,16 @@
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "relationships": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Relationship"
             },
+            "description": "List of associated relationships.",
             "nullable": true
           }
         },
@@ -11001,13 +11225,16 @@
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "roles": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Role"
             },
+            "description": "List of associated roles.",
             "nullable": true
           }
         },
@@ -11034,11 +11261,15 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the relationship.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the relationship.",
+            "nullable": true,
+            "example": "Solicitor"
           },
           "contact": {
             "$ref": "#/components/schemas/Link"
@@ -11048,6 +11279,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "List of hypermedia links of the associated representatives.",
             "nullable": true
           }
         },
@@ -11056,28 +11288,28 @@
       "RelationshipDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "nullable": true
-          },
-          "versionId": {
-            "type": "string",
-            "nullable": true
-          },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the relationship.",
+            "nullable": true,
+            "example": "Solicitor"
           },
           "contactId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the contact.",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
           "representativeIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of associated representative contact ids.",
+            "nullable": true,
+            "example": [
+              "776e778f-83df-454a-b344-768a862a7e67"
+            ]
           }
         },
         "additionalProperties": false
@@ -11103,11 +11335,15 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the role.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the role.",
+            "nullable": true,
+            "example": "Client"
           },
           "contact": {
             "$ref": "#/components/schemas/Link"
@@ -11117,6 +11353,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "List of hypermedia links of the associated representatives.",
             "nullable": true
           },
           "relationships": {
@@ -11124,13 +11361,18 @@
             "items": {
               "$ref": "#/components/schemas/Relationship"
             },
+            "description": "List of associated relationships.",
             "nullable": true
           },
           "isClient": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating role belongs to a client.",
+            "example": false
           },
           "isOtherSide": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating role belongs to an other-side.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -11138,31 +11380,32 @@
       "RoleDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "nullable": true
-          },
-          "versionId": {
-            "type": "string",
-            "nullable": true
-          },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the role.",
+            "nullable": true,
+            "example": "Client"
           },
           "contactId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the contact.",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
           "representativeIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of associated representative contact ids.",
+            "nullable": true,
+            "example": [
+              "776e778f-83df-454a-b344-768a862a7e67"
+            ]
           },
           "isMatterItemRequired": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if matter item is required."
           }
         },
         "additionalProperties": false
