@@ -4370,7 +4370,7 @@
           "Matters"
         ],
         "summary": "Create a matter",
-        "description": "Creates a new matter.",
+        "description": "Creates a new matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- 'otherSideIds' cannot be set for a lead\r\n            \r\n- 'clientRole' and 'otherSideRole' cannot be identical for a matter",
         "operationId": "CreateMatter",
         "requestBody": {
           "content": {
@@ -4403,7 +4403,7 @@
             }
           },
           "400": {
-            "description": "When a mandatory field - i.e. client, matter type, status - is not provided.",
+            "description": "When an unsupported request is made or a mandatory field - i.e. client, matter type, status - is not provided.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4462,7 +4462,7 @@
           "Matters"
         ],
         "summary": "Update a matter",
-        "description": "Updates a specified matter.\r\n            \r\nThe following updates are currently not supported:\r\n            \r\n- 'matter type' cannot be changed\r\n            \r\n- 'client' list cannot be modified\r\n\r\n- 'lead' cannot be converted back to 'matter' and vice versa",
+        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- 'matterTypeId' cannot be changed\r\n            \r\n- 'clientIds' cannot be modified\r\n            \r\n- 'otherSideIds' list cannot be modified\r\n\r\n- a lead cannot be converted back to a matter and vice versa",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -4567,7 +4567,7 @@
             }
           },
           "404": {
-            "description": ">When matter does not exist.",
+            "description": "When matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10942,7 +10942,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "List of client contact id's associated with the matter.",
+            "description": "List of 'Client' contact id's associated with the matter.",
             "nullable": true
           },
           "otherSides": {
@@ -10950,7 +10950,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "List of other-side contact id's associated with the matter.",
+            "description": "List of 'OtherSide' contact id's associated with the matter.",
             "nullable": true
           },
           "description": {
@@ -11030,7 +11030,7 @@
             "items": {
               "type": "string"
             },
-            "description": "List of client contact id's associated with the matter.",
+            "description": "List of 'Client' contact id's associated with the matter.",
             "nullable": true,
             "example": [
               "832e778f-83df-454a-b344-768a862a7e67"
@@ -11041,7 +11041,7 @@
             "items": {
               "type": "string"
             },
-            "description": "List of other-side contact id's associated with the matter.",
+            "description": "List of 'OtherSide' contact id's associated with the matter.",
             "nullable": true,
             "example": [
               "776e778f-83df-454a-b344-768a862a6e58"
@@ -11049,13 +11049,13 @@
           },
           "clientRole": {
             "type": "string",
-            "description": "Matter type representative option applicable to the matter clients.",
+            "description": "'Client' matter type representative option for the matter.",
             "nullable": true,
             "example": "Buyer"
           },
           "otherSideRole": {
             "type": "string",
-            "description": "Matter type representative option applicable to the matter other-sides.",
+            "description": "'OtherSide' matter type representative option for the matter.",
             "nullable": true,
             "example": "Seller"
           },
@@ -11366,12 +11366,12 @@
           },
           "isClient": {
             "type": "boolean",
-            "description": "Boolean flag indicating role belongs to a client.",
+            "description": "Boolean flag indicating if role belongs to a 'Client'.",
             "example": false
           },
           "isOtherSide": {
             "type": "boolean",
-            "description": "Boolean flag indicating role belongs to an other-side.",
+            "description": "Boolean flag indicating if role belongs to an 'OtherSide'.",
             "example": false
           }
         },
