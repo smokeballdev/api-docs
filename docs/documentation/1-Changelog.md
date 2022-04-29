@@ -14,10 +14,10 @@ tags: [Documentation]
 * Added ability to relate a person to a group of people.
 * Added ability to add and update trusts.
 
-### Fees
+#### Fees
 * Removed check for existing Fee when performing PUT, requests are accepted and queued asynchonously like a POST.
 
-### Expenses
+#### Expenses
 * Removed check for existing Expense when performing PUT, requests are accepted and queued asynchonously like a POST.
 
 ##### Webhooks
