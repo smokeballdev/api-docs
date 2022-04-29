@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "type": "divider",
+      "title": "Divider"
+    },
+    {
+      "type": "group",
+      "title": "SDK",
+      "items": [
+        {
+          "type": "item",
+          "title": "Reference",
+          "uri": "sdk/index.md"
+        }
+      ]
+    }
+  ]
+}
