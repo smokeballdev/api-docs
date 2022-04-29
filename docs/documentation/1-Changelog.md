@@ -15,10 +15,10 @@ tags: [Documentation]
 * Added ability to add and update trusts.
 
 #### Fees
-* Removed check for existing Fee when performing PUT, requests are accepted and queued asynchonously like a POST.
+* Removed check for existing `Fee` when performing PUT, requests are accepted and queued asynchonously like a POST.
 
 #### Expenses
-* Removed check for existing Expense when performing PUT, requests are accepted and queued asynchonously like a POST.
+* Removed check for existing `Expense` when performing PUT, requests are accepted and queued asynchonously like a POST.
 
 ##### Webhooks
 * Added `MatterStages` webhooks.
