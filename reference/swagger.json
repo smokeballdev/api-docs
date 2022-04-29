@@ -7809,7 +7809,7 @@
           },
           "businessRole": {
             "type": "string",
-            "description": "Business role of related contact.",
+            "description": "Business role of related contact.\r\n\r\nOnly applicable for companies (not trusts).",
             "nullable": true,
             "example": "Bookkeeper"
           }
@@ -7994,62 +7994,62 @@
           },
           "occupation": {
             "type": "string",
-            "description": "Contact person's occupation",
+            "description": "Contact person's occupation.",
             "nullable": true,
             "example": "Bookkeeper"
           },
           "gender": {
             "type": "string",
-            "description": "Contact person's gender\r\n\r\nAccepted values - Male, Female",
+            "description": "Contact person's gender.\r\n\r\nAccepted values - Male, Female.",
             "nullable": true,
             "example": "Male"
           },
           "maritalStatus": {
             "type": "string",
-            "description": "Contact person's marital status\r\n\r\ne.g. Single, Married, Separated, Divorced, Widowed, De facto",
+            "description": "Contact person's marital status.\r\n\r\ne.g. Single, Married, Separated, Divorced, Widowed, De facto.",
             "nullable": true,
             "example": "Single"
           },
           "specialNeeds": {
             "type": "string",
-            "description": "Brief description of an special needs (if applicable).",
+            "description": "Brief description of any special needs (if applicable).\r\n\r\nOnly supported in Australia (not the US).",
             "nullable": true,
-            "example": ""
+            "example": "Wheelchair access"
           },
           "birthDate": {
             "type": "string",
-            "description": "Contact person's date of birth",
+            "description": "Contact person's date of birth.",
             "format": "date-time",
             "nullable": true,
             "example": "1980-07-01"
           },
           "birthPlace": {
             "type": "string",
-            "description": "Contact person's place of birth",
+            "description": "Contact person's place of birth.",
             "nullable": true,
             "example": "Chicago"
           },
           "birthState": {
             "type": "string",
-            "description": "Contact person's birth state",
+            "description": "Contact person's birth state.",
             "nullable": true,
             "example": "Illinois"
           },
           "birthCountry": {
             "type": "string",
-            "description": "Contact person's birth country",
+            "description": "Contact person's birth country.",
             "nullable": true,
             "example": "USA"
           },
           "identificationNumberType": {
             "type": "string",
-            "description": "Contact person's type of identification",
+            "description": "Contact person's type of identification.",
             "nullable": true,
             "example": "Passport"
           },
           "identificationNumber": {
             "type": "string",
-            "description": "Contact person's identification number",
+            "description": "Contact person's identification number.",
             "nullable": true,
             "example": "PP123456789"
           }
