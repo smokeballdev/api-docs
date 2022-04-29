@@ -4,6 +4,28 @@ tags: [Documentation]
 
 # Changelog
 
+## 2022-05-02 (v8.3)
+
+#### Matter Stages
+* Added API.
+
+#### Contacts
+* Added ability to restore contacts in PUT endpoint.
+* Added ability to relate a person to a group of people.
+* Added ability to add and update trusts.
+
+### Fees
+* Removed check for existing Fee when performing PUT, requests are accepted and queued asynchonously like a POST.
+
+### Expenses
+* Removed check for existing Expense when performing PUT, requests are accepted and queued asynchonously like a POST.
+
+##### Webhooks
+* Added `MatterStages` webhooks.
+* Fixed `RequestId` not propogating from some Matter API calls.
+* Fixed null fields on `Firm` update webhook events.
+
+
 ## 2022-03-13 (v8.2)
 
 #### Firms
