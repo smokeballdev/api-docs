@@ -8,7 +8,9 @@ tags: [Documentation]
 
 Smokeball comes with a range of pre-configured lead matter types for different areas of law. These are provided by Smokeball’s internal content team and are not user editable.
 
-A lead Matter Type is used to assign the lead being created to a relevant area of law and state / location.
+A lead matter type is used to assign the lead being created to a relevant area of law and state / location.
+
+> The matter types used when creating a 'Lead' are different from the one's used to create a 'Matter'.
 
 ![Lead Matter Types](../../assets/images/leadmattertypes.png)
 
@@ -24,7 +26,7 @@ When creating a lead in Smokeball we can see a list of lead Matter Types. Here, 
   "query": {
     "Location": "IL",
     "Category": "Real Estate",
-    "Type": 1   //where 1=LeadType
+    "Type": 1   // use this parameter to get lead specific matter types - where 1=LeadType
   }
 }
 ```

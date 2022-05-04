@@ -4318,7 +4318,7 @@
           "Matters"
         ],
         "summary": "Create a matter",
-        "description": "Creates a new matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- 'otherSideIds' cannot be set for a lead\r\n            \r\n- 'clientRole' and 'otherSideRole' cannot be identical for a matter",
+        "description": "Creates a new matter.\r\n            \r\nNote: This endpoint can also be used to create a 'Lead'.\r\n\r\nWhen creating a 'Lead' you MUST remember to set a valid lead specific 'matterTypeId' field (see field description below for more details) and set the 'isLead' field to true.\r\n            \r\n\r\nThe following actions are currently not supported:\r\n            \r\n- 'otherSideIds' cannot be set for a lead\r\n            \r\n- 'clientRole' and 'otherSideRole' cannot be identical for a matter",
         "operationId": "CreateMatter",
         "requestBody": {
           "content": {
@@ -6258,8 +6258,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get a user.",
-        "description": "Sample request:\r\n            \r\n    GET /users/{id}",
+        "summary": "Get a user",
+        "description": "Retrieves a specified user. Only accessible using client credentials grant.",
         "operationId": "GetUserById",
         "parameters": [
           {
@@ -6274,7 +6274,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the contact",
+            "description": "When request is successful. Returns a 'User' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6284,7 +6284,17 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When user with specified id is not associated with authenticated client.\r\n\r\nWhen the request is not made using client credentials grant.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6294,7 +6304,7 @@
             }
           },
           "404": {
-            "description": "Contact not found",
+            "description": "When user with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6311,8 +6321,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Create a user.",
-        "description": "Sample request:\r\n            \r\n    POST /users\r\n    {\r\n        \"Email\": \"bob.jones123@gmail.com\",\r\n        \"Password\": \"xxxxxxxx\"\r\n    }",
+        "summary": "Get a user",
+        "description": "Retrieves a specified user. Only accessible using client credentials grant.",
         "operationId": "CreateUser",
         "requestBody": {
           "content": {
@@ -6334,8 +6344,11 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'User' object."
+          },
           "202": {
-            "description": "The user has been accepted and will be created shortly",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -6345,7 +6358,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When user or password validation fails.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6353,6 +6366,9 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "When the request is not made using client credentials grant."
           }
         }
       }
@@ -8593,21 +8609,21 @@
           },
           "ownerId": {
             "type": "string",
-            "description": "Unique identifier of the file owner",
+            "description": "Unique identifier of the staff member who created/uploaded this file",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "to": {
             "type": "string",
-            "description": "Unique identifier of the file addressee",
+            "description": "The 'To' or recipients' email address (only applicable for email files)",
             "nullable": true,
-            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+            "example": "recipient@email.com"
           },
           "from": {
             "type": "string",
-            "description": "Unique identifier of the file addresser",
+            "description": "The 'From' or sender's email address (only applicable for email files)",
             "nullable": true,
-            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+            "example": "sender@email.com"
           },
           "dateCreated": {
             "type": "string",
@@ -10939,7 +10955,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "List of 'Client' contact id's associated with the matter.",
+            "description": "List of hypermedia links of 'Client' contacts associated with the matter.",
             "nullable": true
           },
           "otherSides": {
@@ -10947,7 +10963,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "List of 'OtherSide' contact id's associated with the matter.",
+            "description": "List of hypermedia links of 'OtherSide' contacts associated with the matter.",
             "nullable": true
           },
           "description": {
@@ -11018,7 +11034,7 @@
           },
           "matterTypeId": {
             "type": "string",
-            "description": "Unique identifier of the matter type associated with the matter.\r\n\r\nShould be a standard matter type when creating a 'Matter' and a lead matter type when creating a 'Lead'",
+            "description": "Unique identifier of the matter type associated with the matter.\r\n            \r\nMatter types define what information can be saved to the matter, relevant to that area of law and state / location.\r\n            \r\nA pre-configured list of matter types can be obtained via the 'GET /mattertypes' API.\r\n            \r\nNote: 'Lead' matter types are different from the standard matter types used when creating a 'Matter'.\r\n            \r\nUse the 'Type' query parameter in the 'GET /mattertypes' API call to get 'Lead' specific matter types.",
             "nullable": true,
             "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
@@ -12271,11 +12287,15 @@
           },
           "userId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the user.",
+            "nullable": true,
+            "example": "23d2a4bc-8529-462e-8560-dfbf4fa24e49"
           },
           "email": {
             "type": "string",
-            "nullable": true
+            "description": "Email address of the user.",
+            "nullable": true,
+            "example": "user@domain.com"
           }
         },
         "additionalProperties": false
@@ -12287,10 +12307,13 @@
         "type": "object",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address of the user.",
+            "example": "user@domain.com"
           },
           "password": {
             "type": "string",
+            "description": "Password for the user.\r\n\r\nPassword must include atleast one lowercase character, uppercase character, numeric character as well as a special character.",
             "nullable": true
           }
         },
