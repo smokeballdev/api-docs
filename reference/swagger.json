@@ -3585,8 +3585,8 @@
         "tags": [
           "MatterItems"
         ],
-        "summary": "Get items on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/items",
+        "summary": "Get items on a matter",
+        "description": "Returns a list of items on a specified matter.",
         "operationId": "GetMatterItems",
         "parameters": [
           {
@@ -3600,7 +3600,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter items",
+            "description": "When request is successful. Returns a 'MatterItems' object containing a list of 'MatterItem' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -3620,7 +3620,7 @@
             }
           },
           "404": {
-            "description": "Matter not found"
+            "description": "When matter with specified id does not exist."
           }
         }
       }
@@ -3630,8 +3630,8 @@
         "tags": [
           "MatterItems"
         ],
-        "summary": "Get an item on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/items/{id}",
+        "summary": "Get an item on a matter",
+        "description": "Returns an item on a specified matter.",
         "operationId": "GetMatterItem",
         "parameters": [
           {
@@ -3653,7 +3653,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the item",
+            "description": "When request is successful. Returns a 'MatterItem' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -3673,7 +3673,7 @@
             }
           },
           "404": {
-            "description": "Item not found"
+            "description": "When the specified matter or item does not exist."
           }
         }
       }
@@ -10428,24 +10428,33 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the item on a matter.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the item.",
+            "nullable": true,
+            "example": "Client"
           },
           "index": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero based number of this item in the list.",
+            "format": "int32",
+            "example": 0
           },
           "visible": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if the item is visible.",
+            "example": false
           },
           "subItems": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatterItem"
             },
+            "description": "List of child items associated with the item.",
             "nullable": true
           }
         },
@@ -10476,13 +10485,16 @@
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatterItem"
             },
+            "description": "List of items on a matter.",
             "nullable": true
           }
         },
