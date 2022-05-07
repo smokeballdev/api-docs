@@ -6,7 +6,10 @@ tags: [Documentation]
 
 ## 2022-05-02 (v8.3)
 
-#### Matter Stages
+#### Stages
+* Added API.
+
+#### StageSets
 * Added API.
 
 #### Contacts
