@@ -4291,13 +4291,24 @@
           {
             "name": "LastUpdated",
             "in": "query",
-            "description": "Filter by last updated date of matter.",
+            "description": "Deprecated, use updatedSince.\r\nFilter by last updated date of matter.",
             "schema": {
               "type": "string",
               "format": "date-time",
               "example": "2022-04-23T14:00:00Z"
             },
             "example": "2022-04-23T14:00:00Z"
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 637873555398585000
+            },
+            "example": 637873555398585000
           }
         ],
         "responses": {
@@ -4567,7 +4578,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter or role group does not exist.",
+            "description": "When the specified matter or role group does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4636,7 +4647,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter or role does not exist.",
+            "description": "When the specified matter or role does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4697,7 +4708,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter, role group or role (within the specified role group) does not exist.",
+            "description": "When the specified matter, role group or role (within the specified role group) does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4775,7 +4786,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter, role or relationship does not exist.",
+            "description": "When the specified matter, role or relationship does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4818,7 +4829,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4878,7 +4889,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4930,7 +4941,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4999,7 +5010,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5049,7 +5060,7 @@
             }
           },
           "404": {
-            "description": ">When matter does not exist.",
+            "description": "When matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5511,8 +5522,8 @@
         "tags": [
           "FirmMatterStages"
         ],
-        "summary": "Get stage to matter mappings in the firm associated with the authenticated client.",
-        "description": "Sample request:\r\n            \r\n    GET /stages",
+        "summary": "Get stage to matter mappings in the firm",
+        "description": "Returns a list of stage to matter mappings in the firm.",
         "operationId": "GetMatterStages",
         "parameters": [
           {
@@ -5536,8 +5547,18 @@
             }
           },
           {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
             "name": "LastUpdated",
             "in": "query",
+            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -5546,7 +5567,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the stage to matter mappings",
+            "description": "Returns the matter stage mappings.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5563,8 +5584,8 @@
         "tags": [
           "MatterStages"
         ],
-        "summary": "Get current stage information of a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/stages",
+        "summary": "Get a matter stage information",
+        "description": "Returns the specified matters stage information.",
         "operationId": "GetStagesOnMatter",
         "parameters": [
           {
@@ -5579,7 +5600,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the stages on a matter",
+            "description": "When request is successful. Returns a 'MatterStage' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5588,8 +5609,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5597,51 +5618,9 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/stagesets/{stageSetId}/stages/{id}": {
-      "get": {
-        "tags": [
-          "Stages"
-        ],
-        "summary": "Get a stage on a stage set.",
-        "description": "Sample request:\r\n            \r\n    GET /stagesets/{stageSetId}/stages/{id}",
-        "operationId": "GetStageOnStageSet",
-        "parameters": [
-          {
-            "name": "stageSetId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the stage",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stage"
-                }
-              }
-            }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When matter stage information with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5658,8 +5637,8 @@
         "tags": [
           "StageSets"
         ],
-        "summary": "Get stage sets of the firm associated with the authenticated client.",
-        "description": "Sample request:\r\n            \r\n    GET /stagesets",
+        "summary": "Get stage sets for the firm",
+        "description": "Returns a list of stage sets for the firm.",
         "operationId": "GetStageSets",
         "parameters": [
           {
@@ -5683,8 +5662,18 @@
             }
           },
           {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
             "name": "LastUpdated",
             "in": "query",
+            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -5710,8 +5699,8 @@
         "tags": [
           "StageSets"
         ],
-        "summary": "Get a stage set.",
-        "description": "Sample request:\r\n            \r\n    GET /stagesets/{id}",
+        "summary": "Get a stage set",
+        "description": "Returns the specified stage set.",
         "operationId": "GetStageSetById",
         "parameters": [
           {
@@ -5725,7 +5714,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the stage set",
+            "description": "When request is successful. Returns a 'StageSet' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5735,7 +5724,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5745,7 +5734,57 @@
             }
           },
           "404": {
-            "description": "Stage Set not found",
+            "description": "When stage set with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stagesets/{stageSetId}/stages/{id}": {
+      "get": {
+        "tags": [
+          "StageSets"
+        ],
+        "operationId": "GetStageOnStageSet",
+        "parameters": [
+          {
+            "name": "stageSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stage"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
@@ -11817,7 +11856,8 @@
           "versionId": {
             "type": "string",
             "description": "Version id of the record.",
-            "nullable": true
+            "nullable": true,
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           },
           "matter": {
             "$ref": "#/components/schemas/Link"
@@ -11831,7 +11871,8 @@
           "lastUpdated": {
             "type": "integer",
             "description": "Timestamp when the matter stage was last updated.",
-            "format": "int64"
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false,
@@ -11918,26 +11959,31 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the stage.",
-            "nullable": true
+            "nullable": true,
+            "example": "45b94df1-1657-48b0-ae81-583b42ed52d6"
           },
           "versionId": {
             "type": "string",
             "description": "Version id of the record.",
-            "nullable": true
+            "nullable": true,
+            "example": "09d1f360-b810-4a63-acaa-5ed81a551f06"
           },
           "name": {
             "type": "string",
             "description": "Name of the stage.",
-            "nullable": true
+            "nullable": true,
+            "example": "Review contract"
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "True when the stage is deleted."
+            "description": "True when the stage is deleted.",
+            "example": true
           },
           "lastUpdated": {
             "type": "integer",
             "description": "Timestamp when the stage was last updated.",
-            "format": "int64"
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false,
@@ -11965,21 +12011,25 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the stage set.",
-            "nullable": true
+            "nullable": true,
+            "example": "6ccc033d-67c9-4090-8705-3aff0c5a8cfb"
           },
           "versionId": {
             "type": "string",
             "description": "Version id of the record.",
-            "nullable": true
+            "nullable": true,
+            "example": "499244ff-651f-4f66-b618-9defde27c281"
           },
           "name": {
             "type": "string",
             "description": "Name of the stage set.",
-            "nullable": true
+            "nullable": true,
+            "example": "Review contract"
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "True when the stage set is deleted."
+            "description": "True when the stage set is deleted.",
+            "example": true
           },
           "stages": {
             "type": "array",
@@ -11992,7 +12042,8 @@
           "lastUpdated": {
             "type": "integer",
             "description": "Timestamp when the stage set was last updated.",
-            "format": "int64"
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false,
