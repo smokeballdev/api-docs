@@ -5582,7 +5582,7 @@
     "/matters/{matterId}/stages": {
       "get": {
         "tags": [
-          "MatterStages"
+          "Stages"
         ],
         "summary": "Get a matter stage information",
         "description": "Returns the specified matters stage information.",
