@@ -5751,6 +5751,8 @@
         "tags": [
           "StageSets"
         ],
+        "summary": "Get a stage on a stage set",
+        "description": "Return the specified stage on the stage set.",
         "operationId": "GetStageOnStageSet",
         "parameters": [
           {
@@ -5774,7 +5776,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'Stage' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5783,8 +5785,11 @@
               }
             }
           },
+          "400": {
+            "description": "When an unsupported request is made."
+          },
           "404": {
-            "description": "Not Found",
+            "description": "When stage or stage set with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
