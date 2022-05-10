@@ -3684,6 +3684,7 @@
           "LayoutDesigns"
         ],
         "summary": "Get layout designs",
+        "description": "Returns a list of layout designs.",
         "operationId": "GetLayoutDesigns",
         "parameters": [
           {
@@ -3709,51 +3710,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a paged collection of 'LayoutDesignInfo' objects.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LayoutDesignInfoPagedCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -3767,12 +3728,13 @@
           "LayoutDesigns"
         ],
         "summary": "Get a layout design",
+        "description": "Retrieves a specified layout design.",
         "operationId": "GetLayoutDesignById",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Layout design ID",
+            "description": "Layout design Id",
             "required": true,
             "schema": {
               "type": "string"
@@ -3781,7 +3743,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'LayoutDesign' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3790,38 +3752,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Not Found",
+            "description": "When layout design with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3839,12 +3771,13 @@
           "LayoutMatterItems"
         ],
         "summary": "Get layout items on a matter",
+        "description": "Returns a collection of layout items on a specified matter.",
         "operationId": "GetLayoutMatterItems",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter ID",
+            "description": "Matter Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -3854,51 +3787,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'LayoutMatterItemDataCollection' object.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LayoutMatterItemDataCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -3912,12 +3805,13 @@
           "LayoutMatterItems"
         ],
         "summary": "Get a layout item on a matter",
+        "description": "Retrieves a layout item on a specified matter.",
         "operationId": "GetLayoutMatterItemById",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter ID",
+            "description": "Matter Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -3927,7 +3821,7 @@
           {
             "name": "itemId",
             "in": "path",
-            "description": "Matter item ID",
+            "description": "Layout item Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -3937,7 +3831,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'LayoutMatterItemData' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3946,38 +3840,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Not Found",
+            "description": "When layout item with specified id does not exist on the matter.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3993,12 +3857,13 @@
           "LayoutMatterItems"
         ],
         "summary": "Merge a layout matter item",
+        "description": "Merge layout item changes for a specified layout.",
         "operationId": "MergeLayout",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter ID",
+            "description": "Matter Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -4008,7 +3873,7 @@
           {
             "name": "itemId",
             "in": "path",
-            "description": "Matter item ID",
+            "description": "Matter item Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -4038,7 +3903,7 @@
         },
         "responses": {
           "202": {
-            "description": "Success",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4048,7 +3913,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When the update payload does not contain an id that matched the id of the item requiring update.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4078,7 +3943,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When layout item with specified id does not exist on the matter.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4096,6 +3961,7 @@
           "LayoutMatterItems"
         ],
         "summary": "Get contacts on a layout",
+        "description": "Returns a list of contacts on a specified layout.",
         "operationId": "GetLayoutMatterItemContacts",
         "parameters": [
           {
@@ -4121,7 +3987,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a list of 'LayoutContact' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4133,38 +3999,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Not Found",
+            "description": "When contacts do not exist for the layout item with specified id.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4180,6 +4016,7 @@
           "LayoutMatterItems"
         ],
         "summary": "Add a contact to a layout",
+        "description": "Adds a new contact on a specified layout.",
         "operationId": "AddLayoutMatterItemContact",
         "parameters": [
           {
@@ -4223,8 +4060,18 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success"
+          "202": {
+            "description": "When request is accepted"
+          },
+          "404": {
+            "description": "When layout item with specified id does not exist on the matter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -5212,7 +5059,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Gets memos on a matter",
+        "summary": "Get memos on a matter",
+        "description": "Returns a list of memos on the specified matter.",
         "operationId": "GetMemos",
         "parameters": [
           {
@@ -5246,7 +5094,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the memos",
+            "description": "When request is successful. Returns a list of 'Memo' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5271,7 +5119,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Creates a memo on a matter",
+        "summary": "Create a memo on a matter",
+        "description": "Creates a memo on the specified matter.",
         "operationId": "CreateMemo",
         "parameters": [
           {
@@ -5309,7 +5158,7 @@
         },
         "responses": {
           "202": {
-            "description": "The memo has been accepted and will be created shortly",
+            "description": "When request is successful. The memo has been accepted and will be created shortly.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5329,7 +5178,7 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           }
         }
       }
@@ -5340,6 +5189,7 @@
           "Memos"
         ],
         "summary": "Get a memo",
+        "description": "Retrieves a specified memo.",
         "operationId": "GetMemoById",
         "parameters": [
           {
@@ -5353,7 +5203,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -5362,7 +5211,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the memo",
+            "description": "When request is successful. Returns the specified memo.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5382,7 +5231,7 @@
             }
           },
           "404": {
-            "description": "Memo not found"
+            "description": "When the specified memo does not exist."
           }
         }
       },
@@ -5390,7 +5239,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Updates a memo",
+        "summary": "Update a memo",
+        "description": "Updates a specified memo.",
         "operationId": "UpdateMemo",
         "parameters": [
           {
@@ -5436,7 +5286,7 @@
         },
         "responses": {
           "202": {
-            "description": "The memo has been accepted and will be updated shortly",
+            "description": "When request is successful. The memo has been accepted and will be updated shortly.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5456,10 +5306,10 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           },
           "404": {
-            "description": "Memo not found"
+            "description": "When the specified memo does not exist."
           }
         }
       },
@@ -5467,7 +5317,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Deletes a memo",
+        "summary": "Delete a memo",
+        "description": "Deletes a specified memo.",
         "operationId": "DeleteMemo",
         "parameters": [
           {
@@ -5489,7 +5340,7 @@
         ],
         "responses": {
           "202": {
-            "description": "The request has been accepted and will be deleted shortly",
+            "description": "When request is successful. The request has been accepted and the memo will be deleted shortly.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5509,10 +5360,10 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           },
           "404": {
-            "description": "Memo not found"
+            "description": "When the specified memo does not exist."
           }
         }
       }
@@ -5806,8 +5657,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Get a task.",
-        "description": "Sample request:\r\n            \r\n    GET /tasks/{id}",
+        "summary": "Get a task",
+        "description": "Retrieves a specified task.",
         "operationId": "GetTaskById",
         "parameters": [
           {
@@ -5821,7 +5672,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the task",
+            "description": "When request is successful. Returns a 'Task' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5841,7 +5692,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5860,8 +5711,11 @@
               }
             }
           },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
           "404": {
-            "description": "Task not found",
+            "description": "When task with specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5886,8 +5740,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Updates a task.",
-        "description": "Sample request:\r\n            \r\n    PUT /tasks/id",
+        "summary": "Update a task",
+        "description": "Updates a specified task.",
         "operationId": "UpdateTask",
         "parameters": [
           {
@@ -5925,7 +5779,7 @@
         },
         "responses": {
           "202": {
-            "description": "The task has been accepted and will be updated shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be updated.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5945,7 +5799,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5964,8 +5818,11 @@
               }
             }
           },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
           "404": {
-            "description": "Task not found",
+            "description": "Not Found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5990,8 +5847,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Deletes a task.",
-        "description": "Sample request:\r\n            \r\n    DELETE /tasks/id",
+        "summary": "Delete a task",
+        "description": "Deletes a specified task.",
         "operationId": "DeleteTask",
         "parameters": [
           {
@@ -6005,7 +5862,7 @@
         ],
         "responses": {
           "202": {
-            "description": "The request has been accepted and will be deleted shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be deleted.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6025,27 +5882,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Task not found",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6072,8 +5909,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Get tasks.",
-        "description": "Sample request:\r\n            \r\n    GET /tasks",
+        "summary": "Get tasks",
+        "description": "Returns a list of tasks.",
         "operationId": "GetTasks",
         "parameters": [
           {
@@ -6097,9 +5934,9 @@
             }
           },
           {
-            "name": "updatedSince",
+            "name": "UpdatedSince",
             "in": "query",
-            "description": "Timestamp in ticks. Use this to only get tasks which have been updated",
+            "description": "Returns tasks updated since a specified time (.net ticks representation of the UTC datetime).",
             "schema": {
               "type": "integer",
               "format": "int64"
@@ -6108,7 +5945,6 @@
           {
             "name": "Search",
             "in": "query",
-            "description": "subject",
             "schema": {
               "type": "array",
               "items": {
@@ -6119,7 +5955,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the tasks",
+            "description": "When request is successful. Returns a list of 'Task' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6144,8 +5980,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Create a task.",
-        "description": "Sample request:\r\n            \r\n    POST /tasks",
+        "summary": "Create a task",
+        "description": "Creates a task.",
         "operationId": "CreateTask",
         "requestBody": {
           "content": {
@@ -6173,7 +6009,7 @@
         },
         "responses": {
           "202": {
-            "description": "The task has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be created.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6193,7 +6029,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6220,8 +6056,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Get the sub tasks on a task.",
-        "description": "Sample request:\r\n            \r\n    GET /tasks/{taskId}/subtasks/",
+        "summary": "Get sub tasks on a task",
+        "description": "Returns a list of sub tasks.",
         "operationId": "GetSubTasks",
         "parameters": [
           {
@@ -6235,7 +6071,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the subtasks",
+            "description": "When request is successful. Returns a list of 'Task' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6273,6 +6109,9 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
           },
           "404": {
             "description": "Task not found",
@@ -10569,7 +10408,9 @@
           },
           "key": {
             "type": "string",
-            "nullable": true
+            "description": "Unique key name for the layout contact.",
+            "nullable": true,
+            "example": ""
           },
           "contact": {
             "$ref": "#/components/schemas/Link"
@@ -10582,11 +10423,15 @@
         "properties": {
           "key": {
             "type": "string",
-            "nullable": true
+            "description": "Unique key name for the layout contact.",
+            "nullable": true,
+            "example": ""
           },
           "contactId": {
             "type": "string",
-            "format": "uuid"
+            "description": "Unique identifier for the layout contact.",
+            "format": "uuid",
+            "example": ""
           }
         },
         "additionalProperties": false
@@ -10616,17 +10461,22 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout design.",
+            "nullable": true,
+            "example": "Case Details"
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the layout design.",
+            "nullable": true,
+            "example": "Property and title details"
           },
           "fields": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/LayoutDesignField"
             },
+            "description": "Collection of layout design fields.",
             "nullable": true
           }
         },
@@ -10637,7 +10487,9 @@
         "properties": {
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout design field.",
+            "nullable": true,
+            "example": "Nature of Property"
           },
           "type": {
             "$ref": "#/components/schemas/LayoutDesignFieldType"
@@ -10647,7 +10499,14 @@
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of possible values (e.g. for Combobox field).",
+            "nullable": true,
+            "example": [
+              "Residence",
+              "Commercial",
+              "Factory",
+              "Office"
+            ]
           }
         },
         "additionalProperties": false
@@ -10688,7 +10547,9 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout design.",
+            "nullable": true,
+            "example": "Case Details"
           }
         },
         "additionalProperties": false
@@ -10771,40 +10632,57 @@
         "properties": {
           "index": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
           },
           "layoutDesignId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the layout design.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout item.",
+            "nullable": true,
+            "example": "Item"
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the layout item.",
+            "nullable": true,
+            "example": "Text describing item"
           },
           "isRemoved": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if the layout item is to be removed",
+            "example": false
           },
           "itemId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the layout item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "parentId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the parent layout design.",
+            "nullable": true,
+            "example": "Client"
           },
           "parentIndex": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero-based index of the parent layout design.",
+            "format": "int32",
+            "example": 0
           },
           "values": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/LayoutValue"
             },
+            "description": "List of layout values.",
             "nullable": true
           },
           "events": {
@@ -10812,6 +10690,7 @@
             "items": {
               "$ref": "#/components/schemas/LayoutEvent"
             },
+            "description": "List of layout events.",
             "nullable": true
           },
           "id": {
@@ -10857,23 +10736,33 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout item.",
+            "nullable": true,
+            "example": "Item"
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the layout item.",
+            "nullable": true,
+            "example": "Text describing item"
           },
           "itemId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the layout item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "parentId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the parent layout design.",
+            "nullable": true,
+            "example": "Client"
           },
           "index": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
           },
           "layoutDesign": {
             "$ref": "#/components/schemas/Link"
@@ -10883,6 +10772,7 @@
             "items": {
               "$ref": "#/components/schemas/LayoutValue"
             },
+            "description": "List of layout values.",
             "nullable": true
           },
           "events": {
@@ -10890,6 +10780,7 @@
             "items": {
               "$ref": "#/components/schemas/LayoutEvent"
             },
+            "description": "List of layout events.",
             "nullable": true
           }
         },
@@ -11720,35 +11611,50 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "The unique identifier of the memo.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "matterId": {
             "type": "string",
-            "nullable": true
+            "description": "The unique identifier of the matter.",
+            "nullable": true,
+            "example": "776e778f-83df-454a-b344-768a862a6e58"
           },
           "title": {
             "type": "string",
-            "nullable": true
+            "description": "The title of the memo.",
+            "nullable": true,
+            "example": "Update"
           },
           "text": {
             "type": "string",
-            "nullable": true
+            "description": "The text (content) of the memo.\r\n            \r\nIn RTF (Rich Text Format).",
+            "nullable": true,
+            "example": "There has been a recent update on this matter."
           },
           "lastUpdated": {
             "type": "string",
+            "description": "Date and time that the memo was last updated.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-05-02T16:22:02Z"
           },
           "createdByUserId": {
             "type": "string",
-            "nullable": true
+            "description": "The unique identifier of the user who created the memo.",
+            "nullable": true,
+            "example": "010f7d8e-82d1-454b-c324-760a862a7e22"
           },
           "createdDate": {
             "type": "string",
-            "format": "date-time"
+            "description": "Date the memo was created.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
           },
           "isDeleted": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether or not the memo is deleted (true if it is, false if not)."
           }
         },
         "additionalProperties": false
@@ -11761,17 +11667,21 @@
         "type": "object",
         "properties": {
           "title": {
-            "type": "string"
+            "type": "string",
+            "description": "The title of the memo.",
+            "example": "Update"
           },
           "text": {
             "type": "string",
-            "description": "Supports plain-text and RTF"
+            "description": "The text (content) of the memo.\r\n            \r\nSupports plain-text and RTF.",
+            "example": "There has been a recent update on this matter."
           },
           "createdDateUtc": {
             "type": "string",
-            "description": "Will default to the current datetime",
+            "description": "Date that the memo was created.\r\n\r\nWill default to the current date and time, if not supplied.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-07-01"
           }
         },
         "additionalProperties": false
@@ -12136,6 +12046,12 @@
           "self": {
             "$ref": "#/components/schemas/Link"
           },
+          "matter": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "parentTask": {
+            "$ref": "#/components/schemas/Link"
+          },
           "createdBy": {
             "$ref": "#/components/schemas/Link"
           },
@@ -12145,38 +12061,12 @@
           "lastUpdatedBy": {
             "$ref": "#/components/schemas/Link"
           },
-          "matter": {
-            "$ref": "#/components/schemas/Link"
-          },
-          "parentTask": {
-            "$ref": "#/components/schemas/Link"
-          },
-          "subject": {
-            "type": "string",
-            "nullable": true
-          },
-          "note": {
-            "type": "string",
-            "nullable": true
-          },
-          "isCompleted": {
-            "type": "boolean"
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
           "assignees": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "nullable": true
-          },
-          "categories": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
+            "description": "The staff member(s) assigned to the task.",
             "nullable": true
           },
           "subTasks": {
@@ -12184,26 +12074,65 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "The tasks associated to the task.",
             "nullable": true
           },
-          "completedDate": {
+          "subject": {
             "type": "string",
-            "format": "date-time",
+            "description": "The subject - a short description of the task.",
+            "nullable": true,
+            "example": "Review contract for John Smith"
+          },
+          "note": {
+            "type": "string",
+            "description": "Notes on the task.",
+            "nullable": true,
+            "example": "Contract needs to be reviewed and discussed with John"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Categories for the task.",
             "nullable": true
           },
           "dueDate": {
             "type": "string",
+            "description": "The due date of the task.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "completedDate": {
+            "type": "string",
+            "description": "When the task was completed.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
           },
           "createdDate": {
             "type": "string",
+            "description": "When the task was created.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "True when the task is completed.",
+            "example": false
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "True when the task is deleted.",
+            "example": false
           },
           "lastUpdated": {
-            "type": "string",
-            "format": "date-time"
+            "type": "integer",
+            "description": "Last updated timestamp.",
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false
@@ -12211,42 +12140,48 @@
       "TaskDto": {
         "type": "object",
         "properties": {
-          "staffId": {
-            "type": "string",
-            "description": "Staff member creating or updating the task.",
-            "nullable": true
-          },
           "matterId": {
             "type": "string",
-            "description": "Matter associated to the task.",
-            "nullable": true
+            "description": "Unique identifier of the matter associated to the task.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
-          "subject": {
+          "staffId": {
             "type": "string",
-            "description": "Subject of the task.",
-            "nullable": true
-          },
-          "note": {
-            "type": "string",
-            "description": "Notes on the task.",
-            "nullable": true
+            "description": "Unique identifier of the associated staff member creating or updated the task.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "completedByStaffId": {
             "type": "string",
-            "description": "Staff member completing the task. Must only be set when {IsCompleted} is true.",
-            "nullable": true
-          },
-          "isCompleted": {
-            "type": "boolean",
-            "description": "True when the task is completed."
+            "description": "Unique identifier of the associated staff member completing the task.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "assigneeIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Staff members assigned to the task.",
+            "description": "Unique identifier(s) of the associated staff member(s) assigned to the task.",
             "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "description": "The subject - this should be a short description of the task.",
+            "nullable": true,
+            "example": "Review contract for John Smith"
+          },
+          "note": {
+            "type": "string",
+            "description": "Notes on the task.",
+            "nullable": true,
+            "example": "Contract needs to be reviewed and discussed with John"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "True when the task is completed.",
+            "example": false
           },
           "categories": {
             "type": "array",
@@ -12260,13 +12195,15 @@
             "type": "string",
             "description": "Completed date of the task.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-07-01"
           },
           "dueDate": {
             "type": "string",
             "description": "Due date of the task.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-07-01"
           }
         },
         "additionalProperties": false
