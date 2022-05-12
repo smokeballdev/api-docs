@@ -4924,8 +4924,8 @@
         "tags": [
           "MatterTypes"
         ],
-        "summary": "Get matter types.",
-        "description": "If no `Location` is provided, all matter types from all locations will be returned (paginated)\r\nSample request:\r\n            \r\n    GET /mattertypes",
+        "summary": "Get matter types",
+        "description": "Returns a paginated list of matter types based on search criteria.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
         "operationId": "GetMatterTypes",
         "parameters": [
           {
@@ -4983,6 +4983,7 @@
           {
             "name": "Deleted",
             "in": "query",
+            "description": "Boolean field to restrict search to deleted matter types. Defaults to 'false'. Set to 'true' to search for deleted matter types only.",
             "schema": {
               "type": "boolean"
             }
@@ -4990,7 +4991,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter types",
+            "description": "When request is successful. Returns a paged collection of 'MatterTypeInfo' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5007,8 +5008,8 @@
         "tags": [
           "MatterTypes"
         ],
-        "summary": "Get a matter type.",
-        "description": "Sample request:\r\n            \r\n    GET /mattertypes/{id}",
+        "summary": "Get a matter type",
+        "description": "Retrieves a specified matter type.",
         "operationId": "GetMatterTypeById",
         "parameters": [
           {
@@ -5022,7 +5023,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter type",
+            "description": "When request is successful. Returns a 'MatterType' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5031,18 +5032,8 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid id parameter",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Matter type not found",
+            "description": "When matter type with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -11391,28 +11382,34 @@
           },
           "id": {
             "type": "string",
-            "description": "Specifies provider-specific ID.",
-            "nullable": true
+            "description": "Unique provider-specific identifier of the item.",
+            "nullable": true,
+            "example": "Plaintiff"
           },
           "providerId": {
             "type": "string",
-            "description": "Specifies the provider name for this item.",
-            "nullable": true
+            "description": "Provider name of the item.",
+            "nullable": true,
+            "example": "roles_provider"
           },
           "itemId": {
             "type": "string",
-            "description": "Uniquely identifies this item.",
-            "nullable": true
+            "description": "Unique identifier of the item.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the item.",
+            "nullable": true,
+            "example": "Claimant"
           },
           "subItems": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatterListItem"
             },
+            "description": "List of sub items belonging to the item.",
             "nullable": true
           }
         },
@@ -11439,30 +11436,45 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter type.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the matter type.",
+            "nullable": true,
+            "example": "Federal Litigation"
           },
           "category": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the category to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           },
           "representativeOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of possible representative types for the matter type.",
+            "nullable": true,
+            "example": [
+              "Applicant",
+              "Respondent"
+            ]
           },
           "location": {
             "type": "string",
-            "nullable": true
+            "description": "State to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           },
           "items": {
             "type": "array",
@@ -11495,30 +11507,45 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter type.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the matter type.",
+            "nullable": true,
+            "example": "Federal Litigation"
           },
           "category": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the category to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           },
           "representativeOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of possible representative types for the matter type.",
+            "nullable": true,
+            "example": [
+              "Applicant",
+              "Respondent"
+            ]
           },
           "location": {
             "type": "string",
-            "nullable": true
+            "description": "State to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           }
         },
         "additionalProperties": false
