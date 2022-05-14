@@ -4,7 +4,9 @@ tags: [Documentation]
 
 # Changelog
 
-## 2022-05-02 (v8.3)
+We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released. 
+
+## May 2022
 
 #### Stages
 * Added API.
@@ -29,7 +31,7 @@ tags: [Documentation]
 * Fixed null fields on `Firm` update webhook events.
 
 
-## 2022-03-13 (v8.2)
+## March 2022
 
 #### Firms
 * Added `Logo` field to GET responses.
@@ -43,7 +45,7 @@ tags: [Documentation]
 * Added `LastUpdated` field to GET responses.
 
 
-## 2022-02-07 (v8.1)
+## July 2022
 
 ##### Firms
 * Added validation when creating a firm to ensure the user is not associated to another firm.
