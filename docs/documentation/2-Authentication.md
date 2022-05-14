@@ -6,7 +6,7 @@ tags: [Documentation]
 
 ## Client Application Details
 
-Please note that currently, our APIs are available to be consumed only by our approved partners. In order to learn how to become Smokeball's Approved Partner. Please contact; support@smokeball.com if you're based in US, and contact support@smokeball.com.au if you are based in AU.
+Please note that currently, our APIs are available to be consumed only by our approved partners. In order to learn how to become Smokeball's Approved Partner, please contact; support@smokeball.com if you're based in US, and contact support@smokeball.com.au if you are based in AU.
 
 Smokeball will provide you with your **client_id** and **client_secret** that you will use throughout the oauth2 flow. 
 
