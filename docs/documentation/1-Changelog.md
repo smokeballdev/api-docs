@@ -12,7 +12,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Added API.
 
 #### Contacts
-* Added ability to restore contacts in `PUT` endpoint.
+* Added ability to restore contacts in PUT endpoint.
 * Added ability to relate a person to a group of people.
 * Added ability to add and update trusts.
 
