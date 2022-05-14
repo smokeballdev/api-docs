@@ -2,7 +2,21 @@
 tags: [Documentation]
 ---
 
-# Layout Data Mapping
+# Layouts
+
+## Overview
+
+Layouts are User Interfaces that look different from each other, and are designed for a specific/unique purpose. They are designed and maintained by our product team. Each user interface has different fields pertinent to their unique purpose.
+
+For example, we have a Property Details Layout for for Conveyancing Matter Types:
+
+![Property Details](../../assets/images/propertydetails.png)
+
+Or, Case Details Layout for some Litigation Matter Types:
+
+![Case Details](../../assets/images/casedetails.png)
+
+## Layout Data Mapping
 
 How to get a list of layout fields that you can set up a mapping for:
 
