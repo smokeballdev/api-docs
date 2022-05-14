@@ -1,4 +1,4 @@
-﻿---
+---
 tags: [Documentation]
 ---
 
@@ -8,11 +8,11 @@ tags: [Documentation]
 
 Layouts are User Interfaces that look different from each other, and are designed for a specific/unique purpose. They are designed and maintained by our product team. Each user interface has different fields pertinent to their unique purpose.
 
-For example, we have a *Property Details* Layout for *Conveyancing* Matter Types:
+For example, we have a **Property Details** Layout for **Conveyancing** Matter Types:
 
 ![Property Details](../../assets/images/propertydetails.png)
 
-Or, *Case Details* Layout for some *Litigation* Matter Types:
+Or, **Case Details** Layout for some **Litigation** Matter Types:
 
 ![Case Details](../../assets/images/casedetails.png)
 
