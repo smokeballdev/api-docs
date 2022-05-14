@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Layouts
 
-## Overview
+### 1. Overview
 
 Layouts are User Interfaces that look different from each other, and are designed for a specific/unique purpose. They are designed and maintained by our product team. Each user interface has different fields pertinent to their unique purpose.
 
@@ -16,7 +16,7 @@ Or, **Case Details** Layout for some **Litigation** Matter Types:
 
 ![Case Details](../../assets/images/casedetails.png)
 
-## Data Mapping
+### 2. Data Mapping
 
 How to get a list of layout fields that you can set up a mapping for:
 
