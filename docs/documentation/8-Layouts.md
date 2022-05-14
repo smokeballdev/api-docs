@@ -16,7 +16,7 @@ Or, *Case Details* Layout for some *Litigation* Matter Types:
 
 ![Case Details](../../assets/images/casedetails.png)
 
-## Layout Data Mapping
+## Data Mapping
 
 How to get a list of layout fields that you can set up a mapping for:
 
