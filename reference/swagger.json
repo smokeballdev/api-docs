@@ -1071,8 +1071,8 @@
         "tags": [
           "Files"
         ],
-        "summary": "Gets a list of files on a matter",
-        "description": "GET /matters/{matterId}/files",
+        "summary": "Get files on a matter",
+        "description": "Returns a list of files associated with a matter.",
         "operationId": "GetFiles",
         "parameters": [
           {
@@ -1106,7 +1106,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns a list of files on a matter",
+            "description": "When request is successful. Returns a paged collection of 'File' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1126,7 +1126,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "When the requested matter does not belong to the account making the request.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1151,13 +1151,13 @@
         "tags": [
           "Files"
         ],
-        "summary": "Adds a file to a matter",
+        "summary": "Add file to a matter",
+        "description": "Uploads a new file for the specified matter.",
         "operationId": "AddFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1165,7 +1165,6 @@
           }
         ],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -1192,7 +1191,7 @@
         },
         "responses": {
           "202": {
-            "description": "Returns the file location and upload url",
+            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1212,7 +1211,7 @@
             }
           },
           "400": {
-            "description": "Bad request if the file name does not contain valid XML characters.",
+            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1239,8 +1238,8 @@
         "tags": [
           "Files"
         ],
-        "summary": "Gets a file",
-        "description": "GET /matters/{matterId}/files/{fileId}",
+        "summary": "Get a file",
+        "description": "Retrieves a specified file.",
         "operationId": "GetFileById",
         "parameters": [
           {
@@ -1262,7 +1261,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the file",
+            "description": "When request is successful. Returns a 'File' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1282,7 +1281,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "When the requested file does not belong to the account making the request.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1302,7 +1301,7 @@
             }
           },
           "404": {
-            "description": "File not found",
+            "description": "When file with the specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1327,13 +1326,13 @@
         "tags": [
           "Files"
         ],
-        "summary": "Update a file's metadata or upload a new version of the file",
+        "summary": "Upload/update version or metadata of a file",
+        "description": "Updates the metadata for a file or uploads a new version of the file",
         "operationId": "UpdateFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1342,7 +1341,6 @@
           {
             "name": "fileId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1350,7 +1348,6 @@
           }
         ],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -1377,7 +1374,7 @@
         },
         "responses": {
           "202": {
-            "description": "Returns the file location and upload url",
+            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1397,7 +1394,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1417,7 +1414,7 @@
             }
           },
           "404": {
-            "description": "File not found",
+            "description": "When file or matter with the specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1442,14 +1439,13 @@
         "tags": [
           "Files"
         ],
-        "summary": "Deletes the file",
-        "description": "Sample request:\r\n            \r\n    DELETE /files/id",
+        "summary": "Delete a file",
+        "description": "Deletes a specified matter file.",
         "operationId": "DeleteFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Id of the Matter to which the file belongs to.",
             "required": true,
             "schema": {
               "type": "string",
@@ -1459,7 +1455,6 @@
           {
             "name": "fileId",
             "in": "path",
-            "description": "Id of the file to soft delete to.",
             "required": true,
             "schema": {
               "type": "string",
@@ -1469,7 +1464,7 @@
         ],
         "responses": {
           "202": {
-            "description": "Returns the file id of deleted file",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the file to be deleted.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1489,7 +1484,7 @@
             }
           },
           "400": {
-            "description": "Bad request if the file does not belong to matter id.",
+            "description": "When the requested file does not belong to the specified matter.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1509,7 +1504,7 @@
             }
           },
           "403": {
-            "description": "Forbidden request if the file does not belong to current user.",
+            "description": "When the requested file does not belong to the account making the request.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1536,7 +1531,8 @@
         "tags": [
           "Files"
         ],
-        "summary": "Gets the download url for a file",
+        "summary": "Get download url for a file",
+        "description": "Retrieves download details for a specified matter file.",
         "operationId": "DownloadFile",
         "parameters": [
           {
@@ -1550,7 +1546,6 @@
           {
             "name": "fileId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1559,7 +1554,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the file download metadata",
+            "description": "When request is successful. Returns a 'DownloadFileInfo' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1579,7 +1574,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "When the requested file does not belong to the account making the request.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1599,7 +1594,7 @@
             }
           },
           "404": {
-            "description": "File not found",
+            "description": "When file or matter with the specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1626,13 +1621,13 @@
         "tags": [
           "Files"
         ],
-        "summary": "Gets the upload url for a file",
+        "summary": "Get upload url for a file",
+        "description": "Retrieves upload details for a specified matter file.",
         "operationId": "UploadFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1641,7 +1636,6 @@
           {
             "name": "fileId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1650,7 +1644,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the file upload url",
+            "description": "When request is successful. Returns a 'UploadFileInfo' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1670,7 +1664,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "When the requested file does not belong to the account making the request.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1690,7 +1684,7 @@
             }
           },
           "404": {
-            "description": "File not found",
+            "description": "When file or matter with the specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1717,13 +1711,13 @@
         "tags": [
           "Folders"
         ],
-        "summary": "Gets the root folder of a matter and a list of sub folders and files",
+        "summary": "Get folders/files under root folder",
+        "description": "Returns a list of sub folders and files under the root folder of a matter",
         "operationId": "GetFolders",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1752,7 +1746,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the sub folders and files in the root folder",
+            "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1767,26 +1761,6 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1797,13 +1771,13 @@
         "tags": [
           "Folders"
         ],
-        "summary": "Creates a folder",
+        "summary": "Create a folder",
+        "description": "Creates a new folder under the specified matter.",
         "operationId": "CreateRootFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1811,7 +1785,6 @@
           }
         ],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -1837,7 +1810,7 @@
         },
         "responses": {
           "202": {
-            "description": "The folder has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be created.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1857,7 +1830,7 @@
             }
           },
           "400": {
-            "description": "Bad request if the folder name is empty.",
+            "description": "When folder name is not provided.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1884,13 +1857,13 @@
         "tags": [
           "Folders"
         ],
-        "summary": "Gets a folder and a list of sub folders and files",
+        "summary": "Get folders/files under a folder",
+        "description": "Returns a list of sub folders and files under a specified folder of a matter",
         "operationId": "GetFolderById",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1899,7 +1872,6 @@
           {
             "name": "folderId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1928,7 +1900,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the sub folders and files in the folder",
+            "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1947,8 +1919,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request",
+          "404": {
+            "description": "When folder with the specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1974,12 +1946,12 @@
           "Folders"
         ],
         "summary": "Update a folder",
+        "description": "Updates a folder belonging to the specified matter.",
         "operationId": "UpdateFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1988,7 +1960,6 @@
           {
             "name": "folderId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1996,7 +1967,6 @@
           }
         ],
         "requestBody": {
-          "description": "",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -2022,7 +1992,7 @@
         },
         "responses": {
           "202": {
-            "description": "Returns the folder location",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be updated.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2042,7 +2012,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When folder name is not provided or folder does not belong to the specified matter.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2062,7 +2032,7 @@
             }
           },
           "404": {
-            "description": "Folder not found",
+            "description": "When folder with the specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2087,14 +2057,13 @@
         "tags": [
           "Folders"
         ],
-        "summary": "Deletes the folder",
-        "description": "Sample request:\r\n            \r\n    DELETE /folders/id",
+        "summary": "Delete a folder",
+        "description": "Deletes a folder belonging to the specified matter.",
         "operationId": "DeleteFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Id of the Matter to which the folder belongs to.",
             "required": true,
             "schema": {
               "type": "string",
@@ -2104,7 +2073,6 @@
           {
             "name": "folderId",
             "in": "path",
-            "description": "Id of the folder to soft delete to.",
             "required": true,
             "schema": {
               "type": "string",
@@ -2114,7 +2082,7 @@
         ],
         "responses": {
           "202": {
-            "description": "Returns the folder id of deleted folder",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be deleted.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2134,27 +2102,7 @@
             }
           },
           "400": {
-            "description": "Bad request if the folder does not belong to matter id.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
+            "description": "When the folder does not belong to the specified matter.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -3637,8 +3585,8 @@
         "tags": [
           "MatterItems"
         ],
-        "summary": "Get items on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/items",
+        "summary": "Get items on a matter",
+        "description": "Returns a list of items on a specified matter.",
         "operationId": "GetMatterItems",
         "parameters": [
           {
@@ -3652,7 +3600,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter items",
+            "description": "When request is successful. Returns a 'MatterItems' object containing a list of 'MatterItem' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -3672,7 +3620,7 @@
             }
           },
           "404": {
-            "description": "Matter not found"
+            "description": "When matter with specified id does not exist."
           }
         }
       }
@@ -3682,8 +3630,8 @@
         "tags": [
           "MatterItems"
         ],
-        "summary": "Get an item on a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/items/{id}",
+        "summary": "Get an item on a matter",
+        "description": "Returns an item on a specified matter.",
         "operationId": "GetMatterItem",
         "parameters": [
           {
@@ -3705,7 +3653,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the item",
+            "description": "When request is successful. Returns a 'MatterItem' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -3725,7 +3673,7 @@
             }
           },
           "404": {
-            "description": "Item not found"
+            "description": "When the specified matter or item does not exist."
           }
         }
       }
@@ -3736,6 +3684,7 @@
           "LayoutDesigns"
         ],
         "summary": "Get layout designs",
+        "description": "Returns a list of layout designs.",
         "operationId": "GetLayoutDesigns",
         "parameters": [
           {
@@ -3761,51 +3710,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a paged collection of 'LayoutDesignInfo' objects.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LayoutDesignInfoPagedCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -3819,12 +3728,13 @@
           "LayoutDesigns"
         ],
         "summary": "Get a layout design",
+        "description": "Retrieves a specified layout design.",
         "operationId": "GetLayoutDesignById",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Layout design ID",
+            "description": "Layout design Id",
             "required": true,
             "schema": {
               "type": "string"
@@ -3833,7 +3743,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'LayoutDesign' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3842,38 +3752,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Not Found",
+            "description": "When layout design with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3891,12 +3771,13 @@
           "LayoutMatterItems"
         ],
         "summary": "Get layout items on a matter",
+        "description": "Returns a collection of layout items on a specified matter.",
         "operationId": "GetLayoutMatterItems",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter ID",
+            "description": "Matter Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -3906,51 +3787,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'LayoutMatterItemDataCollection' object.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LayoutMatterItemDataCollection"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -3964,12 +3805,13 @@
           "LayoutMatterItems"
         ],
         "summary": "Get a layout item on a matter",
+        "description": "Retrieves a layout item on a specified matter.",
         "operationId": "GetLayoutMatterItemById",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter ID",
+            "description": "Matter Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -3979,7 +3821,7 @@
           {
             "name": "itemId",
             "in": "path",
-            "description": "Matter item ID",
+            "description": "Layout item Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -3989,7 +3831,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a 'LayoutMatterItemData' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3998,38 +3840,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Not Found",
+            "description": "When layout item with specified id does not exist on the matter.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4045,12 +3857,13 @@
           "LayoutMatterItems"
         ],
         "summary": "Merge a layout matter item",
+        "description": "Merge layout item changes for a specified layout.",
         "operationId": "MergeLayout",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter ID",
+            "description": "Matter Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -4060,7 +3873,7 @@
           {
             "name": "itemId",
             "in": "path",
-            "description": "Matter item ID",
+            "description": "Matter item Id",
             "required": true,
             "schema": {
               "type": "string",
@@ -4090,7 +3903,7 @@
         },
         "responses": {
           "202": {
-            "description": "Success",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4100,7 +3913,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When the update payload does not contain an id that matched the id of the item requiring update.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4130,7 +3943,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When layout item with specified id does not exist on the matter.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4148,6 +3961,7 @@
           "LayoutMatterItems"
         ],
         "summary": "Get contacts on a layout",
+        "description": "Returns a list of contacts on a specified layout.",
         "operationId": "GetLayoutMatterItemContacts",
         "parameters": [
           {
@@ -4173,7 +3987,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "When request is successful. Returns a list of 'LayoutContact' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4185,38 +3999,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Not Found",
+            "description": "When contacts do not exist for the layout item with specified id.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4232,6 +4016,7 @@
           "LayoutMatterItems"
         ],
         "summary": "Add a contact to a layout",
+        "description": "Adds a new contact on a specified layout.",
         "operationId": "AddLayoutMatterItemContact",
         "parameters": [
           {
@@ -4275,8 +4060,18 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success"
+          "202": {
+            "description": "When request is accepted"
+          },
+          "404": {
+            "description": "When layout item with specified id does not exist on the matter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -4343,13 +4138,24 @@
           {
             "name": "LastUpdated",
             "in": "query",
-            "description": "Filter by last updated date of matter.",
+            "description": "Deprecated, use updatedSince.\r\nFilter by last updated date of matter.",
             "schema": {
               "type": "string",
               "format": "date-time",
               "example": "2022-04-23T14:00:00Z"
             },
             "example": "2022-04-23T14:00:00Z"
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 637873555398585000
+            },
+            "example": 637873555398585000
           }
         ],
         "responses": {
@@ -4370,7 +4176,7 @@
           "Matters"
         ],
         "summary": "Create a matter",
-        "description": "Creates a new matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- 'otherSideIds' cannot be set for a lead\r\n            \r\n- 'clientRole' and 'otherSideRole' cannot be identical for a matter",
+        "description": "Creates a new matter.\r\n            \r\nNote: This endpoint can also be used to create a 'Lead'.\r\n\r\nWhen creating a 'Lead' you MUST remember to set a valid lead specific 'matterTypeId' field (see field description below for more details) and set the 'isLead' field to true.\r\n            \r\n\r\nThe following actions are currently not supported:\r\n            \r\n- 'otherSideIds' cannot be set for a lead\r\n            \r\n- 'clientRole' and 'otherSideRole' cannot be identical for a matter",
         "operationId": "CreateMatter",
         "requestBody": {
           "content": {
@@ -4619,7 +4425,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter or role group does not exist.",
+            "description": "When the specified matter or role group does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4688,7 +4494,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter or role does not exist.",
+            "description": "When the specified matter or role does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4749,7 +4555,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter, role group or role (within the specified role group) does not exist.",
+            "description": "When the specified matter, role group or role (within the specified role group) does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4827,7 +4633,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter, role or relationship does not exist.",
+            "description": "When the specified matter, role or relationship does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4870,7 +4676,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4930,7 +4736,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4982,7 +4788,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5051,7 +4857,7 @@
             }
           },
           "404": {
-            "description": ">When the specified matter does not exist.",
+            "description": "When the specified matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5101,7 +4907,7 @@
             }
           },
           "404": {
-            "description": ">When matter does not exist.",
+            "description": "When matter does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5118,8 +4924,8 @@
         "tags": [
           "MatterTypes"
         ],
-        "summary": "Get matter types.",
-        "description": "If no `Location` is provided, all matter types from all locations will be returned (paginated)\r\nSample request:\r\n            \r\n    GET /mattertypes",
+        "summary": "Get matter types",
+        "description": "Returns a paginated list of matter types based on search criteria.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
         "operationId": "GetMatterTypes",
         "parameters": [
           {
@@ -5177,6 +4983,7 @@
           {
             "name": "Deleted",
             "in": "query",
+            "description": "Boolean field to restrict search to deleted matter types. Defaults to 'false'. Set to 'true' to search for deleted matter types only.",
             "schema": {
               "type": "boolean"
             }
@@ -5184,7 +4991,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter types",
+            "description": "When request is successful. Returns a paged collection of 'MatterTypeInfo' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5201,8 +5008,8 @@
         "tags": [
           "MatterTypes"
         ],
-        "summary": "Get a matter type.",
-        "description": "Sample request:\r\n            \r\n    GET /mattertypes/{id}",
+        "summary": "Get a matter type",
+        "description": "Retrieves a specified matter type.",
         "operationId": "GetMatterTypeById",
         "parameters": [
           {
@@ -5216,7 +5023,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the matter type",
+            "description": "When request is successful. Returns a 'MatterType' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5225,18 +5032,8 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid id parameter",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "Matter type not found",
+            "description": "When matter type with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5253,7 +5050,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Gets memos on a matter",
+        "summary": "Get memos on a matter",
+        "description": "Returns a list of memos on the specified matter.",
         "operationId": "GetMemos",
         "parameters": [
           {
@@ -5287,7 +5085,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the memos",
+            "description": "When request is successful. Returns a list of 'Memo' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5312,7 +5110,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Creates a memo on a matter",
+        "summary": "Create a memo on a matter",
+        "description": "Creates a memo on the specified matter.",
         "operationId": "CreateMemo",
         "parameters": [
           {
@@ -5350,7 +5149,7 @@
         },
         "responses": {
           "202": {
-            "description": "The memo has been accepted and will be created shortly",
+            "description": "When request is successful. The memo has been accepted and will be created shortly.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5370,7 +5169,7 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           }
         }
       }
@@ -5381,6 +5180,7 @@
           "Memos"
         ],
         "summary": "Get a memo",
+        "description": "Retrieves a specified memo.",
         "operationId": "GetMemoById",
         "parameters": [
           {
@@ -5394,7 +5194,6 @@
           {
             "name": "id",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -5403,7 +5202,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the memo",
+            "description": "When request is successful. Returns the specified memo.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5423,7 +5222,7 @@
             }
           },
           "404": {
-            "description": "Memo not found"
+            "description": "When the specified memo does not exist."
           }
         }
       },
@@ -5431,7 +5230,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Updates a memo",
+        "summary": "Update a memo",
+        "description": "Updates a specified memo.",
         "operationId": "UpdateMemo",
         "parameters": [
           {
@@ -5477,7 +5277,7 @@
         },
         "responses": {
           "202": {
-            "description": "The memo has been accepted and will be updated shortly",
+            "description": "When request is successful. The memo has been accepted and will be updated shortly.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5497,10 +5297,10 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           },
           "404": {
-            "description": "Memo not found"
+            "description": "When the specified memo does not exist."
           }
         }
       },
@@ -5508,7 +5308,8 @@
         "tags": [
           "Memos"
         ],
-        "summary": "Deletes a memo",
+        "summary": "Delete a memo",
+        "description": "Deletes a specified memo.",
         "operationId": "DeleteMemo",
         "parameters": [
           {
@@ -5530,7 +5331,7 @@
         ],
         "responses": {
           "202": {
-            "description": "The request has been accepted and will be deleted shortly",
+            "description": "When request is successful. The request has been accepted and the memo will be deleted shortly.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5550,10 +5351,10 @@
             }
           },
           "400": {
-            "description": "Bad request"
+            "description": "Bad request."
           },
           "404": {
-            "description": "Memo not found"
+            "description": "When the specified memo does not exist."
           }
         }
       }
@@ -5563,8 +5364,8 @@
         "tags": [
           "FirmMatterStages"
         ],
-        "summary": "Get stage to matter mappings in the firm associated with the authenticated client.",
-        "description": "Sample request:\r\n            \r\n    GET /stages",
+        "summary": "Get stage to matter mappings in the firm",
+        "description": "Returns a list of stage to matter mappings in the firm.",
         "operationId": "GetMatterStages",
         "parameters": [
           {
@@ -5588,8 +5389,18 @@
             }
           },
           {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
             "name": "LastUpdated",
             "in": "query",
+            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -5598,7 +5409,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the stage to matter mappings",
+            "description": "Returns the matter stage mappings.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5613,10 +5424,10 @@
     "/matters/{matterId}/stages": {
       "get": {
         "tags": [
-          "MatterStages"
+          "Stages"
         ],
-        "summary": "Get current stage information of a matter.",
-        "description": "Sample request:\r\n            \r\n    GET /matters/{matterId}/stages",
+        "summary": "Get a matter stage information",
+        "description": "Returns the specified matters stage information.",
         "operationId": "GetStagesOnMatter",
         "parameters": [
           {
@@ -5631,7 +5442,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the stages on a matter",
+            "description": "When request is successful. Returns a 'MatterStage' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5640,8 +5451,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5649,51 +5460,9 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/stagesets/{stageSetId}/stages/{id}": {
-      "get": {
-        "tags": [
-          "Stages"
-        ],
-        "summary": "Get a stage on a stage set.",
-        "description": "Sample request:\r\n            \r\n    GET /stagesets/{stageSetId}/stages/{id}",
-        "operationId": "GetStageOnStageSet",
-        "parameters": [
-          {
-            "name": "stageSetId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the stage",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Stage"
-                }
-              }
-            }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When matter stage information with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5710,8 +5479,8 @@
         "tags": [
           "StageSets"
         ],
-        "summary": "Get stage sets of the firm associated with the authenticated client.",
-        "description": "Sample request:\r\n            \r\n    GET /stagesets",
+        "summary": "Get stage sets for the firm",
+        "description": "Returns a list of stage sets for the firm.",
         "operationId": "GetStageSets",
         "parameters": [
           {
@@ -5735,8 +5504,18 @@
             }
           },
           {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
             "name": "LastUpdated",
             "in": "query",
+            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -5762,8 +5541,8 @@
         "tags": [
           "StageSets"
         ],
-        "summary": "Get a stage set.",
-        "description": "Sample request:\r\n            \r\n    GET /stagesets/{id}",
+        "summary": "Get a stage set",
+        "description": "Returns the specified stage set.",
         "operationId": "GetStageSetById",
         "parameters": [
           {
@@ -5777,7 +5556,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the stage set",
+            "description": "When request is successful. Returns a 'StageSet' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5787,7 +5566,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5797,7 +5576,62 @@
             }
           },
           "404": {
-            "description": "Stage Set not found",
+            "description": "When stage set with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stagesets/{stageSetId}/stages/{id}": {
+      "get": {
+        "tags": [
+          "StageSets"
+        ],
+        "summary": "Get a stage on a stage set",
+        "description": "Return the specified stage on the stage set.",
+        "operationId": "GetStageOnStageSet",
+        "parameters": [
+          {
+            "name": "stageSetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Stage' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made."
+          },
+          "404": {
+            "description": "When stage or stage set with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5814,8 +5648,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Get a task.",
-        "description": "Sample request:\r\n            \r\n    GET /tasks/{id}",
+        "summary": "Get a task",
+        "description": "Retrieves a specified task.",
         "operationId": "GetTaskById",
         "parameters": [
           {
@@ -5829,7 +5663,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the task",
+            "description": "When request is successful. Returns a 'Task' object.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5849,7 +5683,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5868,8 +5702,11 @@
               }
             }
           },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
           "404": {
-            "description": "Task not found",
+            "description": "When task with specified id does not exist.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5894,8 +5731,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Updates a task.",
-        "description": "Sample request:\r\n            \r\n    PUT /tasks/id",
+        "summary": "Update a task",
+        "description": "Updates a specified task.",
         "operationId": "UpdateTask",
         "parameters": [
           {
@@ -5933,7 +5770,7 @@
         },
         "responses": {
           "202": {
-            "description": "The task has been accepted and will be updated shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be updated.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5953,7 +5790,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5972,8 +5809,11 @@
               }
             }
           },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
           "404": {
-            "description": "Task not found",
+            "description": "Not Found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -5998,8 +5838,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Deletes a task.",
-        "description": "Sample request:\r\n            \r\n    DELETE /tasks/id",
+        "summary": "Delete a task",
+        "description": "Deletes a specified task.",
         "operationId": "DeleteTask",
         "parameters": [
           {
@@ -6013,7 +5853,7 @@
         ],
         "responses": {
           "202": {
-            "description": "The request has been accepted and will be deleted shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be deleted.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6033,27 +5873,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Task not found",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6080,8 +5900,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Get tasks.",
-        "description": "Sample request:\r\n            \r\n    GET /tasks",
+        "summary": "Get tasks",
+        "description": "Returns a list of tasks.",
         "operationId": "GetTasks",
         "parameters": [
           {
@@ -6105,9 +5925,9 @@
             }
           },
           {
-            "name": "updatedSince",
+            "name": "UpdatedSince",
             "in": "query",
-            "description": "Timestamp in ticks. Use this to only get tasks which have been updated",
+            "description": "Returns tasks updated since a specified time (.net ticks representation of the UTC datetime).",
             "schema": {
               "type": "integer",
               "format": "int64"
@@ -6116,7 +5936,6 @@
           {
             "name": "Search",
             "in": "query",
-            "description": "subject",
             "schema": {
               "type": "array",
               "items": {
@@ -6127,7 +5946,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the tasks",
+            "description": "When request is successful. Returns a list of 'Task' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6152,8 +5971,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Create a task.",
-        "description": "Sample request:\r\n            \r\n    POST /tasks",
+        "summary": "Create a task",
+        "description": "Creates a task.",
         "operationId": "CreateTask",
         "requestBody": {
           "content": {
@@ -6181,7 +6000,7 @@
         },
         "responses": {
           "202": {
-            "description": "The task has been accepted and will be created shortly",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be created.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6201,7 +6020,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6228,8 +6047,8 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Get the sub tasks on a task.",
-        "description": "Sample request:\r\n            \r\n    GET /tasks/{taskId}/subtasks/",
+        "summary": "Get sub tasks on a task",
+        "description": "Returns a list of sub tasks.",
         "operationId": "GetSubTasks",
         "parameters": [
           {
@@ -6243,7 +6062,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the subtasks",
+            "description": "When request is successful. Returns a list of 'Task' objects.",
             "content": {
               "text/plain": {
                 "schema": {
@@ -6281,6 +6100,9 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
           },
           "404": {
             "description": "Task not found",
@@ -6310,8 +6132,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get a user.",
-        "description": "Sample request:\r\n            \r\n    GET /users/{id}",
+        "summary": "Get a user",
+        "description": "Retrieves a specified user. Only accessible using client credentials grant.",
         "operationId": "GetUserById",
         "parameters": [
           {
@@ -6326,7 +6148,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the contact",
+            "description": "When request is successful. Returns a 'User' object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6336,7 +6158,17 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When user with specified id is not associated with authenticated client.\r\n\r\nWhen the request is not made using client credentials grant.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6346,7 +6178,7 @@
             }
           },
           "404": {
-            "description": "Contact not found",
+            "description": "When user with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6363,8 +6195,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Create a user.",
-        "description": "Sample request:\r\n            \r\n    POST /users\r\n    {\r\n        \"Email\": \"bob.jones123@gmail.com\",\r\n        \"Password\": \"xxxxxxxx\"\r\n    }",
+        "summary": "Get a user",
+        "description": "Retrieves a specified user. Only accessible using client credentials grant.",
         "operationId": "CreateUser",
         "requestBody": {
           "content": {
@@ -6386,8 +6218,11 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'User' object."
+          },
           "202": {
-            "description": "The user has been accepted and will be created shortly",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
@@ -6397,7 +6232,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "When user or password validation fails.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6405,6 +6240,9 @@
                 }
               }
             }
+          },
+          "403": {
+            "description": "When the request is not made using client credentials grant."
           }
         }
       }
@@ -8517,19 +8355,22 @@
           },
           "folderId": {
             "type": "string",
-            "description": "Id of the folder to add the file to. If null it will be placed in the root folder",
-            "nullable": true
+            "description": "Unique identifier of the folder to add the file to. If null it will be placed in the root folder",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "userId": {
             "type": "string",
-            "description": "Id of the file owner. If null it will fallback to the authenticated user",
-            "nullable": true
+            "description": "Unique identifier of the file owner. If null it will fallback to the authenticated user",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "dateCreated": {
             "type": "string",
             "description": "The original datetime that the file was created. If null the current datetime will be used",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           }
         },
         "additionalProperties": false
@@ -8539,19 +8380,27 @@
         "properties": {
           "fileId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the requested file",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "downloadUrl": {
             "type": "string",
-            "nullable": true
+            "description": "Temporary Link to download file",
+            "nullable": true,
+            "example": ""
           },
           "expiry": {
             "type": "string",
-            "format": "date-time"
+            "description": "Expiry date/time when the download link is no longer accessible",
+            "format": "date-time",
+            "example": "2022-04-23T14:30:00Z"
           },
           "sizeBytes": {
             "type": "integer",
-            "format": "int64"
+            "description": "Size of the requested file (in bytes)",
+            "format": "int64",
+            "example": 19104768
           }
         },
         "additionalProperties": false
@@ -8571,13 +8420,15 @@
           },
           "folderId": {
             "type": "string",
-            "description": "Id of the folder to add the file to. If null it will be placed in the root folder",
-            "nullable": true
+            "description": "Unique identifier of the folder to add the file to. If null it will be placed in the root folder",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "userId": {
             "type": "string",
-            "description": "Id of the user modifying the file. If null it will fallback to the authenticated user",
-            "nullable": true
+            "description": "Unique identifier of the user modifying the file. If null it will fallback to the authenticated user",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "fileAdditionalData": {
             "type": "object",
@@ -8611,38 +8462,54 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the file",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "folder": {
             "$ref": "#/components/schemas/Link"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the file, excluding file extension",
+            "nullable": true,
+            "example": "court filing"
           },
           "fileExtension": {
             "type": "string",
-            "nullable": true
+            "description": "Extension of the file",
+            "nullable": true,
+            "example": ".pdf"
           },
           "ownerId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the staff member who created/uploaded this file",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "to": {
             "type": "string",
-            "nullable": true
+            "description": "The 'To' or recipients' email address (only applicable for email files)",
+            "nullable": true,
+            "example": "recipient@email.com"
           },
           "from": {
             "type": "string",
-            "nullable": true
+            "description": "The 'From' or sender's email address (only applicable for email files)",
+            "nullable": true,
+            "example": "sender@email.com"
           },
           "dateCreated": {
             "type": "string",
-            "format": "date-time"
+            "description": "The original datetime that the file was created",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
           },
           "sizeBytes": {
             "type": "integer",
-            "format": "int64"
+            "description": "Size of the file (in bytes)",
+            "format": "int64",
+            "example": 19104768
           },
           "downloadInfo": {
             "$ref": "#/components/schemas/Link"
@@ -8652,6 +8519,7 @@
             "additionalProperties": {
               "type": "string"
             },
+            "description": "Collection of file meta data as KeyValuePair(string, string).",
             "nullable": true
           }
         },
@@ -8737,15 +8605,21 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the folder",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "parentId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the parent folder",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the folder",
+            "nullable": true,
+            "example": "Property Documents"
           }
         },
         "additionalProperties": false
@@ -8758,16 +8632,21 @@
         "properties": {
           "name": {
             "maxLength": 256,
-            "type": "string"
+            "type": "string",
+            "description": "Name of the folder",
+            "example": "Property Documents"
           },
           "parentFolderId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the parent folder",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "userId": {
             "type": "string",
-            "description": "Id of the user modifying the folder. If null it will fallback to the authenticated user",
-            "nullable": true
+            "description": "Unique identifier of the user modifying the folder. If null it will fallback to the authenticated user",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           }
         },
         "additionalProperties": false
@@ -8800,6 +8679,7 @@
             "items": {
               "$ref": "#/components/schemas/Folder"
             },
+            "description": "List of folders",
             "nullable": true,
             "readOnly": true
           },
@@ -8808,6 +8688,7 @@
             "items": {
               "$ref": "#/components/schemas/File"
             },
+            "description": "List of files",
             "nullable": true,
             "readOnly": true
           }
@@ -8878,15 +8759,21 @@
         "properties": {
           "fileId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the file",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "uploadUrl": {
             "type": "string",
-            "nullable": true
+            "description": "Temporary Link to upload file",
+            "nullable": true,
+            "example": ""
           },
           "expiry": {
             "type": "string",
-            "format": "date-time"
+            "description": "Expiry date/time when the upload link is no longer accessible",
+            "format": "date-time",
+            "example": "2022-04-23T14:30:00Z"
           }
         },
         "additionalProperties": false
@@ -10415,24 +10302,33 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the item on a matter.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the item.",
+            "nullable": true,
+            "example": "Client"
           },
           "index": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero based number of this item in the list.",
+            "format": "int32",
+            "example": 0
           },
           "visible": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if the item is visible.",
+            "example": false
           },
           "subItems": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatterItem"
             },
+            "description": "List of child items associated with the item.",
             "nullable": true
           }
         },
@@ -10463,13 +10359,16 @@
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatterItem"
             },
+            "description": "List of items on a matter.",
             "nullable": true
           }
         },
@@ -10500,7 +10399,9 @@
           },
           "key": {
             "type": "string",
-            "nullable": true
+            "description": "Unique key name for the layout contact.",
+            "nullable": true,
+            "example": ""
           },
           "contact": {
             "$ref": "#/components/schemas/Link"
@@ -10513,11 +10414,15 @@
         "properties": {
           "key": {
             "type": "string",
-            "nullable": true
+            "description": "Unique key name for the layout contact.",
+            "nullable": true,
+            "example": ""
           },
           "contactId": {
             "type": "string",
-            "format": "uuid"
+            "description": "Unique identifier for the layout contact.",
+            "format": "uuid",
+            "example": ""
           }
         },
         "additionalProperties": false
@@ -10547,17 +10452,22 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout design.",
+            "nullable": true,
+            "example": "Case Details"
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the layout design.",
+            "nullable": true,
+            "example": "Property and title details"
           },
           "fields": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/LayoutDesignField"
             },
+            "description": "Collection of layout design fields.",
             "nullable": true
           }
         },
@@ -10568,7 +10478,9 @@
         "properties": {
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout design field.",
+            "nullable": true,
+            "example": "Nature of Property"
           },
           "type": {
             "$ref": "#/components/schemas/LayoutDesignFieldType"
@@ -10578,7 +10490,14 @@
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of possible values (e.g. for Combobox field).",
+            "nullable": true,
+            "example": [
+              "Residence",
+              "Commercial",
+              "Factory",
+              "Office"
+            ]
           }
         },
         "additionalProperties": false
@@ -10619,7 +10538,9 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout design.",
+            "nullable": true,
+            "example": "Case Details"
           }
         },
         "additionalProperties": false
@@ -10702,40 +10623,57 @@
         "properties": {
           "index": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
           },
           "layoutDesignId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the layout design.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout item.",
+            "nullable": true,
+            "example": "Item"
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the layout item.",
+            "nullable": true,
+            "example": "Text describing item"
           },
           "isRemoved": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Boolean flag indicating if the layout item is to be removed",
+            "example": false
           },
           "itemId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the layout item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "parentId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the parent layout design.",
+            "nullable": true,
+            "example": "Client"
           },
           "parentIndex": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero-based index of the parent layout design.",
+            "format": "int32",
+            "example": 0
           },
           "values": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/LayoutValue"
             },
+            "description": "List of layout values.",
             "nullable": true
           },
           "events": {
@@ -10743,6 +10681,7 @@
             "items": {
               "$ref": "#/components/schemas/LayoutEvent"
             },
+            "description": "List of layout events.",
             "nullable": true
           },
           "id": {
@@ -10788,23 +10727,33 @@
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the layout item.",
+            "nullable": true,
+            "example": "Item"
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Brief description of the layout item.",
+            "nullable": true,
+            "example": "Text describing item"
           },
           "itemId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the layout item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "parentId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier for the parent layout design.",
+            "nullable": true,
+            "example": "Client"
           },
           "index": {
             "type": "integer",
-            "format": "int32"
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
           },
           "layoutDesign": {
             "$ref": "#/components/schemas/Link"
@@ -10814,6 +10763,7 @@
             "items": {
               "$ref": "#/components/schemas/LayoutValue"
             },
+            "description": "List of layout values.",
             "nullable": true
           },
           "events": {
@@ -10821,6 +10771,7 @@
             "items": {
               "$ref": "#/components/schemas/LayoutEvent"
             },
+            "description": "List of layout events.",
             "nullable": true
           }
         },
@@ -10942,7 +10893,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "List of 'Client' contact id's associated with the matter.",
+            "description": "List of hypermedia links of 'Client' contacts associated with the matter.",
             "nullable": true
           },
           "otherSides": {
@@ -10950,7 +10901,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "List of 'OtherSide' contact id's associated with the matter.",
+            "description": "List of hypermedia links of 'OtherSide' contacts associated with the matter.",
             "nullable": true
           },
           "description": {
@@ -11021,7 +10972,7 @@
           },
           "matterTypeId": {
             "type": "string",
-            "description": "Unique identifier of the matter type associated with the matter.\r\n\r\nShould be a standard matter type when creating a 'Matter' and a lead matter type when creating a 'Lead'",
+            "description": "Unique identifier of the matter type associated with the matter.\r\n            \r\nMatter types define what information can be saved to the matter, relevant to that area of law and state / location.\r\n            \r\nA pre-configured list of matter types can be obtained via the 'GET /mattertypes' API.\r\n            \r\nNote: 'Lead' matter types are different from the standard matter types used when creating a 'Matter'.\r\n            \r\nUse the 'Type' query parameter in the 'GET /mattertypes' API call to get 'Lead' specific matter types.",
             "nullable": true,
             "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
@@ -11431,28 +11382,34 @@
           },
           "id": {
             "type": "string",
-            "description": "Specifies provider-specific ID.",
-            "nullable": true
+            "description": "Unique provider-specific identifier of the item.",
+            "nullable": true,
+            "example": "Plaintiff"
           },
           "providerId": {
             "type": "string",
-            "description": "Specifies the provider name for this item.",
-            "nullable": true
+            "description": "Provider name of the item.",
+            "nullable": true,
+            "example": "roles_provider"
           },
           "itemId": {
             "type": "string",
-            "description": "Uniquely identifies this item.",
-            "nullable": true
+            "description": "Unique identifier of the item.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the item.",
+            "nullable": true,
+            "example": "Claimant"
           },
           "subItems": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MatterListItem"
             },
+            "description": "List of sub items belonging to the item.",
             "nullable": true
           }
         },
@@ -11479,30 +11436,45 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter type.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the matter type.",
+            "nullable": true,
+            "example": "Federal Litigation"
           },
           "category": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the category to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           },
           "representativeOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of possible representative types for the matter type.",
+            "nullable": true,
+            "example": [
+              "Applicant",
+              "Respondent"
+            ]
           },
           "location": {
             "type": "string",
-            "nullable": true
+            "description": "State to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           },
           "items": {
             "type": "array",
@@ -11535,30 +11507,45 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter type.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "versionId": {
             "type": "string",
-            "nullable": true
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "name": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the matter type.",
+            "nullable": true,
+            "example": "Federal Litigation"
           },
           "category": {
             "type": "string",
-            "nullable": true
+            "description": "Name of the category to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           },
           "representativeOptions": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "nullable": true
+            "description": "List of possible representative types for the matter type.",
+            "nullable": true,
+            "example": [
+              "Applicant",
+              "Respondent"
+            ]
           },
           "location": {
             "type": "string",
-            "nullable": true
+            "description": "State to which the matter type belongs.",
+            "nullable": true,
+            "example": "Litigation"
           }
         },
         "additionalProperties": false
@@ -11651,35 +11638,50 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "The unique identifier of the memo.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           "matterId": {
             "type": "string",
-            "nullable": true
+            "description": "The unique identifier of the matter.",
+            "nullable": true,
+            "example": "776e778f-83df-454a-b344-768a862a6e58"
           },
           "title": {
             "type": "string",
-            "nullable": true
+            "description": "The title of the memo.",
+            "nullable": true,
+            "example": "Update"
           },
           "text": {
             "type": "string",
-            "nullable": true
+            "description": "The text (content) of the memo.\r\n            \r\nIn RTF (Rich Text Format).",
+            "nullable": true,
+            "example": "There has been a recent update on this matter."
           },
           "lastUpdated": {
             "type": "string",
+            "description": "Date and time that the memo was last updated.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-05-02T16:22:02Z"
           },
           "createdByUserId": {
             "type": "string",
-            "nullable": true
+            "description": "The unique identifier of the user who created the memo.",
+            "nullable": true,
+            "example": "010f7d8e-82d1-454b-c324-760a862a7e22"
           },
           "createdDate": {
             "type": "string",
-            "format": "date-time"
+            "description": "Date the memo was created.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
           },
           "isDeleted": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Indicates whether or not the memo is deleted (true if it is, false if not)."
           }
         },
         "additionalProperties": false
@@ -11692,17 +11694,21 @@
         "type": "object",
         "properties": {
           "title": {
-            "type": "string"
+            "type": "string",
+            "description": "The title of the memo.",
+            "example": "Update"
           },
           "text": {
             "type": "string",
-            "description": "Supports plain-text and RTF"
+            "description": "The text (content) of the memo.\r\n            \r\nSupports plain-text and RTF.",
+            "example": "There has been a recent update on this matter."
           },
           "createdDateUtc": {
             "type": "string",
-            "description": "Will default to the current datetime",
+            "description": "Date that the memo was created.\r\n\r\nWill default to the current date and time, if not supplied.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-07-01"
           }
         },
         "additionalProperties": false
@@ -11792,7 +11798,8 @@
           "versionId": {
             "type": "string",
             "description": "Version id of the record.",
-            "nullable": true
+            "nullable": true,
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           },
           "matter": {
             "$ref": "#/components/schemas/Link"
@@ -11806,7 +11813,8 @@
           "lastUpdated": {
             "type": "integer",
             "description": "Timestamp when the matter stage was last updated.",
-            "format": "int64"
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false,
@@ -11893,26 +11901,31 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the stage.",
-            "nullable": true
+            "nullable": true,
+            "example": "45b94df1-1657-48b0-ae81-583b42ed52d6"
           },
           "versionId": {
             "type": "string",
             "description": "Version id of the record.",
-            "nullable": true
+            "nullable": true,
+            "example": "09d1f360-b810-4a63-acaa-5ed81a551f06"
           },
           "name": {
             "type": "string",
             "description": "Name of the stage.",
-            "nullable": true
+            "nullable": true,
+            "example": "Review contract"
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "True when the stage is deleted."
+            "description": "True when the stage is deleted.",
+            "example": true
           },
           "lastUpdated": {
             "type": "integer",
             "description": "Timestamp when the stage was last updated.",
-            "format": "int64"
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false,
@@ -11940,21 +11953,25 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the stage set.",
-            "nullable": true
+            "nullable": true,
+            "example": "6ccc033d-67c9-4090-8705-3aff0c5a8cfb"
           },
           "versionId": {
             "type": "string",
             "description": "Version id of the record.",
-            "nullable": true
+            "nullable": true,
+            "example": "499244ff-651f-4f66-b618-9defde27c281"
           },
           "name": {
             "type": "string",
             "description": "Name of the stage set.",
-            "nullable": true
+            "nullable": true,
+            "example": "Review contract"
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "True when the stage set is deleted."
+            "description": "True when the stage set is deleted.",
+            "example": true
           },
           "stages": {
             "type": "array",
@@ -11967,7 +11984,8 @@
           "lastUpdated": {
             "type": "integer",
             "description": "Timestamp when the stage set was last updated.",
-            "format": "int64"
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false,
@@ -12055,6 +12073,12 @@
           "self": {
             "$ref": "#/components/schemas/Link"
           },
+          "matter": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "parentTask": {
+            "$ref": "#/components/schemas/Link"
+          },
           "createdBy": {
             "$ref": "#/components/schemas/Link"
           },
@@ -12064,38 +12088,12 @@
           "lastUpdatedBy": {
             "$ref": "#/components/schemas/Link"
           },
-          "matter": {
-            "$ref": "#/components/schemas/Link"
-          },
-          "parentTask": {
-            "$ref": "#/components/schemas/Link"
-          },
-          "subject": {
-            "type": "string",
-            "nullable": true
-          },
-          "note": {
-            "type": "string",
-            "nullable": true
-          },
-          "isCompleted": {
-            "type": "boolean"
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
           "assignees": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "nullable": true
-          },
-          "categories": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
+            "description": "The staff member(s) assigned to the task.",
             "nullable": true
           },
           "subTasks": {
@@ -12103,26 +12101,65 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "The tasks associated to the task.",
             "nullable": true
           },
-          "completedDate": {
+          "subject": {
             "type": "string",
-            "format": "date-time",
+            "description": "The subject - a short description of the task.",
+            "nullable": true,
+            "example": "Review contract for John Smith"
+          },
+          "note": {
+            "type": "string",
+            "description": "Notes on the task.",
+            "nullable": true,
+            "example": "Contract needs to be reviewed and discussed with John"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Categories for the task.",
             "nullable": true
           },
           "dueDate": {
             "type": "string",
+            "description": "The due date of the task.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "completedDate": {
+            "type": "string",
+            "description": "When the task was completed.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
           },
           "createdDate": {
             "type": "string",
+            "description": "When the task was created.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "True when the task is completed.",
+            "example": false
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "True when the task is deleted.",
+            "example": false
           },
           "lastUpdated": {
-            "type": "string",
-            "format": "date-time"
+            "type": "integer",
+            "description": "Last updated timestamp.",
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false
@@ -12130,42 +12167,48 @@
       "TaskDto": {
         "type": "object",
         "properties": {
-          "staffId": {
-            "type": "string",
-            "description": "Staff member creating or updating the task.",
-            "nullable": true
-          },
           "matterId": {
             "type": "string",
-            "description": "Matter associated to the task.",
-            "nullable": true
+            "description": "Unique identifier of the matter associated to the task.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
-          "subject": {
+          "staffId": {
             "type": "string",
-            "description": "Subject of the task.",
-            "nullable": true
-          },
-          "note": {
-            "type": "string",
-            "description": "Notes on the task.",
-            "nullable": true
+            "description": "Unique identifier of the associated staff member creating or updated the task.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "completedByStaffId": {
             "type": "string",
-            "description": "Staff member completing the task. Must only be set when {IsCompleted} is true.",
-            "nullable": true
-          },
-          "isCompleted": {
-            "type": "boolean",
-            "description": "True when the task is completed."
+            "description": "Unique identifier of the associated staff member completing the task.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "assigneeIds": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Staff members assigned to the task.",
+            "description": "Unique identifier(s) of the associated staff member(s) assigned to the task.",
             "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "description": "The subject - this should be a short description of the task.",
+            "nullable": true,
+            "example": "Review contract for John Smith"
+          },
+          "note": {
+            "type": "string",
+            "description": "Notes on the task.",
+            "nullable": true,
+            "example": "Contract needs to be reviewed and discussed with John"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "True when the task is completed.",
+            "example": false
           },
           "categories": {
             "type": "array",
@@ -12179,13 +12222,15 @@
             "type": "string",
             "description": "Completed date of the task.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-07-01"
           },
           "dueDate": {
             "type": "string",
             "description": "Due date of the task.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-07-01"
           }
         },
         "additionalProperties": false
@@ -12274,11 +12319,15 @@
           },
           "userId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the user.",
+            "nullable": true,
+            "example": "23d2a4bc-8529-462e-8560-dfbf4fa24e49"
           },
           "email": {
             "type": "string",
-            "nullable": true
+            "description": "Email address of the user.",
+            "nullable": true,
+            "example": "user@domain.com"
           }
         },
         "additionalProperties": false
@@ -12290,10 +12339,13 @@
         "type": "object",
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "description": "Email address of the user.",
+            "example": "user@domain.com"
           },
           "password": {
             "type": "string",
+            "description": "Password for the user.\r\n\r\nPassword must include atleast one lowercase character, uppercase character, numeric character as well as a special character.",
             "nullable": true
           }
         },
