@@ -17,6 +17,7 @@
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the bank account.",
             "required": true,
             "schema": {
               "type": "string"
@@ -3515,12 +3516,13 @@
           "Invoices"
         ],
         "summary": "Get invoices.",
-        "description": "Sample request:\r\n            \r\n    GET /invoices",
+        "description": "Returns a list of invoices for a specified matter.",
         "operationId": "GetInvoices",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "The unique identifier of the matter that the invoice belongs to.",
             "required": true,
             "schema": {
               "type": "string"
@@ -6782,17 +6784,22 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the bank account. This is the same id used for BankAccount.",
+            "nullable": true,
+            "example": "611ccf16-df18-433c-9900-2496f3ab902c"
           },
           "balance": {
             "type": "number",
-            "format": "double"
+            "description": "Total balance of the bank account.",
+            "format": "double",
+            "example": 1000
           },
           "contactBalances": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BankAccountContactBalance"
             },
+            "description": "List of contact balances. If balances are stored by matter, not by contact, then there can be\r\na contact balance with no contact id. In this case, MatterBalances should be used instead.",
             "nullable": true
           },
           "matterBalances": {
@@ -6800,6 +6807,7 @@
             "items": {
               "$ref": "#/components/schemas/BankAccountMatterBalance"
             },
+            "description": "List of matter balances. A matter balance will be equal to the sum of all contact balances with\r\nthe same MatterId.",
             "nullable": true
           }
         },
@@ -6843,15 +6851,21 @@
         "properties": {
           "contactId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the contact.",
+            "nullable": true,
+            "example": "18c05819-c321-4907-800c-d5a608729c5a"
           },
           "matterId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter.",
+            "nullable": true,
+            "example": "39a0a7d0-dd1c-4dea-a3f6-f8b35656f168"
           },
           "balance": {
             "type": "number",
-            "format": "double"
+            "description": "Balance belonging to the specified contact and matter.",
+            "format": "double",
+            "example": 1000
           }
         },
         "additionalProperties": false
@@ -6861,15 +6875,21 @@
         "properties": {
           "matterId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter.",
+            "nullable": true,
+            "example": "39a0a7d0-dd1c-4dea-a3f6-f8b35656f168"
           },
           "balance": {
             "type": "number",
-            "format": "double"
+            "description": "Balance belonging to the specified matter.",
+            "format": "double",
+            "example": 1000
           },
           "unpresentedChequesBalance": {
             "type": "number",
-            "format": "double"
+            "description": "Balance of the unpresented cheques for this matter. A cheque is considered \r\nunpresented if the related transaction has not been reconciled. If this balance is not zero,\r\nsome actions on the matter are restricted (e.g. closing or cancelling the matter).",
+            "format": "double",
+            "example": 0
           }
         },
         "additionalProperties": false
@@ -7766,7 +7786,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "description": "Contact person's title.",
+            "description": "Contact person's title. Accepts custom values.\r\n\r\ne.g. Mr, Mrs, Miss, Honourable, Judge.",
             "nullable": true,
             "example": "Mr"
           },
@@ -7810,7 +7830,7 @@
             "$ref": "#/components/schemas/PhoneNumber"
           },
           "phone2": {
-            "$ref": "#/components/schemas/PhoneNumber"
+            "$ref": "#/components/schemas/PhoneNumberWithExtension"
           },
           "fax": {
             "$ref": "#/components/schemas/PhoneNumber"
@@ -7828,7 +7848,7 @@
             "type": "string",
             "description": "Additional notes about contact (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Prefers to answer work phone."
           },
           "occupation": {
             "type": "string",
@@ -7844,7 +7864,7 @@
           },
           "maritalStatus": {
             "type": "string",
-            "description": "Contact person's marital status.\r\n\r\ne.g. Single, Married, Separated, Divorced, Widowed, De facto.",
+            "description": "Contact person's marital status. Accepts custom values.\r\n\r\ne.g. Single, Married, Separated, Divorced, Widowed, De facto.",
             "nullable": true,
             "example": "Single"
           },
@@ -8060,6 +8080,30 @@
         },
         "additionalProperties": false
       },
+      "PhoneNumberWithExtension": {
+        "type": "object",
+        "properties": {
+          "areaCode": {
+            "type": "string",
+            "description": "Phone area code.",
+            "nullable": true,
+            "example": "555"
+          },
+          "number": {
+            "type": "string",
+            "description": "Phone number (excluding area code).",
+            "nullable": true,
+            "example": "1234567"
+          },
+          "extension": {
+            "type": "string",
+            "description": "Phone number extension.",
+            "nullable": true,
+            "example": "103"
+          }
+        },
+        "additionalProperties": false
+      },
       "PoBoxAddress": {
         "type": "object",
         "properties": {
@@ -8071,7 +8115,7 @@
           },
           "poBoxType": {
             "type": "string",
-            "description": "PO Box type.",
+            "description": "PO Box type. Accepts custom values.\r\n            \r\ne.g. Care PO, PO Box, Locked Bag, RMS.",
             "nullable": true,
             "example": "Locked Bag"
           },
@@ -10007,15 +10051,21 @@
           },
           "fixedDiscount": {
             "type": "number",
-            "format": "double"
+            "description": "The amount of fixed discount applied.",
+            "format": "double",
+            "example": 100
           },
           "percentage": {
             "type": "number",
-            "format": "double"
+            "description": "The amount of percentage discount applied.",
+            "format": "double",
+            "example": 0
           },
           "description": {
             "type": "string",
-            "nullable": true
+            "description": "Discount description.",
+            "nullable": true,
+            "example": "Friend of the Firm"
           }
         },
         "additionalProperties": false
@@ -10049,28 +10099,33 @@
           },
           "id": {
             "type": "string",
-            "description": "The id of the invoice.",
-            "nullable": true
+            "description": "The unique identifier of the invoice.",
+            "nullable": true,
+            "example": "16567e88-784c-470e-8952-e5a70fe2eb0c"
           },
           "versionId": {
             "type": "string",
-            "description": "The version id of the invoice.",
-            "nullable": true
+            "description": "The unique identifier of the invoice version.",
+            "nullable": true,
+            "example": "39ffde97-eeeb-4747-bb8f-7c7c10b3c985"
           },
           "matterId": {
             "type": "string",
-            "description": "The id of the matter that the invoice belongs to.",
-            "nullable": true
+            "description": "The unique identifier of the matter that the invoice belongs to.",
+            "nullable": true,
+            "example": "6398a045-509e-49a2-9268-bb8231fa9340"
           },
           "lastUpdatedByUserId": {
             "type": "string",
-            "description": "The id of the user that last updated the invoice.",
-            "nullable": true
+            "description": "The unique identifier of the user that last updated the invoice.",
+            "nullable": true,
+            "example": "5fc5ee85-6643-4623-b019-a0dccceafe47"
           },
           "description": {
             "type": "string",
-            "description": "The invocie description.",
-            "nullable": true
+            "description": "The invoice description.",
+            "nullable": true,
+            "example": "Services provided."
           },
           "status": {
             "$ref": "#/components/schemas/InvoiceStatus"
@@ -10079,32 +10134,38 @@
             "type": "integer",
             "description": "The invoice number.",
             "format": "int64",
-            "nullable": true
+            "nullable": true,
+            "example": 10001
           },
           "invoiceTitle": {
             "type": "string",
             "description": "The invoice title.",
-            "nullable": true
+            "nullable": true,
+            "example": "My First Invoice"
           },
           "invoiceTitleLine2": {
             "type": "string",
             "description": "The invoice title.",
-            "nullable": true
+            "nullable": true,
+            "example": "Subtitle"
           },
           "issuedDate": {
             "type": "string",
             "description": "The date the invoice has been issued.",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2022-09-16T00:00:00+00:00"
           },
           "dueDate": {
             "type": "string",
             "description": "The date the invoice is due.",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2022-09-25T00:00:00+00:00"
           },
           "paidDate": {
             "type": "string",
-            "description": "The date the invoice was paid.",
-            "format": "date-time"
+            "description": "The date the invoice was paid. This date is only available if the invoice is fully paid.",
+            "format": "date-time",
+            "example": "2022-09-20T00:00:00+00:00"
           },
           "discount": {
             "$ref": "#/components/schemas/Discount"
@@ -10119,7 +10180,8 @@
           },
           "waived": {
             "type": "boolean",
-            "description": "True if the invoice is waived."
+            "description": "True if the invoice is waived.",
+            "example": false
           },
           "invoiceTotals": {
             "$ref": "#/components/schemas/InvoiceTotals"
@@ -10219,64 +10281,88 @@
         "properties": {
           "paid": {
             "type": "number",
-            "format": "double"
+            "description": "Total amount paid on the invoice.",
+            "format": "double",
+            "example": 100
           },
           "billed": {
             "type": "number",
-            "format": "double"
+            "description": "Amount billed. This is the sum of all fees and expenses on the invoice, without tax.",
+            "format": "double",
+            "example": 200
           },
           "unpaid": {
             "type": "number",
-            "format": "double"
+            "description": "Amount unpaid.",
+            "format": "double",
+            "example": 100
           },
           "writtenOff": {
             "type": "number",
-            "format": "double"
+            "description": "Amount written off.",
+            "format": "double",
+            "example": 0
           },
           "waived": {
             "type": "number",
-            "format": "double"
+            "description": "Amount waived.",
+            "format": "double",
+            "example": 0
           },
           "discount": {
             "type": "number",
-            "format": "double"
+            "description": "Amount of discount.",
+            "format": "double",
+            "example": 0
           },
           "total": {
             "type": "number",
-            "format": "double"
+            "description": "Total amount for invoice, including tax and interest.",
+            "format": "double",
+            "example": 100
           },
           "tax": {
             "type": "number",
-            "format": "double"
+            "description": "Amount of Tax on the invoice.",
+            "format": "double",
+            "example": 10
           },
           "interest": {
             "type": "number",
+            "description": "Amount of interest. This is the total interest amount, not taking into account\r\nwhat has been paid.",
             "format": "double",
-            "readOnly": true
+            "readOnly": true,
+            "example": 0
           },
           "unpaidExcInterest": {
             "type": "number",
-            "format": "double"
+            "description": "Amount unpaid excluding interest. For invoices in interest, if this amount is zero,\r\nit means that the principal has been fully paid, though there might still be unpaid interest.",
+            "format": "double",
+            "example": 100
           },
           "feeTotal": {
             "type": "number",
-            "description": "All fees (written off + non written off)",
-            "format": "double"
+            "description": "All fees (written off + non written off).",
+            "format": "double",
+            "example": 250
           },
           "writtenOffFeeTotal": {
             "type": "number",
-            "description": "Written off fees",
-            "format": "double"
+            "description": "Written off fees.",
+            "format": "double",
+            "example": 120
           },
           "expenseTotal": {
             "type": "number",
-            "description": "All expenses (written off + non written off)",
-            "format": "double"
+            "description": "All expenses (written off + non written off).",
+            "format": "double",
+            "example": 300
           },
           "writtenOffExpenseTotal": {
             "type": "number",
-            "description": "Written off expenses",
-            "format": "double"
+            "description": "Written off expenses total.",
+            "format": "double",
+            "example": 180
           }
         },
         "additionalProperties": false
