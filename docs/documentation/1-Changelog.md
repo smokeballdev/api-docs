@@ -42,7 +42,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Added `LastUpdated` field to GET responses.
 
 
-## July 2022
+## February 2022
 
 ##### Firms
 * Added validation when creating a firm to ensure the user is not associated to another firm.
