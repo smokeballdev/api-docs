@@ -1,0 +1,25 @@
+name: Update Swagger Docs
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: Update Swagger Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.2
+
+      - name: Get latest swagger JSON and update it for prod display.
+        run: |
+          curl https://stagingapi.smokeball.com/swagger/docs/swagger.json > ./reference/swagger.json
+          sed 's/stagingapi.smokeball.com/api.smokeball.com/g' > ./reference/swagger.json
+          sed 's/Staging API/API/g' ./reference/swagger.json > ./reference/swagger.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          git commit -m "Update Swagger Docs"
+          git push
