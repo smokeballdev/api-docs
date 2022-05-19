@@ -16,6 +16,11 @@ jobs:
           sed -i 's/stagingapi.smokeball.com/api.smokeball.com/g' ./reference/swagger.json
           sed -i 's/Staging API/API/g' ./reference/swagger.json ./reference/swagger.json
 
+      - name: actionsx/prettier
+        uses: actionsx/prettier@v2
+        with:
+          args: --write ./reference/swagger.json
+
       - name: Commit and push changes
         run: |
           git config user.name github-actions
