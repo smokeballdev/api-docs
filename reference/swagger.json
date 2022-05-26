@@ -6197,8 +6197,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get a user",
-        "description": "Retrieves a specified user. Only accessible using client credentials grant.",
+        "summary": "Create a user",
+        "description": "Creates a user. Only accessible using client credentials grant.\r\n            \r\nSends an email with a generated password if the password is missing.",
         "operationId": "CreateUser",
         "requestBody": {
           "content": {
@@ -7919,7 +7919,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "description": "Contact person's title.",
+            "description": "Contact person's title. Accepts custom values.\r\n\r\ne.g. Mr, Mrs, Miss, Honourable, Judge.",
             "nullable": true,
             "example": "Mr"
           },
@@ -7962,6 +7962,9 @@
           "phone": {
             "$ref": "#/components/schemas/PhoneNumberDto"
           },
+          "phone2": {
+            "$ref": "#/components/schemas/PhoneNumberWithExtensionDto"
+          },
           "fax": {
             "$ref": "#/components/schemas/PhoneNumberDto"
           },
@@ -7978,60 +7981,60 @@
             "type": "string",
             "description": "Additional notes about contact (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Prefers to answer work phone."
           },
           "occupation": {
             "type": "string",
-            "description": "Contact person's occupation",
+            "description": "Contact person's occupation.",
             "nullable": true,
             "example": "Bookkeeper"
           },
           "birthDate": {
             "type": "string",
-            "description": "Contact person's date of birth",
+            "description": "Contact person's date of birth.",
             "format": "date-time",
             "nullable": true,
             "example": "1980-07-01"
           },
           "birthPlace": {
             "type": "string",
-            "description": "Contact person's place of birth",
+            "description": "Contact person's place of birth.",
             "nullable": true,
             "example": "Chicago"
           },
           "birthState": {
             "type": "string",
-            "description": "Contact person's birth state",
+            "description": "Contact person's birth state.",
             "nullable": true,
             "example": "Illinois"
           },
           "birthCountry": {
             "type": "string",
-            "description": "Contact person's birth country",
+            "description": "Contact person's birth country.",
             "nullable": true,
             "example": "USA"
           },
           "identificationNumberType": {
             "type": "string",
-            "description": "Contact person's type of identification",
+            "description": "Contact person's type of identification.",
             "nullable": true,
             "example": "Passport"
           },
           "identificationNumber": {
             "type": "string",
-            "description": "Contact person's identification number",
+            "description": "Contact person's identification number.",
             "nullable": true,
             "example": "PP123456789"
           },
           "gender": {
             "type": "string",
-            "description": "Contact person's gender\r\n\r\nAccepted values - Male, Female",
+            "description": "Contact person's gender.\r\n\r\nAccepted values - Male, Female",
             "nullable": true,
             "example": "Male"
           },
           "maritalStatus": {
             "type": "string",
-            "description": "Contact person's marital status\r\n\r\ne.g. Single, Married, Separated, Divorced, Widowed, De facto",
+            "description": "Contact person's marital status. Accepts custom values.\r\n\r\ne.g. Single, Married, Separated, Divorced, Widowed, De facto.",
             "nullable": true,
             "example": "Single"
           },
@@ -8039,7 +8042,7 @@
             "type": "string",
             "description": "Brief description of an special needs (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Wheelchair access"
           }
         },
         "additionalProperties": false
@@ -8104,6 +8107,30 @@
         },
         "additionalProperties": false
       },
+      "PhoneNumberWithExtensionDto": {
+        "type": "object",
+        "properties": {
+          "areaCode": {
+            "type": "string",
+            "description": "Phone area code.",
+            "nullable": true,
+            "example": "555"
+          },
+          "number": {
+            "type": "string",
+            "description": "Phone number (excluding area code).",
+            "nullable": true,
+            "example": "1234567"
+          },
+          "extension": {
+            "type": "string",
+            "description": "Phone number extension. Accepts numeric characters only.",
+            "nullable": true,
+            "example": "103"
+          }
+        },
+        "additionalProperties": false
+      },
       "PoBoxAddress": {
         "type": "object",
         "properties": {
@@ -8153,11 +8180,11 @@
             "type": "string",
             "description": "Care of the addressee (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "John Smith"
           },
           "poBoxType": {
             "type": "string",
-            "description": "PO Box type.",
+            "description": "PO Box type. Accepts custom values.\r\n            \r\ne.g. Care PO, PO Box, Locked Bag, RMS.",
             "nullable": true,
             "example": "Locked Bag"
           },
@@ -11037,6 +11064,18 @@
             "type": "boolean",
             "description": "Boolean flag indicating if the matter is a lead.",
             "example": false
+          },
+          "branchId": {
+            "type": "string",
+            "description": "Unique identifier of the associated branch.",
+            "nullable": true,
+            "example": "dd4e4381-b6a0-4c64-8feb-e8ea8016ea42"
+          },
+          "branchProviderId": {
+            "type": "string",
+            "description": "Unique identifier of the associated branch provider.",
+            "nullable": true,
+            "example": "Smokeball"
           }
         },
         "additionalProperties": false
@@ -11746,12 +11785,11 @@
             "nullable": true,
             "example": "There has been a recent update on this matter."
           },
-          "lastUpdated": {
+          "createdDate": {
             "type": "string",
-            "description": "Date and time that the memo was last updated.",
+            "description": "Date the memo was created.",
             "format": "date-time",
-            "nullable": true,
-            "example": "2022-05-02T16:22:02Z"
+            "example": "2022-04-23T14:00:00Z"
           },
           "createdByUserId": {
             "type": "string",
@@ -11759,11 +11797,18 @@
             "nullable": true,
             "example": "010f7d8e-82d1-454b-c324-760a862a7e22"
           },
-          "createdDate": {
+          "lastUpdated": {
             "type": "string",
-            "description": "Date the memo was created.",
+            "description": "Date and time that the memo was last updated.",
             "format": "date-time",
-            "example": "2022-04-23T14:00:00Z"
+            "nullable": true,
+            "example": "2022-05-02T16:22:02Z"
+          },
+          "updatedByUserId": {
+            "type": "string",
+            "description": "The unique identifier of the user who last updated the memo.",
+            "nullable": true,
+            "example": "010f7d8e-82d1-454b-c324-760a862a7e22"
           },
           "isDeleted": {
             "type": "boolean",
@@ -11788,6 +11833,12 @@
             "type": "string",
             "description": "The text (content) of the memo.\r\n            \r\nSupports plain-text and RTF.",
             "example": "There has been a recent update on this matter."
+          },
+          "userId": {
+            "type": "string",
+            "description": "Unique identifier of the user.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "createdDateUtc": {
             "type": "string",
