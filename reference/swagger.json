@@ -4162,7 +4162,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a list of 'Matter' objects.",
+            "description": "When request is successful. Returns a list of `Matter` objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4178,7 +4178,7 @@
           "Matters"
         ],
         "summary": "Create a matter",
-        "description": "Creates a new matter.\r\n            \r\nNote: This endpoint can also be used to create a 'Lead'.\r\n\r\nWhen creating a 'Lead' you MUST remember to set a valid lead specific 'matterTypeId' field (see field description below for more details) and set the 'isLead' field to true.\r\n            \r\n\r\nThe following actions are currently not supported:\r\n            \r\n- 'otherSideIds' cannot be set for a lead\r\n            \r\n- 'clientRole' and 'otherSideRole' cannot be identical for a matter",
+        "description": "Creates a new matter.\r\n            \r\nNote: This endpoint can also be used to create a `Lead`.\r\n\r\nWhen creating a `Lead` you MUST remember to set a valid lead specific `matterTypeId` field (see field description below for more details) and set the `isLead` field to true.\r\n\r\nThe `clientRole` and `otherSideRole` are optional and cannot be identical. They will be set to the default role(s) for the specified matter type - if not provided.",
         "operationId": "CreateMatter",
         "requestBody": {
           "content": {
@@ -4201,7 +4201,7 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be created.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4244,7 +4244,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'Matter' object.",
+            "description": "When request is successful. Returns a `Matter` object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4270,7 +4270,7 @@
           "Matters"
         ],
         "summary": "Update a matter",
-        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- 'matterTypeId' cannot be changed\r\n            \r\n- 'clientIds' cannot be modified\r\n            \r\n- 'otherSideIds' list cannot be modified\r\n\r\n- a lead cannot be converted back to a matter and vice versa",
+        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be changed\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` list cannot be modified\r\n\r\n- a lead cannot be converted back to a matter and vice versa",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -4304,7 +4304,7 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be updated.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4355,7 +4355,7 @@
         ],
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be deleted.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be deleted.",
             "content": {
               "application/json": {
                 "schema": {
