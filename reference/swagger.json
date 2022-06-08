@@ -5645,6 +5645,338 @@
         }
       }
     },
+    "/tasks/{taskId}/subtasks/{subTaskId}": {
+      "get": {
+        "tags": [
+          "SubTasks"
+        ],
+        "summary": "Get a subtask",
+        "description": "Retrieves a specified subtask.",
+        "operationId": "GetSubTaskById",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "subTaskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'SubTask' object.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubTask"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubTask"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubTask"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When subtask with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When subtask with specified task id and subtask id does not exist."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SubTasks"
+        ],
+        "summary": "Update a subtask",
+        "description": "Updates a specified subtask of a specified task.",
+        "operationId": "UpdateSubTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "subTaskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the subtask to be updated.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SubTasks"
+        ],
+        "summary": "Delete a subtask",
+        "description": "Deletes a specified subtask of a specified task.",
+        "operationId": "DeleteSubTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "subTaskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the subtask to be deleted.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/subtasks": {
+      "post": {
+        "tags": [
+          "SubTasks"
+        ],
+        "summary": "Create a subtask",
+        "description": "Creates a subtask for a specified task.",
+        "operationId": "CreateSubTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the subtask to be created.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get sub tasks on a task",
+        "description": "Returns a list of sub tasks.",
+        "operationId": "GetSubTasks",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'Task' objects.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "Task not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tasks/{id}": {
       "get": {
         "tags": [
@@ -6023,91 +6355,6 @@
           },
           "400": {
             "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tasks/{taskId}/subtasks": {
-      "get": {
-        "tags": [
-          "Tasks"
-        ],
-        "summary": "Get sub tasks on a task",
-        "description": "Returns a list of sub tasks.",
-        "operationId": "GetSubTasks",
-        "parameters": [
-          {
-            "name": "taskId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of 'Task' objects.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When task with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "Task not found",
             "content": {
               "text/plain": {
                 "schema": {
@@ -8088,7 +8335,7 @@
         "properties": {
           "areaCode": {
             "type": "string",
-            "description": "Phone area code.",
+            "description": "Phone area code.\r\n\r\nOnly supported in the US.",
             "nullable": true,
             "example": "555"
           },
@@ -8112,7 +8359,7 @@
         "properties": {
           "areaCode": {
             "type": "string",
-            "description": "Phone area code.",
+            "description": "Phone area code. \r\n\r\nOnly supported in the US.",
             "nullable": true,
             "example": "555"
           },
@@ -11065,11 +11312,8 @@
             "description": "Boolean flag indicating if the matter is a lead.",
             "example": false
           },
-          "branchId": {
-            "type": "string",
-            "description": "Unique identifier of the associated branch.",
-            "nullable": true,
-            "example": "dd4e4381-b6a0-4c64-8feb-e8ea8016ea42"
+          "branch": {
+            "$ref": "#/components/schemas/Link"
           },
           "branchProviderId": {
             "type": "string",
@@ -12187,6 +12431,120 @@
         },
         "additionalProperties": false
       },
+      "SubTask": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "parentTask": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "completedBy": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "lastUpdatedBy": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "subject": {
+            "type": "string",
+            "description": "The subject - a short description of the subtask.",
+            "nullable": true,
+            "example": "Confer with Mary"
+          },
+          "completedDate": {
+            "type": "string",
+            "description": "When the subtask was completed.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When the subtask was created.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "True when the subtask is completed.",
+            "example": false
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "True when the subtask is deleted.",
+            "example": false
+          },
+          "lastUpdated": {
+            "type": "integer",
+            "description": "Last updated timestamp.",
+            "format": "int64",
+            "example": 637847425252027400
+          }
+        },
+        "additionalProperties": false,
+        "description": "Subtask resource."
+      },
+      "SubTaskDto": {
+        "required": [
+          "subject"
+        ],
+        "type": "object",
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "description": "Unique identifier of the associated staff member creating or updating the subtask.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
+          "completedByStaffId": {
+            "type": "string",
+            "description": "Unique identifier of the associated staff member who completed the subtask.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of the subtask.",
+            "example": "Confer with Mary"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "True when the subtask is completed.",
+            "example": false
+          },
+          "completedDate": {
+            "type": "string",
+            "description": "Completed date of the subtask. \r\nIf not provided and IsCompleted is set to true, the current date will be used.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-07-01"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Data transfer object for a subtask."
+      },
       "Task": {
         "type": "object",
         "properties": {
@@ -12312,7 +12670,7 @@
           },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member creating or updated the task.",
+            "description": "Unique identifier of the associated staff member creating or updating the task.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
