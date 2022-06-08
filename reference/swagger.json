@@ -12695,13 +12695,15 @@
       "api-key": {
         "type": "apiKey",
         "name": "x-api-key",
-        "in": "header"
+        "in": "header",
+        "description": ""
       },
       "token": {
         "type": "apiKey",
         "name": "Authorization",
         "in": "header",
-        "x-amazon-apigateway-authtype": "cognito_user_pools"
+        "x-amazon-apigateway-authtype": "cognito_user_pools",
+        "description": "Uses the Bearer authentication scheme. Tokens must be preceeded by the Bearer keyword."
       }
     }
   },
@@ -12713,8 +12715,7 @@
   ],
   "security": [
     {
-      "api-key": [],
-      "token": []
+      "api-key": []
     }
   ]
 }
