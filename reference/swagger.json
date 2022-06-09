@@ -3604,17 +3604,7 @@
           "200": {
             "description": "When request is successful. Returns a 'MatterItems' object containing a list of 'MatterItem' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterItems"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterItems"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MatterItems"
                 }
@@ -3657,17 +3647,7 @@
           "200": {
             "description": "When request is successful. Returns a 'MatterItem' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterItem"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterItem"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MatterItem"
                 }
@@ -5645,7 +5625,7 @@
         }
       }
     },
-    "/tasks/{taskId}/subtasks/{subTaskId}": {
+    "/tasks/{taskId}/subtasks/{id}": {
       "get": {
         "tags": [
           "SubTasks"
@@ -5664,7 +5644,7 @@
             }
           },
           {
-            "name": "subTaskId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -5677,17 +5657,7 @@
           "200": {
             "description": "When request is successful. Returns a 'SubTask' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubTask"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubTask"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubTask"
                 }
@@ -5720,7 +5690,7 @@
             }
           },
           {
-            "name": "subTaskId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -5741,11 +5711,6 @@
                 "$ref": "#/components/schemas/SubTaskDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/SubTaskDto"
@@ -5757,17 +5722,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the subtask to be updated.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -5794,7 +5749,7 @@
             }
           },
           {
-            "name": "subTaskId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -5807,17 +5762,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the subtask to be deleted.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -5828,6 +5773,46 @@
       }
     },
     "/tasks/{taskId}/subtasks": {
+      "get": {
+        "tags": [
+          "SubTasks"
+        ],
+        "summary": "Get subtasks",
+        "description": "Returns a list of subtasks for a specified task if associated with the authenticated client.",
+        "operationId": "GetSubTasks",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'SubTask' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubTask"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When task with specified id does not exist."
+          }
+        }
+      },
       "post": {
         "tags": [
           "SubTasks"
@@ -5858,11 +5843,6 @@
                 "$ref": "#/components/schemas/SubTaskDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/SubTaskDto"
@@ -5874,102 +5854,9 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the subtask to be created.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Tasks"
-        ],
-        "summary": "Get sub tasks on a task",
-        "description": "Returns a list of sub tasks.",
-        "operationId": "GetSubTasks",
-        "parameters": [
-          {
-            "name": "taskId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of 'Task' objects.",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When task with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "Task not found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -5991,7 +5878,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -5999,17 +5887,7 @@
           "200": {
             "description": "When request is successful. Returns a 'Task' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Task"
                 }
@@ -6019,17 +5897,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6042,17 +5910,7 @@
           "404": {
             "description": "When task with specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6074,7 +5932,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -6090,11 +5949,6 @@
                 "$ref": "#/components/schemas/TaskDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaskDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/TaskDto"
@@ -6106,17 +5960,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be updated.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -6126,17 +5970,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6149,17 +5983,7 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6181,7 +6005,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -6189,17 +6014,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be deleted.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -6209,17 +6024,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6243,7 +6048,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -6276,23 +6081,23 @@
                 "type": "string"
               }
             }
+          },
+          {
+            "name": "Terms",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SearchTerm"
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "When request is successful. Returns a list of 'Task' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaskPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TaskPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TaskPagedCollection"
                 }
@@ -6320,11 +6125,6 @@
                 "$ref": "#/components/schemas/TaskDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaskDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/TaskDto"
@@ -6336,17 +6136,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the task to be created.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -6356,17 +6146,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -13053,15 +12833,13 @@
       "api-key": {
         "type": "apiKey",
         "name": "x-api-key",
-        "in": "header",
-        "description": ""
+        "in": "header"
       },
       "token": {
         "type": "apiKey",
         "name": "Authorization",
         "in": "header",
-        "x-amazon-apigateway-authtype": "cognito_user_pools",
-        "description": "Uses the Bearer authentication scheme. Tokens must be preceeded by the Bearer keyword."
+        "x-amazon-apigateway-authtype": "cognito_user_pools"
       }
     }
   },
@@ -13073,9 +12851,7 @@
   ],
   "security": [
     {
-      "api-key": []
-    },
-    {
+      "api-key": [],
       "token": []
     }
   ]
