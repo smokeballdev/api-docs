@@ -6,6 +6,24 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released. 
 
+## June 2022
+
+#### Contacts
+* Fix webhook events not triggering for deleted contacts from Smokeball native application.
+
+#### Firms
+* Added `BranchId` field.
+
+#### Matters
+* Added `OtherSideIds` and `OtherSideRole` to POST request so matters and leads can be created with clients as well as othersides.
+* Fix to paging url losing status on consecutive pages.
+
+#### Memos
+* Added `UserId` to POST and PUT requests to create or update a memo on behalf of a user.
+
+#### SubTasks
+* Added API.
+
 ## May 2022
 
 #### Stages & StageSets
