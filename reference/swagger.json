@@ -4233,15 +4233,11 @@
               }
             }
           },
+          "403": {
+            "description": "When the authenticated account does not access to the matter."
+          },
           "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       },
@@ -4303,15 +4299,11 @@
               }
             }
           },
+          "403": {
+            "description": "When the authenticated account does not access to the matter."
+          },
           "404": {
-            "description": "When matter does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       },
@@ -4354,15 +4346,11 @@
               }
             }
           },
+          "403": {
+            "description": "When the authenticated account does not access to the matter."
+          },
           "404": {
-            "description": "When matter does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       }
@@ -4685,6 +4673,14 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "requestBody": {
@@ -4874,6 +4870,14 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -5797,10 +5801,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SubTask"
-                  }
+                  "$ref": "#/components/schemas/SubTaskCollection"
                 }
               }
             }
@@ -8462,6 +8463,14 @@
             "description": "Unique identifier of the file owner. If null it will fallback to the authenticated user",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
+          "fileAdditionalData": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Collection of KeyValuePair(string, string) to update File meta data.",
+            "nullable": true
           },
           "dateCreated": {
             "type": "string",
@@ -11329,6 +11338,12 @@
             "nullable": true,
             "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
+          "matterId": {
+            "type": "string",
+            "description": "Matter id.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
           "roles": {
             "type": "array",
             "items": {
@@ -12285,6 +12300,39 @@
         },
         "additionalProperties": false,
         "description": "Subtask resource."
+      },
+      "SubTaskCollection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubTask"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "SubTaskDto": {
         "required": [
