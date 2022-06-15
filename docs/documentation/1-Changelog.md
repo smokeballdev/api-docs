@@ -11,10 +11,8 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 #### Contacts
 * Fix webhook events not triggering for deleted contacts from Smokeball native application.
 
-#### Firms
-* Added `BranchId` field.
-
 #### Matters
+* Added `Branch` field.
 * Added `OtherSideIds` and `OtherSideRole` to POST request so matters and leads can be created with clients as well as othersides.
 * Fix to paging url losing status on consecutive pages.
 
