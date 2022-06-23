@@ -11,7 +11,7 @@ All requests to the API require a valid `api-key` issued by Smokeball and `id_to
 ```json http
 {
   "method": "get",
-  "url": "https://stagingapi.smokeball.com/contacts/",
+  "url": "https://api.smokeball.com/contacts/",
   "headers": {
     "x-api-key": "Y2xpZW50X2lkOmNsaWV",
     "Authorization": "Bearer Y2xpZW50X2lkOmNsaWV"
@@ -23,32 +23,32 @@ All requests to the API require a valid `api-key` issued by Smokeball and `id_to
 
 ``` json
 {
-  "href": "https://stagingapi.smokeball.com/contacts",
+  "href": "https://api.smokeball.com/contacts",
   "offset": 0,
   "limit": 500,
   "size": 761,
   "first": {
-    "href": "https://stagingapi.smokeball.com/contacts"
+    "href": "https://api.smokeball.com/contacts"
   },
   "next": {
-    "href": "https://stagingapi.smokeball.com/contacts?limit=500&offset=500",
+    "href": "https://api.smokeball.com/contacts?limit=500&offset=500",
     "rel": "collection"
   },
   "last": {
-    "href": "https://stagingapi.smokeball.com/contacts?limit=500&offset=500",
+    "href": "https://api.smokeball.com/contacts?limit=500&offset=500",
     "rel": "collection"
   },
   "value": [
     {
-      "href": "https://stagingapi.smokeball.com/contacts/323f9755-045a-4b68-a536-eb566b8428ff",
+      "href": "https://api.smokeball.com/contacts/323f9755-045a-4b68-a536-eb566b8428ff",
       "id": "323f9755-045a-4b68-a536-eb566b8428ff",
       "groupOfPeople": {
         "people": [
           {
-            "href": "https://stagingapi.smokeball.com/contacts/a1d868da-1243-4b9f-a8e3-cfc5c4abda50"
+            "href": "https://api.smokeball.com/contacts/a1d868da-1243-4b9f-a8e3-cfc5c4abda50"
           },
           {
-            "href": "https://stagingapi.smokeball.com/contacts/ea4ca7b9-b826-4840-a8b5-94e0c6977c65"
+            "href": "https://api.smokeball.com/contacts/ea4ca7b9-b826-4840-a8b5-94e0c6977c65"
           }
         ],
         "residentialAddress": {
@@ -73,19 +73,19 @@ You will notice that some requests will have the optional parameters `limit` and
 In the response above, you can see the details of the paging properties in the first section of the response:
 
 ``` json
-"href": "https://stagingapi.smokeball.com/contacts",
+"href": "https://api.smokeball.com/contacts",
   "offset": 0,
   "limit": 500,
   "size": 761,
   "first": {
-    "href": "https://stagingapi.smokeball.com/contacts"
+    "href": "https://api.smokeball.com/contacts"
   },
   "next": {
-    "href": "https://stagingapi.smokeball.com/contacts?limit=500&offset=500",
+    "href": "https://api.smokeball.com/contacts?limit=500&offset=500",
     "rel": "collection"
   },
   "last": {
-    "href": "https://stagingapi.smokeball.com/contacts?limit=500&offset=500",
+    "href": "https://api.smokeball.com/contacts?limit=500&offset=500",
     "rel": "collection"
   },
 ```
@@ -107,15 +107,15 @@ Property | Description
 
 When using the [Client Credentials Grant](1-Authentication.md#2-client-credentials-grant) to perform server-to-server requests, you must explicitly specify which account you are using by prefixing the url with the `accountId` in this format:
 
-> https://stagingapi.smokeball.com/{accountId}/{resource-path}
+> https://api.smokeball.com/{accountId}/{resource-path}
 
-Using the above contacts request as an example, the url is https://stagingapi.smokeball.com/contacts/
+Using the above contacts request as an example, the url is https://api.smokeball.com/contacts/
 For a server-to-server request using the `accountId: ea4ca7b9-b826-4840-a8k5-94e6c6937c65` the request would be:
 
 ```json http
 {
   "method": "get",
-  "url": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/",
+  "url": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/",
   "headers": {
     "x-api-key": "Y2xpZW50X2lkOmNsaWV",
     "Authorization": "Bearer Y2xpZW50X2lkOmNsaWV"
@@ -129,32 +129,32 @@ For a server-to-server request using the `accountId: ea4ca7b9-b826-4840-a8k5-94e
 
 ``` json
 {
-  "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts",
+  "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts",
   "offset": 0,
   "limit": 500,
   "size": 761,
   "first": {
-    "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts"
+    "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts"
   },
   "next": {
-    "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts?limit=500&offset=500",
+    "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts?limit=500&offset=500",
     "rel": "collection"
   },
   "last": {
-    "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts?limit=500&offset=500",
+    "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts?limit=500&offset=500",
     "rel": "collection"
   },
   "value": [
     {
-      "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/323f9755-045a-4b68-a536-eb566b8428ff",
+      "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/323f9755-045a-4b68-a536-eb566b8428ff",
       "id": "323f9755-045a-4b68-a536-eb566b8428ff",
       "groupOfPeople": {
         "people": [
           {
-            "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/a1d868da-1243-4b9f-a8e3-cfc5c4abda50"
+            "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/a1d868da-1243-4b9f-a8e3-cfc5c4abda50"
           },
           {
-            "href": "https://stagingapi.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/ea4ca7b9-b826-4840-a8b5-94e0c6977c65"
+            "href": "https://api.smokeball.com/ea4ca7b9-b826-4840-a8k5-94e6c6937c65/contacts/ea4ca7b9-b826-4840-a8b5-94e0c6977c65"
           }
         ],
         "residentialAddress": {

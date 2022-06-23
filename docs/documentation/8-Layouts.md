@@ -23,17 +23,17 @@ How to get a list of layout fields that you can set up a mapping for:
 1. Get a reference for the layout design ID by querying a matter type.
 
 ```http request
-GET https://stagingapi.smokeball.com.au/mattertypes/{matterTypeId}
+GET https://api.smokeball.com.au/mattertypes/{matterTypeId}
 ```
 
 Example response:
 
 ```json
 {
-  "href": "https://stagingapi.smokeball.com.au/mattertypes/9c6f59b6-3871-4fbd-a508-8fc43f03c6b4",
+  "href": "https://api.smokeball.com.au/mattertypes/9c6f59b6-3871-4fbd-a508-8fc43f03c6b4",
   "items": [
     {
-      "href": "https://stagingapi.smokeball.com.au/layouts/b571beb4-9175-436c-a70e-e70acb0f4ed2",
+      "href": "https://api.smokeball.com.au/layouts/b571beb4-9175-436c-a70e-e70acb0f4ed2",
       "rel": "layouts",
       "id": "b571beb4-9175-436c-a70e-e70acb0f4ed2",
       "providerId": "LayoutProvider",
@@ -58,7 +58,7 @@ step.
 2. Retrieve the full list of fields for the given layout design.
 
 ```http
-GET https://stagingapi.smokeball.com/layouts/{layoutDesignId}
+GET https://api.smokeball.com/layouts/{layoutDesignId}
 ```
 
 Example response:
@@ -66,7 +66,7 @@ Example response:
 ```json
 {
   "id": "b571beb4-9175-436c-a70e-e70acb0f4ed2",
-  "href": "https://stagingapi.smokeball.com.au/layouts/b571beb4-9175-436c-a70e-e70acb0f4ed2",
+  "href": "https://api.smokeball.com.au/layouts/b571beb4-9175-436c-a70e-e70acb0f4ed2",
   "fields": [
     {
       "name": "Matter/WorkersCompDetails/BodyPartInjured",

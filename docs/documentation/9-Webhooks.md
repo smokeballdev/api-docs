@@ -40,7 +40,7 @@ To create a subscription, make a POST request to the `/webhooks` endpoint:
 ```json http
 {
   "method": "POST",
-  "url": "https://stagingapi.smokeball.com/webhooks",
+  "url": "https://api.smokeball.com/webhooks",
   "headers": {
     "Content-Type": "application/json"
   },

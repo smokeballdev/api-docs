@@ -18,7 +18,7 @@ The root folder of a matter will always have an **id** of `null` and if no **fol
 Every folder including the root folder, will have a a number of sub-folders and files. When retrieveing a folder from the Folders endpoint you will get a list of the sub-folders and files in that folder. Here is a response for root folder of the Matter shown above:
 
 ```http
-GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders
+GET https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders
 ```
 
 ```json
@@ -27,24 +27,24 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
     {
       "folders": [
         {
-          "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/27e52eaf-fa51-4582-bd59-ec3ea5ab664b",
+          "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/27e52eaf-fa51-4582-bd59-ec3ea5ab664b",
           "id": "27e52eaf-fa51-4582-bd59-ec3ea5ab664b",
           "name": "Correspondence"
         },
         {
-          "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/c2f7a537-4052-4bab-a4fb-84e0d7e7cef5",
+          "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/c2f7a537-4052-4bab-a4fb-84e0d7e7cef5",
           "id": "c2f7a537-4052-4bab-a4fb-84e0d7e7cef5",
           "name": "Contracts"
         },
         {
-          "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/6f447d01-5379-493b-a60d-25fb4d64ff8a",
+          "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/folders/6f447d01-5379-493b-a60d-25fb4d64ff8a",
           "id": "6f447d01-5379-493b-a60d-25fb4d64ff8a",
           "name": "Emails"
         }
       ],
       "files": [
         {
-          "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/95df25eb-dc99-45dd-881f-4608e00f551b",
+          "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/95df25eb-dc99-45dd-881f-4608e00f551b",
           "id": "95df25eb-dc99-45dd-881f-4608e00f551b",
           "folder": {},
           "name": "1. Agenda",
@@ -53,11 +53,11 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
           "dateCreated": "2017-02-20T05:50:30.1568284Z",
           "sizeBytes": 44775,
           "downloadInfo": {
-            "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/95df25eb-dc99-45dd-881f-4608e00f551b/download"
+            "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/95df25eb-dc99-45dd-881f-4608e00f551b/download"
           }
         },
         {
-          "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/6fd46dfa-a46d-4de4-9553-dae30f7f523a",
+          "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/6fd46dfa-a46d-4de4-9553-dae30f7f523a",
           "id": "6fd46dfa-a46d-4de4-9553-dae30f7f523a",
           "folder": {},
           "name": "Engagement Letter",
@@ -66,7 +66,7 @@ GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9f
           "dateCreated": "2020-05-22T01:36:17.4355416Z",
           "sizeBytes": 20793,
           "downloadInfo": {
-            "href": "https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/6fd46dfa-a46d-4de4-9553-dae30f7f523a/download"
+            "href": "https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/6fd46dfa-a46d-4de4-9553-dae30f7f523a/download"
           }
         }
       ]
@@ -84,7 +84,7 @@ Continuing with the Matter example above, if we wanted to add a File to the _Cor
 ```json http
 {
   "method": "post",
-  "url": "https://stagingapi.smokeball.com/matters/{matterId}/documents/files",
+  "url": "https://api.smokeball.com/matters/{matterId}/documents/files",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -115,7 +115,7 @@ You will get back the `fileId` of the new File and an `uploadUrl` that you can u
 To upload a new version of a file to an existing File on a Matter you need to get a new upload URL from the files endpoint:
 
 ``` html
-GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/e8ac0461-6bd9-477e-a95b-1d924332c91b/upload
+GET https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/e8ac0461-6bd9-477e-a95b-1d924332c91b/upload
 ```
 
 **Response**
@@ -138,7 +138,7 @@ You will get back an `uploadUrl` that you can use to upload the new version to A
 To download a file you need to make a request to the files endpoint to get a temporary `downloadUrl`:
 
 ``` html
-GET https://stagingapi.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/95df25eb-dc99-45dd-881f-4608e00f551b/download
+GET https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/documents/files/95df25eb-dc99-45dd-881f-4608e00f551b/download
 ```
 
 **Response**

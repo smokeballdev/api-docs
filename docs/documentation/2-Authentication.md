@@ -20,14 +20,14 @@ There are two OAuth 2.0 flows used to authenticate with the API based on your in
 
 ### 1.1 Request User Authorization
 
-Direct the user to `https://datastaging-auth.smokeball.com/oauth2/authorize` with the following parameters:
+Direct the user to `https://auth.smokeball.com/oauth2/authorize` with the following parameters:
 
 Example:
 
 ```json http
 {
   "method": "get",
-  "url": "https://datastaging-auth.smokeball.com/oauth2/authorize",
+  "url": "https://auth.smokeball.com/oauth2/authorize",
   "query": {
     "response_type": "code",
     "client_id": "xxxxx",
@@ -53,12 +53,12 @@ If authorized, the user will be redirected to:
 
 Once you have obtained an authorization code, you can now use it to get an **id_token** which may be used to make requests to the API.
 
-Make a POST request to <https://datastaging-auth.smokeball.com/oauth2/token> with the following parameters and headers:
+Make a POST request to <https://auth.smokeball.com/oauth2/token> with the following parameters and headers:
 
 ```json http
 {
   "method": "post",
-  "url": "https://datastaging-auth.smokeball.com/oauth2/token",
+  "url": "https://auth.smokeball.com/oauth2/token",
   "headers": {
     "Authorization": "Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ=",
     "Content-Type": "application/x-www-form-urlencoded"    
@@ -107,7 +107,7 @@ You can use the **refresh_token** returned in the previous request to continuosl
 ```json http
 {
   "method": "post",
-  "url": "https://datastaging-auth.smokeball.com/oauth2/token",
+  "url": "https://auth.smokeball.com/oauth2/token",
   "headers": {
     "Authorization": "Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ=",
     "Content-Type": "application/x-www-form-urlencoded"    
@@ -143,12 +143,12 @@ The **Client Credentials** grant type is typically used for server-to-server API
 
 ### 2.1 Request an Access Token
 
-Make a POST request to <https://datastaging-auth.smokeball.com/oauth2/token> with the following parameters and headers:
+Make a POST request to <https://auth.smokeball.com/oauth2/token> with the following parameters and headers:
 
 ```json http
 {
   "method": "post",
-  "url": "https://datastaging-auth.smokeball.com/oauth2/token",
+  "url": "https://auth.smokeball.com/oauth2/token",
   "headers": {
     "Authorization": "Basic Y2xpZW50X2lkOmNsaWVudF9zZWNyZXQ=",
     "Content-Type": "application/x-www-form-urlencoded"    

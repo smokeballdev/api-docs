@@ -22,7 +22,7 @@ When creating a matter in Smokeball we can see
 ```json http
 {
   "method": "get",
-  "url": "https://stagingapi.smokeball.com/mattertypes",
+  "url": "https://api.smokeball.com/mattertypes",
   "query": {
     "Location": "IL",
     "Category": "Real Estate"
@@ -34,16 +34,16 @@ When creating a matter in Smokeball we can see
 
 ```json
 {
-  "href": "https://stagingapi.smokeball.com/mattertypes",
+  "href": "https://api.smokeball.com/mattertypes",
   "offset": 0,
   "limit": 500,
   "size": 18,
   "first": {
-    "href": "https://stagingapi.smokeball.com/mattertypes"
+    "href": "https://api.smokeball.com/mattertypes"
   },
   "value": [
     {
-      "href": "https://stagingapi.smokeball.com/mattertypes/8aca3574-aecb-4a6f-991d-680861bece1d_il",
+      "href": "https://api.smokeball.com/mattertypes/8aca3574-aecb-4a6f-991d-680861bece1d_il",
       "id": "8aca3574-aecb-4a6f-991d-680861bece1d_IL",
       "versionId": "32e86c38-534d-4362-95a1-f5c287a8d4b7",
       "name": "Financing",
@@ -59,7 +59,7 @@ When creating a matter in Smokeball we can see
       "deleted": false
     },
     {
-      "href": "https://stagingapi.smokeball.com/mattertypes/2d5aca9b-9469-44d4-8616-766a864432aa",
+      "href": "https://api.smokeball.com/mattertypes/2d5aca9b-9469-44d4-8616-766a864432aa",
       "id": "2d5aca9b-9469-44d4-8616-766a864432aa",
       "versionId": "1410cfea-723e-4514-8901-c92dab1bd5f2",
       "name": "Buy",
@@ -98,7 +98,7 @@ To create a client contact you can make the following request which would create
 ```json http
 {
   "method": "POST",
-  "url": "https://stagingapi.smokeball.com/contacts",
+  "url": "https://api.smokeball.com/contacts",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -111,7 +111,7 @@ To create an other-side contact you can make the following request which would c
 ```json http
 {
   "method": "POST",
-  "url": "https://stagingapi.smokeball.com/contacts",
+  "url": "https://api.smokeball.com/contacts",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -126,7 +126,7 @@ To create an other-side contact you can make the following request which would c
 
 {
   "id": "9a9ce552-6bee-45e4-8eb1-afe2c18c489f",
-  "href": "https://stagingapi.smokeball.com/contacts/9a9ce552-6bee-45e4-8eb1-afe2c18c489f"
+  "href": "https://api.smokeball.com/contacts/9a9ce552-6bee-45e4-8eb1-afe2c18c489f"
 }
 ```
 
@@ -150,7 +150,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 ```json http
 {
   "method": "get",
-  "url": "https://stagingapi.smokeball.com/staff"
+  "url": "https://api.smokeball.com/staff"
 }
 ```
 
@@ -158,15 +158,15 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ```json
 {
-  "href": "https://stagingapi.smokeball.com/staff",
+  "href": "https://api.smokeball.com/staff",
   "size": 28,
   "first": {
-    "href": "https://stagingapi.smokeball.com/staff"
+    "href": "https://api.smokeball.com/staff"
   },
   "value": [
 
     {
-      "href": "https://stagingapi.smokeball.com/staff/66f7fa24-bb03-4d89-ac28-e19620cc1e45",
+      "href": "https://api.smokeball.com/staff/66f7fa24-bb03-4d89-ac28-e19620cc1e45",
       "id": "66f7fa24-bb03-4d89-ac28-e19620cc1e45",
       "versionId": "cfdbb798-1f2e-4355-87bc-620cbc62acc2",
       "firstName": "Test",
@@ -182,7 +182,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
     },
 
     {
-      "href": "https://stagingapi.smokeball.com/staff/c85d28cb-a760-4627-aa59-0a853c2e65ed",
+      "href": "https://api.smokeball.com/staff/c85d28cb-a760-4627-aa59-0a853c2e65ed",
       "id": "c85d28cb-a760-4627-aa59-0a853c2e65ed",
       "versionId": "23dbdc50-6171-4408-8150-413cb293a249",
       "title": "",
@@ -207,7 +207,7 @@ Now we have everything we need to create a matter.
 ```json http
 {
   "method": "POST",
-  "url": "https://stagingapi.smokeball.com/matters",
+  "url": "https://api.smokeball.com/matters",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -257,7 +257,7 @@ Parameter | Description
 
 {
   "id": "51cefb72-6247-4ca2-8926-5d14d65f7cb9",
-  "href": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9"
+  "href": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9"
 }
 ```
 
@@ -270,14 +270,14 @@ The matter is now shown in Smokeball:
 ### 5. Retrieving a matter
 
 ```http
-GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
+GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
 ```
 
 **Response**
 
 ```json
 {
-  "href": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9?MatterId=51cefb72-6247-4ca2-8926-5d14d65f7cb9",
+  "href": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9?MatterId=51cefb72-6247-4ca2-8926-5d14d65f7cb9",
   "id": "51cefb72-6247-4ca2-8926-5d14d65f7cb9",
   "versionId": "637256184791434000",
   "number": "Matter-001",
@@ -343,7 +343,7 @@ Matter sub items are shown indented under the matter item. Here `Lender` is a ma
 Here's an example request to GET the Matter Items:
 
 ```http
-GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/items
+GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/items
 ```
 
 **Response**
@@ -457,13 +457,13 @@ Following is a typical flow to get/set layout data.
 1. Get the layout design ID and currently set data by retrieving all the layout matter items
 
 ```http
-GET https://stagingapi.smokeball.com/matters/{matterId}/layouts
+GET https://api.smokeball.com/matters/{matterId}/layouts
 ```
 
 or a single layout matter item.
 
 ```http
-GET https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
+GET https://api.smokeball.com/matters/{matterId}/layouts/{itemId}
 ```
 
 Example response:
@@ -471,12 +471,12 @@ Example response:
 ```json
 {
     "id": "60efd655-cd1a-42cd-a170-a228cc09b5b1",
-    "href": "https://stagingapi.smokeball.com/matters/3f0cfc3d-be5d-4a70-88ac-e099a800d46d/layouts/60efd655-cd1a-42cd-a170-a228cc09b5b1",
+    "href": "https://api.smokeball.com/matters/3f0cfc3d-be5d-4a70-88ac-e099a800d46d/layouts/60efd655-cd1a-42cd-a170-a228cc09b5b1",
     "itemId": "60efd655-cd1a-42cd-a170-a228cc09b5b1",
     "index": 0,
     "layoutDesign": {
         "id": "f2654144-ab55-45ec-9852-489a5caaa111",
-        "href": "https://stagingapi.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
+        "href": "https://api.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
         "rel": "Layouts"
     },
     "values": [],
@@ -487,7 +487,7 @@ Example response:
 2. Retrieve the full list of fields for the given layout design.
 
 ```http
-GET https://stagingapi.smokeball.com/layouts/{layoutDesignId}
+GET https://api.smokeball.com/layouts/{layoutDesignId}
 ```
 
 Example response:
@@ -495,7 +495,7 @@ Example response:
 ```json
 {
     "id": "f2654144-ab55-45ec-9852-489a5caaa111",
-    "href": "https://stagingapi.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
+    "href": "https://api.smokeball.com/layouts/f2654144-ab55-45ec-9852-489a5caaa111",
     "fields": [
         {
             "name": "Matter/SettlementNegotiations/SettlementNegotiationsDetails/Note",
@@ -513,7 +513,7 @@ Example response:
 3. Update the layout with new data values.
 
 ```http
-PATCH https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
+PATCH https://api.smokeball.com/matters/{matterId}/layouts/{itemId}
 
 {
     "values": [
@@ -537,7 +537,7 @@ PATCH https://stagingapi.smokeball.com/matters/{matterId}/layouts/{itemId}
 To find out which contact is assigned to a role, we can get retrieve the role details:
 
 ```http
-GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/441225f5-0803-412b-be45-c81fb893231f
+GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/441225f5-0803-412b-be45-c81fb893231f
 ```
 
 **Response**
@@ -573,7 +573,7 @@ Here we can see the Borrower role has a contact assigned, and we can follow the 
 In our example, the Lender role did not have a contact assigned. To set this, we first need to know the id / link to the role we want to update. This was retrieved earlier with the MatterItems api call:
 
 ```http
-GET https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/items
+GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/items
 ```
 
 **Response**
@@ -613,7 +613,7 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 ```json http
 {
   "method": "PUT",
-  "url": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1",
+  "url": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -630,7 +630,7 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 
 {
   "id": "f377da1c-8f48-40cd-8d23-0c3b9483c6b1",
-  "href": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1"
+  "href": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9/roles/f377da1c-8f48-40cd-8d23-0c3b9483c6b1"
 }
 ```
 

@@ -22,7 +22,7 @@ When creating a lead in Smokeball we can see a list of lead Matter Types. Here, 
 ```json http
 {
   "method": "get",
-  "url": "https://stagingapi.smokeball.com/mattertypes",
+  "url": "https://api.smokeball.com/mattertypes",
   "query": {
     "Location": "IL",
     "Category": "Real Estate",
@@ -35,16 +35,16 @@ When creating a lead in Smokeball we can see a list of lead Matter Types. Here, 
 
 ```json
 {
-  "href": "https://stagingapi.smokeball.com/mattertypes",
+  "href": "https://api.smokeball.com/mattertypes",
   "offset": 0,
   "limit": 500,
   "size": 18,
   "first": {
-    "href": "https://stagingapi.smokeball.com/mattertypes"
+    "href": "https://api.smokeball.com/mattertypes"
   },
   "value": [
     {
-      "href": "https://stagingapi.smokeball.com/mattertypes/8aca3574-aecb-4a6f-991d-680861bece1d_il",
+      "href": "https://api.smokeball.com/mattertypes/8aca3574-aecb-4a6f-991d-680861bece1d_il",
       "id": "8aca3574-aecb-4a6f-991d-680861bece1d_IL",
       "versionId": "32e86c38-534d-4362-95a1-f5c287a8d4b7",
       "name": "Financing",
@@ -60,7 +60,7 @@ When creating a lead in Smokeball we can see a list of lead Matter Types. Here, 
       "deleted": false
     },
     {
-      "href": "https://stagingapi.smokeball.com/mattertypes/2d5aca9b-9469-44d4-8616-766a864432aa",
+      "href": "https://api.smokeball.com/mattertypes/2d5aca9b-9469-44d4-8616-766a864432aa",
       "id": "2d5aca9b-9469-44d4-8616-766a864432aa",
       "versionId": "1410cfea-723e-4514-8901-c92dab1bd5f2",
       "name": "Buy",
@@ -99,7 +99,7 @@ To create a contact you can make the following request which would create a pers
 ```json http
 {
   "method": "POST",
-  "url": "https://stagingapi.smokeball.com/contacts",
+  "url": "https://api.smokeball.com/contacts",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -114,7 +114,7 @@ To create a contact you can make the following request which would create a pers
 
 {
   "id": "9a9ce552-6bee-45e4-8eb1-afe2c18c489f",
-  "href": "https://stagingapi.smokeball.com/contacts/9a9ce552-6bee-45e4-8eb1-afe2c18c489f"
+  "href": "https://api.smokeball.com/contacts/9a9ce552-6bee-45e4-8eb1-afe2c18c489f"
 }
 ```
 
@@ -138,7 +138,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 ```json http
 {
   "method": "get",
-  "url": "https://stagingapi.smokeball.com/staff"
+  "url": "https://api.smokeball.com/staff"
 }
 ```
 
@@ -146,15 +146,15 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ```json
 {
-  "href": "https://stagingapi.smokeball.com/staff",
+  "href": "https://api.smokeball.com/staff",
   "size": 28,
   "first": {
-    "href": "https://stagingapi.smokeball.com/staff"
+    "href": "https://api.smokeball.com/staff"
   },
   "value": [
 
     {
-      "href": "https://stagingapi.smokeball.com/staff/66f7fa24-bb03-4d89-ac28-e19620cc1e45",
+      "href": "https://api.smokeball.com/staff/66f7fa24-bb03-4d89-ac28-e19620cc1e45",
       "id": "66f7fa24-bb03-4d89-ac28-e19620cc1e45",
       "versionId": "cfdbb798-1f2e-4355-87bc-620cbc62acc2",
       "firstName": "Test",
@@ -170,7 +170,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
     },
 
     {
-      "href": "https://stagingapi.smokeball.com/staff/c85d28cb-a760-4627-aa59-0a853c2e65ed",
+      "href": "https://api.smokeball.com/staff/c85d28cb-a760-4627-aa59-0a853c2e65ed",
       "id": "c85d28cb-a760-4627-aa59-0a853c2e65ed",
       "versionId": "23dbdc50-6171-4408-8150-413cb293a249",
       "title": "",
@@ -195,7 +195,7 @@ Now we have everything we need to create a lead.
 ```json http
 {
   "method": "POST",
-  "url": "https://stagingapi.smokeball.com/matters",
+  "url": "https://api.smokeball.com/matters",
   "headers": {
     "Content-Type": "application/json"
   },
@@ -237,6 +237,6 @@ Parameter | Description
 
 {
   "id": "51cefb72-6247-4ca2-8926-5d14d65f7cb9",
-  "href": "https://stagingapi.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9"
+  "href": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9"
 }
 ```
