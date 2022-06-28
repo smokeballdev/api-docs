@@ -1089,7 +1089,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -1109,17 +1109,7 @@
           "200": {
             "description": "When request is successful. Returns a paged collection of 'File' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilePagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilePagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FilePagedCollection"
                 }
@@ -1129,17 +1119,7 @@
           "403": {
             "description": "When the requested matter does not belong to the account making the request.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1177,11 +1157,6 @@
                 "$ref": "#/components/schemas/AddFileDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/AddFileDto"
@@ -1194,17 +1169,7 @@
           "202": {
             "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadFileInfo"
                 }
@@ -1214,17 +1179,7 @@
           "400": {
             "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1264,17 +1219,7 @@
           "200": {
             "description": "When request is successful. Returns a 'File' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/File"
                 }
@@ -1284,17 +1229,7 @@
           "403": {
             "description": "When the requested file does not belong to the account making the request.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1304,17 +1239,7 @@
           "404": {
             "description": "When file with the specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1360,11 +1285,6 @@
                 "$ref": "#/components/schemas/EditFileDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/EditFileDto"
@@ -1377,17 +1297,7 @@
           "202": {
             "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadFileInfo"
                 }
@@ -1397,17 +1307,7 @@
           "400": {
             "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1417,17 +1317,7 @@
           "404": {
             "description": "When file or matter with the specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1467,17 +1357,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the file to be deleted.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -1487,17 +1367,7 @@
           "400": {
             "description": "When the requested file does not belong to the specified matter.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1507,17 +1377,7 @@
           "403": {
             "description": "When the requested file does not belong to the account making the request.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1557,17 +1417,7 @@
           "200": {
             "description": "When request is successful. Returns a 'DownloadFileInfo' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/DownloadFileInfo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DownloadFileInfo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DownloadFileInfo"
                 }
@@ -1577,17 +1427,7 @@
           "403": {
             "description": "When the requested file does not belong to the account making the request.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1597,17 +1437,7 @@
           "404": {
             "description": "When file or matter with the specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1647,17 +1477,7 @@
           "200": {
             "description": "When request is successful. Returns a 'UploadFileInfo' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UploadFileInfo"
                 }
@@ -1667,17 +1487,7 @@
           "403": {
             "description": "When the requested file does not belong to the account making the request.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1687,17 +1497,7 @@
           "404": {
             "description": "When file or matter with the specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1729,7 +1529,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -1749,17 +1549,7 @@
           "200": {
             "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FolderListingPagedCollection"
                 }
@@ -1797,11 +1587,6 @@
                 "$ref": "#/components/schemas/FolderDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/FolderDto"
@@ -1813,17 +1598,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be created.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -1833,17 +1608,7 @@
           "400": {
             "description": "When folder name is not provided.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1883,7 +1648,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -1903,17 +1668,7 @@
           "200": {
             "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FolderListingPagedCollection"
                 }
@@ -1923,17 +1678,7 @@
           "404": {
             "description": "When folder with the specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1979,11 +1724,6 @@
                 "$ref": "#/components/schemas/FolderDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/FolderDto"
@@ -1995,17 +1735,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be updated.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -2015,17 +1745,7 @@
           "400": {
             "description": "When folder name is not provided or folder does not belong to the specified matter.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2035,17 +1755,7 @@
           "404": {
             "description": "When folder with the specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2085,17 +1795,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be deleted.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -2105,17 +1805,7 @@
           "400": {
             "description": "When the folder does not belong to the specified matter.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -3752,7 +3442,7 @@
         "tags": [
           "LayoutMatterItems"
         ],
-        "summary": "Get layout items on a matter",
+        "summary": "Get layouts",
         "description": "Returns a collection of layout items on a specified matter.",
         "operationId": "GetLayoutMatterItems",
         "parameters": [
@@ -3779,6 +3469,98 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "LayoutMatterItems"
+        ],
+        "summary": "Add a new layout",
+        "description": "Adds a new layout matter item to a matter.",
+        "operationId": "AddLayout",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "Matter ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Layout matter item to add",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LayoutMatterItem"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LayoutMatterItem"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LayoutMatterItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When the new matter item contain invalid data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the matter or a layout item with the specified ID does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/matters/{matterId}/layouts/{itemId}": {
@@ -3786,7 +3568,7 @@
         "tags": [
           "LayoutMatterItems"
         ],
-        "summary": "Get a layout item on a matter",
+        "summary": "Get a layout",
         "description": "Retrieves a layout item on a specified matter.",
         "operationId": "GetLayoutMatterItemById",
         "parameters": [
@@ -3838,14 +3620,14 @@
         "tags": [
           "LayoutMatterItems"
         ],
-        "summary": "Merge a layout matter item",
+        "summary": "Merge a layout",
         "description": "Merge layout item changes for a specified layout.",
         "operationId": "MergeLayout",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
-            "description": "Matter Id",
+            "description": "Matter ID",
             "required": true,
             "schema": {
               "type": "string",
@@ -3895,7 +3677,7 @@
             }
           },
           "400": {
-            "description": "When the update payload does not contain an id that matched the id of the item requiring update.",
+            "description": "When the update payload does not contain an ID that matched the ID of the item requiring update.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3925,11 +3707,53 @@
             }
           },
           "404": {
-            "description": "When layout item with specified id does not exist on the matter.",
+            "description": "When the matter or a layout item with the specified ID does not exist.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "LayoutMatterItems"
+        ],
+        "summary": "Remove a layout",
+        "description": "Removes a layout matter item from a matter.",
+        "operationId": "RemoveLayout",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "Matter ID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Layout matter item ID to remove",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
                 }
               }
             }
@@ -3942,7 +3766,7 @@
         "tags": [
           "LayoutMatterItems"
         ],
-        "summary": "Get contacts on a layout",
+        "summary": "Get layout contacts",
         "description": "Returns a list of contacts on a specified layout.",
         "operationId": "GetLayoutMatterItemContacts",
         "parameters": [
@@ -4431,6 +4255,14 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "requestBody": {
@@ -4604,6 +4436,72 @@
           },
           "404": {
             "description": "When the specified matter, role or relationship does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Relationships"
+        ],
+        "summary": "Remove relationship from a role in a matter.",
+        "operationId": "RemoveRelationshipFromRole",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "roleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the relationship to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter, role or relationship does not exist.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10813,7 +10711,7 @@
           },
           "parentIndex": {
             "type": "integer",
-            "description": "Zero-based index of the parent layout design.",
+            "description": "Zero-based index of the parent item in the list.",
             "format": "int32",
             "example": 0
           },
@@ -12786,7 +12684,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "description": "Unqiue key used for creating signature header in webhook notification requests.",
+            "description": "Unique key used for creating signature header in webhook notification requests.",
             "nullable": true,
             "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           },
