@@ -3748,12 +3748,45 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
+          "202": {
+            "description": "When request is accepted."
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Link"
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the matter or a layout item with the specified ID does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -3924,7 +3957,7 @@
           {
             "name": "Status",
             "in": "query",
-            "description": "Filter by current status of matter.",
+            "description": "Filter by current status of the matter.\r\n\r\nPossible values: Open, Pending, Closed, Deleted or Cancelled.",
             "schema": {
               "type": "string",
               "example": "Open"
@@ -3942,17 +3975,17 @@
             "example": true
           },
           {
-            "name": "LastUpdated",
-            "in": "query",
-            "description": "Deprecated, use updatedSince.\r\nFilter by last updated date of matter.",
-            "schema": {
-              "type": "string",
-              "format": "date-time",
-              "example": "2022-04-23T14:00:00Z"
-            },
-            "example": "2022-04-23T14:00:00Z"
-          },
-          {
+								  
+						  
+																									 
+					   
+							   
+									
+											   
+			  
+											 
+			
+		   
             "name": "UpdatedSince",
             "in": "query",
             "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime).",
@@ -3962,6 +3995,17 @@
               "example": 637873555398585000
             },
             "example": 637873555398585000
+          },
+          {
+            "name": "LastUpdated",
+            "in": "query",
+            "description": "Deprecated, use updatedSince.\r\n\r\nFilter by last updated date of matter.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-23T14:00:00Z"
+            },
+            "example": "2022-04-23T14:00:00Z"
           }
         ],
         "responses": {
@@ -4070,7 +4114,7 @@
           "Matters"
         ],
         "summary": "Update a matter",
-        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be changed\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` list cannot be modified\r\n\r\n- a lead cannot be converted back to a matter and vice versa",
+        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be modified\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n- a lead cannot be converted back to a matter and vice versa",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -5759,6 +5803,195 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/documents": {
+      "get": {
+        "tags": [
+          "TaskDocuments"
+        ],
+        "summary": "Get task documents",
+        "description": "Returns a list of file and memo document links for the specified task, if associated with the authenticated client.",
+        "operationId": "GetTaskDocuments",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'Link' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDocumentCollection"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When task with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TaskDocuments"
+        ],
+        "summary": "Create a task document link",
+        "description": "Links a document to the specified task.",
+        "operationId": "CreateTaskDocument",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDocumentDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDocumentDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDocumentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the link to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When task with specified task id and/or document id does not exist."
+          }
+        }
+      }
+    },
+    "/tasks/{taskId}/documents/{id}": {
+      "get": {
+        "tags": [
+          "TaskDocuments"
+        ],
+        "summary": "Get a task document",
+        "description": "Retrieves the specified task document for the specified task.",
+        "operationId": "GetTaskDocumentById",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDocument"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When task with specified task id and/or document id does not exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TaskDocuments"
+        ],
+        "summary": "Delete a task document",
+        "description": "Unlinks the specified document from the specified task.",
+        "operationId": "DeleteTaskDocument",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the task document to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When task with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When task with specified task id and/or document id does not exist."
           }
         }
       }
@@ -10665,6 +10898,41 @@
         },
         "additionalProperties": false
       },
+      "LayoutMatter": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "id": {
+            "type": "string",
+            "description": "Layout matter id.",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LayoutMatterItemData"
+            },
+            "description": "Layout matter item data.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LayoutMatterItem": {
         "type": "object",
         "properties": {
@@ -10959,7 +11227,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Current status of matter.",
+            "description": "Current status of the matter.\r\n\r\nPossible values: Open, Pending, Closed, Deleted or Cancelled.",
             "nullable": true,
             "example": "Open"
           },
@@ -11028,7 +11296,7 @@
           },
           "matterTypeId": {
             "type": "string",
-            "description": "Unique identifier of the matter type associated with the matter.\r\n            \r\nMatter types define what information can be saved to the matter, relevant to that area of law and state / location.\r\n            \r\nA pre-configured list of matter types can be obtained via the 'GET /mattertypes' API.\r\n            \r\nNote: 'Lead' matter types are different from the standard matter types used when creating a 'Matter'.\r\n            \r\nUse the 'Type' query parameter in the 'GET /mattertypes' API call to get 'Lead' specific matter types.",
+            "description": "Unique identifier of the matter type associated with the matter.\r\n            \r\nMatter types define what information can be saved to the matter, relevant to that area of law and state / location.\r\n            \r\nA pre-configured list of matter types can be obtained via the 'GET /mattertypes' API.\r\n            \r\n'Lead' matter types are different from the standard matter types used when creating a 'Matter'.\r\n            \r\nUse the 'Type' query parameter in the 'GET /mattertypes' API call to get 'Lead' specific matter types.",
             "nullable": true,
             "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
@@ -11074,13 +11342,13 @@
           },
           "status": {
             "type": "string",
-            "description": "Current status of matter.\r\n\r\nAccepted values - Open, Pending, Closed, Deleted or Cancelled",
+            "description": "Current status of matter.\r\n\r\nPossible values: Open, Pending, Closed, Deleted or Cancelled.",
             "nullable": true,
             "example": "Open"
           },
           "dateOpened": {
             "type": "string",
-            "description": "Date when the matter was opened.\r\n\r\nNote - This can be backdated if required",
+            "description": "Date when the matter was opened. This can be backdated if required.",
             "format": "date-time",
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
@@ -12124,6 +12392,15 @@
         },
         "additionalProperties": false
       },
+      "DocumentType": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "SubTask": {
         "type": "object",
         "properties": {
@@ -12384,6 +12661,99 @@
           }
         },
         "additionalProperties": false
+      },
+      "TaskDocument": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "task": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "type": {
+            "$ref": "#/components/schemas/DocumentType"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "True when the task document (the link) has been deleted.",
+            "example": false
+          },
+          "document": {
+            "$ref": "#/components/schemas/Link"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Task document resource."
+      },
+      "TaskDocumentCollection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDocument"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskDocumentDto": {
+        "required": [
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "string",
+            "description": "Unique identifier of the document.",
+            "nullable": true,
+            "example": "cf666f06-3ff2-4a41-8c7f-ab5a8bc6a277"
+          },
+          "type": {
+            "$ref": "#/components/schemas/DocumentType"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Data transfer object for a task document."
       },
       "TaskDto": {
         "type": "object",
