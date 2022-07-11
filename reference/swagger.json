@@ -28,17 +28,7 @@
           "200": {
             "description": "When request is successful. Returns a 'BankAccountBalance' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccountBalance"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccountBalance"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BankAccountBalance"
                 }
@@ -48,17 +38,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -71,17 +51,7 @@
           "404": {
             "description": "When bank account balance with specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -113,17 +83,7 @@
           "200": {
             "description": "When request is successful. Returns a 'BankAccount' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccount"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccount"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BankAccount"
                 }
@@ -133,17 +93,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -156,17 +106,7 @@
           "404": {
             "description": "When bank account with specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -188,17 +128,7 @@
           "200": {
             "description": "When request is successful. Returns a list of 'BankAccount' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccountCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccountCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BankAccountCollection"
                 }
@@ -230,17 +160,7 @@
           "200": {
             "description": "When request is successful. Returns a 'ActivityCode' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Activity"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Activity"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Activity"
                 }
@@ -250,17 +170,7 @@
           "403": {
             "description": "When activity code with specified id is not associated with authenticated client.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -270,17 +180,7 @@
           "404": {
             "description": "When activity code with specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -318,11 +218,6 @@
                 "$ref": "#/components/schemas/ActivityDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActivityDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ActivityDto"
@@ -334,17 +229,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the activity code to be updated.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -354,17 +239,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -397,17 +272,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the activity code to be deleted.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -417,17 +282,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -454,7 +309,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -483,17 +338,7 @@
           "200": {
             "description": "When request is successful. Returns a list of 'ActivityCode' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ActivityPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ActivityPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ActivityPagedCollection"
                 }
@@ -521,11 +366,6 @@
                 "$ref": "#/components/schemas/ActivityDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ActivityDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ActivityDto"
@@ -537,17 +377,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the activity code to be created.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -557,17 +387,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1836,7 +1656,8 @@
             "name": "Offset",
             "in": "query",
             "schema": {
-              "minimum": 1,
+              "maximum": 2147483647,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -1865,17 +1686,7 @@
           "200": {
             "description": "When request is successful. Returns a list of 'Expense' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExpensePagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExpensePagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ExpensePagedCollection"
                 }
@@ -1913,11 +1724,6 @@
                 "$ref": "#/components/schemas/ExpenseDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ExpenseDto"
@@ -1929,17 +1735,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the expense to be created.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -1949,17 +1745,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -1999,17 +1785,7 @@
           "200": {
             "description": "When request is successful. Returns a 'Expense' object.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Expense"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Expense"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Expense"
                 }
@@ -2019,17 +1795,7 @@
           "403": {
             "description": "When expense with specified id is not associated with authenticated client.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2039,17 +1805,7 @@
           "404": {
             "description": "When expense with specified id does not exist.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2095,11 +1851,6 @@
                 "$ref": "#/components/schemas/ExpenseDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ExpenseDto"
@@ -2111,17 +1862,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the expense to be updated.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -2131,17 +1872,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2182,17 +1913,7 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the expense to be deleted.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -2202,17 +1923,7 @@
           "400": {
             "description": "Bad Request",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2265,11 +1976,6 @@
                 "$ref": "#/components/schemas/AddAttachmentDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddAttachmentDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/AddAttachmentDto"
@@ -2281,17 +1987,7 @@
           "200": {
             "description": "Returns the file upload url.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAttachmentInfo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAttachmentInfo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AddAttachmentInfo"
                 }
@@ -2301,17 +1997,7 @@
           "403": {
             "description": "Forbidden",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2321,17 +2007,7 @@
           "404": {
             "description": "Expense not found.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2369,17 +2045,7 @@
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAttachmentInfo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAttachmentInfo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AddAttachmentInfo"
                 }
@@ -2389,17 +2055,7 @@
           "403": {
             "description": "Forbidden",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -2409,17 +2065,7 @@
           "404": {
             "description": "Not Found",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -3232,7 +2878,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -3252,17 +2898,7 @@
           "200": {
             "description": "Returns the invoices",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvoicePagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvoicePagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/InvoicePagedCollection"
                 }
@@ -3975,17 +3611,6 @@
             "example": true
           },
           {
-								  
-						  
-																									 
-					   
-							   
-									
-											   
-			  
-											 
-			
-		   
             "name": "UpdatedSince",
             "in": "query",
             "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime).",
@@ -4995,7 +4620,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -5015,17 +4640,7 @@
           "200": {
             "description": "When request is successful. Returns a list of 'Memo' objects.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemoPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemoPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MemoPagedCollection"
                 }
@@ -5063,11 +4678,6 @@
                 "$ref": "#/components/schemas/MemoDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MemoDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/MemoDto"
@@ -5079,17 +4689,7 @@
           "202": {
             "description": "When request is successful. The memo has been accepted and will be created shortly.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -5132,17 +4732,7 @@
           "200": {
             "description": "When request is successful. Returns the specified memo.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Memo"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Memo"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Memo"
                 }
@@ -5191,11 +4781,6 @@
                 "$ref": "#/components/schemas/MemoDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MemoDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/MemoDto"
@@ -5207,17 +4792,7 @@
           "202": {
             "description": "When request is successful. The memo has been accepted and will be updated shortly.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -5261,17 +4836,7 @@
           "202": {
             "description": "When request is successful. The request has been accepted and the memo will be deleted shortly.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Link"
                 }
@@ -5813,7 +5378,7 @@
           "TaskDocuments"
         ],
         "summary": "Get task documents",
-        "description": "Returns a list of file and memo document links for the specified task, if associated with the authenticated client.",
+        "description": "Returns a list of document links for the specified task, if associated with the authenticated client.",
         "operationId": "GetTaskDocuments",
         "parameters": [
           {
@@ -5850,7 +5415,7 @@
           "TaskDocuments"
         ],
         "summary": "Create a task document",
-        "description": "Links a document to the specified task.",
+        "description": "Links the specified document to the specified task.",
         "operationId": "CreateTaskDocument",
         "parameters": [
           {
@@ -6420,17 +5985,7 @@
           "200": {
             "description": "When request is successful. Returns the available event types.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StringCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StringCollection"
                 }
@@ -6440,17 +5995,7 @@
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6474,7 +6019,7 @@
             "in": "query",
             "schema": {
               "maximum": 2147483647,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer",
               "format": "int32"
             }
@@ -6494,17 +6039,7 @@
           "200": {
             "description": "When request is successful. Returns existing webhook subscriptions.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubscriptionPagedCollection"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubscriptionPagedCollection"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubscriptionPagedCollection"
                 }
@@ -6535,11 +6070,6 @@
                 "$ref": "#/components/schemas/SubscriptionDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/SubscriptionDto"
@@ -6551,17 +6081,7 @@
           "200": {
             "description": "When request is successful. Returns the new webhook subscriptions.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 }
@@ -6571,17 +6091,7 @@
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6613,17 +6123,7 @@
           "200": {
             "description": "When request is successful. Returns the webhook subscriptions.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 }
@@ -6633,17 +6133,7 @@
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6681,11 +6171,6 @@
                 "$ref": "#/components/schemas/SubscriptionDto"
               }
             },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
-              }
-            },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/SubscriptionDto"
@@ -6697,17 +6182,7 @@
           "200": {
             "description": "When request is successful. Returns updated webhook subscriptions.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Subscription"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 }
@@ -6717,17 +6192,7 @@
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6740,17 +6205,7 @@
           "404": {
             "description": "When the webhook subscription is not found.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6783,17 +6238,7 @@
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -6828,17 +6273,7 @@
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 }
@@ -12399,6 +11834,7 @@
           2
         ],
         "type": "integer",
+        "description": "Available document types: \"File = 0\", \"FormTemplate = 1\", \"Memo = 2\" \r\n\r\nThe FormTemplate (1) document type is not currently supported for task document creation.",
         "format": "int32"
       },
       "SubTask": {
@@ -12693,7 +12129,7 @@
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "True when the task document (the link) has been deleted.",
+            "description": "True when the task document has been deleted.",
             "example": false
           },
           "document": {
@@ -12744,7 +12180,7 @@
         "properties": {
           "documentId": {
             "type": "string",
-            "description": "Unique identifier of the document.",
+            "description": "Unique identifier of the document (file or memo).\r\n\r\nIf a file, the type must be 0 (File). \r\n\r\nIf a memo, the type must be 2 (Memo).\r\n\r\nThe FormTemplate (1) document type is not currently supported when creating task documents via the API.",
             "nullable": true,
             "example": "cf666f06-3ff2-4a41-8c7f-ab5a8bc6a277"
           },
