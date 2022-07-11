@@ -12180,7 +12180,7 @@
         "properties": {
           "documentId": {
             "type": "string",
-            "description": "Unique identifier of the document (file or memo).\r\n\r\nIf a file, the type must be 0 (File). \r\n\r\nIf a memo, the type must be 2 (Memo).\r\n\r\nThe FormTemplate (1) document type is not currently supported when creating task documents via the API.",
+            "description": "Unique identifier of the document (file or memo).\r\n\r\nIf a file, the type must be 0 (File). \r\n\r\nIf a memo, the type must be 2 (Memo).\r\n\r\nThe FormTemplate (1) document type is not currently supported for task document creation.",
             "nullable": true,
             "example": "cf666f06-3ff2-4a41-8c7f-ab5a8bc6a277"
           },
