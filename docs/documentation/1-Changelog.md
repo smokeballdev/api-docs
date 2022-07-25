@@ -18,10 +18,10 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Fix some [DELETE](https://smokeball.stoplight.io/docs/api-docs/64a5101608c79-remove-role-from-a-matter) endpoint issues.
 
 #### Relationships
-* Added [DELETE](https://smokeball.stoplight.io/docs/api-docs/36c4ce83b182f-remove-relationship-from-a-role-in-a-matter) relationship endpoint
+* Added [DELETE](https://smokeball.stoplight.io/docs/api-docs/36c4ce83b182f-remove-relationship-from-a-role-in-a-matter) relationship endpoint.
 
 #### Tasks
-* Added ability to link files and memos to tasks (see [TaskDocuments](https://smokeball.stoplight.io/docs/api-docs/3f91dd0d2662f-get-task-documents))
+* Added ability to link files and memos to tasks (see [TaskDocuments](https://smokeball.stoplight.io/docs/api-docs/3f91dd0d2662f-get-task-documents)).
 
 #### Webhooks
 * Added `MatterItems` webhooks.
