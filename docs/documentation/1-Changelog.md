@@ -6,6 +6,28 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released. 
 
+## July 2022
+
+#### Activities
+* Fix `TaxInclusive` field returning incorrect value.
+
+#### Files
+* Added ability to add additional data on creation of a file (see [Files](https://smokeball.stoplight.io/docs/api-docs/4b58c83cc952a-add-file-to-a-matter)).
+
+#### Roles
+* Fix some [DELETE](https://smokeball.stoplight.io/docs/api-docs/64a5101608c79-remove-role-from-a-matter) endpoint issues.
+
+#### Relationships
+* Added [DELETE](https://smokeball.stoplight.io/docs/api-docs/36c4ce83b182f-remove-relationship-from-a-role-in-a-matter) relationship endpoint
+
+#### Tasks
+* Added ability to link files and memos to tasks (see [TaskDocuments](https://smokeball.stoplight.io/docs/api-docs/3f91dd0d2662f-get-task-documents))
+
+#### Webhooks
+* Added `MatterItems` webhooks.
+* Fixed `MatterTypeId` field missing in some `matter.updated` event payloads.
+
+
 ## June 2022
 
 #### Contacts
@@ -46,7 +68,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ## March 2022
 
-#### Firms
+#### Firm
 * Added `Logo` field to GET responses.
 
 #### Contacts
@@ -60,7 +82,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ## February 2022
 
-##### Firms
+##### Firm
 * Added validation when creating a firm to ensure the user is not associated to another firm.
 * Added Product when creating a firm with 3 product types `(BillingOnly, SmokeballMid and Smokeball)`.
 * Added `IsInternal` field when creating a firm so that a firm can be flagged as an internal firm and skip payment subscription.
