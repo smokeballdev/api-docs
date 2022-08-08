@@ -3591,6 +3591,16 @@
             "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
           {
+            "name": "ContactId",
+            "in": "query",
+            "description": "Filter by the specified contact id.",
+            "schema": {
+              "type": "string",
+              "example": "7fdbdd5b-0f5e-4095-af9e-ae5b055325c7"
+            },
+            "example": "7fdbdd5b-0f5e-4095-af9e-ae5b055325c7"
+          },
+          {
             "name": "Status",
             "in": "query",
             "description": "Filter by current status of the matter.\r\n\r\nPossible values: Open, Pending, Closed, Deleted or Cancelled.",
@@ -7452,7 +7462,7 @@
           },
           "gender": {
             "type": "string",
-            "description": "Contact person's gender.\r\n\r\nAccepted values - Male, Female.",
+            "description": "Contact person's gender.\r\n\r\nAccepted values - Male, Female, Other as well as any free text.",
             "nullable": true,
             "example": "Male"
           },
@@ -7622,7 +7632,7 @@
           },
           "gender": {
             "type": "string",
-            "description": "Contact person's gender.\r\n\r\nAccepted values - Male, Female",
+            "description": "Contact person's gender.\r\n\r\nAccepted values - Male, Female, Other as well as any free text.",
             "nullable": true,
             "example": "Male"
           },
@@ -12133,7 +12143,8 @@
             "example": false
           },
           "document": {
-            "$ref": "#/components/schemas/Link"
+            "description": "The document.",
+            "nullable": true
           }
         },
         "additionalProperties": false,
