@@ -3593,7 +3593,7 @@
           {
             "name": "ContactId",
             "in": "query",
-            "description": "Filter by the specified contact id.",
+            "description": "Filter by the contact identifier.",
             "schema": {
               "type": "string",
               "example": "7fdbdd5b-0f5e-4095-af9e-ae5b055325c7"
