@@ -6777,12 +6777,6 @@
       "Address": {
         "type": "object",
         "properties": {
-          "careOf": {
-            "type": "string",
-            "description": "Care of the addressee (if applicable).",
-            "nullable": true,
-            "example": "John Smith"
-          },
           "buildingLevel": {
             "type": "string",
             "description": "Building level in address (if applicable).",
@@ -6797,7 +6791,7 @@
           },
           "unitType": {
             "type": "string",
-            "description": "Unit type in address (if applicable). Accepts custom values.\r\n\r\ne.g. Apartment, Unit, Flat, Villa, Suite.",
+            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
             "nullable": true,
             "example": "Suite"
           },
@@ -6815,7 +6809,7 @@
           },
           "streetType": {
             "type": "string",
-            "description": "Street type. Accepts custom values.\r\n\r\ne.g. Street, Road, Avenue, Lane.",
+            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
             "nullable": true,
             "example": "Street"
           },
@@ -6851,9 +6845,9 @@
           },
           "county": {
             "type": "string",
-            "description": "County (if applicable).",
+            "description": "County (if applicable)",
             "nullable": true,
-            "example": "New York"
+            "example": ""
           },
           "country": {
             "type": "string",
@@ -6861,8 +6855,26 @@
             "nullable": true,
             "example": "United States"
           },
-          "poBox": {
-            "$ref": "#/components/schemas/PoBoxAddress"
+          "careOf": {
+            "type": "string",
+            "description": "Care of the addressee (if applicable).",
+            "nullable": true,
+            "readOnly": true,
+            "example": ""
+          },
+          "poBoxType": {
+            "type": "string",
+            "description": "PO box type in address (if applicable).",
+            "nullable": true,
+            "readOnly": true,
+            "example": ""
+          },
+          "poBoxNumber": {
+            "type": "string",
+            "description": "PO box Number in address (if applicable).",
+            "nullable": true,
+            "readOnly": true,
+            "example": ""
           }
         },
         "additionalProperties": false
@@ -6870,12 +6882,6 @@
       "AddressDto": {
         "type": "object",
         "properties": {
-          "careOf": {
-            "type": "string",
-            "description": "Care of the addressee (if applicable).",
-            "nullable": true,
-            "example": "John Smith"
-          },
           "buildingLevel": {
             "type": "string",
             "description": "Building level in address (if applicable).",
@@ -6890,7 +6896,7 @@
           },
           "unitType": {
             "type": "string",
-            "description": "Unit type in address (if applicable). Accepts custom values.\r\n\r\ne.g. Apartment, Unit, Flat, Villa, Suite.",
+            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
             "nullable": true,
             "example": "Suite"
           },
@@ -6908,7 +6914,7 @@
           },
           "streetType": {
             "type": "string",
-            "description": "Street type. Accepts custom values.\r\n\r\ne.g. Street, Road, Avenue, Lane.",
+            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
             "nullable": true,
             "example": "Street"
           },
@@ -6946,7 +6952,7 @@
             "type": "string",
             "description": "County (if applicable).",
             "nullable": true,
-            "example": "New York"
+            "example": ""
           },
           "country": {
             "type": "string",
@@ -6954,8 +6960,23 @@
             "nullable": true,
             "example": "United States"
           },
-          "poBox": {
-            "$ref": "#/components/schemas/PoBoxAddressDto"
+          "careOf": {
+            "type": "string",
+            "description": "Care of the addressee (if applicable).",
+            "nullable": true,
+            "example": ""
+          },
+          "poBoxType": {
+            "type": "string",
+            "description": "PO box type in address (if applicable).",
+            "nullable": true,
+            "example": ""
+          },
+          "poBoxNumber": {
+            "type": "string",
+            "description": "PO box Number in address (if applicable).",
+            "nullable": true,
+            "example": ""
           }
         },
         "additionalProperties": false
@@ -7493,6 +7514,36 @@
             "description": "Contact person's identification number.",
             "nullable": true,
             "example": "PP123456789"
+          },
+          "birthFirstName": {
+            "type": "string",
+            "description": "Contact person's first name at birth.",
+            "nullable": true,
+            "example": "James"
+          },
+          "birthMiddleName": {
+            "type": "string",
+            "description": "Contact person's middle name at birth.",
+            "nullable": true,
+            "example": "Thomas"
+          },
+          "birthLastName": {
+            "type": "string",
+            "description": "Contact person's last name at birth.",
+            "nullable": true,
+            "example": "Jones"
+          },
+          "previousNames": {
+            "type": "string",
+            "description": "Contact person's previous names.",
+            "nullable": true,
+            "example": "Jane Smith"
+          },
+          "languageOfInterpreter": {
+            "type": "string",
+            "description": "Language of interpreter.",
+            "nullable": true,
+            "example": "French"
           }
         },
         "additionalProperties": false
@@ -7626,6 +7677,36 @@
             "description": "Brief description of an special needs (if applicable).",
             "nullable": true,
             "example": "Wheelchair access"
+          },
+          "birthFirstName": {
+            "type": "string",
+            "description": "Contact person's first name at birth.",
+            "nullable": true,
+            "example": "James"
+          },
+          "birthMiddleName": {
+            "type": "string",
+            "description": "Contact person's middle name at birth.",
+            "nullable": true,
+            "example": "Thomas"
+          },
+          "birthLastName": {
+            "type": "string",
+            "description": "Contact person's last name at birth.",
+            "nullable": true,
+            "example": "Jones"
+          },
+          "previousNames": {
+            "type": "string",
+            "description": "Contact person's previous names.",
+            "nullable": true,
+            "example": "Jane Smith"
+          },
+          "languageOfInterpreter": {
+            "type": "string",
+            "description": "Language of interpreter.",
+            "nullable": true,
+            "example": "French"
           }
         },
         "additionalProperties": false
@@ -9192,10 +9273,10 @@
             "example": "234567890"
           },
           "streetAddress": {
-            "$ref": "#/components/schemas/FirmAddressDto"
+            "$ref": "#/components/schemas/AddressDto"
           },
           "mailingAddress": {
-            "$ref": "#/components/schemas/FirmAddressDto"
+            "$ref": "#/components/schemas/AddressDto"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneNumberDto"
@@ -9267,10 +9348,10 @@
             "example": "1234567890"
           },
           "streetAddress": {
-            "$ref": "#/components/schemas/FirmAddress"
+            "$ref": "#/components/schemas/Address"
           },
           "mailingAddress": {
-            "$ref": "#/components/schemas/FirmAddress"
+            "$ref": "#/components/schemas/Address"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneNumber"
@@ -9283,213 +9364,6 @@
             "description": "Logo of the firm.",
             "nullable": true,
             "example": "https://example-logo-url.com/image"
-          }
-        },
-        "additionalProperties": false
-      },
-      "FirmAddress": {
-        "type": "object",
-        "properties": {
-          "buildingLevel": {
-            "type": "string",
-            "description": "Building level in address (if applicable).",
-            "nullable": true,
-            "example": "Level 1"
-          },
-          "unitNumber": {
-            "type": "string",
-            "description": "Unit number in address (if applicable).",
-            "nullable": true,
-            "example": "10"
-          },
-          "unitType": {
-            "type": "string",
-            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
-            "nullable": true,
-            "example": "Suite"
-          },
-          "streetNumber": {
-            "type": "string",
-            "description": "Street number in address.",
-            "nullable": true,
-            "example": "100"
-          },
-          "streetName": {
-            "type": "string",
-            "description": "Street name in address.",
-            "nullable": true,
-            "example": "Broad"
-          },
-          "streetType": {
-            "type": "string",
-            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
-            "nullable": true,
-            "example": "Street"
-          },
-          "addressLine1": {
-            "type": "string",
-            "description": "First line of address.",
-            "nullable": true,
-            "example": "Level 1/10"
-          },
-          "addressLine2": {
-            "type": "string",
-            "description": "Second line of address (if applicable).",
-            "nullable": true,
-            "example": "100 Broad Street"
-          },
-          "city": {
-            "type": "string",
-            "description": "City, district, suburb, town, or village.",
-            "nullable": true,
-            "example": "Chicago"
-          },
-          "state": {
-            "type": "string",
-            "description": "State, province, or region.",
-            "nullable": true,
-            "example": "IL"
-          },
-          "zipCode": {
-            "type": "string",
-            "description": "Zip or post code.",
-            "nullable": true,
-            "example": "60606"
-          },
-          "county": {
-            "type": "string",
-            "description": "County (if applicable)",
-            "nullable": true,
-            "example": ""
-          },
-          "country": {
-            "type": "string",
-            "description": "Country.",
-            "nullable": true,
-            "example": "United States"
-          },
-          "careOf": {
-            "type": "string",
-            "description": "Care of the addressee (if applicable).",
-            "nullable": true,
-            "readOnly": true,
-            "example": ""
-          },
-          "poBoxType": {
-            "type": "string",
-            "description": "PO box type in address (if applicable).",
-            "nullable": true,
-            "readOnly": true,
-            "example": ""
-          },
-          "poBoxNumber": {
-            "type": "string",
-            "description": "PO box Number in address (if applicable).",
-            "nullable": true,
-            "readOnly": true,
-            "example": ""
-          }
-        },
-        "additionalProperties": false
-      },
-      "FirmAddressDto": {
-        "type": "object",
-        "properties": {
-          "buildingLevel": {
-            "type": "string",
-            "description": "Building level in address (if applicable).",
-            "nullable": true,
-            "example": "Level 1"
-          },
-          "unitNumber": {
-            "type": "string",
-            "description": "Unit number in address (if applicable).",
-            "nullable": true,
-            "example": "10"
-          },
-          "unitType": {
-            "type": "string",
-            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
-            "nullable": true,
-            "example": "Suite"
-          },
-          "streetNumber": {
-            "type": "string",
-            "description": "Street number in address.",
-            "nullable": true,
-            "example": "100"
-          },
-          "streetName": {
-            "type": "string",
-            "description": "Street name in address.",
-            "nullable": true,
-            "example": "Broad"
-          },
-          "streetType": {
-            "type": "string",
-            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
-            "nullable": true,
-            "example": "Street"
-          },
-          "addressLine1": {
-            "type": "string",
-            "description": "First line of address.",
-            "nullable": true,
-            "example": "Level 1/10"
-          },
-          "addressLine2": {
-            "type": "string",
-            "description": "Second line of address (if applicable).",
-            "nullable": true,
-            "example": "100 Broad Street"
-          },
-          "city": {
-            "type": "string",
-            "description": "City, district, suburb, town, or village.",
-            "nullable": true,
-            "example": "Chicago"
-          },
-          "state": {
-            "type": "string",
-            "description": "State, province, or region.",
-            "nullable": true,
-            "example": "IL"
-          },
-          "zipCode": {
-            "type": "string",
-            "description": "Zip or post code.",
-            "nullable": true,
-            "example": "60606"
-          },
-          "county": {
-            "type": "string",
-            "description": "County (if applicable).",
-            "nullable": true,
-            "example": ""
-          },
-          "country": {
-            "type": "string",
-            "description": "Country.",
-            "nullable": true,
-            "example": "United States"
-          },
-          "careOf": {
-            "type": "string",
-            "description": "Care of the addressee (if applicable).",
-            "nullable": true,
-            "example": ""
-          },
-          "poBoxType": {
-            "type": "string",
-            "description": "PO box type in address (if applicable).",
-            "nullable": true,
-            "example": ""
-          },
-          "poBoxNumber": {
-            "type": "string",
-            "description": "PO box Number in address (if applicable).",
-            "nullable": true,
-            "example": ""
           }
         },
         "additionalProperties": false
@@ -9516,10 +9390,10 @@
             "example": "234567890"
           },
           "streetAddress": {
-            "$ref": "#/components/schemas/FirmAddressDto"
+            "$ref": "#/components/schemas/AddressDto"
           },
           "mailingAddress": {
-            "$ref": "#/components/schemas/FirmAddressDto"
+            "$ref": "#/components/schemas/AddressDto"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneNumberDto"
@@ -9852,10 +9726,10 @@
             "example": "234567890"
           },
           "streetAddress": {
-            "$ref": "#/components/schemas/FirmAddressDto"
+            "$ref": "#/components/schemas/AddressDto"
           },
           "mailingAddress": {
-            "$ref": "#/components/schemas/FirmAddressDto"
+            "$ref": "#/components/schemas/AddressDto"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneNumberDto"
@@ -10326,15 +10200,11 @@
         "properties": {
           "key": {
             "type": "string",
-            "description": "Unique key name for the layout contact.",
-            "nullable": true,
-            "example": ""
+            "nullable": true
           },
           "contactId": {
             "type": "string",
-            "description": "Unique identifier for the layout contact.",
-            "format": "uuid",
-            "example": ""
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -10420,7 +10290,8 @@
           1,
           2,
           3,
-          4
+          4,
+          5
         ],
         "type": "integer",
         "format": "int32"
