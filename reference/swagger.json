@@ -436,6 +436,16 @@
             }
           },
           {
+            "name": "ExcludeDeletedContacts",
+            "in": "query",
+            "description": "Excludes (filters out) deleted contacts if set to true.",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            },
+            "example": true
+          },
+          {
             "name": "Search",
             "in": "query",
             "schema": {
