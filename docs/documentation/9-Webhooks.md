@@ -17,16 +17,40 @@ Webhook subscriptions can be managed using the `/webhooks` endpoint. To see a li
 ```json
 {
   "value": [
+    "firm.created",
     "firm.updated",
+    "firmuser.updated",
     "staff.created",
     "staff.updated",
+    "mattertype.created",
+    "mattertype.updated",
+    "mattertype.restored",
+    "mattertype.deleted",
     "matter.created",
     "matter.updated",
     "roles.updated",
     "contact.created",
     "contact.updated",
+    "contact.restored",
     "contact.deleted",
-    "contact.restored"
+    "user.registered",
+    "user.unregistered",
+    "fee.created",
+    "fee.updated",
+    "fee.deleted",
+    "expense.created",
+    "expense.updated",
+    "expense.deleted",
+    "activitycode.created",
+    "activitycode.updated",
+    "activitycode.deleted",
+    "layoutmatter.created",
+    "layoutmatter.updated",
+    "stageset.created",
+    "stageset.updated",
+    "matterstage.updated",
+    "matteritems.updated",
+    "error"
   ]
 }
 ```
@@ -89,6 +113,27 @@ If you initiate a change to a resource via the API you will more than likely rec
 
 To avoid this scenario it is recommended that you set the `RequestId` header with all of you API requests. If supplied, this header will always be returned in your API responses as well as all webhook events that were triggered from your original request. This allows you to filter or ignore webhook events that were initiaited by your changes.
 
+### 3.4 Error Handling
+
+Because our API request handling is an eventually consistent operation, we supply a `error` webhook event so you can be notified when processing your API request has failed. We provide the name and id of the failed resource and a description of the problem.
+
+A sample of the `error` payload is as follows:
+``` json
+{
+  "body": {
+    "accountId": "b5cb34c3-22bf-4982-baed-51738bb50c1a",
+    "subscriptionId": "25e95b60-3393-496f-8f60-c6672420536b",
+    "type": "error",
+    "source": "API",
+    "payload": {
+      "message": "Contact does not belong to account b5cb34c3-22bf-4982-baed-51738bb50c1a.",
+      "resourceName": "contact",
+      "resourceId": "1d1ef94a-c753-4524-ac0d-ac754ffa0719"
+    },
+    "timestamp": 637981232724209300
+  }
+}
+```
 
 ## 4. Verifying webhooks
 
