@@ -6,7 +6,12 @@ tags: [Documentation]
 
 ## Client Application Details
 
-Please note that currently, our APIs are available to be consumed only by our approved partners. In order to learn how to become Smokeball's Approved Partner, please contact; support@smokeball.com if you're based in US, and contact support@smokeball.com.au if you are based in AU.
+### Want to become an API/Integration Partner?
+If you've developed a software solution for the Legal Industry, an opportunity may exist to work with Smokeball to help our clients 'Run Their Best Firm'.
+
+To start your integration journey with Smokeball, please follow the link to and complete the registration of interest form, and a member from our Partnerships or Product Teams will be in touch.
+
+[Submit an Integration Partnership Enquiry](https://smokeball.atlassian.net/servicedesk/customer/portal/3/create/13)
 
 Smokeball will provide you with your **client_id** and **client_secret** that you will use throughout the oauth2 flow. 
 
