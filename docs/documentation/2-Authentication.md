@@ -6,7 +6,6 @@ tags: [Documentation]
 
 ## Client Application Details
 
-### Want to become an API/Integration Partner?
 If you've developed a software solution for the Legal Industry, an opportunity may exist to work with Smokeball to help our clients 'Run Their Best Firm'.
 
 To start your integration journey with Smokeball, please follow the link to complete the registration of interest form, and a member from our Partnerships or Product Teams will be in touch.
