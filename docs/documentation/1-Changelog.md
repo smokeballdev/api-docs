@@ -17,10 +17,10 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 #### Matters
 * Added ability to filter matters by contact id (see `ContactId` [query parameter](https://smokeball.stoplight.io/docs/api-docs/40aa708f63ce3-get-matters)).
-* Matter access can now restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](https://smokeball.stoplight.io/docs/api-docs/d0bd38c8d0b40-making-requests#31-acting-on-behalf-of-a-user)).
+* Matter access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](https://smokeball.stoplight.io/docs/api-docs/d0bd38c8d0b40-making-requests#31-acting-on-behalf-of-a-user)).
 
 #### Files
-* File access can now restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](https://smokeball.stoplight.io/docs/api-docs/d0bd38c8d0b40-making-requests#31-acting-on-behalf-of-a-user)).
+* File access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](https://smokeball.stoplight.io/docs/api-docs/d0bd38c8d0b40-making-requests#31-acting-on-behalf-of-a-user)).
 
 ## July 2022
 
