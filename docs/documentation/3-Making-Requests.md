@@ -172,9 +172,15 @@ For a server-to-server request using the `accountId: ea4ca7b9-b826-4840-a8k5-94e
  } 
 ```
 
+#### 3.1 Acting on behalf of a user
+
+Because server-to-server requests are not performed using a user token there is no `userId` associated with each request. A `userId` is necessary for permission checking or ensuring that the UI reflects the change done by the specified user.
+
+To act on behalf of a certain user simply supply the `UserId` header with your requests. The value must be that of a [User](https://smokeball.stoplight.io/docs/api-docs/87fac16a57c87-get-firm-staff-user-mappings) in the firm.
+
 ### 4. Tracking your requests
 
-Since all POST/PUT requests are handled asynchronously by the Smokeball API, it is useful to be able to track the changes especially when using [Webhooks](6-Webhooks.md). This is acheived  by supplying the `RequestId` header with your requests. 
+Since all POST/PUT requests are handled asynchronously by the Smokeball API, it is useful to be able to track the changes especially when using [Webhooks](6-Webhooks.md). This is acheived by supplying the `RequestId` header with your requests. 
 
 If the `RequestId` header is supplied, it will be returned as a response header for every request you make. It will also be included in all webhook callbacks so you can track what data was impacted by your request.
 
