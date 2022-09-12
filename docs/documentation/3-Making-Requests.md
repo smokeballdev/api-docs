@@ -6,7 +6,7 @@ tags: [Documentation]
 
 All requests to the API require a valid `api-key` issued by Smokeball and `id_token` (see [Authentication](1-Authentication.md)).
 
-### 1. Example Request
+## 1. Example Request
 
 ```json http
 {
@@ -66,7 +66,7 @@ All requests to the API require a valid `api-key` issued by Smokeball and `id_to
  } 
 ```
 
-### 2. Paged Responses
+## 2. Paged Responses
 
 You will notice that some requests will have the optional parameters `limit` and `offset`. These are used to control how many results are returned in a request that returns a list of results. 
 
@@ -103,7 +103,7 @@ Property | Description
 
 >By default, the `limit` will be set to a maximum of 500 results. 
 
-### 3. Server-to-Server requests
+## 3. Server-to-Server requests
 
 When using the [Client Credentials Grant](1-Authentication.md#2-client-credentials-grant) to perform server-to-server requests, you must explicitly specify which account you are using by prefixing the url with the `accountId` in this format:
 
@@ -172,13 +172,13 @@ For a server-to-server request using the `accountId: ea4ca7b9-b826-4840-a8k5-94e
  } 
 ```
 
-#### 3.1 Acting on behalf of a user
+### 3.1 Acting on behalf of a user
 
 Because server-to-server requests are not performed using a user token there is no `userId` associated with each request. A `userId` is necessary for permission checking or ensuring that the UI reflects the change done by the specified user.
 
 To act on behalf of a certain user simply supply the `UserId` header with your requests. The value must be that of a [User](https://smokeball.stoplight.io/docs/api-docs/87fac16a57c87-get-firm-staff-user-mappings) in the firm.
 
-### 4. Tracking your requests
+## 4. Tracking your requests
 
 Since all POST/PUT requests are handled asynchronously by the Smokeball API, it is useful to be able to track the changes especially when using [Webhooks](6-Webhooks.md). This is acheived by supplying the `RequestId` header with your requests. 
 
