@@ -6,10 +6,6 @@ tags: [Documentation]
 
 ## Client Application Details
 
-If you've developed a software solution for the Legal Industry, an opportunity may exist to work with Smokeball to help our clients 'Run Their Best Firm'.
-
-To start your integration journey with Smokeball, please follow this [link](https://smokeball.atlassian.net/servicedesk/customer/portal/3/create/13) to complete the registration of interest form, and a member from our Partnerships or Product Teams will be in touch.
-
 Smokeball will provide you with your **client_id** and **client_secret** that you will use throughout the oauth2 flow. 
 
 There are two OAuth 2.0 flows used to authenticate with the API based on your integration scenario:
