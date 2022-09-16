@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# API Reference
+# Introduction
 
 The Smokeball API conforms to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer). Our API has predictable resource-oriented URLS, accepts [JSON](https://www.json.org/json-en.html) request bodies, returns [JSON](https://www.json.org/json-en.html) and uses standard HTTP status codes and verbs.
 
