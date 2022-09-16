@@ -8,9 +8,7 @@ tags: [Documentation]
 
 If you've developed a software solution for the Legal Industry, an opportunity may exist to work with Smokeball to help our clients 'Run Their Best Firm'.
 
-To start your integration journey with Smokeball, please follow the link to complete the registration of interest form, and a member from our Partnerships or Product Teams will be in touch.
-
-[Submit an Integration Partnership Enquiry](https://smokeball.atlassian.net/servicedesk/customer/portal/3/create/13)
+To start your integration journey with Smokeball, please follow this [link](https://smokeball.atlassian.net/servicedesk/customer/portal/3/create/13) to complete the registration of interest form, and a member from our Partnerships or Product Teams will be in touch.
 
 Smokeball will provide you with your **client_id** and **client_secret** that you will use throughout the oauth2 flow. 
 
