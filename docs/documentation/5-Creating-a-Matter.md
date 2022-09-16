@@ -176,7 +176,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
       },
       "cell": {},
       "email": "teststaff@gmail.com",
-      "avatar": "https://staging.smokeball.com/FirmManagement/Firm/RedirectToStaffProfileImageUrl?accountId=2f3143de-2bfe-4742-9e9c-7c16b48bdef7&staffId=66f7fa24-bb03-4d89-ac28-e19620cc1e45",
+      "avatar": "https://toolbar.smokeball.com/FirmManagement/Firm/RedirectToStaffProfileImageUrl?accountId=2f3143de-2bfe-4742-9e9c-7c16b48bdef7&staffId=66f7fa24-bb03-4d89-ac28-e19620cc1e45",
       "former": false,
       "enabled": true
     },
@@ -189,7 +189,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
       "firstName": "Hunter",
       "lastName": "Steele",
       "email": "hunter@gmail.com",
-      "avatar": "https://staging.smokeball.com/FirmManagement/Firm/RedirectToStaffProfileImageUrl?accountId=2f3143de-2bfe-4742-9e9c-7c16b48bdef7&staffId=c85d28cb-a760-4627-aa59-0a853c2e65ed",
+      "avatar": "https://toolbar.smokeball.com/FirmManagement/Firm/RedirectToStaffProfileImageUrl?accountId=2f3143de-2bfe-4742-9e9c-7c16b48bdef7&staffId=c85d28cb-a760-4627-aa59-0a853c2e65ed",
       "former": false,
       "enabled": false
     },

@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Changelog
 
-We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released. 
+We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
 ## September 2022
 
