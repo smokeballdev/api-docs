@@ -2532,13 +2532,13 @@
           "description": "Layout matter item to add",
           "content": {
             "application/json-patch+json": {
-              "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
+              "schema": { "$ref": "#/components/schemas/LayoutMatterItemData" }
             },
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
+              "schema": { "$ref": "#/components/schemas/LayoutMatterItemData" }
             },
             "application/*+json": {
-              "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
+              "schema": { "$ref": "#/components/schemas/LayoutMatterItemData" }
             }
           }
         },
@@ -2610,17 +2610,15 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'LayoutMatterItemData' object.",
+            "description": "When request is successful. Returns a 'LayoutMatterItem' object.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LayoutMatterItemData"
-                }
+                "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
               }
             }
           },
           "404": {
-            "description": "When layout item with specified id does not exist on the matter.",
+            "description": "When a layout item with the specified ID does not exist on the matter.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -2632,7 +2630,7 @@
       "patch": {
         "tags": ["LayoutMatterItems"],
         "summary": "Merge a layout",
-        "description": "Merge layout item changes for a specified layout.",
+        "description": "Merges layout data.",
         "operationId": "MergeLayout",
         "parameters": [
           {
@@ -2654,13 +2652,13 @@
           "description": "Data to merge into the existing layout",
           "content": {
             "application/json-patch+json": {
-              "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
+              "schema": { "$ref": "#/components/schemas/LayoutMatterItemData" }
             },
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
+              "schema": { "$ref": "#/components/schemas/LayoutMatterItemData" }
             },
             "application/*+json": {
-              "schema": { "$ref": "#/components/schemas/LayoutMatterItem" }
+              "schema": { "$ref": "#/components/schemas/LayoutMatterItemData" }
             }
           }
         },
@@ -5356,111 +5354,12 @@
       "Address": {
         "type": "object",
         "properties": {
-          "buildingLevel": {
-            "type": "string",
-            "description": "Building level in address (if applicable).",
-            "nullable": true,
-            "example": "Level 1"
-          },
-          "unitNumber": {
-            "type": "string",
-            "description": "Unit number in address (if applicable).",
-            "nullable": true,
-            "example": "10"
-          },
-          "unitType": {
-            "type": "string",
-            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
-            "nullable": true,
-            "example": "Suite"
-          },
-          "streetNumber": {
-            "type": "string",
-            "description": "Street number in address.",
-            "nullable": true,
-            "example": "100"
-          },
-          "streetName": {
-            "type": "string",
-            "description": "Street name in address.",
-            "nullable": true,
-            "example": "Broad"
-          },
-          "streetType": {
-            "type": "string",
-            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
-            "nullable": true,
-            "example": "Street"
-          },
-          "addressLine1": {
-            "type": "string",
-            "description": "First line of address.",
-            "nullable": true,
-            "example": "Level 1/10"
-          },
-          "addressLine2": {
-            "type": "string",
-            "description": "Second line of address (if applicable).",
-            "nullable": true,
-            "example": "100 Broad Street"
-          },
-          "city": {
-            "type": "string",
-            "description": "City, district, suburb, town, or village.",
-            "nullable": true,
-            "example": "Chicago"
-          },
-          "state": {
-            "type": "string",
-            "description": "State, province, or region.",
-            "nullable": true,
-            "example": "IL"
-          },
-          "zipCode": {
-            "type": "string",
-            "description": "Zip or post code.",
-            "nullable": true,
-            "example": "60606"
-          },
-          "county": {
-            "type": "string",
-            "description": "County (if applicable)",
-            "nullable": true,
-            "example": ""
-          },
-          "country": {
-            "type": "string",
-            "description": "Country.",
-            "nullable": true,
-            "example": "United States"
-          },
           "careOf": {
             "type": "string",
             "description": "Care of the addressee (if applicable).",
             "nullable": true,
-            "readOnly": true,
-            "example": ""
+            "example": "John Smith"
           },
-          "poBoxType": {
-            "type": "string",
-            "description": "PO box type in address (if applicable).",
-            "nullable": true,
-            "readOnly": true,
-            "example": ""
-          },
-          "poBoxNumber": {
-            "type": "string",
-            "description": "PO box Number in address (if applicable).",
-            "nullable": true,
-            "readOnly": true,
-            "example": ""
-          }
-        },
-        "additionalProperties": false
-      },
-      "AddressDto": {
-        "type": "object",
-        "properties": {
           "buildingLevel": {
             "type": "string",
             "description": "Building level in address (if applicable).",
@@ -5475,7 +5374,7 @@
           },
           "unitType": {
             "type": "string",
-            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
+            "description": "Unit type in address (if applicable). Accepts custom values.\r\n\r\ne.g. Apartment, Unit, Flat, Villa, Suite.",
             "nullable": true,
             "example": "Suite"
           },
@@ -5493,7 +5392,7 @@
           },
           "streetType": {
             "type": "string",
-            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
+            "description": "Street type. Accepts custom values.\r\n\r\ne.g. Street, Road, Avenue, Lane.",
             "nullable": true,
             "example": "Street"
           },
@@ -5531,7 +5430,7 @@
             "type": "string",
             "description": "County (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "New York"
           },
           "country": {
             "type": "string",
@@ -5539,23 +5438,105 @@
             "nullable": true,
             "example": "United States"
           },
+          "poBox": {
+            "allOf": [{ "$ref": "#/components/schemas/PoBoxAddress" }],
+            "description": "PO Box details (if applicable).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AddressDto": {
+        "type": "object",
+        "properties": {
           "careOf": {
             "type": "string",
             "description": "Care of the addressee (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "John Smith"
           },
-          "poBoxType": {
+          "buildingLevel": {
             "type": "string",
-            "description": "PO box type in address (if applicable).",
+            "description": "Building level in address (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "Level 1"
           },
-          "poBoxNumber": {
+          "unitNumber": {
             "type": "string",
-            "description": "PO box Number in address (if applicable).",
+            "description": "Unit number in address (if applicable).",
             "nullable": true,
-            "example": ""
+            "example": "10"
+          },
+          "unitType": {
+            "type": "string",
+            "description": "Unit type in address (if applicable). Accepts custom values.\r\n\r\ne.g. Apartment, Unit, Flat, Villa, Suite.",
+            "nullable": true,
+            "example": "Suite"
+          },
+          "streetNumber": {
+            "type": "string",
+            "description": "Street number in address.",
+            "nullable": true,
+            "example": "100"
+          },
+          "streetName": {
+            "type": "string",
+            "description": "Street name in address.",
+            "nullable": true,
+            "example": "Broad"
+          },
+          "streetType": {
+            "type": "string",
+            "description": "Street type. Accepts custom values.\r\n\r\ne.g. Street, Road, Avenue, Lane.",
+            "nullable": true,
+            "example": "Street"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "First line of address.",
+            "nullable": true,
+            "example": "Level 1/10"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Second line of address (if applicable).",
+            "nullable": true,
+            "example": "100 Broad Street"
+          },
+          "city": {
+            "type": "string",
+            "description": "City, district, suburb, town, or village.",
+            "nullable": true,
+            "example": "Chicago"
+          },
+          "state": {
+            "type": "string",
+            "description": "State, province, or region.",
+            "nullable": true,
+            "example": "IL"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Zip or post code.",
+            "nullable": true,
+            "example": "60606"
+          },
+          "county": {
+            "type": "string",
+            "description": "County (if applicable).",
+            "nullable": true,
+            "example": "New York"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country.",
+            "nullable": true,
+            "example": "United States"
+          },
+          "poBox": {
+            "allOf": [{ "$ref": "#/components/schemas/PoBoxAddressDto" }],
+            "description": "PO Box details (only applicable for AUS).",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -7586,8 +7567,8 @@
             "nullable": true,
             "example": "234567890"
           },
-          "streetAddress": { "$ref": "#/components/schemas/AddressDto" },
-          "mailingAddress": { "$ref": "#/components/schemas/AddressDto" },
+          "streetAddress": { "$ref": "#/components/schemas/FirmAddressDto" },
+          "mailingAddress": { "$ref": "#/components/schemas/FirmAddressDto" },
           "phone": { "$ref": "#/components/schemas/PhoneNumberDto" },
           "fax": { "$ref": "#/components/schemas/PhoneNumberDto" },
           "product": { "$ref": "#/components/schemas/Product" },
@@ -7637,8 +7618,8 @@
             "nullable": true,
             "example": "1234567890"
           },
-          "streetAddress": { "$ref": "#/components/schemas/Address" },
-          "mailingAddress": { "$ref": "#/components/schemas/Address" },
+          "streetAddress": { "$ref": "#/components/schemas/FirmAddress" },
+          "mailingAddress": { "$ref": "#/components/schemas/FirmAddress" },
           "phone": { "$ref": "#/components/schemas/PhoneNumber" },
           "fax": { "$ref": "#/components/schemas/PhoneNumber" },
           "logo": {
@@ -7646,6 +7627,213 @@
             "description": "Logo of the firm.",
             "nullable": true,
             "example": "https://example-logo-url.com/image"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FirmAddress": {
+        "type": "object",
+        "properties": {
+          "buildingLevel": {
+            "type": "string",
+            "description": "Building level in address (if applicable).",
+            "nullable": true,
+            "example": "Level 1"
+          },
+          "unitNumber": {
+            "type": "string",
+            "description": "Unit number in address (if applicable).",
+            "nullable": true,
+            "example": "10"
+          },
+          "unitType": {
+            "type": "string",
+            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
+            "nullable": true,
+            "example": "Suite"
+          },
+          "streetNumber": {
+            "type": "string",
+            "description": "Street number in address.",
+            "nullable": true,
+            "example": "100"
+          },
+          "streetName": {
+            "type": "string",
+            "description": "Street name in address.",
+            "nullable": true,
+            "example": "Broad"
+          },
+          "streetType": {
+            "type": "string",
+            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
+            "nullable": true,
+            "example": "Street"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "First line of address.",
+            "nullable": true,
+            "example": "Level 1/10"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Second line of address (if applicable).",
+            "nullable": true,
+            "example": "100 Broad Street"
+          },
+          "city": {
+            "type": "string",
+            "description": "City, district, suburb, town, or village.",
+            "nullable": true,
+            "example": "Chicago"
+          },
+          "state": {
+            "type": "string",
+            "description": "State, province, or region.",
+            "nullable": true,
+            "example": "IL"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Zip or post code.",
+            "nullable": true,
+            "example": "60606"
+          },
+          "county": {
+            "type": "string",
+            "description": "County (if applicable)",
+            "nullable": true,
+            "example": ""
+          },
+          "country": {
+            "type": "string",
+            "description": "Country.",
+            "nullable": true,
+            "example": "United States"
+          },
+          "careOf": {
+            "type": "string",
+            "description": "Care of the addressee (if applicable).",
+            "nullable": true,
+            "readOnly": true,
+            "example": ""
+          },
+          "poBoxType": {
+            "type": "string",
+            "description": "PO box type in address (if applicable).",
+            "nullable": true,
+            "readOnly": true,
+            "example": ""
+          },
+          "poBoxNumber": {
+            "type": "string",
+            "description": "PO box Number in address (if applicable).",
+            "nullable": true,
+            "readOnly": true,
+            "example": ""
+          }
+        },
+        "additionalProperties": false
+      },
+      "FirmAddressDto": {
+        "type": "object",
+        "properties": {
+          "buildingLevel": {
+            "type": "string",
+            "description": "Building level in address (if applicable).",
+            "nullable": true,
+            "example": "Level 1"
+          },
+          "unitNumber": {
+            "type": "string",
+            "description": "Unit number in address (if applicable).",
+            "nullable": true,
+            "example": "10"
+          },
+          "unitType": {
+            "type": "string",
+            "description": "Unit type (e.g. Unit,Flat,Villa,Suite,etc.) in address (if applicable).",
+            "nullable": true,
+            "example": "Suite"
+          },
+          "streetNumber": {
+            "type": "string",
+            "description": "Street number in address.",
+            "nullable": true,
+            "example": "100"
+          },
+          "streetName": {
+            "type": "string",
+            "description": "Street name in address.",
+            "nullable": true,
+            "example": "Broad"
+          },
+          "streetType": {
+            "type": "string",
+            "description": "Street type (e.g. Street,Road,Avenue,Lane,etc.) in address.",
+            "nullable": true,
+            "example": "Street"
+          },
+          "addressLine1": {
+            "type": "string",
+            "description": "First line of address.",
+            "nullable": true,
+            "example": "Level 1/10"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "Second line of address (if applicable).",
+            "nullable": true,
+            "example": "100 Broad Street"
+          },
+          "city": {
+            "type": "string",
+            "description": "City, district, suburb, town, or village.",
+            "nullable": true,
+            "example": "Chicago"
+          },
+          "state": {
+            "type": "string",
+            "description": "State, province, or region.",
+            "nullable": true,
+            "example": "IL"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Zip or post code.",
+            "nullable": true,
+            "example": "60606"
+          },
+          "county": {
+            "type": "string",
+            "description": "County (if applicable).",
+            "nullable": true,
+            "example": ""
+          },
+          "country": {
+            "type": "string",
+            "description": "Country.",
+            "nullable": true,
+            "example": "United States"
+          },
+          "careOf": {
+            "type": "string",
+            "description": "Care of the addressee (if applicable).",
+            "nullable": true,
+            "example": ""
+          },
+          "poBoxType": {
+            "type": "string",
+            "description": "PO box type in address (if applicable).",
+            "nullable": true,
+            "example": ""
+          },
+          "poBoxNumber": {
+            "type": "string",
+            "description": "PO box Number in address (if applicable).",
+            "nullable": true,
+            "example": ""
           }
         },
         "additionalProperties": false
@@ -7671,8 +7859,8 @@
             "nullable": true,
             "example": "234567890"
           },
-          "streetAddress": { "$ref": "#/components/schemas/AddressDto" },
-          "mailingAddress": { "$ref": "#/components/schemas/AddressDto" },
+          "streetAddress": { "$ref": "#/components/schemas/FirmAddressDto" },
+          "mailingAddress": { "$ref": "#/components/schemas/FirmAddressDto" },
           "phone": { "$ref": "#/components/schemas/PhoneNumberDto" },
           "fax": { "$ref": "#/components/schemas/PhoneNumberDto" }
         },
@@ -7924,8 +8112,8 @@
             "nullable": true,
             "example": "234567890"
           },
-          "streetAddress": { "$ref": "#/components/schemas/AddressDto" },
-          "mailingAddress": { "$ref": "#/components/schemas/AddressDto" },
+          "streetAddress": { "$ref": "#/components/schemas/FirmAddressDto" },
+          "mailingAddress": { "$ref": "#/components/schemas/FirmAddressDto" },
           "phone": { "$ref": "#/components/schemas/PhoneNumberDto" },
           "fax": { "$ref": "#/components/schemas/PhoneNumberDto" },
           "product": { "$ref": "#/components/schemas/Product" }
@@ -8260,8 +8448,17 @@
       "LayoutContactData": {
         "type": "object",
         "properties": {
-          "key": { "type": "string", "nullable": true },
-          "contactId": { "type": "string", "format": "uuid" }
+          "key": {
+            "type": "string",
+            "description": "Unique key name for the layout contact.",
+            "nullable": true
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Unique identifier for the layout contact.",
+            "format": "uuid",
+            "nullable": true
+          }
         },
         "additionalProperties": false
       },
@@ -8381,7 +8578,7 @@
           },
           "items": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/LayoutMatterItemData" },
+            "items": { "$ref": "#/components/schemas/LayoutMatterItem" },
             "description": "Layout matter item data.",
             "nullable": true
           }
@@ -8391,80 +8588,12 @@
       "LayoutMatterItem": {
         "type": "object",
         "properties": {
-          "index": {
-            "type": "integer",
-            "description": "Zero-based index of the layout item.",
-            "format": "int32",
-            "example": 0
-          },
-          "layoutDesignId": {
-            "type": "string",
-            "description": "Unique identifier of the layout design.",
-            "nullable": true,
-            "example": "59791902-6280-471b-bd18-f8439ba3042f"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the layout item.",
-            "nullable": true,
-            "example": "Item"
-          },
-          "description": {
-            "type": "string",
-            "description": "Brief description of the layout item.",
-            "nullable": true,
-            "example": "Text describing item"
-          },
-          "isRemoved": {
-            "type": "boolean",
-            "description": "Boolean flag indicating if the layout item is to be removed",
-            "example": false
-          },
-          "itemId": {
+          "id": {
             "type": "string",
             "description": "Unique identifier for the layout item.",
-            "nullable": true,
+            "format": "uuid",
             "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
-          "parentId": {
-            "type": "string",
-            "description": "Unique identifier for the parent layout design.",
-            "nullable": true,
-            "example": "Client"
-          },
-          "parentIndex": {
-            "type": "integer",
-            "description": "Zero-based index of the parent item in the list.",
-            "format": "int32",
-            "example": 0
-          },
-          "values": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/LayoutValue" },
-            "description": "List of layout values.",
-            "nullable": true
-          },
-          "events": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/LayoutEvent" },
-            "description": "List of layout events.",
-            "nullable": true
-          },
-          "id": { "type": "string", "nullable": true, "readOnly": true },
-          "deprecatedId": {
-            "type": "string",
-            "description": "Id without ItemId, used for backward compatibility",
-            "nullable": true,
-            "readOnly": true
-          },
-          "hasValues": { "type": "boolean", "readOnly": true }
-        },
-        "additionalProperties": false
-      },
-      "LayoutMatterItemData": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "nullable": true },
           "href": { "type": "string", "nullable": true },
           "relation": { "type": "string", "nullable": true },
           "method": { "type": "string", "default": "GET", "nullable": true },
@@ -8484,7 +8613,7 @@
           "itemId": {
             "type": "string",
             "description": "Unique identifier for the layout item.",
-            "nullable": true,
+            "format": "uuid",
             "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "parentId": {
@@ -8515,6 +8644,62 @@
         },
         "additionalProperties": false
       },
+      "LayoutMatterItemData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the layout item.",
+            "nullable": true,
+            "example": "Item"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the layout item.",
+            "nullable": true,
+            "example": "Text describing item"
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Unique identifier for the layout item.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Unique identifier for the parent layout design.",
+            "nullable": true,
+            "example": "Client"
+          },
+          "parentIndex": {
+            "type": "integer",
+            "description": "Zero-based index of the parent item in the list.",
+            "format": "int32",
+            "example": 0
+          },
+          "index": {
+            "type": "integer",
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
+          },
+          "layoutDesignId": { "type": "string", "nullable": true },
+          "values": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LayoutValue" },
+            "description": "List of layout values.",
+            "nullable": true
+          },
+          "events": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LayoutEvent" },
+            "description": "List of layout events.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LayoutMatterItemDataCollection": {
         "type": "object",
         "properties": {
@@ -8525,7 +8710,7 @@
           "self": { "$ref": "#/components/schemas/Link" },
           "value": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/LayoutMatterItemData" },
+            "items": { "$ref": "#/components/schemas/LayoutMatterItem" },
             "nullable": true
           }
         },
@@ -9008,6 +9193,7 @@
             "nullable": true,
             "example": "Litigation"
           },
+          "type": { "$ref": "#/components/schemas/TypeCategory" },
           "representativeOptions": {
             "type": "array",
             "items": { "type": "string" },
@@ -9060,6 +9246,7 @@
             "nullable": true,
             "example": "Litigation"
           },
+          "type": { "$ref": "#/components/schemas/TypeCategory" },
           "representativeOptions": {
             "type": "array",
             "items": { "type": "string" },
@@ -9565,6 +9752,12 @@
             "description": "Last updated timestamp.",
             "format": "int64",
             "example": 637847425252027400
+          },
+          "duration": {
+            "type": "string",
+            "description": "Duration of the task in ISO 8601 duration format.",
+            "nullable": true,
+            "example": "PT4H33M"
           }
         },
         "additionalProperties": false
@@ -9683,6 +9876,12 @@
             "format": "date-time",
             "nullable": true,
             "example": "2022-07-01"
+          },
+          "duration": {
+            "type": "string",
+            "description": "Duration of the task in ISO 8601 duration format.",
+            "nullable": true,
+            "example": "PT4H33M"
           }
         },
         "additionalProperties": false
