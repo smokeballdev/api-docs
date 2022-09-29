@@ -10806,7 +10806,9 @@
             "example": "Nature of Property"
           },
           "type": {
-            "$ref": "#/components/schemas/LayoutDesignFieldType"
+            "type": "string",
+            "description": "Type of the layout design field.\r\n            \r\nPossible values: 'Text','Combobox','Checkbox','DateTime','Role','Number'",
+            "example": "Combobox"
           },
           "possibleValues": {
             "type": "array",
@@ -10824,18 +10826,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "LayoutDesignFieldType": {
-        "enum": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "LayoutDesignInfo": {
         "type": "object",
