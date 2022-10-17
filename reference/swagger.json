@@ -2957,17 +2957,17 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LayoutMatterItemData"
+                                "$ref": "#/components/schemas/LayoutData"
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LayoutMatterItemData"
+                                "$ref": "#/components/schemas/LayoutData"
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LayoutMatterItemData"
+                                "$ref": "#/components/schemas/LayoutData"
                             }
                         }
                     }
@@ -3105,17 +3105,17 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LayoutMatterItemData"
+                                "$ref": "#/components/schemas/LayoutData"
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LayoutMatterItemData"
+                                "$ref": "#/components/schemas/LayoutData"
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/LayoutMatterItemData"
+                                "$ref": "#/components/schemas/LayoutData"
                             }
                         }
                     }
@@ -7249,6 +7249,11 @@
                         ],
                         "description": "Contact group's mailing address details",
                         "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Names of the people in the group. Limited to the first 5 names.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -10525,6 +10530,75 @@
                 },
                 "additionalProperties": false
             },
+            "LayoutData": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the layout item.",
+                        "nullable": true,
+                        "example": "Item"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Brief description of the layout item.",
+                        "nullable": true,
+                        "example": "Text describing item"
+                    },
+                    "itemId": {
+                        "type": "string",
+                        "description": "Unique identifier for the layout item.",
+                        "format": "uuid",
+                        "nullable": true,
+                        "example": "59791902-6280-471b-bd18-f8439ba3042f"
+                    },
+                    "parentId": {
+                        "type": "string",
+                        "description": "Identifier of the parent matter list item specific to the provider.",
+                        "nullable": true,
+                        "example": "Client"
+                    },
+                    "parentItemId": {
+                        "type": "string",
+                        "description": "Unique identifier of the parent matter list item.",
+                        "nullable": true,
+                        "example": "59791902-6280-471b-bd18-f8439ba3042f"
+                    },
+                    "parentIndex": {
+                        "type": "integer",
+                        "description": "Zero-based index of the parent matter list item.",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "index": {
+                        "type": "integer",
+                        "description": "Zero-based index of the layout item.",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "layoutDesignId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LayoutValue"
+                        },
+                        "description": "List of layout values.",
+                        "nullable": true
+                    },
+                    "events": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LayoutEvent"
+                        },
+                        "description": "List of layout events.",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "LayoutDesign": {
                 "type": "object",
                 "properties": {
@@ -10792,69 +10866,6 @@
                     },
                     "layoutDesign": {
                         "$ref": "#/components/schemas/Link"
-                    },
-                    "values": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/LayoutValue"
-                        },
-                        "description": "List of layout values.",
-                        "nullable": true
-                    },
-                    "events": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/LayoutEvent"
-                        },
-                        "description": "List of layout events.",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
-            "LayoutMatterItemData": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the layout item.",
-                        "nullable": true,
-                        "example": "Item"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "Brief description of the layout item.",
-                        "nullable": true,
-                        "example": "Text describing item"
-                    },
-                    "itemId": {
-                        "type": "string",
-                        "description": "Unique identifier for the layout item.",
-                        "format": "uuid",
-                        "nullable": true,
-                        "example": "59791902-6280-471b-bd18-f8439ba3042f"
-                    },
-                    "parentId": {
-                        "type": "string",
-                        "description": "Unique identifier for the parent layout design.",
-                        "nullable": true,
-                        "example": "Client"
-                    },
-                    "parentIndex": {
-                        "type": "integer",
-                        "description": "Zero-based index of the parent item in the list.",
-                        "format": "int32",
-                        "example": 0
-                    },
-                    "index": {
-                        "type": "integer",
-                        "description": "Zero-based index of the layout item.",
-                        "format": "int32",
-                        "example": 0
-                    },
-                    "layoutDesignId": {
-                        "type": "string",
-                        "nullable": true
                     },
                     "values": {
                         "type": "array",
