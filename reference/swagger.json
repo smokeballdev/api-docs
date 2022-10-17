@@ -4271,10 +4271,11 @@
                     }, {
                         "name": "Type",
                         "in": "query",
-                        "description": "Return matter types by category type (i.e. MatterType or LeadType).",
+                        "description": "Return matter types by category type (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
                         "schema": {
                             "$ref": "#/components/schemas/TypeCategory"
-                        }
+                        },
+                        "example": 0
                     }, {
                         "name": "Deleted",
                         "in": "query",
