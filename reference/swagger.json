@@ -6867,6 +6867,15 @@
                         "description": "Company's staff hypermedia links.",
                         "nullable": true,
                         "readOnly": true
+                    },
+                    "directors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Link"
+                        },
+                        "description": "Company's directors hypermedia links.",
+                        "nullable": true,
+                        "readOnly": true
                     }
                 },
                 "additionalProperties": false
@@ -6946,6 +6955,24 @@
                         "description": "Company's Australian Company Number (only applicable for AUS).",
                         "nullable": true,
                         "example": "234567890"
+                    },
+                    "staffIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of Staff IDs for this company.",
+                        "nullable": true,
+                        "example": ["73481c13-b7f8-4610-b221-aaccbf7aaade", "18cd6029-4a9e-4b99-bae5-710a7d79a19b"]
+                    },
+                    "directorIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of Director IDs for this company.",
+                        "nullable": true,
+                        "example": ["73481c13-b7f8-4610-b221-aaccbf7aaade", "18cd6029-4a9e-4b99-bae5-710a7d79a19b"]
                     }
                 },
                 "additionalProperties": false
@@ -11112,6 +11139,18 @@
                         "description": "List of 'OtherSide' contact id's associated with the matter.",
                         "nullable": true,
                         "example": ["776e778f-83df-454a-b344-768a862a6e58"]
+                    },
+                    "branchId": {
+                        "type": "string",
+                        "description": "Unique identifier of the associated branch.",
+                        "nullable": true,
+                        "example": "dd4e4381-b6a0-4c64-8feb-e8ea8016ea42"
+                    },
+                    "branchProviderId": {
+                        "type": "string",
+                        "description": "Unique identifier of the associated branch provider.",
+                        "nullable": true,
+                        "example": "Smokeball"
                     },
                     "clientRole": {
                         "type": "string",
