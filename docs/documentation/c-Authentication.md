@@ -10,9 +10,9 @@ Smokeball will provide you with your **client_id** and **client_secret** that yo
 
 There are two OAuth 2.0 flows used to authenticate with the API based on your integration scenario:
 
-**[Authorization Code Grant](1-Authentication.md#1-authorization-code-grant)** - This is used to connect to the Smokeball API as an authenticated Smokeball user. The Smokeball user will authenticate using their credentials and an authorization code is passed back to your supplied redirect uri(s) which you can then exchange for an Id token.
+**[Authorization Code Grant](#1-authorization-code-grant)** - This is used to connect to the Smokeball API as an authenticated Smokeball user. The Smokeball user will authenticate using their credentials and an authorization code is passed back to your supplied redirect uri(s) which you can then exchange for an Id token.
 
-**[Client Credentials Grant](1-Authentication.md#2-client-credentials-grant)** - This flow is used when connecting to the Smokeball API for server-to-server requests outside the context of a Smokeball user.
+**[Client Credentials Grant](#2-client-credentials-grant)** - This flow is used when connecting to the Smokeball API for server-to-server requests outside the context of a Smokeball user.
 
 ## 1. Authorization Code Grant
 
