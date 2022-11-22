@@ -9,7 +9,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ## September 2022
 
 #### Contacts
-* Added ability to exclude deleted contacts from GET response (see `ExcludeDeletedContacts` [query parameter](https://smokeball.stoplight.io/docs/api-docs/0d6f4aba1a214-get-contacts)).
+* Added ability to exclude deleted contacts from GET response (see `ExcludeDeletedContacts` [query parameter](0d6f4aba1a214-get-contacts)).
 * Added `BirthFirstName`, `BirthMiddleName`, `BirthLastName` fields.
 * Added `PreviousNames` field.
 * Added `LanguageOfInterpreter` field.
@@ -18,13 +18,13 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 #### Matters
 * Added ability to filter matters by contact id (see `ContactId` [query parameter](https://smokeball.stoplight.io/docs/api-docs/40aa708f63ce3-get-matters)).
-* Matter access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](https://smokeball.stoplight.io/docs/api-docs/d-Making-Requests#31-acting-on-behalf-of-a-user)).
+* Matter access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](d-Making-Requests#31-acting-on-behalf-of-a-user)).
 
 #### Leads
 * Restricted leads API to Grow and Prosper tiered clients.
 
 #### Files
-* File access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](https://smokeball.stoplight.io/docs/api-docs/d-Making-Requests#31-acting-on-behalf-of-a-user)).
+* File access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](d-Making-Requests#31-acting-on-behalf-of-a-user)).
 
 ## July 2022
 
