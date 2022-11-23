@@ -17,14 +17,14 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Fixed validation issues when creating new contacts.
 
 #### Matters
-* Added ability to filter matters by contact id (see `ContactId` [query parameter](https://smokeball.stoplight.io/docs/api-docs/40aa708f63ce3-get-matters)).
-* Matter access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](d-Making-Requests#31-acting-on-behalf-of-a-user)).
+* Added ability to filter matters by contact id (see `ContactId` [query parameter](40aa708f63ce3-get-matters)).
+* Matter access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](91f30a1eaee08-making-requests#31-acting-on-behalf-of-a-user)).
 
 #### Leads
 * Restricted leads API to Grow and Prosper tiered clients.
 
 #### Files
-* File access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](d-Making-Requests#31-acting-on-behalf-of-a-user)).
+* File access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](91f30a1eaee08-making-requests#31-acting-on-behalf-of-a-user)).
 
 ## July 2022
 
@@ -32,16 +32,16 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Fix `TaxInclusive` field returning incorrect value.
 
 #### Files
-* Added ability to add additional data on creation of a file (see [Files](https://smokeball.stoplight.io/docs/api-docs/4b58c83cc952a-add-file-to-a-matter)).
+* Added ability to add additional data on creation of a file (see [Files](4b58c83cc952a-add-file-to-a-matter)).
 
 #### Roles
-* Fix some [DELETE](https://smokeball.stoplight.io/docs/api-docs/64a5101608c79-remove-role-from-a-matter) endpoint issues.
+* Fix some [DELETE](64a5101608c79-remove-role-from-a-matter) endpoint issues.
 
 #### Relationships
-* Added [DELETE](https://smokeball.stoplight.io/docs/api-docs/36c4ce83b182f-remove-relationship-from-a-role-in-a-matter) relationship endpoint.
+* Added [DELETE](36c4ce83b182f-remove-relationship-from-a-role-in-a-matter) relationship endpoint.
 
 #### Tasks
-* Added ability to link files and memos to tasks (see [TaskDocuments](https://smokeball.stoplight.io/docs/api-docs/3f91dd0d2662f-get-task-documents)).
+* Added ability to link files and memos to tasks (see [TaskDocuments](3f91dd0d2662f-get-task-documents)).
 
 #### Webhooks
 * Added `MatterItems` webhooks.
