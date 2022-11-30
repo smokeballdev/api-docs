@@ -9,7 +9,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ## December 2022
 
 #### Activities
-* Additional validation for activities
+* Added additional validation for activities
 
 #### Files
 * Added [PATCH](89218c51253ef-patch-version-or-metadata-of-a-file) endpoint
