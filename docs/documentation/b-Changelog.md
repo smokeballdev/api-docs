@@ -6,6 +6,31 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
+## December 2022
+
+#### Activities
+* Additional validation for activities
+
+#### Files
+* Added [PATCH](89218c51253ef-patch-version-or-metadata-of-a-file) endpoint
+
+#### Contacts
+* Added `Name` field to GET response for `GroupOfPeople` contacts. This returns the combined names of the contacts in the group, saving you needing to retrieve the individual contacts.
+
+#### Firm
+* Added `Owner` field to GET responses. This can be used to determine the whitelabel product linked to the firm.
+
+#### MatterTypes
+* Added `Type` field to GET responses. This can be used to determine if the type is for a Lead or Matter.
+
+#### Tasks
+* Added `Duration` field. This follows the `ISO 8601` duration format (e.g. `PT4H33M`)
+* Fix categories not saving when adding or updating tasks.
+
+#### Webhooks
+* Added `error` event type. This can be used to listen to errors when your API requests fail, read more about this [here](3d812ecec78d9-webhooks#34-error-handling).
+
+
 ## September 2022
 
 #### Contacts
