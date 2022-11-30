@@ -28,7 +28,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Fix categories not saving when adding or updating tasks.
 
 #### Webhooks
-* Added `error` event type. This can be used to listen to errors when your API requests fail, read more about this [here](3d812ecec78d9-webhooks#34-error-handling).
+* Added `error` event type. This can be used to listen to errors when your API requests fail, see [Error Handling](3d812ecec78d9-webhooks#34-error-handling).
 
 
 ## September 2022
