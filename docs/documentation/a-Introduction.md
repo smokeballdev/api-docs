@@ -16,7 +16,7 @@ Refer to the below base urls for different environments and regions.
 
 ### 1.1 Authentication
 
-Use this base URL for [authentication](3-Authentication.md).
+Use this base URL for [authentication](c916c683c136e-authentication).
 
 |     | Production                    | Test                                      |
 | --- | ----------------------------- | ----------------------------------------- |
@@ -26,7 +26,7 @@ Use this base URL for [authentication](3-Authentication.md).
 
 ### 1.2 API
 
-Use this base URL for [making api requests](4-Making-Requests.md).
+Use this base URL for [making api requests](91f30a1eaee08-making-requests).
 
 |     | Production                   | Test                                |
 | --- | ---------------------------- | ----------------------------------- |
