@@ -397,6 +397,113 @@
         }
       }
     },
+    "/matters/{matterId}/billingconfiguration": {
+      "get": {
+        "tags": [
+          "BillingConfiguration"
+        ],
+        "summary": "Get matter billing configuration",
+        "description": "Retrieves the specified matters billing configuration.",
+        "operationId": "GetBillingConfiguration",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the specified memo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingConfiguration"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified memo does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BillingConfiguration"
+        ],
+        "summary": "Update matter billing configuration",
+        "description": "Retrieves the specified matters billing configuration.",
+        "operationId": "UpdateBillingConfiguration",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingConfigurationDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingConfigurationDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillingConfigurationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the billing configuration to be updated."
+          },
+          "403": {
+            "description": "When matter with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contacts": {
       "get": {
         "tags": [
@@ -7009,6 +7116,158 @@
         "description": "The type of the fee (Fixed = 0, Time = 1).",
         "format": "int32"
       },
+      "BillingConfiguration": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "billingType": {
+            "$ref": "#/components/schemas/BillingTypeEnum"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount (currency).\r\n\r\nOnly applicable when BillingType is 'Fixed Fee', 'Fixed Fee per Apperance' or 'Time Based'.",
+            "format": "double",
+            "example": 142.31
+          },
+          "contingencyAmount": {
+            "type": "number",
+            "description": "The contingency amount (percentage). \r\n\r\nOnly applicable when BillingType is 'Contingency Percent'.",
+            "format": "double",
+            "example": 32
+          },
+          "debtors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "description": "The matter debtors.",
+            "nullable": true
+          },
+          "isUtbmsEnabled": {
+            "type": "boolean",
+            "description": "True if Uniform Task Based Management (UTBMS) is enabled for this matter.\r\n\r\nOnly supported in the US.",
+            "example": true
+          },
+          "ledesFirmId": {
+            "type": "string",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) firm.\r\n\r\nOnly supported in the US.",
+            "nullable": true,
+            "example": "100558"
+          },
+          "ledesMatterId": {
+            "type": "string",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) matter.\r\n\r\nOnly supported in the US.",
+            "nullable": true,
+            "example": "100558"
+          },
+          "ledesClientMatterId": {
+            "type": "string",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) client matter.\r\n\r\nOnly supported in the US.",
+            "nullable": true,
+            "example": "100558"
+          },
+          "ledesTimekeeperClassificationType": {
+            "$ref": "#/components/schemas/TimekeeperClassificationType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BillingConfigurationDto": {
+        "type": "object",
+        "properties": {
+          "billingType": {
+            "$ref": "#/components/schemas/BillingTypeEnum"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount (currency).\r\n\r\nOnly applicable when BillingType is 'Fixed Fee', 'Fixed Fee per Apperance', 'Contingency ($)' or 'Time Based'.",
+            "format": "double",
+            "example": 142.31
+          },
+          "contingencyAmount": {
+            "type": "number",
+            "description": "The contingency amount (percentage). \r\n\r\nOnly applicable when BillingType is 'Contingency Percent'.",
+            "format": "double",
+            "example": 32
+          },
+          "debtorIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The matter debtors. Must be valid contact id(s) and a maximum of 3 debtors can be set.",
+            "nullable": true
+          },
+          "isUtbmsEnabled": {
+            "type": "boolean",
+            "description": "True if Uniform Task Based Management (UTBMS) is enabled for this matter.\r\n\r\nOnly supported in the US.",
+            "example": true
+          },
+          "ledesFirmId": {
+            "type": "string",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) firm.\r\n\r\nOnly supported in the US.",
+            "nullable": true,
+            "example": "100558"
+          },
+          "ledesMatterId": {
+            "type": "string",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) matter.\r\n\r\nOnly supported in the US.",
+            "nullable": true,
+            "example": "100558"
+          },
+          "ledesClientMatterId": {
+            "type": "string",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) client matter.\r\n\r\nOnly supported in the US.",
+            "nullable": true,
+            "example": "100558"
+          },
+          "ledesTimekeeperClassificationType": {
+            "$ref": "#/components/schemas/TimekeeperClassificationType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BillingTypeEnum": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "description": "The billing type.\r\n\r\nPossible values: None = 0, Fixed Fee = 1, Fixed Fee per Appearance = 2, Time Based = 3, Contingency Dollars = 4, Contingency Percent = 5, Not Billable = 6",
+        "format": "int32"
+      },
+      "TimekeeperClassificationType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "Address": {
         "type": "object",
         "properties": {
@@ -9012,7 +9271,7 @@
           },
           "id": {
             "type": "string",
-            "description": "Unique identifier of the file",
+            "description": "Unique identifier of the file.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
@@ -9021,43 +9280,49 @@
           },
           "name": {
             "type": "string",
-            "description": "Name of the file, excluding file extension",
+            "description": "Name of the file, excluding file extension.",
             "nullable": true,
             "example": "court filing"
           },
           "fileExtension": {
             "type": "string",
-            "description": "Extension of the file",
+            "description": "Extension of the file.",
             "nullable": true,
             "example": ".pdf"
           },
           "ownerId": {
             "type": "string",
-            "description": "Unique identifier of the staff member who created/uploaded this file",
+            "description": "Unique identifier of the staff member who created/uploaded this file.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "to": {
             "type": "string",
-            "description": "The 'To' or recipients' email address (only applicable for email files)",
+            "description": "The 'To' or recipients' email address (only applicable for email files).",
             "nullable": true,
             "example": "recipient@email.com"
           },
           "from": {
             "type": "string",
-            "description": "The 'From' or sender's email address (only applicable for email files)",
+            "description": "The 'From' or sender's email address (only applicable for email files).",
             "nullable": true,
             "example": "sender@email.com"
           },
           "dateCreated": {
             "type": "string",
-            "description": "The original datetime that the file was created",
+            "description": "The original datetime that the file was created.",
             "format": "date-time",
             "example": "2022-04-23T14:00:00Z"
           },
+          "dateModified": {
+            "type": "string",
+            "description": "The datetime that the file was last modified.",
+            "format": "date-time",
+            "example": "2022-04-25T17:00:00Z"
+          },
           "sizeBytes": {
             "type": "integer",
-            "description": "Size of the file (in bytes)",
+            "description": "Size of the file (in bytes).",
             "format": "int64",
             "example": 19104768
           },
@@ -10636,6 +10901,12 @@
             "type": "boolean",
             "description": "Whether staff member is enabled.",
             "example": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "Staff member's User Id, if enabled.",
+            "nullable": true,
+            "example": "14b5dd57-3681-420e-a483-4823424eef45"
           }
         },
         "additionalProperties": false
