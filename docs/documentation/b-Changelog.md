@@ -9,7 +9,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ## November 2022
 
 #### Activities
-* Added additional validation for activity codes. Codes can be no longer than 20 characters, this is consistent with desktop behavior.
+* Added additional validation for activity codes. Codes can no longer be more than 20 characters long.
 
 #### Files
 * Added [PATCH](89218c51253ef-patch-version-or-metadata-of-a-file) endpoint
