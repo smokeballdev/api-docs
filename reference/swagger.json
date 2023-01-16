@@ -2255,145 +2255,6 @@
         }
       }
     },
-    "/matters/{matterId}/expenses/{expenseId}/attachment": {
-      "post": {
-        "tags": [
-          "Expenses"
-        ],
-        "summary": "Gets the upload url for uploading an expense",
-        "operationId": "PostAttachment",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "description": "The id of the matter the expense belongs to.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expenseId",
-            "in": "path",
-            "description": "The id of the expense which should have the attachment added.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "An object containing details about the attachment (e.g. file name).",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddAttachmentDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddAttachmentDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddAttachmentDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Returns the file upload url.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAttachmentInfo"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Expense not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/expenses/upload": {
-      "post": {
-        "tags": [
-          "Expenses"
-        ],
-        "operationId": "UploadAttachment",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "requestId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddAttachmentInfo"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/matters/{matterId}/fees": {
       "get": {
         "tags": [
@@ -3924,10 +3785,11 @@
             "in": "query",
             "description": "Filter by current status of the matter.\r\n\r\nPossible values: Open, Pending, Closed, Deleted or Cancelled.",
             "schema": {
-              "type": "string",
-              "example": "Open"
-            },
-            "example": "Open"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           },
           {
             "name": "IsLead",
@@ -7139,6 +7001,12 @@
           "self": {
             "$ref": "#/components/schemas/Link"
           },
+          "versionId": {
+            "type": "string",
+            "description": "Version id of the billing configuration.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
           "billingType": {
             "$ref": "#/components/schemas/BillingTypeEnum"
           },
@@ -7209,6 +7077,12 @@
             "format": "double",
             "example": 32
           },
+          "disbursementAmount": {
+            "type": "number",
+            "description": "The disbursement amount (currency).\r\n\r\nOnly applicable when BillingType is 'Fixed Fee', 'Fixed Fee per Apperance', 'Contingency ($)' or 'Time Based'.\r\n\r\nOnly supported in the UK.",
+            "format": "double",
+            "example": 520.67
+          },
           "debtorIds": {
             "type": "array",
             "items": {
@@ -7242,6 +7116,12 @@
           },
           "ledesTimekeeperClassificationType": {
             "$ref": "#/components/schemas/TimekeeperClassificationType"
+          },
+          "rateSetId": {
+            "type": "string",
+            "description": "The RateSet Id.\r\n\r\nOnly supported in the UK.",
+            "nullable": true,
+            "example": "100558"
           }
         },
         "additionalProperties": false
@@ -7266,6 +7146,7 @@
           1
         ],
         "type": "integer",
+        "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n\r\nPossible values: Length6 = 0, Length2 = 1.\r\n\r\nOnly supported in the US.",
         "format": "int32"
       },
       "Address": {
@@ -7343,9 +7224,15 @@
             "nullable": true,
             "example": "60606"
           },
+          "locality": {
+            "type": "string",
+            "description": "Locality.\r\n\r\nOnly supported in the UK.",
+            "nullable": true,
+            "example": "Dunkirk"
+          },
           "county": {
             "type": "string",
-            "description": "County (if applicable).",
+            "description": "County.\r\n\r\nOnly supported in the US and UK.",
             "nullable": true,
             "example": "New York"
           },
@@ -7442,9 +7329,15 @@
             "nullable": true,
             "example": "60606"
           },
+          "locality": {
+            "type": "string",
+            "description": "Locality.\r\n\r\nOnly supported in the UK.",
+            "nullable": true,
+            "example": "Dunkirk"
+          },
           "county": {
             "type": "string",
-            "description": "County (if applicable).",
+            "description": "County.\r\n\r\nOnly supported in the US and UK.",
             "nullable": true,
             "example": "New York"
           },
@@ -7541,9 +7434,15 @@
             "nullable": true,
             "example": "60606"
           },
+          "locality": {
+            "type": "string",
+            "description": "Locality.\r\n\r\nOnly supported in the UK.",
+            "nullable": true,
+            "example": "Dunkirk"
+          },
           "county": {
             "type": "string",
-            "description": "County (if applicable).",
+            "description": "County.\r\n\r\nOnly supported in the US and UK.",
             "nullable": true,
             "example": "New York"
           },
@@ -7649,9 +7548,15 @@
             "nullable": true,
             "example": "60606"
           },
+          "locality": {
+            "type": "string",
+            "description": "Locality.\r\n\r\nOnly supported in the UK.",
+            "nullable": true,
+            "example": "Dunkirk"
+          },
           "county": {
             "type": "string",
-            "description": "County (if applicable).",
+            "description": "County.\r\n\r\nOnly supported in the US and UK.",
             "nullable": true,
             "example": "New York"
           },
@@ -9593,35 +9498,6 @@
         },
         "additionalProperties": false
       },
-      "AddAttachmentDto": {
-        "type": "object",
-        "properties": {
-          "fileName": {
-            "type": "string",
-            "description": "The name of the attachment file. Mandatory field.\r\nAccepted file types are: jpeg, jpg, pdf, png.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "This object holds data for a request to upload an expense attachment."
-      },
-      "AddAttachmentInfo": {
-        "type": "object",
-        "properties": {
-          "expenseId": {
-            "type": "string",
-            "description": "The id of the expense that a file will be uploaded to.",
-            "nullable": true
-          },
-          "uploadUrl": {
-            "type": "string",
-            "description": "The URL for uploading the file.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Return value for a request to add an expense attachemnt."
-      },
       "Expense": {
         "type": "object",
         "properties": {
@@ -10444,6 +10320,9 @@
           },
           "mailingAddress": {
             "$ref": "#/components/schemas/FirmAddress"
+          },
+          "dxAddress": {
+            "$ref": "#/components/schemas/DxAddress"
           },
           "phone": {
             "$ref": "#/components/schemas/PhoneNumber"
@@ -12072,6 +11951,15 @@
           "originatingStaff": {
             "$ref": "#/components/schemas/Link"
           },
+          "supervisor": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "clientCode": {
+            "type": "string",
+            "description": "Associates an external client code to this matter.\r\n\r\nOnly supported in AU and UK.",
+            "nullable": true,
+            "example": "Client A"
+          },
           "openedDate": {
             "type": "string",
             "description": "Date the matter was opened.",
@@ -12211,6 +12099,17 @@
             "type": "string",
             "format": "string",
             "nullable": true
+          },
+          "supervisorId": {
+            "type": "string",
+            "format": "string",
+            "nullable": true
+          },
+          "clientCode": {
+            "type": "string",
+            "description": "Associates an external client code to this matter.\r\n\r\nOnly supported in AU and UK.",
+            "nullable": true,
+            "example": "Client A"
           },
           "isLead": {
             "type": "boolean",
