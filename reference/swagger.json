@@ -6860,7 +6860,7 @@
           },
           "code": {
             "type": "string",
-            "description": "Code of the activity.",
+            "description": "Code of the activity. Cannot be longer than 20 characters.",
             "nullable": true,
             "example": "RC"
           },
@@ -7016,6 +7016,12 @@
             "format": "double",
             "example": 142.31
           },
+          "disbursementAmount": {
+            "type": "number",
+            "description": "The disbursement amount (currency). \r\n\r\nOnly applicable when BillingType is 'Fixed Fee', 'Fixed Fee per Apperance' or 'Time Based'.\r\n\r\nOnly supported in AU and the UK.",
+            "format": "double",
+            "example": 160
+          },
           "contingencyAmount": {
             "type": "number",
             "description": "The contingency amount (percentage). \r\n\r\nOnly applicable when BillingType is 'Contingency Percent'.",
@@ -7029,6 +7035,12 @@
             },
             "description": "The matter debtors.",
             "nullable": true
+          },
+          "rateSetId": {
+            "type": "string",
+            "description": "The rate set id.\r\n\r\nOnly supported in AU and the UK.",
+            "nullable": true,
+            "example": "100558"
           },
           "isUtbmsEnabled": {
             "type": "boolean",
@@ -9886,7 +9898,7 @@
             "example": "2022-07-01"
           },
           "feeType": {
-            "$ref": "#/components/schemas/EntryType"
+            "$ref": "#/components/schemas/FeeType"
           },
           "finalized": {
             "type": "boolean",
@@ -10001,7 +10013,7 @@
             "example": "PRT"
           },
           "feeType": {
-            "$ref": "#/components/schemas/EntryType"
+            "$ref": "#/components/schemas/FeeType"
           },
           "feeDate": {
             "type": "string",
@@ -10197,6 +10209,15 @@
           }
         },
         "additionalProperties": false
+      },
+      "FeeType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "description": "The type of the fee (Fixed = 0, Time = 1).",
+        "format": "int32"
       },
       "CreateFirmDto": {
         "type": "object",
@@ -12100,7 +12121,7 @@
             "format": "string",
             "nullable": true
           },
-          "supervisorId": {
+          "supervisorStaffId": {
             "type": "string",
             "format": "string",
             "nullable": true
