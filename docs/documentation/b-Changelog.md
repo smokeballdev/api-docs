@@ -6,16 +6,43 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
+## January 2022
+
+#### Activities
+* Fixed issues with activity code(s) not being deleted.
+
+#### Contacts
+* Added `Locality` and `County` fields.
+* GroupOfPeople are no longer permitted in the UK.
+
+#### Files
+* Added `DateModified` field to GET responses.
+
+#### Firm
+* Fixed issues updating `email` field.
+* Fixed issues updating `DxAddress` field.
+
+#### Matters
+* Added `Supervisor` field. 
+* Added ability to filter by multiple `status`. Multiple status can now be passed in the query parameters.
+
+#### Roles
+* Prevent adding roles that are not permitted for the specified matter.
+
+#### TaskDocuments
+* Fixed task document(s) not being added to tasks.
+
+
 ## November 2022
 
 #### Activities
 * Added additional validation for activity codes. Codes can no longer be more than 20 characters long.
 
-#### Files
-* Added [PATCH](89218c51253ef-patch-version-or-metadata-of-a-file) endpoint
-
 #### Contacts
 * Added `Name` field to GET response for `GroupOfPeople` contacts. This returns the combined names of the contacts in the group, saving you needing to retrieve the individual contacts.
+
+#### Files
+* Added [PATCH](89218c51253ef-patch-version-or-metadata-of-a-file) endpoint
 
 #### Firm
 * Added `Owner` field to GET responses. This can be used to determine the whitelabel product linked to the firm.
@@ -25,7 +52,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 #### Tasks
 * Added `Duration` field. This follows the `ISO 8601` duration format (e.g. `PT4H33M`)
-* Fix categories not saving when adding or updating tasks.
+* Fixed categories not saving when adding or updating tasks.
 
 #### Webhooks
 * Added `error` event type. This can be used to listen to errors when your API requests fail, see [Error Handling](3d812ecec78d9-webhooks#34-error-handling).
