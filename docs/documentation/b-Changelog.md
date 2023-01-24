@@ -11,6 +11,9 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 #### Activities
 * Fixed issues with activity code(s) not being deleted.
 
+#### BillingConfiguration
+* Added `BillingConfiguration` [GET](22c98d537baca-get-matter-billing-configuration) and [PUT](0878ea1284fa5-update-matter-billing-configuration) endpoints. Billing configurations are set on the matter level.
+
 #### Contacts
 * Added `Locality` and `County` fields.
 * GroupOfPeople are no longer permitted in the UK.
@@ -32,6 +35,8 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 #### TaskDocuments
 * Fixed task document(s) not being added to tasks.
 
+#### Webhooks
+* Added `BillingConfiguration` webhooks. Use the `billingconfiguration.updated` event type to listen to changes to billing configurations on a matter level.
 
 ## November 2022
 
