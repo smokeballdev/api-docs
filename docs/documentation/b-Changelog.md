@@ -22,15 +22,18 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Added `DateModified` field to GET responses.
 
 #### Firm
-* Fixed issues updating `email` field.
+* Fixed issues updating `Email` field.
 * Fixed issues updating `DxAddress` field.
 
 #### Matters
 * Added `Supervisor` field. 
-* Added ability to filter by multiple `status`. Multiple status can now be passed in the query parameters.
+* Added ability to filter by multiple `status`. Multiple statuses can now be passed in the query parameters.
 
 #### Roles
 * Prevent adding roles that are not permitted for the specified matter.
+
+#### Staff
+* Added `UserId` field.
 
 #### TaskDocuments
 * Fixed task document(s) not being added to tasks.
