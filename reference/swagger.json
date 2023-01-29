@@ -1954,6 +1954,71 @@
         }
       }
     },
+    "/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get Events",
+        "description": "Returns a list of events.",
+        "operationId": "GetEvents",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Filter by events updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 637873555398585000
+            },
+            "example": 637873555398585000
+          },
+          {
+            "name": "ExcludeDeletedEvents",
+            "in": "query",
+            "description": "Filter out any events that have been deleted, Default: false",
+            "schema": {
+              "type": "boolean",
+              "example": false
+            },
+            "example": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of `Event` objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventPagedCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/expenses": {
       "get": {
         "tags": [
@@ -6975,7 +7040,6 @@
           2
         ],
         "type": "integer",
-        "description": "The type of the fee (Fixed = 0, Time = 1).",
         "format": "int32"
       },
       "BillingConfiguration": {
@@ -7146,10 +7210,11 @@
           3,
           4,
           5,
-          6
+          6,
+          7
         ],
         "type": "integer",
-        "description": "The billing type.\r\n\r\nPossible values: None = 0, Fixed Fee = 1, Fixed Fee per Appearance = 2, Time Based = 3, Contingency Dollars = 4, Contingency Percent = 5, Not Billable = 6",
+        "description": "The billing type.\r\n\r\nPossible values: \r\nNone = 0, \r\nFixed Fee = 1, \r\nFixed Fee per Appearance = 2, \r\nTime Based = 3, \r\nContingency Dollars = 4, \r\nContingency Percent = 5, \r\nNot Billable = 6,\r\nConditionalFeeAgreement = 7",
         "format": "int32"
       },
       "TimekeeperClassificationType": {
@@ -9510,6 +9575,149 @@
         },
         "additionalProperties": false
       },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "matter": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "organiser": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "eventType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "allDay": {
+            "type": "boolean"
+          },
+          "nonBillable": {
+            "type": "boolean"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "timeZone": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "additionalData": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventPagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            },
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "first": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "previous": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "next": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "last": {
+            "$ref": "#/components/schemas/Link"
+          }
+        },
+        "additionalProperties": false
+      },
       "Expense": {
         "type": "object",
         "properties": {
@@ -11221,6 +11429,7 @@
           4
         ],
         "type": "integer",
+        "description": "The status of the invoice.\r\n\r\nPossible values: Draft = 0, Final = 1, Paid = 2, Deleted = 3 or Void = 4.",
         "format": "int32"
       },
       "InvoiceTotals": {
@@ -11482,11 +11691,23 @@
           "self": {
             "$ref": "#/components/schemas/Link"
           },
+          "versionId": {
+            "type": "string",
+            "description": "Version id of the layout design.",
+            "nullable": true,
+            "example": "763c3857-2ed9-4c5d-bee0-c48d48a7543e"
+          },
           "name": {
             "type": "string",
             "description": "Name of the layout design.",
             "nullable": true,
             "example": "Case Details"
+          },
+          "lastUpdated": {
+            "type": "integer",
+            "description": "Last updated timestamp.",
+            "format": "int64",
+            "example": 637847425252027400
           },
           "description": {
             "type": "string",
@@ -11559,11 +11780,23 @@
           "self": {
             "$ref": "#/components/schemas/Link"
           },
+          "versionId": {
+            "type": "string",
+            "description": "Version id of the layout design.",
+            "nullable": true,
+            "example": "763c3857-2ed9-4c5d-bee0-c48d48a7543e"
+          },
           "name": {
             "type": "string",
             "description": "Name of the layout design.",
             "nullable": true,
             "example": "Case Details"
+          },
+          "lastUpdated": {
+            "type": "integer",
+            "description": "Last updated timestamp.",
+            "format": "int64",
+            "example": 637847425252027400
           }
         },
         "additionalProperties": false
