@@ -1984,9 +1984,9 @@
             }
           },
           {
-            "name": "UpdatedSince",
+            "name": "EventsAfter",
             "in": "query",
-            "description": "Filter by events updated since a specified time (.net ticks representation of the UTC datetime).",
+            "description": "Filter events from specified time (.net ticks representation of the UTC datetime).",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -9148,6 +9148,12 @@
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
+          "folderPath": {
+            "type": "string",
+            "description": "Path of the folder to add the file to. If null then the FolderId will be used",
+            "nullable": true,
+            "example": "Court Filings/2021/January"
+          },
           "fileAdditionalData": {
             "type": "object",
             "additionalProperties": {
@@ -9604,13 +9610,15 @@
           "organiser": {
             "$ref": "#/components/schemas/Link"
           },
-          "status": {
-            "type": "integer",
-            "format": "int32"
+          "attendees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
           },
           "eventType": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/EventType"
           },
           "subject": {
             "type": "string",
@@ -9717,6 +9725,18 @@
           }
         },
         "additionalProperties": false
+      },
+      "EventType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "description": "The type of the event (Fixed = 0, Time = 1).",
+        "format": "int32"
       },
       "Expense": {
         "type": "object",
