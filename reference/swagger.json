@@ -504,6 +504,276 @@
         }
       }
     },
+    "/contacts/{contactId}/relations": {
+      "get": {
+        "tags": [
+          "ContactRelations"
+        ],
+        "summary": "Get contact relations",
+        "description": "Returns a list of relations for a specified contact if associated with the authenticated client.",
+        "operationId": "GetRelations",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'Link' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkPagedCollection"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ContactRelations"
+        ],
+        "summary": "Create a contact relation",
+        "description": "Creates a relation for a specified contact.",
+        "operationId": "CreateRelation",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When related contact id is not provided"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/relations/{relatedContactId}": {
+      "get": {
+        "tags": [
+          "ContactRelations"
+        ],
+        "summary": "Get a contact relation",
+        "description": "Retrieves a relation for a specified contact if associated with the authenticated client.",
+        "operationId": "GetRelationById",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedContactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ContactRelations"
+        ],
+        "summary": "Update a contact relation",
+        "description": "Updates a relation for a specified contact.",
+        "operationId": "UpdateRelation",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedContactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ContactRelations"
+        ],
+        "summary": "Delete a contact relation",
+        "description": "Deletes a relation for a specified contact.",
+        "operationId": "DeleteRelation",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedContactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      }
+    },
     "/contacts": {
       "get": {
         "tags": [
@@ -4124,276 +4394,6 @@
           },
           "404": {
             "description": "When the specified memo does not exist."
-          }
-        }
-      }
-    },
-    "/contacts/{contactId}/relations": {
-      "get": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Get contact relations",
-        "description": "Returns a list of relations for a specified contact if associated with the authenticated client.",
-        "operationId": "GetRelations",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of 'Link' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LinkPagedCollection"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Create a contact relation",
-        "description": "Creates a relation for a specified contact.",
-        "operationId": "CreateRelation",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When related contact id is not provided"
-          }
-        }
-      }
-    },
-    "/contacts/{contactId}/relations/{relatedContactId}": {
-      "get": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Get a contact relation",
-        "description": "Retrieves a relation for a specified contact if associated with the authenticated client.",
-        "operationId": "GetRelationById",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "relatedContactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Update a contact relation",
-        "description": "Updates a relation for a specified contact.",
-        "operationId": "UpdateRelation",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "relatedContactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be updated.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Delete a contact relation",
-        "description": "Deletes a relation for a specified contact.",
-        "operationId": "DeleteRelation",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "relatedContactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be deleted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
           }
         }
       }
