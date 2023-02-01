@@ -5,139 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/bankaccountbalances/{id}": {
-      "get": {
-        "tags": [
-          "BankAccountBalances"
-        ],
-        "summary": "Get a bank account balance",
-        "description": "Retrieves a specified bank account balance.",
-        "operationId": "GetBankAccountBalanceById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the bank account.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccountBalance"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When bank account balance with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When bank account balance with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/bankaccounts/{id}": {
-      "get": {
-        "tags": [
-          "BankAccounts"
-        ],
-        "summary": "Get a bank account",
-        "description": "Retrieves a specified bank account.",
-        "operationId": "GetBankAccountById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'BankAccount' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccount"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When bank account with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When bank account with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/bankaccounts": {
-      "get": {
-        "tags": [
-          "BankAccounts"
-        ],
-        "summary": "Get bank accounts",
-        "description": "Returns a list of bank accounts.",
-        "operationId": "GetBankAccounts",
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of 'BankAccount' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BankAccountCollection"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/activitycodes/{id}": {
       "get": {
         "tags": [
@@ -390,6 +257,139 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccountbalances/{id}": {
+      "get": {
+        "tags": [
+          "BankAccountBalances"
+        ],
+        "summary": "Get a bank account balance",
+        "description": "Retrieves a specified bank account balance.",
+        "operationId": "GetBankAccountBalanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the bank account.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountBalance"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When bank account balance with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When bank account balance with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccounts/{id}": {
+      "get": {
+        "tags": [
+          "BankAccounts"
+        ],
+        "summary": "Get a bank account",
+        "description": "Retrieves a specified bank account.",
+        "operationId": "GetBankAccountById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'BankAccount' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccount"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When bank account with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When bank account with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccounts": {
+      "get": {
+        "tags": [
+          "BankAccounts"
+        ],
+        "summary": "Get bank accounts",
+        "description": "Returns a list of bank accounts.",
+        "operationId": "GetBankAccounts",
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'BankAccount' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountCollection"
                 }
               }
             }
@@ -782,1178 +782,6 @@
         }
       }
     },
-    "/contacts/{contactId}/relations": {
-      "get": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Get contact relations",
-        "description": "Returns a list of relations for a specified contact if associated with the authenticated client.",
-        "operationId": "GetRelations",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of 'Link' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LinkPagedCollection"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Create a contact relation",
-        "description": "Creates a relation for a specified contact.",
-        "operationId": "CreateRelation",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When related contact id is not provided"
-          }
-        }
-      }
-    },
-    "/contacts/{contactId}/relations/{relatedContactId}": {
-      "get": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Get a contact relation",
-        "description": "Retrieves a relation for a specified contact if associated with the authenticated client.",
-        "operationId": "GetRelationById",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "relatedContactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Update a contact relation",
-        "description": "Updates a relation for a specified contact.",
-        "operationId": "UpdateRelation",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "relatedContactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ContactRelationDto"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be updated.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Relations"
-        ],
-        "summary": "Delete a contact relation",
-        "description": "Deletes a relation for a specified contact.",
-        "operationId": "DeleteRelation",
-        "parameters": [
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "relatedContactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be deleted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When contact with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When contact with specified id does not exist."
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/files": {
-      "get": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Get files on a matter",
-        "description": "Returns a list of files associated with a matter.",
-        "operationId": "GetFiles",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a paged collection of 'File' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FilePagedCollection"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When the requested matter does not belong to the account making the request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Add file to a matter",
-        "description": "Uploads a new file for the specified matter.",
-        "operationId": "AddFile",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/files/{fileId}": {
-      "get": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Get a file",
-        "description": "Retrieves a specified file.",
-        "operationId": "GetFileById",
-        "parameters": [
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'File' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/File"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When the requested file does not belong to the account making the request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When file with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Upload/update version or metadata of a file",
-        "description": "Updates the metadata for a file or uploads a new version of the file",
-        "operationId": "UpdateFile",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When file or matter with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Patch version or metadata of a file",
-        "description": "Updates the metadata for a file or uploads a new version of the file",
-        "operationId": "PatchFile",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When file or matter with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Delete a file",
-        "description": "Deletes a specified matter file.",
-        "operationId": "DeleteFile",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the file to be deleted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When the requested file does not belong to the specified matter.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When the requested file does not belong to the account making the request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/files/{fileId}/download": {
-      "get": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Get download url for a file",
-        "description": "Retrieves download details for a specified matter file.",
-        "operationId": "DownloadFile",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'DownloadFileInfo' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DownloadFileInfo"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When the requested file does not belong to the account making the request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When file or matter with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/files/{fileId}/upload": {
-      "get": {
-        "tags": [
-          "Files"
-        ],
-        "summary": "Get upload url for a file",
-        "description": "Retrieves upload details for a specified matter file.",
-        "operationId": "UploadFile",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'UploadFileInfo' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadFileInfo"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "When the requested file does not belong to the account making the request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When file or matter with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/folders": {
-      "get": {
-        "tags": [
-          "Folders"
-        ],
-        "summary": "Get folders/files under root folder",
-        "description": "Returns a list of sub folders and files under the root folder of a matter",
-        "operationId": "GetFolders",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Folders"
-        ],
-        "summary": "Create a folder",
-        "description": "Creates a new folder under the specified matter.",
-        "operationId": "CreateRootFolder",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When folder name is not provided.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/folders/{folderId}": {
-      "get": {
-        "tags": [
-          "Folders"
-        ],
-        "summary": "Get folders/files under a folder",
-        "description": "Returns a list of sub folders and files under a specified folder of a matter",
-        "operationId": "GetFolderById",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "folderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FolderListingPagedCollection"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When folder with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Folders"
-        ],
-        "summary": "Update a folder",
-        "description": "Updates a folder belonging to the specified matter.",
-        "operationId": "UpdateFolder",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "folderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be updated.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When folder name is not provided or folder does not belong to the specified matter.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When folder with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Folders"
-        ],
-        "summary": "Patch a folder",
-        "description": "Updates a folder belonging to the specified matter.",
-        "operationId": "PatchFolder",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "folderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/FolderDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be updated.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When folder name is not provided or folder does not belong to the specified matter.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When folder with the specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Folders"
-        ],
-        "summary": "Delete a folder",
-        "description": "Deletes a folder belonging to the specified matter.",
-        "operationId": "DeleteFolder",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "folderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be deleted.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When the folder does not belong to the specified matter.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/events": {
       "get": {
         "tags": [
@@ -1984,9 +812,9 @@
             }
           },
           {
-            "name": "EventsAfter",
+            "name": "UpdatedSince",
             "in": "query",
-            "description": "Filter events from specified time (.net ticks representation of the UTC datetime).",
+            "description": "Filter by events updated since a specified time (.net ticks representation of the UTC datetime).",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -2003,6 +831,28 @@
               "example": false
             },
             "example": false
+          },
+          {
+            "name": "From",
+            "in": "query",
+            "description": "Filter events from a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 637873555398585000
+            },
+            "example": 637873555398585000
+          },
+          {
+            "name": "To",
+            "in": "query",
+            "description": "Filter events to a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 637873555398585000
+            },
+            "example": 637873555398585000
           }
         ],
         "responses": {
@@ -2015,6 +865,45 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/events/{eventId}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get a event",
+        "description": "Retrieves a specified event.",
+        "operationId": "GetEventById",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a `Event` object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not access to the event."
+          },
+          "404": {
+            "description": "When event with specified id does not exist."
           }
         }
       }
@@ -2621,6 +1510,523 @@
         }
       }
     },
+    "/matters/{matterId}/documents/files": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get files on a matter",
+        "description": "Returns a list of files associated with a matter.",
+        "operationId": "GetFiles",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a paged collection of 'File' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilePagedCollection"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested matter does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Add file to a matter",
+        "description": "Uploads a new file for the specified matter.",
+        "operationId": "AddFile",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFileDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFileDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFileDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFileInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/documents/files/{fileId}": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get a file",
+        "description": "Retrieves a specified file.",
+        "operationId": "GetFileById",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'File' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/File"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested file does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When file with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Upload/update version or metadata of a file",
+        "description": "Updates the metadata for a file or uploads a new version of the file",
+        "operationId": "UpdateFile",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditFileDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditFileDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditFileDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFileInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When file or matter with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Patch version or metadata of a file",
+        "description": "Updates the metadata for a file or uploads a new version of the file",
+        "operationId": "PatchFile",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditFileDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditFileDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditFileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'UploadFileInfo' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFileInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When the file name does not contain valid XML characters or an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When file or matter with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Delete a file",
+        "description": "Deletes a specified matter file.",
+        "operationId": "DeleteFile",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the file to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When the requested file does not belong to the specified matter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested file does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/documents/files/{fileId}/download": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get download url for a file",
+        "description": "Retrieves download details for a specified matter file.",
+        "operationId": "DownloadFile",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'DownloadFileInfo' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadFileInfo"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested file does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When file or matter with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/documents/files/{fileId}/upload": {
+      "get": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Get upload url for a file",
+        "description": "Retrieves upload details for a specified matter file.",
+        "operationId": "UploadFile",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'UploadFileInfo' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadFileInfo"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested file does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When file or matter with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/firm": {
       "get": {
         "tags": [
@@ -2726,6 +2132,68 @@
           },
           "404": {
             "description": "When firm does not exist."
+          }
+        }
+      }
+    },
+    "/stages": {
+      "get": {
+        "tags": [
+          "FirmMatterStages"
+        ],
+        "summary": "Get stage to matter mappings in the firm",
+        "description": "Returns a list of stage to matter mappings in the firm.",
+        "operationId": "GetMatterStages",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "LastUpdated",
+            "in": "query",
+            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matter stage mappings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterStagePagedCollection"
+                }
+              }
+            }
           }
         }
       }
@@ -2881,44 +2349,51 @@
         }
       }
     },
-    "/staff": {
+    "/matters/{matterId}/documents/folders": {
       "get": {
         "tags": [
-          "Staff"
+          "Folders"
         ],
-        "summary": "Search firm staff members",
-        "description": "Retrieves a paginated list of staff members (filtered based on search parameters provided) in the firm associated with the authenticated client.",
-        "operationId": "GetStaff",
+        "summary": "Get folders/files under root folder",
+        "description": "Returns a list of sub folders and files under the root folder of a matter",
+        "operationId": "GetFolders",
         "parameters": [
           {
-            "name": "Search",
-            "in": "query",
-            "description": "email, name",
+            "name": "matterId",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "type": "string"
             }
           },
           {
-            "name": "Terms",
+            "name": "Offset",
             "in": "query",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/SearchTerm"
-              }
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a paged collection of 'Staff' objects",
+            "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StaffPagedCollection"
+                  "$ref": "#/components/schemas/FolderListingPagedCollection"
                 }
               }
             }
@@ -2927,33 +2402,43 @@
       },
       "post": {
         "tags": [
-          "Staff"
+          "Folders"
         ],
-        "summary": "Create firm staff member",
-        "description": "Creates a staff member in the firm associated with the authenticated client.",
-        "operationId": "CreateStaff",
+        "summary": "Create a folder",
+        "description": "Creates a new folder under the specified matter.",
+        "operationId": "CreateRootFolder",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/StaffDto"
+                "$ref": "#/components/schemas/FolderDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StaffDto"
+                "$ref": "#/components/schemas/FolderDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StaffDto"
+                "$ref": "#/components/schemas/FolderDto"
               }
             }
           }
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be created.",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2963,58 +2448,105 @@
             }
           },
           "400": {
-            "description": "When request is invalid"
+            "description": "When folder name is not provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/staff/{id}": {
+    "/matters/{matterId}/documents/folders/{folderId}": {
       "get": {
         "tags": [
-          "Staff"
+          "Folders"
         ],
-        "summary": "Get firm staff member",
-        "description": "Retrieves a staff member (based on staff id parameter provided) in the firm associated with the authenticated client.",
-        "operationId": "GetStaffById",
+        "summary": "Get folders/files under a folder",
+        "description": "Returns a list of sub folders and files under a specified folder of a matter",
+        "operationId": "GetFolderById",
         "parameters": [
           {
-            "name": "id",
+            "name": "matterId",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'Staff' object",
+            "description": "When request is successful. Returns a paged collection of 'FolderListing' objects.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Staff"
+                  "$ref": "#/components/schemas/FolderListingPagedCollection"
                 }
               }
             }
           },
-          "400": {
-            "description": "When staff id parameter invalid or not provided"
-          },
           "404": {
-            "description": "When staff member does not exist"
+            "description": "When folder with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
       "put": {
         "tags": [
-          "Staff"
+          "Folders"
         ],
-        "summary": "Update firm staff member",
-        "description": "Updates a staff member in the firm associated with the authenticated client.",
-        "operationId": "UpdateStaff",
+        "summary": "Update a folder",
+        "description": "Updates a folder belonging to the specified matter.",
+        "operationId": "UpdateFolder",
         "parameters": [
           {
-            "name": "id",
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "folderId",
             "in": "path",
             "required": true,
             "schema": {
@@ -3026,24 +2558,24 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/StaffDto"
+                "$ref": "#/components/schemas/FolderDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StaffDto"
+                "$ref": "#/components/schemas/FolderDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/StaffDto"
+                "$ref": "#/components/schemas/FolderDto"
               }
             }
           }
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be updated.",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3052,21 +2584,46 @@
               }
             }
           },
+          "400": {
+            "description": "When folder name is not provided or folder does not belong to the specified matter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "404": {
-            "description": "When staff member does not exist"
+            "description": "When folder with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       },
-      "delete": {
+      "patch": {
         "tags": [
-          "Staff"
+          "Folders"
         ],
-        "summary": "Deletes a firm staff member",
-        "description": "Sets the staff member from the firm associated with the authenticated client as a former staff member.\r\n\r\nThe staff member is set as a former staff member and if they are a user, becomes a former user. User access is also disabled.",
-        "operationId": "DeleteStaff",
+        "summary": "Patch a folder",
+        "description": "Updates a folder belonging to the specified matter.",
+        "operationId": "PatchFolder",
         "parameters": [
           {
-            "name": "id",
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "folderId",
             "in": "path",
             "required": true,
             "schema": {
@@ -3074,9 +2631,28 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FolderDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FolderDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FolderDto"
+              }
+            }
+          }
+        },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be deleted.",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3085,8 +2661,75 @@
               }
             }
           },
+          "400": {
+            "description": "When folder name is not provided or folder does not belong to the specified matter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
           "404": {
-            "description": "When staff member does not exist"
+            "description": "When folder with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Folders"
+        ],
+        "summary": "Delete a folder",
+        "description": "Deletes a folder belonging to the specified matter.",
+        "operationId": "DeleteFolder",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the folder to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When the folder does not belong to the specified matter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -3149,84 +2792,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/items": {
-      "get": {
-        "tags": [
-          "MatterItems"
-        ],
-        "summary": "Get items on a matter",
-        "description": "Returns a list of items on a specified matter.",
-        "operationId": "GetMatterItems",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'MatterItems' object containing a list of 'MatterItem' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterItems"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter with specified id does not exist."
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/items/{id}": {
-      "get": {
-        "tags": [
-          "MatterItems"
-        ],
-        "summary": "Get an item on a matter",
-        "description": "Returns an item on a specified matter.",
-        "operationId": "GetMatterItem",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'MatterItem' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterItem"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When the specified matter or item does not exist."
           }
         }
       }
@@ -3796,6 +3361,84 @@
         }
       }
     },
+    "/matters/{matterId}/items": {
+      "get": {
+        "tags": [
+          "MatterItems"
+        ],
+        "summary": "Get items on a matter",
+        "description": "Returns a list of items on a specified matter.",
+        "operationId": "GetMatterItems",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'MatterItems' object containing a list of 'MatterItem' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterItems"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter with specified id does not exist."
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/items/{id}": {
+      "get": {
+        "tags": [
+          "MatterItems"
+        ],
+        "summary": "Get an item on a matter",
+        "description": "Returns an item on a specified matter.",
+        "operationId": "GetMatterItem",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'MatterItem' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified matter or item does not exist."
+          }
+        }
+      }
+    },
     "/matters": {
       "get": {
         "tags": [
@@ -4100,6 +3743,657 @@
           },
           "404": {
             "description": "When matter with specified id does not exist."
+          }
+        }
+      }
+    },
+    "/mattertypes": {
+      "get": {
+        "tags": [
+          "MatterTypes"
+        ],
+        "summary": "Get matter types",
+        "description": "Returns a paginated list of matter types based on search criteria.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
+        "operationId": "GetMatterTypes",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Searches for partial match on matter type name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Location",
+            "in": "query",
+            "description": "Return matter types from a specific location. In the US API this is the ANSI 2 letter state code (e.g. IL, NY). In the AU API this is shorthand state code (e.g. NSW, ACT, etc)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Category",
+            "in": "query",
+            "description": "Return matter types from a specific category.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "Return matter types by category type (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
+            "schema": {
+              "$ref": "#/components/schemas/TypeCategory"
+            },
+            "example": 0
+          },
+          {
+            "name": "Deleted",
+            "in": "query",
+            "description": "Boolean field to restrict search to deleted matter types. Defaults to 'false'. Set to 'true' to search for deleted matter types only.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a paged collection of 'MatterTypeInfo' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mattertypes/{id}": {
+      "get": {
+        "tags": [
+          "MatterTypes"
+        ],
+        "summary": "Get a matter type",
+        "description": "Retrieves a specified matter type.",
+        "operationId": "GetMatterTypeById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'MatterType' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterType"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter type with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/memos": {
+      "get": {
+        "tags": [
+          "Memos"
+        ],
+        "summary": "Get memos on a matter",
+        "description": "Returns a list of memos on the specified matter.",
+        "operationId": "GetMemos",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'Memo' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoPagedCollection"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Memos"
+        ],
+        "summary": "Create a memo on a matter",
+        "description": "Creates a memo on the specified matter.",
+        "operationId": "CreateMemo",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is successful. The memo has been accepted and will be created shortly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/memos/{id}": {
+      "get": {
+        "tags": [
+          "Memos"
+        ],
+        "summary": "Get a memo",
+        "description": "Retrieves a specified memo.",
+        "operationId": "GetMemoById",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the specified memo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Memo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified memo does not exist."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Memos"
+        ],
+        "summary": "Update a memo",
+        "description": "Updates a specified memo.",
+        "operationId": "UpdateMemo",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is successful. The memo has been accepted and will be updated shortly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "404": {
+            "description": "When the specified memo does not exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Memos"
+        ],
+        "summary": "Delete a memo",
+        "description": "Deletes a specified memo.",
+        "operationId": "DeleteMemo",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is successful. The request has been accepted and the memo will be deleted shortly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "404": {
+            "description": "When the specified memo does not exist."
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/relations": {
+      "get": {
+        "tags": [
+          "Relations"
+        ],
+        "summary": "Get contact relations",
+        "description": "Returns a list of relations for a specified contact if associated with the authenticated client.",
+        "operationId": "GetRelations",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of 'Link' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkPagedCollection"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Relations"
+        ],
+        "summary": "Create a contact relation",
+        "description": "Creates a relation for a specified contact.",
+        "operationId": "CreateRelation",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When related contact id is not provided"
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/relations/{relatedContactId}": {
+      "get": {
+        "tags": [
+          "Relations"
+        ],
+        "summary": "Get a contact relation",
+        "description": "Retrieves a relation for a specified contact if associated with the authenticated client.",
+        "operationId": "GetRelationById",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedContactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Relations"
+        ],
+        "summary": "Update a contact relation",
+        "description": "Updates a relation for a specified contact.",
+        "operationId": "UpdateRelation",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedContactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ContactRelationDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Relations"
+        ],
+        "summary": "Delete a contact relation",
+        "description": "Deletes a relation for a specified contact.",
+        "operationId": "DeleteRelation",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "relatedContactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the contact relation to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
           }
         }
       }
@@ -4748,178 +5042,44 @@
         }
       }
     },
-    "/mattertypes": {
+    "/staff": {
       "get": {
         "tags": [
-          "MatterTypes"
+          "Staff"
         ],
-        "summary": "Get matter types",
-        "description": "Returns a paginated list of matter types based on search criteria.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
-        "operationId": "GetMatterTypes",
+        "summary": "Search firm staff members",
+        "description": "Retrieves a paginated list of staff members (filtered based on search parameters provided) in the firm associated with the authenticated client.",
+        "operationId": "GetStaff",
         "parameters": [
           {
-            "name": "Offset",
+            "name": "Search",
             "in": "query",
+            "description": "email, name",
             "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "Limit",
+            "name": "Terms",
             "in": "query",
             "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Name",
-            "in": "query",
-            "description": "Searches for partial match on matter type name",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Location",
-            "in": "query",
-            "description": "Return matter types from a specific location. In the US API this is the ANSI 2 letter state code (e.g. IL, NY). In the AU API this is shorthand state code (e.g. NSW, ACT, etc)",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Category",
-            "in": "query",
-            "description": "Return matter types from a specific category.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Type",
-            "in": "query",
-            "description": "Return matter types by category type (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
-            "schema": {
-              "$ref": "#/components/schemas/TypeCategory"
-            },
-            "example": 0
-          },
-          {
-            "name": "Deleted",
-            "in": "query",
-            "description": "Boolean field to restrict search to deleted matter types. Defaults to 'false'. Set to 'true' to search for deleted matter types only.",
-            "schema": {
-              "type": "boolean"
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SearchTerm"
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a paged collection of 'MatterTypeInfo' objects.",
+            "description": "When request is successful. Returns a paged collection of 'Staff' objects",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/mattertypes/{id}": {
-      "get": {
-        "tags": [
-          "MatterTypes"
-        ],
-        "summary": "Get a matter type",
-        "description": "Retrieves a specified matter type.",
-        "operationId": "GetMatterTypeById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'MatterType' object.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterType"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter type with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/memos": {
-      "get": {
-        "tags": [
-          "Memos"
-        ],
-        "summary": "Get memos on a matter",
-        "description": "Returns a list of memos on the specified matter.",
-        "operationId": "GetMemos",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of 'Memo' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MemoPagedCollection"
+                  "$ref": "#/components/schemas/StaffPagedCollection"
                 }
               }
             }
@@ -4928,43 +5088,33 @@
       },
       "post": {
         "tags": [
-          "Memos"
+          "Staff"
         ],
-        "summary": "Create a memo on a matter",
-        "description": "Creates a memo on the specified matter.",
-        "operationId": "CreateMemo",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "summary": "Create firm staff member",
+        "description": "Creates a staff member in the firm associated with the authenticated client.",
+        "operationId": "CreateStaff",
         "requestBody": {
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "$ref": "#/components/schemas/StaffDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "$ref": "#/components/schemas/StaffDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "$ref": "#/components/schemas/StaffDto"
               }
             }
           }
         },
         "responses": {
           "202": {
-            "description": "When request is successful. The memo has been accepted and will be created shortly.",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4974,28 +5124,20 @@
             }
           },
           "400": {
-            "description": "Bad request."
+            "description": "When request is invalid"
           }
         }
       }
     },
-    "/matters/{matterId}/memos/{id}": {
+    "/staff/{id}": {
       "get": {
         "tags": [
-          "Memos"
+          "Staff"
         ],
-        "summary": "Get a memo",
-        "description": "Retrieves a specified memo.",
-        "operationId": "GetMemoById",
+        "summary": "Get firm staff member",
+        "description": "Retrieves a staff member (based on staff id parameter provided) in the firm associated with the authenticated client.",
+        "operationId": "GetStaffById",
         "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "id",
             "in": "path",
@@ -5007,36 +5149,31 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns the specified memo.",
+            "description": "When request is successful. Returns a 'Staff' object",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Memo"
+                  "$ref": "#/components/schemas/Staff"
                 }
               }
             }
           },
+          "400": {
+            "description": "When staff id parameter invalid or not provided"
+          },
           "404": {
-            "description": "When the specified memo does not exist."
+            "description": "When staff member does not exist"
           }
         }
       },
       "put": {
         "tags": [
-          "Memos"
+          "Staff"
         ],
-        "summary": "Update a memo",
-        "description": "Updates a specified memo.",
-        "operationId": "UpdateMemo",
+        "summary": "Update firm staff member",
+        "description": "Updates a staff member in the firm associated with the authenticated client.",
+        "operationId": "UpdateStaff",
         "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "id",
             "in": "path",
@@ -5050,24 +5187,24 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "$ref": "#/components/schemas/StaffDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "$ref": "#/components/schemas/StaffDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "$ref": "#/components/schemas/StaffDto"
               }
             }
           }
         },
         "responses": {
           "202": {
-            "description": "When request is successful. The memo has been accepted and will be updated shortly.",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be updated.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5076,30 +5213,19 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request."
-          },
           "404": {
-            "description": "When the specified memo does not exist."
+            "description": "When staff member does not exist"
           }
         }
       },
       "delete": {
         "tags": [
-          "Memos"
+          "Staff"
         ],
-        "summary": "Delete a memo",
-        "description": "Deletes a specified memo.",
-        "operationId": "DeleteMemo",
+        "summary": "Deletes a firm staff member",
+        "description": "Sets the staff member from the firm associated with the authenticated client as a former staff member.\r\n\r\nThe staff member is set as a former staff member and if they are a user, becomes a former user. User access is also disabled.",
+        "operationId": "DeleteStaff",
         "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "id",
             "in": "path",
@@ -5111,7 +5237,7 @@
         ],
         "responses": {
           "202": {
-            "description": "When request is successful. The request has been accepted and the memo will be deleted shortly.",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the staff member to be deleted.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5120,73 +5246,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request."
-          },
           "404": {
-            "description": "When the specified memo does not exist."
-          }
-        }
-      }
-    },
-    "/stages": {
-      "get": {
-        "tags": [
-          "FirmMatterStages"
-        ],
-        "summary": "Get stage to matter mappings in the firm",
-        "description": "Returns a list of stage to matter mappings in the firm.",
-        "operationId": "GetMatterStages",
-        "parameters": [
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "UpdatedSince",
-            "in": "query",
-            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "LastUpdated",
-            "in": "query",
-            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
-            "schema": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the matter stage mappings.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterStagePagedCollection"
-                }
-              }
-            }
+            "description": "When staff member does not exist"
           }
         }
       }
@@ -9602,7 +9663,9 @@
           },
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the Event.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "matter": {
             "$ref": "#/components/schemas/Link"
@@ -9615,6 +9678,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
+            "description": "Hypermedia link of all the Attendees",
             "nullable": true
           },
           "eventType": {
@@ -9622,36 +9686,45 @@
           },
           "subject": {
             "type": "string",
+            "description": "Subject of Event",
             "nullable": true
           },
           "description": {
             "type": "string",
+            "description": "Description of Event",
             "nullable": true
           },
           "location": {
             "type": "string",
+            "description": "Location of Event",
             "nullable": true
           },
           "allDay": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether of not the Event is all day"
           },
           "nonBillable": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether of not the Event is billable"
           },
           "startTime": {
             "type": "string",
+            "description": "Start date and time of the event\r\nNote: date and time will correlate with the TimeZone provided",
             "format": "date-time"
           },
           "endTime": {
             "type": "string",
+            "description": "End date and time of the event\r\nNote: date and time will correlate with the TimeZone provided",
             "format": "date-time"
           },
           "timeZone": {
             "type": "string",
+            "description": "Timezone of the Event for determining the StartTime and EndTime",
             "nullable": true
           },
           "lastUpdated": {
             "type": "string",
+            "description": "The Last date and time the event was updated",
             "format": "date-time"
           },
           "additionalData": {
@@ -9659,10 +9732,12 @@
             "additionalProperties": {
               "type": "string"
             },
+            "description": "Any Additional Data provided for the event",
             "nullable": true
           },
           "isDeleted": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the Event has been deleted"
           }
         },
         "additionalProperties": false
@@ -9735,7 +9810,7 @@
           4
         ],
         "type": "integer",
-        "description": "The type of the event (Fixed = 0, Time = 1).",
+        "description": "The type of the event.\r\n\r\nNon Recurring Event = 0\r\nRecurring Pattern Series = 1\r\nSingle Recurring Occurrence = 2\r\nModified Recurring Occurrence = 3\r\nDeleted Recurring Occurrence = 4",
         "format": "int32"
       },
       "Expense": {
@@ -10538,7 +10613,7 @@
             "type": "string",
             "description": "The owner/white-label partner used by the firm.\r\n\r\nPossible values: Smokeball, PracticeEvolve, TriConvey.",
             "nullable": true,
-            "example": "Smokabell"
+            "example": "Smokeball"
           },
           "name": {
             "type": "string",
@@ -10584,6 +10659,9 @@
             "description": "Logo of the firm.",
             "nullable": true,
             "example": "https://example-logo-url.com/image"
+          },
+          "stylingDetails": {
+            "$ref": "#/components/schemas/StylingDetails"
           }
         },
         "additionalProperties": false
@@ -11166,6 +11244,30 @@
           },
           "last": {
             "$ref": "#/components/schemas/Link"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StylingDetails": {
+        "type": "object",
+        "properties": {
+          "primaryColorHexCode": {
+            "type": "string",
+            "description": "Firm's primary color hex code.",
+            "nullable": true,
+            "example": "#FF000000"
+          },
+          "secondaryColorHexCode": {
+            "type": "string",
+            "description": "Firm's secondary color hex code.",
+            "nullable": true,
+            "example": "#FF000000"
+          },
+          "fontFamilyName": {
+            "type": "string",
+            "description": "Firm's font family name.",
+            "nullable": true,
+            "example": "Open Sans"
           }
         },
         "additionalProperties": false
