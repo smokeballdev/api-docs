@@ -1910,17 +1910,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddFileDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddFileDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddFileDto"
+                  }
+                ]
               }
             }
           },
@@ -2038,17 +2050,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditFileDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditFileDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditFileDto"
+                  }
+                ]
               }
             }
           },
@@ -2739,17 +2763,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             }
           }
@@ -2876,17 +2912,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             }
           }
@@ -9364,7 +9412,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -9373,7 +9426,13 @@
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "folder": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Hypermedia link of the folder to which the file belongs.",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -9424,7 +9483,13 @@
             "example": 19104768
           },
           "downloadInfo": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Hypermedia link to the download details of the file.",
+            "nullable": true
           },
           "additionalData": {
             "type": "object",
@@ -9458,7 +9523,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -9482,16 +9552,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9513,7 +9603,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -9584,7 +9679,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "folders": {
             "type": "array",
@@ -9628,7 +9728,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -9652,16 +9757,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
