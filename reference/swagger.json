@@ -264,6 +264,96 @@
         }
       }
     },
+    "/matters/{matterId}/archive": {
+      "get": {
+        "tags": [
+          "Archive"
+        ],
+        "summary": "Get the archive for a matter",
+        "description": "Retrieves an archive for a matter.",
+        "operationId": "GetArchiveForMatter",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the specified archive.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Archive"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified matter's archive does not exist."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Archive"
+        ],
+        "summary": "Update an archive for a matter.",
+        "description": "Updates a specified matter's archive.",
+        "operationId": "UpdateArchive",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchiveDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchiveDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchiveDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is successful. The archive update has been accepted and will be updated shortly.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "404": {
+            "description": "When the specified matter's archive does not exist."
+          }
+        }
+      }
+    },
     "/bankaccountbalances/{id}": {
       "get": {
         "tags": [
@@ -1057,7 +1147,7 @@
         "tags": [
           "Events"
         ],
-        "summary": "Get Events",
+        "summary": "Get events",
         "description": "Returns a list of events.",
         "operationId": "GetEvents",
         "parameters": [
@@ -1084,18 +1174,17 @@
           {
             "name": "UpdatedSince",
             "in": "query",
-            "description": "Filter by events updated since a specified time (.net ticks representation of the UTC datetime).",
+            "description": "Filter by events updated since a specified time.\r\nSupported date formats are ISO YYYY-MM-DDThh:mm:ss or .net ticks representation of the UTC datetime.",
             "schema": {
-              "type": "integer",
-              "format": "int64",
-              "example": 637873555398585000
+              "type": "string",
+              "example": "2000-01-01T20:00:00 OR 630823536000000000"
             },
-            "example": 637873555398585000
+            "example": "2000-01-01T20:00:00 OR 630823536000000000"
           },
           {
             "name": "ExcludeDeletedEvents",
             "in": "query",
-            "description": "Filter out any events that have been deleted, Default: false",
+            "description": "Filter out any events that have been deleted, default: false",
             "schema": {
               "type": "boolean",
               "example": false
@@ -1105,24 +1194,24 @@
           {
             "name": "From",
             "in": "query",
-            "description": "Filter events from a specified time (.net ticks representation of the UTC datetime).",
+            "description": "Filter events from a specified UTC date and time.\r\nDefaults to the UTC datetime of the request.\r\nDates should be provided in ISO format YYYY-MM-DDThh:mm:ss.",
             "schema": {
-              "type": "integer",
-              "format": "int64",
-              "example": 637873555398585000
+              "type": "string",
+              "format": "date-time",
+              "example": "2000-01-01T20:00:00"
             },
-            "example": 637873555398585000
+            "example": "2000-01-01T20:00:00"
           },
           {
             "name": "To",
             "in": "query",
-            "description": "Filter events to a specified time (.net ticks representation of the UTC datetime).",
+            "description": "Filter events to a specified UTC date and time.\r\nIf no datetime is specified all future events will be returned.\r\nDates should be provided in ISO format YYYY-MM-DDThh:mm:ss.",
             "schema": {
-              "type": "integer",
-              "format": "int64",
-              "example": 637873555398585000
+              "type": "string",
+              "format": "date-time",
+              "example": "2000-01-01T20:00:00"
             },
-            "example": 637873555398585000
+            "example": "2000-01-01T20:00:00"
           }
         ],
         "responses": {
@@ -1135,6 +1224,48 @@
                 }
               }
             }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Create event",
+        "description": "Create new event.",
+        "operationId": "CreateEvent",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the event to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When event does not exist."
           }
         }
       }
@@ -1174,6 +1305,94 @@
           },
           "404": {
             "description": "When event with specified id does not exist."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Update event",
+        "description": "Updates event details.",
+        "operationId": "UpdateEvent",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the event to be updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When event does not exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Delete event",
+        "description": "Deletes a specified event.",
+        "operationId": "DeleteEvent",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the event to be deleted."
+          },
+          "404": {
+            "description": "When 'Event' does not exist."
           }
         }
       }
@@ -1259,17 +1478,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseDto"
+                  }
+                ]
               }
             }
           }
@@ -1386,17 +1617,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExpenseDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ExpenseDto"
+                  }
+                ]
               }
             }
           }
@@ -1560,17 +1803,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/FeeDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FeeDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FeeDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FeeDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FeeDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FeeDto"
+                  }
+                ]
               }
             }
           }
@@ -1687,17 +1942,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/FeeDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FeeDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FeeDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FeeDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FeeDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FeeDto"
+                  }
+                ]
               }
             }
           }
@@ -1862,17 +2129,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddFileDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddFileDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AddFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AddFileDto"
+                  }
+                ]
               }
             }
           },
@@ -1990,17 +2269,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditFileDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditFileDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/EditFileDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EditFileDto"
+                  }
+                ]
               }
             }
           },
@@ -2691,17 +2982,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             }
           }
@@ -2828,17 +3131,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FolderDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FolderDto"
+                  }
+                ]
               }
             }
           }
@@ -7103,6 +7418,113 @@
         "type": "integer",
         "format": "int32"
       },
+      "Archive": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "id": {
+            "type": "string",
+            "description": "Matter Id.",
+            "nullable": true,
+            "example": "f489b750-544e-4aa7-962e-f388b775bc14"
+          },
+          "archivedDate": {
+            "type": "string",
+            "description": "Date the matter was archived.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "archiveBoxNumber": {
+            "type": "string",
+            "description": "Archive box number.",
+            "nullable": true,
+            "example": "24"
+          },
+          "archiveComments": {
+            "type": "string",
+            "description": "Archive comments.",
+            "nullable": true,
+            "example": "Lot 1"
+          },
+          "archivedLocation": {
+            "type": "string",
+            "description": "Archived location.",
+            "nullable": true,
+            "example": "Box"
+          },
+          "destroyDate": {
+            "type": "string",
+            "description": "Date the files of the matter were destroyed.",
+            "format": "date-time",
+            "example": "2022-04-29T14:00:00Z"
+          },
+          "isArchived": {
+            "type": "boolean",
+            "description": "Flag indicating if the matter is archived.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ArchiveDto": {
+        "required": [
+          "isArchived"
+        ],
+        "type": "object",
+        "properties": {
+          "archivedDate": {
+            "type": "string",
+            "description": "Date the matter was archived.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "archiveBoxNumber": {
+            "type": "string",
+            "description": "Archive box number.",
+            "nullable": true,
+            "example": "24"
+          },
+          "archiveComments": {
+            "type": "string",
+            "description": "Archive comments.",
+            "nullable": true,
+            "example": "Lot 1"
+          },
+          "archivedLocation": {
+            "type": "string",
+            "description": "Archived location.",
+            "nullable": true,
+            "example": "Box"
+          },
+          "destroyDate": {
+            "type": "string",
+            "description": "Date the files of the matter were destroyed.",
+            "format": "date-time",
+            "example": "2022-04-29T14:00:00Z"
+          },
+          "isArchived": {
+            "type": "boolean",
+            "description": "Flag indicating if the matter is archived.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
       "BillingConfiguration": {
         "type": "object",
         "properties": {
@@ -9316,7 +9738,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -9325,7 +9752,13 @@
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "folder": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Hypermedia link of the folder to which the file belongs.",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -9376,7 +9809,13 @@
             "example": 19104768
           },
           "downloadInfo": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Hypermedia link to the download details of the file.",
+            "nullable": true
           },
           "additionalData": {
             "type": "object",
@@ -9410,7 +9849,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -9434,16 +9878,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9465,7 +9929,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -9536,7 +10005,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "folders": {
             "type": "array",
@@ -9580,7 +10054,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -9604,16 +10083,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9663,14 +10162,11 @@
           },
           "id": {
             "type": "string",
-            "description": "Unique identifier of the Event.",
+            "description": "Unique identifier of the event.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "matter": {
-            "$ref": "#/components/schemas/Link"
-          },
-          "organiser": {
             "$ref": "#/components/schemas/Link"
           },
           "attendees": {
@@ -9678,7 +10174,7 @@
             "items": {
               "$ref": "#/components/schemas/Link"
             },
-            "description": "Hypermedia link of all the Attendees",
+            "description": "Hypermedia link of all the attendees.",
             "nullable": true
           },
           "eventType": {
@@ -9686,45 +10182,46 @@
           },
           "subject": {
             "type": "string",
-            "description": "Subject of Event",
+            "description": "Subject of event.",
             "nullable": true
           },
           "description": {
             "type": "string",
-            "description": "Description of Event",
+            "description": "Description of event.",
             "nullable": true
           },
           "location": {
             "type": "string",
-            "description": "Location of Event",
+            "description": "Location of event.",
             "nullable": true
           },
           "allDay": {
             "type": "boolean",
-            "description": "Whether of not the Event is all day"
+            "description": "Whether of not the event is all day."
           },
           "nonBillable": {
             "type": "boolean",
-            "description": "Whether of not the Event is billable"
+            "description": "Whether of not the event is billable."
           },
           "startTime": {
             "type": "string",
-            "description": "Start date and time of the event\r\nNote: date and time will correlate with the TimeZone provided",
+            "description": "Start date and time of the event.\r\n\r\nNote: date and time will correlate with the time zone provided.",
             "format": "date-time"
           },
           "endTime": {
             "type": "string",
-            "description": "End date and time of the event\r\nNote: date and time will correlate with the TimeZone provided",
+            "description": "End date and time of the event.\r\n\r\nNote: date and time will correlate with the time zone provided.",
             "format": "date-time"
           },
           "timeZone": {
             "type": "string",
-            "description": "Timezone of the Event for determining the StartTime and EndTime",
-            "nullable": true
+            "description": "Time zone of the event for determining the start time and end time.\r\nTime zones will be in the IANA time zone format.",
+            "nullable": true,
+            "example": "Australia/Sydney"
           },
           "lastUpdated": {
             "type": "string",
-            "description": "The Last date and time the event was updated",
+            "description": "The last date and time the event was updated.",
             "format": "date-time"
           },
           "additionalData": {
@@ -9732,12 +10229,92 @@
             "additionalProperties": {
               "type": "string"
             },
-            "description": "Any Additional Data provided for the event",
+            "description": "Any additional data provided for the event.",
             "nullable": true
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "Whether the Event has been deleted"
+            "description": "Whether the event has been deleted."
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventDto": {
+        "type": "object",
+        "properties": {
+          "matterId": {
+            "type": "string",
+            "description": "Matter Id.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Subject of event.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of event.",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "description": "Location of event.",
+            "nullable": true
+          },
+          "allDay": {
+            "type": "boolean",
+            "description": "Whether of not the event is all day.",
+            "example": false
+          },
+          "nonBillable": {
+            "type": "boolean",
+            "description": "Whether of not the event is billable.\r\nNote events with a duration greater than 12 hours automatically become non-billable.",
+            "example": false
+          },
+          "eventType": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "organizer": {
+            "type": "string",
+            "description": "The staff Id of the organizer of the event.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "attendees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The staff Ids of the attendees of the event.",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Start date and time of the event.\r\nSupported date format is ISO YYYY-MM-DDThh:mm:ss.\r\nNote: date and time will correlate with the time zone provided.",
+            "format": "date-time",
+            "example": "2000-01-01T20:00:00"
+          },
+          "endTime": {
+            "type": "string",
+            "description": "End date and time of the event.\r\nSupported date format is ISO YYYY-MM-DDThh:mm:ss.\r\nNote: date and time will correlate with the time zone provided.",
+            "format": "date-time",
+            "example": "2000-01-01T20:00:00"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "Time zone of the event for determining the start time and end time.\r\nTime zones are expected in the IANA time zone format.",
+            "nullable": true,
+            "example": "Australia/Sydney"
+          },
+          "additionalData": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Collection of key value pairs to update file meta data.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9810,7 +10387,7 @@
           4
         ],
         "type": "integer",
-        "description": "The type of the event.\r\n\r\nNon Recurring Event = 0\r\nRecurring Pattern Series = 1\r\nSingle Recurring Occurrence = 2\r\nModified Recurring Occurrence = 3\r\nDeleted Recurring Occurrence = 4",
+        "description": "The type of the event.\r\n\r\nPossible values: Non Recurring Event = 0, Recurring Pattern Series = 1, Single Recurring Occurrence = 2, Modified Recurring Occurrence = 3, Deleted Recurring Occurrence = 4",
         "format": "int32"
       },
       "Expense": {
@@ -9834,7 +10411,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "versionId": {
             "type": "string",
@@ -9848,17 +10430,33 @@
             "nullable": true,
             "example": "8a7f40ea-4123-4ebe-bb05-e9b4b666e706"
           },
+          "staff": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member associated to the expense.",
+            "nullable": true
+          },
+          "matter": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The matter associated to the expense.",
+            "nullable": true
+          },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member.",
-            "nullable": true,
-            "example": "47efff74-3e4b-45b3-bddf-affc6649db0b"
+            "description": "Deprecated, use Staff.",
+            "nullable": true
           },
           "matterId": {
             "type": "string",
-            "description": "Unique identifier of the associated matter.",
-            "nullable": true,
-            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+            "description": "Deprecated, use Matter.",
+            "nullable": true
           },
           "invoiceId": {
             "type": "string",
@@ -10077,7 +10675,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -10101,16 +10704,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -10132,7 +10755,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -10146,17 +10774,33 @@
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
+          "matter": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The matter associated to the fee.",
+            "nullable": true
+          },
+          "staff": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member associated to the fee.",
+            "nullable": true
+          },
           "matterId": {
             "type": "string",
-            "description": "Unique identifier of the associated matter.",
-            "nullable": true,
-            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+            "description": "Deprecated, use Matter.",
+            "nullable": true
           },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member.",
-            "nullable": true,
-            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+            "description": "Deprecated, use Staff.",
+            "nullable": true
           },
           "createdByUserId": {
             "type": "string",
@@ -10201,7 +10845,13 @@
             "example": "2022-07-01"
           },
           "feeType": {
-            "$ref": "#/components/schemas/FeeType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FeeType"
+              }
+            ],
+            "description": "The type of the fee (Fixed = 0, Time = 1).",
+            "example": 0
           },
           "finalized": {
             "type": "boolean",
@@ -10316,7 +10966,13 @@
             "example": "PRT"
           },
           "feeType": {
-            "$ref": "#/components/schemas/FeeType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FeeType"
+              }
+            ],
+            "description": "The type of the fee (Fixed = 0, Time = 1).",
+            "example": 0
           },
           "feeDate": {
             "type": "string",
@@ -10412,7 +11068,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -10436,16 +11097,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -10471,7 +11152,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "description": {
             "type": "string",
