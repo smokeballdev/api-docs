@@ -1275,7 +1275,7 @@
         "tags": [
           "Events"
         ],
-        "summary": "Get a event",
+        "summary": "Get an event",
         "description": "Retrieves a specified event.",
         "operationId": "GetEventById",
         "parameters": [
@@ -10183,35 +10183,42 @@
           "subject": {
             "type": "string",
             "description": "Subject of event.",
-            "nullable": true
+            "nullable": true,
+            "example": "Subject"
           },
           "description": {
             "type": "string",
             "description": "Description of event.",
-            "nullable": true
+            "nullable": true,
+            "example": "Description"
           },
           "location": {
             "type": "string",
             "description": "Location of event.",
-            "nullable": true
+            "nullable": true,
+            "example": "Location"
           },
           "allDay": {
             "type": "boolean",
-            "description": "Whether of not the event is all day."
+            "description": "Whether or not the event is all day.",
+            "example": false
           },
           "nonBillable": {
             "type": "boolean",
-            "description": "Whether of not the event is billable."
+            "description": "Whether or not the event is billable.\r\nNote events with a duration greater than 12 hours automatically become non-billable.",
+            "example": false
           },
           "startTime": {
             "type": "string",
-            "description": "Start date and time of the event.\r\n\r\nNote: date and time will correlate with the time zone provided.",
-            "format": "date-time"
+            "description": "Start date and time of the event.\r\nSupported date format is ISO YYYY-MM-DDThh:mm:ss.\r\nNote: date and time will correlate with the time zone provided.",
+            "format": "date-time",
+            "example": "2000-01-01T20:00:00"
           },
           "endTime": {
             "type": "string",
-            "description": "End date and time of the event.\r\n\r\nNote: date and time will correlate with the time zone provided.",
-            "format": "date-time"
+            "description": "End date and time of the event.\r\nSupported date format is ISO YYYY-MM-DDThh:mm:ss.\r\nNote: date and time will correlate with the time zone provided.",
+            "format": "date-time",
+            "example": "2000-01-01T20:00:00"
           },
           "timeZone": {
             "type": "string",
@@ -10221,8 +10228,9 @@
           },
           "lastUpdated": {
             "type": "string",
-            "description": "The last date and time the event was updated.",
-            "format": "date-time"
+            "description": "The last date and time the event was updated.\r\nSupported date format is ISO YYYY-MM-DDThh:mm:ss.",
+            "format": "date-time",
+            "example": "2000-01-01T20:00:00"
           },
           "additionalData": {
             "type": "object",
@@ -10234,7 +10242,8 @@
           },
           "isDeleted": {
             "type": "boolean",
-            "description": "Whether the event has been deleted."
+            "description": "Whether the event has been deleted.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -10251,26 +10260,29 @@
           "subject": {
             "type": "string",
             "description": "Subject of event.",
-            "nullable": true
+            "nullable": true,
+            "example": "Subject"
           },
           "description": {
             "type": "string",
             "description": "Description of event.",
-            "nullable": true
+            "nullable": true,
+            "example": "Description"
           },
           "location": {
             "type": "string",
             "description": "Location of event.",
-            "nullable": true
+            "nullable": true,
+            "example": "Location"
           },
           "allDay": {
             "type": "boolean",
-            "description": "Whether of not the event is all day.",
+            "description": "Whether or not the event is all day.",
             "example": false
           },
           "nonBillable": {
             "type": "boolean",
-            "description": "Whether of not the event is billable.\r\nNote events with a duration greater than 12 hours automatically become non-billable.",
+            "description": "Whether or not the event is billable.\r\nNote events with a duration greater than 12 hours automatically become non-billable.",
             "example": false
           },
           "eventType": {
