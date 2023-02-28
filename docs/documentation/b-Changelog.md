@@ -6,7 +6,7 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
-## January 2022
+## January 2023
 
 #### Activities
 * Fixed issues with activity code(s) not being deleted.
