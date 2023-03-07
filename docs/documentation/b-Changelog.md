@@ -200,7 +200,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
   * `StaffIds`, instead use `Staff`.
   * `PersonIds`, instead use `People`.
 
-####### Roles
+###### Roles
 * Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
   * `ContactId`, instead use `Contact`.
   * `RepresentativeIds`, instead use `Representatives`.
