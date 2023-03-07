@@ -8,7 +8,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ## January 2023
 
-#### Activities
+##### Activities
 * Fixed issues with activity code(s) not being deleted.
 
 #### BillingConfiguration
