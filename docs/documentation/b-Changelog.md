@@ -9,10 +9,20 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ## March 2023
 
 ###### Archive
-* Added API
+* Added API.
 
 ###### Events
 * Added API.
+
+###### Expenses
+* Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
+  * `StaffId`, instead use `Staff`.
+  * `MatterId`, instead use `Matter`.
+
+###### Fees
+* Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
+  * `StaffId`, instead use `Staff`.
+  * `MatterId`, instead use `Matter`.
 
 ###### Webhooks
 * Added `Task` webhooks. Use the `task.created`, `task.updated`, `task.deleted` event types to listen to chages made to tasks.
