@@ -319,17 +319,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ArchiveDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ArchiveDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ArchiveDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ArchiveDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ArchiveDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ArchiveDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -350,6 +362,55 @@
                     },
                     "404": {
                         "description": "When the specified matter's archive does not exist."
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Archive"
+                ],
+                "summary": "Patch an archive for a matter.",
+                "description": "Updates a specified matter's archive with patch operations.",
+                "operationId": "PatchArchive",
+                "parameters": [
+                    {
+                        "name": "matterId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json-patch+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArchiveDto"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArchiveDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArchiveDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "When request is successful. The archive patch has been accepted and will be updated shortly.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Link"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1402,8 +1463,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Success",
+                    "202": {
+                        "description": "When request is accepted. Returns a hypermedia 'Link' object of the event to be deleted.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1411,9 +1472,6 @@
                                 }
                             }
                         }
-                    },
-                    "202": {
-                        "description": "When request is accepted. Returns a hypermedia 'Link' object of the event to be deleted."
                     },
                     "404": {
                         "description": "When 'Event' does not exist."
@@ -2516,6 +2574,13 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "versionId",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -2525,6 +2590,16 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/DownloadFileInfo"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProblemDetails"
                                 }
                             }
                         }
@@ -4165,17 +4240,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MatterDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/MatterDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MatterDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/MatterDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MatterDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/MatterDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -4264,17 +4351,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MatterDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/MatterDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MatterDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/MatterDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/MatterDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/MatterDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -4827,17 +4926,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RelationshipDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RelationshipDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RelationshipDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RelationshipDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RelationshipDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RelationshipDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -4976,17 +5087,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RelationshipDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RelationshipDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RelationshipDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RelationshipDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RelationshipDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RelationshipDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -5153,17 +5276,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RoleDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RoleDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RoleDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -5284,17 +5419,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RoleDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RoleDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RoleDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/RoleDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -7459,7 +7606,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -13031,7 +13183,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -13058,7 +13215,13 @@
                         "example": "FUS-124"
                     },
                     "matterType": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the associated matter type.",
+                        "nullable": true
                     },
                     "clients": {
                         "type": "array",
@@ -13089,16 +13252,40 @@
                         "example": "Open"
                     },
                     "personResponsible": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the person responsible for the matter (if applicable).",
+                        "nullable": true
                     },
                     "personAssisting": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the person assisting in the matter (if applicable).",
+                        "nullable": true
                     },
                     "originatingStaff": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the originating attorney (if in US) or introducer (if in AU) of the matter.",
+                        "nullable": true
                     },
                     "supervisor": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the supervisor of the matter.\r\n\r\nOnly supported in the UK.",
+                        "nullable": true
                     },
                     "clientCode": {
                         "type": "string",
@@ -13121,7 +13308,13 @@
                         "example": "2022-04-23T14:00:00Z"
                     },
                     "items": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the items associated with the matter.",
+                        "nullable": true
                     },
                     "isMatterTemplate": {
                         "type": "boolean",
@@ -13134,7 +13327,13 @@
                         "example": false
                     },
                     "branch": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the associated branch.",
+                        "nullable": true
                     },
                     "branchProviderId": {
                         "type": "string",
@@ -13233,21 +13432,45 @@
                     },
                     "personResponsibleStaffId": {
                         "type": "string",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOption"
+                            }
+                        ],
+                        "description": "Staff id of the person responsible for the matter (if applicable).",
                         "format": "string",
                         "nullable": true
                     },
                     "personAssistingStaffId": {
                         "type": "string",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOption"
+                            }
+                        ],
+                        "description": "Staff id of the person assisting in the matter (if applicable).",
                         "format": "string",
                         "nullable": true
                     },
                     "originatingStaffId": {
                         "type": "string",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOption"
+                            }
+                        ],
+                        "description": "Staff id of the originating attorney (if in US) or an Introducer (if in AU)",
                         "format": "string",
                         "nullable": true
                     },
                     "supervisorStaffId": {
                         "type": "string",
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StringOption"
+                            }
+                        ],
+                        "description": "Staff id of the supervisor of the matter.\r\n\r\nOnly supported in the UK.",
                         "format": "string",
                         "nullable": true
                     },
@@ -13286,7 +13509,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "value": {
                         "type": "array",
@@ -13310,16 +13538,36 @@
                         "format": "int64"
                     },
                     "first": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "previous": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "next": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "last": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -13345,7 +13593,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "versionId": {
                         "type": "string",
@@ -13385,7 +13638,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "versionId": {
                         "type": "string",
@@ -13427,7 +13685,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -13442,7 +13705,13 @@
                         "example": "Solicitor"
                     },
                     "contact": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the associated contact.",
+                        "nullable": true
                     },
                     "representatives": {
                         "type": "array",
@@ -13501,7 +13770,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -13516,7 +13790,13 @@
                         "example": "Client"
                     },
                     "contact": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "description": "Hypermedia link of the associated contact.",
+                        "nullable": true
                     },
                     "representatives": {
                         "type": "array",
@@ -15071,8 +15351,8 @@
     },
     "servers": [
         {
-      "url": "https://api.smokeball.com",
-      "description": "API"
+            "url": "https://api.smokeball.com",
+            "description": "API"
         }
     ],
     "security": [
