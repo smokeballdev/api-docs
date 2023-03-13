@@ -13432,44 +13432,24 @@
                     },
                     "personResponsibleStaffId": {
                         "type": "string",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/StringOption"
-                            }
-                        ],
                         "description": "Staff id of the person responsible for the matter (if applicable).",
                         "format": "string",
                         "nullable": true
                     },
                     "personAssistingStaffId": {
                         "type": "string",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/StringOption"
-                            }
-                        ],
                         "description": "Staff id of the person assisting in the matter (if applicable).",
                         "format": "string",
                         "nullable": true
                     },
                     "originatingStaffId": {
                         "type": "string",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/StringOption"
-                            }
-                        ],
                         "description": "Staff id of the originating attorney (if in US) or an Introducer (if in AU)",
                         "format": "string",
                         "nullable": true
                     },
                     "supervisorStaffId": {
                         "type": "string",
-                        "allOf": [
-                            {
-                                "$ref": "#/components/schemas/StringOption"
-                            }
-                        ],
                         "description": "Staff id of the supervisor of the matter.\r\n\r\nOnly supported in the UK.",
                         "format": "string",
                         "nullable": true
