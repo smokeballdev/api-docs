@@ -77,17 +77,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ActivityDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ActivityDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ActivityDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ActivityDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ActivityDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ActivityDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -225,17 +237,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ActivityDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ActivityDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ActivityDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ActivityDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ActivityDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/ActivityDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -2722,17 +2746,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateFirmDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CreateFirmDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateFirmDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CreateFirmDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateFirmDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/CreateFirmDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -2764,17 +2800,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UpdateFirmDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateFirmDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UpdateFirmDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateFirmDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UpdateFirmDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/UpdateFirmDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -2935,17 +2983,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/FirmUserDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/FirmUserDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/FirmUserDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/FirmUserDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/FirmUserDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/FirmUserDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -5583,17 +5643,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaffDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaffDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaffDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -5673,17 +5745,29 @@
                     "content": {
                         "application/json-patch+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaffDto"
+                                    }
+                                ]
                             }
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaffDto"
+                                    }
+                                ]
                             }
                         },
                         "application/*+json": {
                             "schema": {
-                                "$ref": "#/components/schemas/StaffDto"
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/StaffDto"
+                                    }
+                                ]
                             }
                         }
                     }
@@ -7379,7 +7463,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -7400,7 +7489,13 @@
                         "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
                     },
                     "type": {
-                        "$ref": "#/components/schemas/EntryType"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EntryType"
+                            }
+                        ],
+                        "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'",
+                        "example": 0
                     },
                     "description": {
                         "type": "string",
@@ -7420,19 +7515,25 @@
                         "example": true
                     },
                     "rateType": {
-                        "$ref": "#/components/schemas/ActivityRateType"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ActivityRateType"
+                            }
+                        ],
+                        "description": "The activity rate type.\r\n\r\nPossible values: UseDefaultStaffRate = '0', OverrideRateForAllStaff = '1', OverrideRatePerStaff = '2'",
+                        "example": 2
                     },
                     "rate": {
                         "type": "number",
-                        "description": "Rate of the activity in dollars.\r\nIf set, rate type must be OverrideRateForAllStaff",
+                        "description": "Rate of the activity in dollars.\r\n\r\nIf set, rate type must be OverrideRateForAllStaff",
                         "format": "double",
                         "example": 23.2
                     },
                     "quantity": {
                         "type": "number",
-                        "description": "Quantity for the activity.",
+                        "description": "Not applicable - for activity type 'Fixed'.\r\n\r\nQuantity for the activity duration - for activity type 'Time'.\r\nCalculated as 'duration in minutes / 100' - e.g. for '1' hour duration, quantity  is  '0.6', which is '60 minutes' divided by '100'. \r\n\r\nQuantity - for activity type 'Expense'",
                         "format": "double",
-                        "example": 3
+                        "example": 0.6
                     },
                     "taxInclusive": {
                         "type": "boolean",
@@ -7462,7 +7563,13 @@
                         "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
                     },
                     "type": {
-                        "$ref": "#/components/schemas/EntryType"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/EntryType"
+                            }
+                        ],
+                        "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'",
+                        "example": 0
                     },
                     "description": {
                         "type": "string",
@@ -7482,7 +7589,13 @@
                         "example": false
                     },
                     "rateType": {
-                        "$ref": "#/components/schemas/ActivityRateType"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/ActivityRateType"
+                            }
+                        ],
+                        "description": "The activity rate type.\r\n            \r\nPossible values: UseDefaultStaffRate = '0', OverrideRateForAllStaff = '1', OverrideRatePerStaff = '2'",
+                        "example": 0
                     },
                     "rate": {
                         "type": "number",
@@ -7493,10 +7606,10 @@
                     },
                     "quantity": {
                         "type": "number",
-                        "description": "Quantity for the activity.",
+                        "description": "Not applicable - for activity type 'Fixed'.\r\n\r\nQuantity for the activity duration - for activity type 'Time'.\r\nCalculated as 'duration in minutes / 100' - e.g. for '1' hour duration, quantity  is  '0.6', which is '60 minutes' divided by '100'. \r\n\r\nQuantity - for activity type 'Expense'",
                         "format": "double",
                         "nullable": true,
-                        "example": 5
+                        "example": 0.6
                     },
                     "taxInclusive": {
                         "type": "boolean",
@@ -7532,7 +7645,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "value": {
                         "type": "array",
@@ -7556,16 +7674,36 @@
                         "format": "int64"
                     },
                     "first": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "previous": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "next": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "last": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -7577,7 +7715,7 @@
                     2
                 ],
                 "type": "integer",
-                "description": "The activity rate type.\r\n    UseDefaultStaffRate = 0,\r\n    OverrideRateForAllStaff = 1,\r\n    OverrideRatePerStaff = 2",
+                "description": "The activity rate type.\r\n\r\nPossible values: UseDefaultStaffRate = '0', OverrideRateForAllStaff = '1', OverrideRatePerStaff = '2'",
                 "format": "int32"
             },
             "EntryType": {
@@ -8037,13 +8175,13 @@
                     },
                     "addressLine1": {
                         "type": "string",
-                        "description": "First line of address.",
+                        "description": "First line of address.\r\n\r\nOnly supported in the US.",
                         "nullable": true,
                         "example": "Level 1/10"
                     },
                     "addressLine2": {
                         "type": "string",
-                        "description": "Second line of address (if applicable).",
+                        "description": "Second line of address (if applicable).\r\n\r\nOnly supported in the US.",
                         "nullable": true,
                         "example": "100 Broad Street"
                     },
@@ -8089,7 +8227,7 @@
                                 "$ref": "#/components/schemas/PoBoxAddressDto"
                             }
                         ],
-                        "description": "PO Box details (only applicable for AUS).",
+                        "description": "PO Box details.\r\n\r\nOnly supported in AU.",
                         "nullable": true
                     }
                 },
@@ -8256,13 +8394,13 @@
                     },
                     "addressLine1": {
                         "type": "string",
-                        "description": "First line of address.",
+                        "description": "First line of address.\r\n\r\nOnly supported in the US.",
                         "nullable": true,
                         "example": "Level 1/10"
                     },
                     "addressLine2": {
                         "type": "string",
-                        "description": "Second line of address (if applicable).",
+                        "description": "Second line of address (if applicable).\r\n\r\nOnly supported in the US.",
                         "nullable": true,
                         "example": "100 Broad Street"
                     },
@@ -8308,7 +8446,7 @@
                                 "$ref": "#/components/schemas/PoBoxAddressDto"
                             }
                         ],
-                        "description": "PO Box details (only applicable for AUS).",
+                        "description": "PO Box details.\r\n\r\nOnly supported in AU.",
                         "nullable": true
                     },
                     "dxAddress": {
@@ -8334,7 +8472,7 @@
                     },
                     "type": {
                         "type": "string",
-                        "description": "Company's type.\r\n\r\nAccepted values for USA - Corporation, Government Agency, Limited Liability Company, Sole Proprietor, Partnership, Not-for-Profit.\r\n\r\nAccepted values for AUS - Company, Sole Proprietor, Partnership, Government Department.",
+                        "description": "Company's type.\r\n\r\nPossible values for US: 'Corporation', 'Government Agency', 'Limited Liability Company', 'Sole Proprietor', 'Partnership', 'Not-for-Profit'\r\n\r\nPossible values for AU: 'Company', 'Sole Proprietor', 'Partnership', 'Government Department'\r\n\r\nPossible values for UK: 'Company', 'Sole Trader', 'Partnership', 'Limited Liability Partnership', 'Government Department'",
                         "nullable": true,
                         "example": "Corporation"
                     },
@@ -8370,19 +8508,19 @@
                     },
                     "abn": {
                         "type": "string",
-                        "description": "Company's Australian Business Number (only applicable for AUS).",
+                        "description": "For AU: Australian Company Number (ABN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "01234567890"
+                        "example": "1234567890"
                     },
                     "companyNumberType": {
                         "type": "string",
-                        "description": "Company's Australian company number type (only applicable for AUS).\r\n\r\nAccepted values - ACN, ARBN",
+                        "description": "Company's Australian company number type.\r\n\r\nAccepted values - ACN, ARBN\r\n\r\nOnly supported in AU.",
                         "nullable": true,
                         "example": "ACN"
                     },
                     "companyNumber": {
                         "type": "string",
-                        "description": "Company's Australian Company Number (only applicable for AUS).",
+                        "description": "Company's Australian Company Number.\r\n            \r\nOnly supported in AU.",
                         "nullable": true,
                         "example": "234567890"
                     },
@@ -8436,7 +8574,7 @@
                     },
                     "type": {
                         "type": "string",
-                        "description": "Company's type.\r\n\r\nAccepted values for USA - Corporation, Government Agency, Limited Liability Company, Sole Proprietor, Partnership, Not-for-Profit.\r\n\r\nAccepted values for AUS - Company, Sole Proprietor, Partnership, Government Department.",
+                        "description": "Company's type.\r\n\r\nPossible values for US: 'Corporation', 'Government Agency', 'Limited Liability Company', 'Sole Proprietor', 'Partnership', 'Not-for-Profit'\r\n\r\nPossible values for AU: 'Company', 'Sole Proprietor', 'Partnership', 'Government Department'\r\n\r\nPossible values for UK: 'Company', 'Sole Trader', 'Partnership', 'Limited Liability Partnership', 'Government Department'",
                         "nullable": true,
                         "example": "Corporation"
                     },
@@ -8489,19 +8627,19 @@
                     },
                     "abn": {
                         "type": "string",
-                        "description": "Company's Australian Business Number (only applicable for AUS).",
+                        "description": "For AU: Australian Company Number (ABN) of the company.\r\n\r\nFor UK: Company Registration Number (CRN) of the company.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "01234567890"
+                        "example": "1234567890"
                     },
                     "companyNumberType": {
                         "type": "string",
-                        "description": "Company's Australian company number type (only applicable for AUS).\r\n\r\nAccepted values - ACN, ARBN.",
+                        "description": "Company's Australian company number type.\r\n\r\nPossible values: 'ACN', 'ARBN'\r\n\r\nOnly supported in AU.",
                         "nullable": true,
                         "example": "ACN"
                     },
                     "companyNumber": {
                         "type": "string",
-                        "description": "Company's Australian Company Number (only applicable for AUS).",
+                        "description": "Company's Australian Company Number.\r\n\r\nOnly supported in AU.",
                         "nullable": true,
                         "example": "234567890"
                     },
@@ -11461,33 +11599,70 @@
                     },
                     "abn": {
                         "type": "string",
-                        "description": "Australian Business Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "01234567890"
+                        "example": "1234567890"
                     },
                     "acn": {
                         "type": "string",
-                        "description": "Australian Company Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "234567890"
+                        "example": "1234567890"
                     },
                     "streetAddress": {
-                        "$ref": "#/components/schemas/FirmAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddressDto"
+                            }
+                        ],
+                        "description": "Street address of the firm.",
+                        "nullable": true
                     },
                     "mailingAddress": {
-                        "$ref": "#/components/schemas/FirmAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddressDto"
+                            }
+                        ],
+                        "description": "Mailing address of the firm.",
+                        "nullable": true
                     },
                     "dxAddress": {
-                        "$ref": "#/components/schemas/FirmDxAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmDxAddressDto"
+                            }
+                        ],
+                        "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
+                        "nullable": true
                     },
                     "phone": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "description": "Phone number of the firm.",
+                        "nullable": true
                     },
                     "fax": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "description": "Fax number of the firm.",
+                        "nullable": true
                     },
                     "product": {
-                        "$ref": "#/components/schemas/Product"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        ],
+                        "description": "The Product the firm is subscribed to. Must be set when creating the firm.",
+                        "nullable": true,
+                        "example": 3
                     },
                     "isInternal": {
                         "type": "boolean",
@@ -11495,7 +11670,13 @@
                         "example": false
                     },
                     "staff": {
-                        "$ref": "#/components/schemas/StaffDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StaffDto"
+                            }
+                        ],
+                        "description": "The staff member that will be created with the firm. This staff member will become the firm owner.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -11517,7 +11698,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -11551,30 +11737,60 @@
                     },
                     "abn": {
                         "type": "string",
-                        "description": "Australian Business Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
                         "example": "1234567890"
                     },
                     "acn": {
                         "type": "string",
-                        "description": "Australian Company Number of the firm (only applicable for AUS).",
+                        "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
                         "example": "1234567890"
                     },
                     "streetAddress": {
-                        "$ref": "#/components/schemas/FirmAddress"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddress"
+                            }
+                        ],
+                        "description": "Street address of the firm.",
+                        "nullable": true
                     },
                     "mailingAddress": {
-                        "$ref": "#/components/schemas/FirmAddress"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddress"
+                            }
+                        ],
+                        "description": "Mailing address of the firm.",
+                        "nullable": true
                     },
                     "dxAddress": {
-                        "$ref": "#/components/schemas/DxAddress"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/DxAddress"
+                            }
+                        ],
+                        "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
+                        "nullable": true
                     },
                     "phone": {
-                        "$ref": "#/components/schemas/PhoneNumber"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumber"
+                            }
+                        ],
+                        "description": "Phone number of the firm.",
+                        "nullable": true
                     },
                     "fax": {
-                        "$ref": "#/components/schemas/PhoneNumber"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumber"
+                            }
+                        ],
+                        "description": "Fax number of the firm.",
+                        "nullable": true
                     },
                     "logo": {
                         "type": "string",
@@ -11583,7 +11799,13 @@
                         "example": "https://example-logo-url.com/image"
                     },
                     "stylingDetails": {
-                        "$ref": "#/components/schemas/StylingDetails"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/StylingDetails"
+                            }
+                        ],
+                        "description": "Styling details of the firm.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -11661,7 +11883,13 @@
                         "type": "string",
                         "description": "County (if applicable)",
                         "nullable": true,
-                        "example": ""
+                        "example": "Berkshire"
+                    },
+                    "locality": {
+                        "type": "string",
+                        "description": "Locality (if applicable)",
+                        "nullable": true,
+                        "example": "Windsor"
                     },
                     "country": {
                         "type": "string",
@@ -11752,7 +11980,7 @@
                     },
                     "state": {
                         "type": "string",
-                        "description": "State, province, or region.",
+                        "description": "State, province, or region (if applicable).",
                         "nullable": true,
                         "example": "IL"
                     },
@@ -11765,6 +11993,12 @@
                     "county": {
                         "type": "string",
                         "description": "County (if applicable).",
+                        "nullable": true,
+                        "example": ""
+                    },
+                    "locality": {
+                        "type": "string",
+                        "description": "Locality (if applicable).",
                         "nullable": true,
                         "example": ""
                     },
@@ -11812,30 +12046,60 @@
                     },
                     "abn": {
                         "type": "string",
-                        "description": "Australian Business Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "01234567890"
+                        "example": "1234567890"
                     },
                     "acn": {
                         "type": "string",
-                        "description": "Australian Company Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "234567890"
+                        "example": "1234567890"
                     },
                     "streetAddress": {
-                        "$ref": "#/components/schemas/FirmAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddressDto"
+                            }
+                        ],
+                        "description": "Street address of the firm.",
+                        "nullable": true
                     },
                     "mailingAddress": {
-                        "$ref": "#/components/schemas/FirmAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddressDto"
+                            }
+                        ],
+                        "description": "Mailing address of the firm.",
+                        "nullable": true
                     },
                     "dxAddress": {
-                        "$ref": "#/components/schemas/FirmDxAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmDxAddressDto"
+                            }
+                        ],
+                        "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
+                        "nullable": true
                     },
                     "phone": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "description": "Phone number of the firm.",
+                        "nullable": true
                     },
                     "fax": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "description": "Fax number of the firm.",
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -11885,7 +12149,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "staffId": {
                         "type": "string",
@@ -11952,7 +12221,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "id": {
                         "type": "string",
@@ -11997,10 +12271,22 @@
                         "example": "JS"
                     },
                     "phone": {
-                        "$ref": "#/components/schemas/PhoneNumber"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumber"
+                            }
+                        ],
+                        "description": "Staff member's phone details.",
+                        "nullable": true
                     },
                     "cell": {
-                        "$ref": "#/components/schemas/PhoneNumber"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumber"
+                            }
+                        ],
+                        "description": "Staff member's mobile details.",
+                        "nullable": true
                     },
                     "email": {
                         "type": "string",
@@ -12079,10 +12365,20 @@
                         "example": "JS"
                     },
                     "phone": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "cell": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "email": {
                         "type": "string",
@@ -12132,7 +12428,12 @@
                         "nullable": true
                     },
                     "self": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "value": {
                         "type": "array",
@@ -12156,16 +12457,36 @@
                         "format": "int64"
                     },
                     "first": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "previous": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "next": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     },
                     "last": {
-                        "$ref": "#/components/schemas/Link"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Link"
+                            }
+                        ],
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -12211,33 +12532,70 @@
                     },
                     "abn": {
                         "type": "string",
-                        "description": "Australian Business Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "01234567890"
+                        "example": "1234567890"
                     },
                     "acn": {
                         "type": "string",
-                        "description": "Australian Company Number of the firm.\r\n\r\nOnly supported in AUS.",
+                        "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
                         "nullable": true,
-                        "example": "234567890"
+                        "example": "1234567890"
                     },
                     "streetAddress": {
-                        "$ref": "#/components/schemas/FirmAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddressDto"
+                            }
+                        ],
+                        "description": "Street address of the firm.",
+                        "nullable": true
                     },
                     "mailingAddress": {
-                        "$ref": "#/components/schemas/FirmAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmAddressDto"
+                            }
+                        ],
+                        "description": "Mailing address of the firm.",
+                        "nullable": true
                     },
                     "dxAddress": {
-                        "$ref": "#/components/schemas/FirmDxAddressDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/FirmDxAddressDto"
+                            }
+                        ],
+                        "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
+                        "nullable": true
                     },
                     "phone": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "description": "Phone number of the firm.",
+                        "nullable": true
                     },
                     "fax": {
-                        "$ref": "#/components/schemas/PhoneNumberDto"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PhoneNumberDto"
+                            }
+                        ],
+                        "description": "Fax number of the firm.",
+                        "nullable": true
                     },
                     "product": {
-                        "$ref": "#/components/schemas/Product"
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        ],
+                        "description": "The Product this firm will be registered against.",
+                        "nullable": true,
+                        "example": 3
                     }
                 },
                 "additionalProperties": false
