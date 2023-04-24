@@ -11095,6 +11095,10 @@
             "type": "boolean",
             "description": "True if the expense is invoiced externally.",
             "example": false
+          },
+          "assignToFirmOwner": {
+            "type": "boolean",
+            "description": "Assigns expense to a firm owner if true. Ignored if a StaffId is provided.\r\n\r\nNote: It is not guaranteed that the same firm owner will be assigned everytime."
           }
         },
         "additionalProperties": false
@@ -12392,6 +12396,18 @@
             "description": "Staff member's User Id, if enabled.",
             "nullable": true,
             "example": "14b5dd57-3681-420e-a483-4823424eef45"
+          },
+          "colorFill": {
+            "type": "string",
+            "description": "Staff member's fill color hex code.",
+            "nullable": true,
+            "example": "#797d85"
+          },
+          "colorStroke": {
+            "type": "string",
+            "description": "Staff member's stroke color hex code.",
+            "nullable": true,
+            "example": "#64666a"
           }
         },
         "additionalProperties": false
@@ -12474,6 +12490,18 @@
             "description": "Whether he/she is a former member.",
             "nullable": true,
             "example": false
+          },
+          "colorFill": {
+            "type": "string",
+            "description": "Staff member's fill color hex code.",
+            "nullable": true,
+            "example": "#797d85"
+          },
+          "colorStroke": {
+            "type": "string",
+            "description": "Staff member's stroke color hex code.",
+            "nullable": true,
+            "example": "#64666a"
           }
         },
         "additionalProperties": false
@@ -13460,6 +13488,34 @@
       "LayoutMatterItemData": {
         "type": "object",
         "properties": {
+          "layoutDesignId": {
+            "type": "string",
+            "nullable": true
+          },
+          "index": {
+            "type": "integer",
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
+          },
+          "parentIndex": {
+            "type": "integer",
+            "description": "Zero-based index of the parent matter list item.",
+            "format": "int32",
+            "example": 0
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Identifier of the parent matter list item specific to the provider.",
+            "nullable": true,
+            "example": "Client"
+          },
+          "itemId": {
+            "type": "string",
+            "description": "Unique identifier for the layout item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
+          },
           "name": {
             "type": "string",
             "description": "Name of the layout item.",
@@ -13472,39 +13528,11 @@
             "nullable": true,
             "example": "Text describing item"
           },
-          "itemId": {
-            "type": "string",
-            "description": "Unique identifier for the layout item.",
-            "nullable": true,
-            "example": "59791902-6280-471b-bd18-f8439ba3042f"
-          },
-          "parentId": {
-            "type": "string",
-            "description": "Identifier of the parent matter list item specific to the provider.",
-            "nullable": true,
-            "example": "Client"
-          },
           "parentItemId": {
             "type": "string",
             "description": "Unique identifier of the parent matter list item.",
             "nullable": true,
             "example": "59791902-6280-471b-bd18-f8439ba3042f"
-          },
-          "parentIndex": {
-            "type": "integer",
-            "description": "Zero-based index of the parent matter list item.",
-            "format": "int32",
-            "example": 0
-          },
-          "index": {
-            "type": "integer",
-            "description": "Zero-based index of the layout item.",
-            "format": "int32",
-            "example": 0
-          },
-          "layoutDesignId": {
-            "type": "string",
-            "nullable": true
           },
           "values": {
             "type": "array",
