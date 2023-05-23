@@ -18,21 +18,21 @@ Refer to the below base urls for different environments and regions.
 
 Use this base URL for [authentication](c916c683c136e-authentication).
 
-|     | Production                    | Test                                      |
-| --- | ----------------------------- | ----------------------------------------- |
-| US  | https://auth.smokeball.com    | https://datastaging-auth.smokeball.com    |
-| AU  | https://auth.smokeball.com.au | https://datastaging-auth.smokeball.com.au |
-| UK  | https://auth.smokeball.co.uk  | https://datastaging-auth.smokeball.co.uk  |
+|    | Production                    | Test                                      |
+| -- | ----------------------------- | ----------------------------------------- |
+| US | https://auth.smokeball.com    | https://datastaging-auth.smokeball.com    |
+| AU | https://auth.smokeball.com.au | https://datastaging-auth.smokeball.com.au |
+| UK | https://auth.smokeball.co.uk  | https://datastaging-auth.smokeball.co.uk  |
 
 ### 1.2 API
 
 Use this base URL for [making api requests](91f30a1eaee08-making-requests).
 
-|     | Production                   | Test                                |
-| --- | ---------------------------- | ----------------------------------- |
-| US  | https://api.smokeball.com    | https://stagingapi.smokeball.com    |
-| AU  | https://api.smokeball.com.au | https://stagingapi.smokeball.com.au |
-| UK  | https://api.smokeball.co.uk  | https://stagingapi.smokeball.co.uk  |
+|    | Production                   | Test                                |
+| -- | ---------------------------- | ----------------------------------- |
+| US | https://api.smokeball.com    | https://stagingapi.smokeball.com    |
+| AU | https://api.smokeball.com.au | https://stagingapi.smokeball.com.au |
+| UK | https://api.smokeball.co.uk  | https://stagingapi.smokeball.co.uk  |
 
 ## 2. Throttling & Limits
 
@@ -46,6 +46,8 @@ The *rate* limit defines the number of allowed requests per second.
 
 Unless otherwise specified, Smokeball API partners are assigned the limits below:
 
-| Rate  | Burst |
-| ----- | ----- |
-| 5     | 5     |
+|    | Rate  | Burst |
+| -- | ----- | ----- |
+| US | 5     | 5     |
+| AU | 5     | 5     |
+| UK | 5     | 5     |
