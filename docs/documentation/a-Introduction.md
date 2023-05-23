@@ -40,9 +40,9 @@ Throttling and limiting is a policy that affects the frequency an API can be cal
 
 The Smokeball API uses the [token bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket). Smokeball API partners are assigned a "Burst" and "Rate" Limit.
 
-The _burst_ limit defines the number of requests the  API can handle concurrently.
+The __burst__ limit defines the number of requests the  API can handle concurrently.
 
-The _rate_ limit defines the number of allowed requests per second.
+The __rate__ limit defines the number of allowed requests per second.
 
 Unless otherwise specified, Smokeball API partners are assigned the limits below:
 
