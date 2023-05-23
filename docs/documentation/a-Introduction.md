@@ -34,7 +34,7 @@ Use this base URL for [making api requests](91f30a1eaee08-making-requests).
 | AU  | https://api.smokeball.com.au | https://stagingapi.smokeball.com.au |
 | UK  | https://api.smokeball.co.uk  | https://stagingapi.smokeball.co.uk  |
 
-### 2. Throttling & Limits
+## 2. Throttling & Limits
 
 A "rate limit" is a policy that affects the frequency an API can be called. They are put in place to protect server infrastructure from abuse or misuse. Smokeball employs rate limits to enable consistent load allocation across our platform.
 
