@@ -4465,7 +4465,7 @@
           "Matters"
         ],
         "summary": "Update a matter",
-        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be modified\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n- a lead cannot be converted back to a matter and vice versa",
+        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be modified, unless converting a lead to a matter\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n- a matter cannot be converted back to a lead",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -4706,6 +4706,28 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mattertypes/categories": {
+      "get": {
+        "tags": [
+          "MatterTypes"
+        ],
+        "summary": "Get matter types categories",
+        "description": "Returns a list of all the possible matter type categories.",
+        "operationId": "GetCategories",
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns all 'Categories'.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringCollection"
                 }
               }
             }
@@ -14551,6 +14573,39 @@
         },
         "additionalProperties": false
       },
+      "StringCollection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "$ref": "#/components/schemas/Link"
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TypeCategory": {
         "enum": [
           0,
@@ -15570,39 +15625,6 @@
           "password": {
             "type": "string",
             "description": "Password for the user.\r\n\r\nPassword must include atleast one lowercase character, uppercase character, numeric character as well as a special character.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "StringCollection": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "nullable": true
-          },
-          "href": {
-            "type": "string",
-            "nullable": true
-          },
-          "relation": {
-            "type": "string",
-            "nullable": true
-          },
-          "method": {
-            "type": "string",
-            "default": "GET",
-            "nullable": true
-          },
-          "self": {
-            "$ref": "#/components/schemas/Link"
-          },
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
             "nullable": true
           }
         },
