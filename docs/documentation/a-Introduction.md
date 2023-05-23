@@ -33,3 +33,19 @@ Use this base URL for [making api requests](91f30a1eaee08-making-requests).
 | US  | https://api.smokeball.com    | https://stagingapi.smokeball.com    |
 | AU  | https://api.smokeball.com.au | https://stagingapi.smokeball.com.au |
 | UK  | https://api.smokeball.co.uk  | https://stagingapi.smokeball.co.uk  |
+
+### 2. Throttling & Limits
+
+A "rate limit" is a policy that affects the frequency an API can be called. They are put in place to protect server infrastructure from abuse or misuse. Smokeball employs rate limits to enable consistent load allocation across our platform.
+
+The Smokeball API uses the [token bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket). Smokeball API partners are assigned a "Burst" and "Rate" Limit.
+
+The *burst* limit defines the number of requests the  API can handle concurrently.
+
+The *rate* limit defines the number of allowed requests per second.
+
+Unless otherwise specified, Smokeball API partners are assigned the limits below:
+
+| Rate  | Burst |
+| ----- | ----- |
+| 5     | 5     |
