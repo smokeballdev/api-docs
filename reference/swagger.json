@@ -3755,17 +3755,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutMatterItemData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutMatterItemData"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutMatterItemData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutMatterItemData"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutMatterItemData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutMatterItemData"
+                  }
+                ]
               }
             }
           }
@@ -3911,17 +3923,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutMatterItemData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutMatterItemData"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutMatterItemData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutMatterItemData"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutMatterItemData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutMatterItemData"
+                  }
+                ]
               }
             }
           }
@@ -4144,17 +4168,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutContactData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutContactData"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutContactData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutContactData"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/LayoutContactData"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/LayoutContactData"
+                  }
+                ]
               }
             }
           }
@@ -11682,6 +11718,12 @@
       "CreateFirmDto": {
         "type": "object",
         "properties": {
+          "productId": {
+            "type": "string",
+            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "nullable": true,
+            "example": "SMK001"
+          },
           "name": {
             "type": "string",
             "description": "The name of the firm.",
@@ -11757,9 +11799,10 @@
                 "$ref": "#/components/schemas/Product"
               }
             ],
-            "description": "The Product the firm is subscribed to. Must be set when creating the firm.",
+            "description": "Deprecated, please use ProductId.\r\n\r\nThe Product the firm is subscribed to. Must be set when creating the firm.",
             "nullable": true,
-            "example": 3
+            "example": 3,
+            "deprecated": true
           },
           "isInternal": {
             "type": "boolean",
@@ -12129,6 +12172,12 @@
       "FirmDto": {
         "type": "object",
         "properties": {
+          "productId": {
+            "type": "string",
+            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "nullable": true,
+            "example": "SMK001"
+          },
           "name": {
             "type": "string",
             "description": "The name of the firm.",
@@ -12639,6 +12688,12 @@
       "UpdateFirmDto": {
         "type": "object",
         "properties": {
+          "productId": {
+            "type": "string",
+            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "nullable": true,
+            "example": "SMK001"
+          },
           "name": {
             "type": "string",
             "description": "The name of the firm.",
@@ -12714,9 +12769,10 @@
                 "$ref": "#/components/schemas/Product"
               }
             ],
-            "description": "The Product this firm will be registered against.",
+            "description": "Deprecated, please use ProductId.\r\n\r\nThe Product the firm will be subscribed to.",
             "nullable": true,
-            "example": 3
+            "example": 3,
+            "deprecated": true
           }
         },
         "additionalProperties": false
@@ -13160,7 +13216,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "key": {
             "type": "string",
@@ -13169,7 +13230,13 @@
             "example": ""
           },
           "contact": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Hypermedia link of the layout contact.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -13212,7 +13279,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "versionId": {
             "type": "string",
@@ -13301,7 +13373,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "versionId": {
             "type": "string",
@@ -13345,7 +13422,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -13369,16 +13451,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -13414,7 +13516,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -13453,7 +13560,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -13486,7 +13598,13 @@
             "example": 0
           },
           "layoutDesign": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Hypermedia link of the layout design.",
+            "nullable": true
           },
           "values": {
             "type": "array",
@@ -13601,7 +13719,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -13880,13 +14003,13 @@
           },
           "clientRole": {
             "type": "string",
-            "description": "'Client' matter type representative option for the matter.",
+            "description": "'Client' matter type representative option for the matter.\r\n\r\nIf unsure, this can be left empty and the default Client role will be used.",
             "nullable": true,
             "example": "Buyer"
           },
           "otherSideRole": {
             "type": "string",
-            "description": "'OtherSide' matter type representative option for the matter.",
+            "description": "'OtherSide' matter type representative option for the matter.\r\n\r\nIf unsure, this can be left empty and the default OtherSide role will be used.",
             "nullable": true,
             "example": "Seller"
           },
