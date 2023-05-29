@@ -11793,17 +11793,6 @@
             "description": "Fax number of the firm.",
             "nullable": true
           },
-          "product": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Product"
-              }
-            ],
-            "description": "Deprecated, please use ProductId.\r\n\r\nThe Product the firm is subscribed to. Must be set when creating the firm.",
-            "nullable": true,
-            "example": 3,
-            "deprecated": true
-          },
           "isInternal": {
             "type": "boolean",
             "description": "Whether firm is being created for internal use. Internal firms will not be subscribed for payment processing and will not be charged.",
@@ -12169,87 +12158,6 @@
         },
         "additionalProperties": false
       },
-      "FirmDto": {
-        "type": "object",
-        "properties": {
-          "productId": {
-            "type": "string",
-            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
-            "nullable": true,
-            "example": "SMK001"
-          },
-          "name": {
-            "type": "string",
-            "description": "The name of the firm.",
-            "nullable": true,
-            "example": "Brown LLC"
-          },
-          "email": {
-            "type": "string",
-            "description": "The email of the firm.\r\n\r\nOnly supported in AUS.",
-            "nullable": true,
-            "example": "john.smith@law.com"
-          },
-          "abn": {
-            "type": "string",
-            "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
-            "nullable": true,
-            "example": "1234567890"
-          },
-          "acn": {
-            "type": "string",
-            "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
-            "nullable": true,
-            "example": "1234567890"
-          },
-          "streetAddress": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/FirmAddressDto"
-              }
-            ],
-            "description": "Street address of the firm.",
-            "nullable": true
-          },
-          "mailingAddress": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/FirmAddressDto"
-              }
-            ],
-            "description": "Mailing address of the firm.",
-            "nullable": true
-          },
-          "dxAddress": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/FirmDxAddressDto"
-              }
-            ],
-            "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
-            "nullable": true
-          },
-          "phone": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PhoneNumberDto"
-              }
-            ],
-            "description": "Phone number of the firm.",
-            "nullable": true
-          },
-          "fax": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PhoneNumberDto"
-              }
-            ],
-            "description": "Fax number of the firm.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "FirmDxAddressDto": {
         "type": "object",
         "properties": {
@@ -12339,16 +12247,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "Product": {
-        "enum": [
-          1,
-          2,
-          3
-        ],
-        "type": "integer",
-        "description": "Available products: \"BillingOnly = 1\", \"SmokeballMid = 2\", \"Smokeball = 3\"",
-        "format": "int32"
       },
       "Staff": {
         "type": "object",
@@ -12762,17 +12660,6 @@
             ],
             "description": "Fax number of the firm.",
             "nullable": true
-          },
-          "product": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Product"
-              }
-            ],
-            "description": "Deprecated, please use ProductId.\r\n\r\nThe Product the firm will be subscribed to.",
-            "nullable": true,
-            "example": 3,
-            "deprecated": true
           }
         },
         "additionalProperties": false
