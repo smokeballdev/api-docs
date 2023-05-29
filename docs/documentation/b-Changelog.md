@@ -6,6 +6,15 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
+## May 2023
+
+##### Staff
+* Added `ColorFill` and `ColorStroke` fields.
+
+##### Webhooks
+* Improveements to `Matter` webhooks, notifications are more accurate aswell as more deteministic.
+* Added `Memo` webhooks. Use the `memo.created`, `memo.updated`, `memo.deleted`, `memo.restored` event types to listen to chages made to memos. 
+
 ## March 2023
 
 ###### Archive
