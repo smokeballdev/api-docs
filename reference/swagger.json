@@ -7010,7 +7010,7 @@
         }
       }
     },
-    "/webhooks/events": {
+    "/webhooks/types": {
       "get": {
         "tags": [
           "Webhooks"
@@ -13215,11 +13215,11 @@
             "type": "string",
             "description": "Name of the layout design field.",
             "nullable": true,
-            "example": "Nature of Property"
+            "example": "PinAndLotSizes[]/AccountNumber"
           },
           "type": {
             "type": "string",
-            "description": "Type of the layout design field.\r\n            \r\nPossible values: 'Text','Combobox','Checkbox','DateTime','Role','Number'",
+            "description": "Type of the layout design field.\r\n            \r\nPossible values: 'Text','Combobox','Checkbox','DateTime','Role','Number'.\r\n            \r\n'Role' type can represent a matter role (for a top-level layout item) or a matter relationship (for a sublayout item).",
             "example": "Combobox"
           },
           "possibleValues": {
