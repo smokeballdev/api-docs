@@ -14,6 +14,8 @@ To start your integration journey with Smokeball, please follow this [link](http
 
 Refer to the below base urls for different environments and regions.
 
+*Note: You **MUST** use the URLs for the region you are targeting with your integration.*
+
 ### 1.1 Authentication
 
 Use this base URL for [authentication](c916c683c136e-authentication).
