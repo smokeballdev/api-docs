@@ -20,7 +20,7 @@ Currently, the following resources support deterministic ID creation via `POST` 
 
 
 ### 2.2 Resource Creation
-To create a resource with a custom ResourceId, you need to include the following HTTP headers when submitting a POST request:
+To create a resource with a custom ResourceId, you need to include the following HTTP headers when submitting a `POST` request:
 
 - **ResourceId**: This header should contain the unique identifier for the resource being created. The API partner provides this identifier, and it will be validated against the ResourceId generated using the value of ExternalId described below.
 
