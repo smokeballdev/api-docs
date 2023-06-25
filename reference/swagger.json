@@ -631,17 +631,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/BillingConfigurationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BillingConfigurationDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BillingConfigurationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BillingConfigurationDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/BillingConfigurationDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BillingConfigurationDto"
+                  }
+                ]
               }
             }
           }
@@ -4680,7 +4692,12 @@
             "in": "query",
             "description": "Return matter types by category type (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
             "schema": {
-              "$ref": "#/components/schemas/TypeCategory"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/TypeCategory"
+                }
+              ],
+              "example": 0
             },
             "example": 0
           },
@@ -4843,17 +4860,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MemoDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MemoDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MemoDto"
+                  }
+                ]
               }
             }
           }
@@ -4946,17 +4975,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MemoDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MemoDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/MemoDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MemoDto"
+                  }
+                ]
               }
             }
           }
@@ -6251,17 +6292,32 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubTaskDto"
+                  }
+                ],
+                "description": "Data transfer object for a subtask."
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubTaskDto"
+                  }
+                ],
+                "description": "Data transfer object for a subtask."
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubTaskDto"
+                  }
+                ],
+                "description": "Data transfer object for a subtask."
               }
             }
           }
@@ -6380,17 +6436,32 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubTaskDto"
+                  }
+                ],
+                "description": "Data transfer object for a subtask."
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubTaskDto"
+                  }
+                ],
+                "description": "Data transfer object for a subtask."
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubTaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubTaskDto"
+                  }
+                ],
+                "description": "Data transfer object for a subtask."
               }
             }
           }
@@ -6469,17 +6540,32 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDocumentDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDocumentDto"
+                  }
+                ],
+                "description": "Data transfer object for a task document."
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDocumentDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDocumentDto"
+                  }
+                ],
+                "description": "Data transfer object for a task document."
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDocumentDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDocumentDto"
+                  }
+                ],
+                "description": "Data transfer object for a task document."
               }
             }
           }
@@ -6675,17 +6761,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                ]
               }
             }
           }
@@ -6851,17 +6949,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                ]
               }
             }
           }
@@ -6965,17 +7075,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                ]
               }
             }
           }
@@ -7099,17 +7221,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionDto"
+                  }
+                ]
               }
             }
           }
@@ -7200,17 +7334,29 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionDto"
+                  }
+                ]
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionDto"
+                  }
+                ]
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/SubscriptionDto"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionDto"
+                  }
+                ]
               }
             }
           }
@@ -7350,7 +7496,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -7359,7 +7510,13 @@
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "accountType": {
-            "$ref": "#/components/schemas/AccountTypes"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AccountTypes"
+              }
+            ],
+            "description": "The type of the bank account (Operating = 0, Trust = 1, Credit = 2, ControlledMoney = 3).",
+            "example": 0
           },
           "accountName": {
             "type": "string",
@@ -7411,7 +7568,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -7465,7 +7627,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -7854,6 +8021,7 @@
           2
         ],
         "type": "integer",
+        "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'",
         "format": "int32"
       },
       "Archive": {
@@ -7989,7 +8157,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "versionId": {
             "type": "string",
@@ -7998,7 +8171,13 @@
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "billingType": {
-            "$ref": "#/components/schemas/BillingTypeEnum"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BillingTypeEnum"
+              }
+            ],
+            "description": "The billing type.\r\n\r\nPossible values: None = 0, Fixed Fee = 1, Fixed Fee per Appearance = 2, Time Based = 3, Contingency Dollars = 4, Contingency Percent = 5, Not Billable = 6",
+            "example": 1
           },
           "amount": {
             "type": "number",
@@ -8056,7 +8235,13 @@
             "example": "100558"
           },
           "ledesTimekeeperClassificationType": {
-            "$ref": "#/components/schemas/TimekeeperClassificationType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TimekeeperClassificationType"
+              }
+            ],
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n\r\nPossible values: Length6 = 0, Length2 = 1.\r\n\r\nOnly supported in the US.",
+            "example": 0
           }
         },
         "additionalProperties": false
@@ -8065,7 +8250,13 @@
         "type": "object",
         "properties": {
           "billingType": {
-            "$ref": "#/components/schemas/BillingTypeEnum"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BillingTypeEnum"
+              }
+            ],
+            "description": "The billing type.\r\n\r\nPossible values: \r\nNone = 0, \r\nFixed Fee = 1, \r\nFixed Fee per Appearance = 2, \r\nTime Based = 3, \r\nContingency Dollars = 4, \r\nContingency Percent = 5, \r\nNot Billable = 6,\r\nConditionalFeeAgreement = 7",
+            "example": 1
           },
           "amount": {
             "type": "number",
@@ -8117,7 +8308,13 @@
             "example": "100558"
           },
           "ledesTimekeeperClassificationType": {
-            "$ref": "#/components/schemas/TimekeeperClassificationType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TimekeeperClassificationType"
+              }
+            ],
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n\r\nPossible values: Length6 = 0, Length2 = 1.\r\n\r\nOnly supported in the US.",
+            "example": 0
           },
           "rateSetId": {
             "type": "string",
@@ -9847,7 +10044,12 @@
             "format": "int32"
           },
           "expressionProvider": {
-            "$ref": "#/components/schemas/ISearchExpressionProvider"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ISearchExpressionProvider"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12668,7 +12870,13 @@
         "type": "object",
         "properties": {
           "type": {
-            "$ref": "#/components/schemas/DiscountType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DiscountType"
+              }
+            ],
+            "description": "The type of discount (Fixed = 0, Percentage = 1).",
+            "example": 0
           },
           "fixedDiscount": {
             "type": "number",
@@ -12716,7 +12924,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -12749,7 +12962,13 @@
             "example": "Services provided."
           },
           "status": {
-            "$ref": "#/components/schemas/InvoiceStatus"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceStatus"
+              }
+            ],
+            "description": "The status of the invoice.\r\n\r\nPossible values: Draft = 0, Final = 1, Paid = 2, Deleted = 3 or Void = 4.",
+            "example": 0
           },
           "invoiceNumber": {
             "type": "integer",
@@ -12789,7 +13008,13 @@
             "example": "2022-09-20T00:00:00+00:00"
           },
           "discount": {
-            "$ref": "#/components/schemas/Discount"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Discount"
+              }
+            ],
+            "description": "The discount settings for the invoice. See InvoiceTotals.Discount if you need the \r\nactual discount amount applied to the invoice.",
+            "nullable": true
           },
           "entries": {
             "type": "array",
@@ -12805,7 +13030,13 @@
             "example": false
           },
           "invoiceTotals": {
-            "$ref": "#/components/schemas/InvoiceTotals"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvoiceTotals"
+              }
+            ],
+            "description": "The invoice totals.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12822,7 +13053,12 @@
             "nullable": true
           },
           "type": {
-            "$ref": "#/components/schemas/EntryType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EntryType"
+              }
+            ],
+            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'"
           }
         },
         "additionalProperties": false
@@ -12848,7 +13084,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -12872,16 +13113,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -13006,7 +13267,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -13063,7 +13329,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "versionId": {
             "type": "string",
@@ -14346,7 +14617,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -14400,7 +14676,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -14427,7 +14708,13 @@
             "example": "Litigation"
           },
           "type": {
-            "$ref": "#/components/schemas/TypeCategory"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TypeCategory"
+              }
+            ],
+            "description": "Name of the category type to which the matter type belongs (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
+            "example": 0
           },
           "representativeOptions": {
             "type": "array",
@@ -14474,7 +14761,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -14501,7 +14793,13 @@
             "example": "Litigation"
           },
           "type": {
-            "$ref": "#/components/schemas/TypeCategory"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TypeCategory"
+              }
+            ],
+            "description": "Name of the category type to which the matter type belongs (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
+            "example": 0
           },
           "representativeOptions": {
             "type": "array",
@@ -14545,7 +14843,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -14569,16 +14872,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -14604,7 +14927,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -14642,7 +14970,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -14760,7 +15093,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -14784,16 +15122,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -14819,7 +15177,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "versionId": {
             "type": "string",
@@ -14828,13 +15191,31 @@
             "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           },
           "matter": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Matter in which this mapping is associated to.",
+            "nullable": true
           },
           "stageSet": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Current stage set of the matter.",
+            "nullable": true
           },
           "stage": {
-            "$ref": "#/components/schemas/Stage"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Stage"
+              }
+            ],
+            "description": "Current stage of the matter.",
+            "nullable": true
           },
           "lastUpdated": {
             "type": "integer",
@@ -14867,7 +15248,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -14891,16 +15277,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -14922,7 +15328,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -14974,7 +15385,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "id": {
             "type": "string",
@@ -15038,7 +15454,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -15062,16 +15483,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -15107,19 +15548,48 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "parentTask": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The parent (task) of the subtask.",
+            "nullable": true
           },
           "createdBy": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member who created the subtask.",
+            "nullable": true
           },
           "completedBy": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member who completed the subtask.",
+            "nullable": true
           },
           "lastUpdatedBy": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member who last updated the subtask.",
+            "nullable": true
           },
           "subject": {
             "type": "string",
@@ -15182,7 +15652,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -15254,22 +15729,57 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "matter": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "Matter associated to the task.",
+            "nullable": true
           },
           "parentTask": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The parent task associated to this task. Id is missing if this task is not a sub task.",
+            "nullable": true
           },
           "createdBy": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member who created the task.",
+            "nullable": true
           },
           "completedBy": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member who completed the task.",
+            "nullable": true
           },
           "lastUpdatedBy": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The staff member who last updated the task.",
+            "nullable": true
           },
           "assignees": {
             "type": "array",
@@ -15374,13 +15884,30 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "task": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "description": "The associated task.",
+            "nullable": true
           },
           "type": {
-            "$ref": "#/components/schemas/DocumentType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DocumentType"
+              }
+            ],
+            "description": "The type of the document.\r\n\r\nPossible values: File = 0, FormTemplate = 1, Memo = 2.",
+            "example": 0
           },
           "isDeleted": {
             "type": "boolean",
@@ -15416,7 +15943,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -15441,7 +15973,13 @@
             "example": "cf666f06-3ff2-4a41-8c7f-ab5a8bc6a277"
           },
           "type": {
-            "$ref": "#/components/schemas/DocumentType"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DocumentType"
+              }
+            ],
+            "description": "The type of the document.\r\n\r\nPossible values: File = 0, FormTemplate = 1, Memo = 2.\r\n\r\nThe FormTemplate (1) document type is not currently supported for task document creation.",
+            "example": 0
           }
         },
         "additionalProperties": false,
@@ -15545,7 +16083,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -15569,16 +16112,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -15604,7 +16167,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "userId": {
             "type": "string",
@@ -15661,7 +16229,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "accountId": {
             "type": "string",
@@ -15771,7 +16344,12 @@
             "nullable": true
           },
           "self": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "value": {
             "type": "array",
@@ -15795,16 +16373,36 @@
             "format": "int64"
           },
           "first": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "previous": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "next": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           },
           "last": {
-            "$ref": "#/components/schemas/Link"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
