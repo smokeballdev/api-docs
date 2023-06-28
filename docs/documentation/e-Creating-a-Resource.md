@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Creatin a resource
+# Creating a resource
 
 ## 1. Overview
 
