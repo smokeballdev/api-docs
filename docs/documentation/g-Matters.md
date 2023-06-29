@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Creating a Matter
+# Matters
 
 ### 1. Matter Types
 
@@ -91,7 +91,7 @@ Right now, the API supports the following contact types
 
 ![New Contact](../../assets/images/newcontact.png)
 
-#### API - Creating Contacts
+#### API - Creating contacts
 
 To create a client contact you can make the following request which would create a person called ‘Test Contact’.
 
@@ -200,7 +200,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ---
 
-### 4. Matter Creation
+### 4. Creating a matter
 
 Now we have everything we need to create a matter.
 
@@ -268,6 +268,8 @@ The matter is now shown in Smokeball:
 ---
 
 ### 5. Retrieving a matter
+
+> New enhanced endpoint version available to retrieve matters. See section 8 for more details.
 
 ```http
 GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
@@ -529,7 +531,6 @@ PATCH https://api.smokeball.com/matters/{matterId}/layouts/{itemId}
 
 > Note: a field with type `DateTime` expects a UTC date/time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (e.g. `2021-10-12T13:00:00.0000000Z`).
 
-
 ---
 
 ### 7. Roles
@@ -635,3 +636,240 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 ```
 
 ![New Role](../../assets/images/newroleadded.png)
+
+---
+
+### 8. Retrieving matters (v2)
+
+#### Retrieving matter by id
+
+```http
+GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
+```
+
+Set header variable `Api-Version` with value `2.0` to access new version.
+
+This is an enhanced version of the endpoint which combines the following APIs:
+- Matters API
+- MatterItems API
+- Roles API
+- Relationships API
+
+**Response**
+
+```json
+{
+  "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/matters/b7982ad5-0d43-4cd1-9b0e-185caf30f05e",
+  "id": "b7982ad5-0d43-4cd1-9b0e-185caf30f05e",
+  "externalSystemId": "EXT01",
+  "versionId": "638138489289266248",
+  "number": "AM-0323-0005",
+  "matterType": {
+    "id": "0623643a-48a4-41d7-8c91-d35915b291cd_ACT",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/mattertypes/0623643a-48a4-41d7-8c91-d35915b291cd_ACT",
+    "rel": "MatterTypes"
+  },
+  "clients": [
+    {
+      "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+      "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/ec499947-9d3d-442a-b431-05c8ee280687",
+      "rel": "Contacts"
+    }
+  ],
+  "otherSides": [
+    {
+      "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+      "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+      "rel": "Contacts"
+    }
+  ],
+  "title": "AM-0323-0005 - Smith - Sale - Jones",
+  "description": "1, Flat 23 Gerald Street, Greystanes NSW",
+  "status": "Open",
+  "personResponsible": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "personAssisting": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "originatingStaff": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "supervisor": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "clientCode": "Client A",
+  "openedDate": "2023-03-08T04:18:22.3044791Z",
+  "isLead": false,
+  "items": {
+    "vendors": [
+      {
+        "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+        "type": "role",
+        "name": "Vendor",
+        "contact": {
+          "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+          "href": "https://api.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/ec499947-9d3d-442a-b431-05c8ee280687",
+          "rel": "Contacts"
+        },
+        "subItems": {
+          "solicitors": [
+            {
+              "id": "4a31c76f-0952-4069-8259-840cd6106246",
+              "type": "role",
+              "contact": {
+                "id": "MyFirm"
+              },
+              "name": "Solicitor",
+            }
+          ],
+          "relationshipDetails": [
+            {
+              "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+              "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/matters/b7982ad5-0d43-4cd1-9b0e-185caf30f05e/layouts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+              "rel": "layout",
+              "type": "layout"
+            }
+          ]
+        }
+      }
+    ],
+    "purchasers": [
+      {
+        "id": "f794090d-183e-462a-9654-930d64a5f882",
+        "name": "Purchaser",
+        "contact": {
+          "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+          "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+          "rel": "Contacts"
+        },
+        "subItems": {
+          "solicitors": [
+            {
+              "id": "2761eb3a-caeb-4b6d-911e-9daf302f6799",
+              "name": "Solicitor",
+              "contact": {
+                "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+                "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+                "rel": "Contacts"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "marriageDetails": [
+      {
+        "id": "0ea6eb6e-b078-4de3-8639-26c99ec9c32c",
+        "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/matters/b7982ad5-0d43-4cd1-9b0e-185caf30f05e/layouts/0ea6eb6e-b078-4de3-8639-26c99ec9c32c",
+        "rel": "layout",
+        "type": "layout",
+        "subItems": {
+          "solicitors": [
+            {
+              "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+              "type": "role",
+              "name": "Solicitor",
+              "contact": {
+                "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+                "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/ec499947-9d3d-442a-b431-05c8ee280687",
+                "rel": "Contacts"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+#### Retrieving matters
+
+```http
+GET https://api.smokeball.com/matters
+```
+
+Set header variable `Api-Version` with value `2.0` to access new version.
+
+This is endpoint returns a paginated list of matters based on the action/filter paramaters specified in the request.
+
+List of request parameters currently supported:
+
+Parameter | Description
+---------|----------
+ `limit` | Use this to limit number of records to be returned. Defaults to 500.
+ `offset` | Use this to set offset for the records to be returned.
+ `matterTypeId` | Use this to filter by matter type identifier.
+ `contactId` |  Use this to filter by the contact identifier.
+ `status` |  Use this to filter by current status of the matter. Possible values: `Open`, `Pending`, `Closed`, `Deleted` or `Cancelled`
+ `isLead`| Boolean flag to restrict search to `Leads`.
+ `updatedSince` | Use this to filter by matters updated since a specified time (.net ticks representation of the UTC datetime).
+ `sort` | Use this to provide comma separated list of sort fields. Expected format `asc/desc(field)`. Sort fields currently supported: `Status`, `LastUpdated` - e.g. `asc(Status)`, `desc(LastUpdated)`
+`fields` | Use this to provide comma separated list of optional fields to include in the result. Optional fields currently supported: `Items`.
+
+> The matter `items` field is not returned by default. Use the `fields` in the request to include this in the result.
+
+**Response**
+
+```json
+{
+    "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters",
+    "offset": 0,
+    "limit": 100,
+    "size": 1396,
+    "first": {
+        "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters?limit=100",
+        "rel": "collection"
+    },
+    "next": {
+        "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters?limit=100&offset=100",
+        "rel": "collection"
+    },
+    "last": {
+        "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters?limit=100&offset=1300",
+        "rel": "collection"
+    },
+    "value": [
+        {
+            "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters/04db8d78-f222-42de-b3d6-10809642402e",
+            "id": "04db8d78-f222-42de-b3d6-10809642402e",
+            "versionId": "638193848837974931",
+            "title": "Company Incorporation",
+            "matterType": {
+                "name": "Company Incorporation",
+                "id": "0d157e91-f3e1-4161-ae7d-03e9c23be912_NSW",
+                "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/mattertypes/0d157e91-f3e1-4161-ae7d-03e9c23be912_NSW",
+                "rel": "MatterTypes"
+            },
+            "clients": [],
+            "otherSides": [],
+            "status": "Open",
+            "openedDate": "2017-08-09T22:01:27.373097Z",
+            "isLead": false,
+            "clientIds": [],
+            "otherSideIds": [],
+            "items": {}
+        },
+        ...
+        ...
+    ]
+}
+```
+
+### 9. Updating a matter
+
+#### Using PUT endpoint
+
+
+#### Using PATCH endpoint (beta)
+
+---

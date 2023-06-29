@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Creating a Lead
+# Leads
 
 ### 1. Lead Matter Types
 
@@ -188,7 +188,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ---
 
-### 4. Lead Creation
+### 4. Creating a lead
 
 Now we have everything we need to create a lead.
 
