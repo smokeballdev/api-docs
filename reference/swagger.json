@@ -4308,8 +4308,8 @@
           "Matters"
         ],
         "summary": "Get matters",
-        "description": "Returns a list of matters.",
-        "operationId": "GetMatters",
+        "description": "Returns a list of matters.\r\n\r\nNote: A new version is now available for this endpoint.\r\n            \r\nSee `Matters` documentation for more details.\r\n\r\nSet header variable `Api-Version` with value `2.0` to access new version.",
+        "operationId": "GetMatters2",
         "parameters": [
           {
             "name": "Offset",
@@ -4393,6 +4393,40 @@
               "example": "2022-04-23T14:00:00Z"
             },
             "example": "2022-04-23T14:00:00Z"
+          },
+          {
+            "name": "Sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Fields",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortField"
+              }
+            }
+          },
+          {
+            "name": "Fields",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "FieldNames",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         ],
         "responses": {
@@ -4401,7 +4435,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/MatterPagedCollection"
+                  "$ref": "#/components/schemas/Matter2PagedCollection"
                 }
               }
             }
@@ -4476,8 +4510,8 @@
           "Matters"
         ],
         "summary": "Get a matter",
-        "description": "Retrieves a specified matter.",
-        "operationId": "GetMatterById",
+        "description": "Retrieves a specified matter.\r\n            \r\nNote: A new version is now available for this endpoint.\r\n            \r\nSee `Matters` documentation for more details.\r\n\r\nSet header variable `Api-Version` with value `2.0` to access new version.",
+        "operationId": "GetMatterById2",
         "parameters": [
           {
             "name": "matterId",
@@ -4495,7 +4529,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Matter"
+                  "$ref": "#/components/schemas/Matter2"
                 }
               }
             }
@@ -4513,7 +4547,7 @@
           "Matters"
         ],
         "summary": "Update a matter",
-        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be modified, unless converting a lead to a matter\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n- a matter cannot be converted back to a lead",
+        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be modified, unless converting a lead to a matter\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n-  `Matter` cannot be converted back to `Lead`",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -4560,6 +4594,72 @@
         "responses": {
           "202": {
             "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the matter."
+          },
+          "404": {
+            "description": "When matter with specified id does not exist."
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Matters"
+        ],
+        "summary": "Patch a matter (beta)",
+        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead` and to convert `Lead` to `Matter`.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter`\r\n            \r\n- `matterTypeId` and `clientRole` cannot be updated, unless converting a `Lead` to `Matter`\r\n            \r\n- `Matter` cannot be converted back to `Lead`",
+        "operationId": "PatchMatter",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatterDto2"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatterDto2"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MatterDto2"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be patched.",
             "content": {
               "application/json": {
                 "schema": {
@@ -9091,52 +9191,11 @@
       "ContactDto": {
         "type": "object",
         "properties": {
-          "externalSystemId": {
+          "id": {
             "type": "string",
-            "description": "External system id for the contact.",
+            "description": "Unique identifier of the contact.",
             "nullable": true,
-            "example": "EXT01"
-          },
-          "person": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PersonDto"
-              }
-            ],
-            "description": "Contact person details (if applicable).",
-            "nullable": true
-          },
-          "company": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CompanyDto"
-              }
-            ],
-            "description": "Contact company details (if applicable).",
-            "nullable": true
-          },
-          "trust": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TrustDto"
-              }
-            ],
-            "description": "Contact trust details (if applicable).\r\n\r\nOnly supported in US.",
-            "nullable": true
-          },
-          "groupOfPeople": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/GroupOfPeopleDto"
-              }
-            ],
-            "description": "Contact group details (if applicable).\r\n\r\nOnly supported in US and AU.",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean",
-            "description": "Contact can be restored by setting this to false.",
-            "example": false
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           }
         },
         "additionalProperties": false
@@ -10280,7 +10339,7 @@
             "type": "string",
             "description": "Path of the folder to add the file to. If null then the FolderId will be used",
             "nullable": true,
-            "example": "Court Filings/2021/January"
+            "example": "Court Filings/2023/January"
           },
           "fileAdditionalData": {
             "type": "object",
@@ -10295,7 +10354,14 @@
             "description": "The original datetime that the file was created. If null the current datetime will be used",
             "format": "date-time",
             "nullable": true,
-            "example": "2022-04-23T14:00:00Z"
+            "example": "2023-04-23T14:00:00Z"
+          },
+          "dateModified": {
+            "type": "string",
+            "description": "The initial datetime that the file was last modified. If null the current datetime will be used",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2023-04-24T14:00:00Z"
           }
         },
         "additionalProperties": false
@@ -13926,7 +13992,43 @@
         },
         "additionalProperties": false
       },
-      "Matter": {
+      "IMatterItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of the matter item.",
+            "nullable": true,
+            "readOnly": true,
+            "example": "role or layout"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the matter item.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the matter item as it appears on the matter.",
+            "nullable": true,
+            "example": "Vendor"
+          },
+          "subItems": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/IMatterItem"
+              }
+            },
+            "description": "Subitems associated to the matter item. These items vary depending on the matter.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Matter2": {
         "type": "object",
         "properties": {
           "href": {
@@ -13973,6 +14075,12 @@
             "description": "Human-friendly number assigned to matter.",
             "nullable": true,
             "example": "FUS-124"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the matter.",
+            "nullable": true,
+            "example": "AM-0323-0005 - Smith - Sale - Jones"
           },
           "matterType": {
             "allOf": [
@@ -14067,20 +14175,6 @@
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
           },
-          "items": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Link"
-              }
-            ],
-            "description": "Hypermedia link of the items associated with the matter.",
-            "nullable": true
-          },
-          "isMatterTemplate": {
-            "type": "boolean",
-            "description": "Boolean flag indicating if the matter is a template.",
-            "example": false
-          },
           "isLead": {
             "type": "boolean",
             "description": "Boolean flag indicating if the matter is a lead.",
@@ -14100,6 +14194,101 @@
             "description": "Unique identifier of the associated branch provider.",
             "nullable": true,
             "example": "Smokeball"
+          },
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/IMatterItem"
+              }
+            },
+            "description": "Items associated with the matter.\r\n            \r\nNote: This is only available in the v2.0 endpoints.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Matter2PagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Matter2"
+            },
+            "nullable": true
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "first": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -14228,85 +14417,162 @@
         },
         "additionalProperties": false
       },
-      "MatterPagedCollection": {
+      "MatterDto2": {
+        "type": "object",
+        "properties": {
+          "externalSystemId": {
+            "type": "string",
+            "description": "External system id for the matter.",
+            "nullable": true,
+            "example": "EXT01"
+          },
+          "number": {
+            "type": "string",
+            "description": "Human-friendly number assigned to matter.",
+            "nullable": true,
+            "example": "FUS-124"
+          },
+          "matterTypeId": {
+            "type": "string",
+            "description": "Unique identifier of the matter type associated with the matter.\r\n            \r\nMatter types define what information can be saved to the matter, relevant to that area of law and state / location.\r\n            \r\nA pre-configured list of matter types can be obtained via the 'GET /mattertypes' API.\r\n            \r\n'Lead' matter types are different from the standard matter types used when creating a 'Matter'.\r\n            \r\nUse the 'Type' query parameter in the 'GET /mattertypes' API call to get 'Lead' specific matter types.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the matter.",
+            "nullable": true,
+            "example": "This is a brief description for the matter"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of matter.\r\n\r\nPossible values: Open, Pending, Closed, Deleted or Cancelled.",
+            "nullable": true,
+            "example": "Open"
+          },
+          "dateOpened": {
+            "type": "string",
+            "description": "Date when the matter was opened. This can be backdated if required.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "personResponsibleStaffId": {
+            "type": "string",
+            "description": "Staff id of the person responsible for the matter (if applicable).",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "personAssistingStaffId": {
+            "type": "string",
+            "description": "Staff id of the person assisting in the matter (if applicable).",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "originatingStaffId": {
+            "type": "string",
+            "description": "Staff id of the originating attorney (if in US) or an Introducer (if in AU)",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "supervisorStaffId": {
+            "type": "string",
+            "description": "Staff id of the supervisor of the matter.\r\n\r\nOnly supported in the UK.",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "clientCode": {
+            "type": "string",
+            "description": "Associates an external client code to this matter.\r\n\r\nOnly supported in AU and UK.",
+            "nullable": true,
+            "example": "Client A"
+          },
+          "branchId": {
+            "type": "string",
+            "description": "Unique identifier of the associated branch.",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "branchProviderId": {
+            "type": "string",
+            "description": "Unique identifier of the associated branch provider.",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "clientRole": {
+            "type": "string",
+            "description": "'Client' matter type representative option for the matter.\r\n\r\nRequired and only supported when converting a 'Lead' to 'Matter'.",
+            "nullable": true,
+            "example": "Buyer"
+          },
+          "isLead": {
+            "type": "boolean",
+            "description": "Optional boolean flag indicating if matter is a 'Lead'.\r\n            \r\nThis must be set to 'false' when converting a 'Lead' to 'Matter'.",
+            "example": false
+          },
+          "clientIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of unique identifiers of 'Client' contacts associated with the matter.",
+            "nullable": true
+          },
+          "otherSideIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of unique identifiers of 'OtherSide' contacts associated with the matter.",
+            "nullable": true
+          },
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MatterItemDto"
+              }
+            },
+            "description": "Items associated with the matter.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MatterItemDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the matter item.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
           },
-          "href": {
+          "contactId": {
             "type": "string",
-            "nullable": true
+            "description": "Unique identifier of the associated contact.\r\n\r\nOnly applicable for 'role' matter items.",
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
-          "relation": {
-            "type": "string",
-            "nullable": true
-          },
-          "method": {
-            "type": "string",
-            "default": "GET",
-            "nullable": true
-          },
-          "self": {
+          "contact": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/Link"
+                "$ref": "#/components/schemas/ContactDto"
               }
             ],
+            "description": "Associated contact.\r\n\r\nOnly applicable for 'role' matter items.",
             "nullable": true
           },
-          "value": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Matter"
+          "subItems": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MatterItemDto"
+              }
             },
-            "nullable": true
-          },
-          "offset": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "limit": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "size": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "first": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Link"
-              }
-            ],
-            "nullable": true
-          },
-          "previous": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Link"
-              }
-            ],
-            "nullable": true
-          },
-          "next": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Link"
-              }
-            ],
-            "nullable": true
-          },
-          "last": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Link"
-              }
-            ],
+            "description": "SubItems associated with the matter item.\r\n\r\nNot applicable for matter sub items.",
             "nullable": true
           }
         },
@@ -14599,6 +14865,34 @@
           }
         },
         "additionalProperties": false
+      },
+      "SortField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "order": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortType"
+              }
+            ]
+          },
+          "validSyntax": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "MatterListItem": {
         "type": "object",
