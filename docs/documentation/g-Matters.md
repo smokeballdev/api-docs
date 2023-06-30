@@ -1012,7 +1012,7 @@ The endpoint does not support the following actions:
 - Updating matter `items` of provider type other than `role` or `layout` is not supported.
 - Removing all items of a type is not supported.
 
-**Updating the `items`**
+How updating `items` works:
 
 - If the `items` property is not passed in, they will be left unchanged.
 - There is **no need** to pass items of all types in a patch request.
@@ -1122,6 +1122,8 @@ There are 2 ways we could do this. The first is to simply set the clientIds prop
     "clientIds": [
       "728cb5aa-a9d2-46e5-b75a-149f6c4fae0b"
     ],
+    // Assuming there were two clients here, 
+    // this patch request will remove the client who's id was omitted 
 }
 ```
 
@@ -1135,6 +1137,8 @@ The client/item we are removing is omitted from the payload:
         "id": "5c65358d-1502-463c-9464-f36f21c7e610",
         "contactId": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
       }
+      // Assuming there were two vendots here, 
+      // this patch request will remove the vendot item that was omitted 
     ]
   }
 }
