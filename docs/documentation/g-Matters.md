@@ -75,7 +75,7 @@ When creating a matter in Smokeball we can see
 }
 ```
 
-> Here the important information to note is the `id` and `representativeOptions` of the matter type. We’ll need those when creating a matter. 
+> Here the important information to note is the `id` and `representativeOptions` of the matter type. We’ll need those when creating a matter.
 
 ---
 
@@ -641,7 +641,7 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 
 ### 8. Retrieving matters (v2)
 
-#### Retrieving matter by id
+#### Retrieving a matter
 
 ```http
 GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
@@ -790,9 +790,11 @@ This is an enhanced version of the endpoint which combines the following APIs:
     ]
   }
 }
-```
+```  
 
-#### Retrieving matters
+#### Retrieving multiple matters
+
+This endpoint can be used to sort, filter and retrieve one or more matters.
 
 ```http
 GET https://api.smokeball.com/matters
@@ -800,7 +802,7 @@ GET https://api.smokeball.com/matters
 
 Set header variable `Api-Version` with value `2.0` to access new version.
 
-This is endpoint returns a paginated list of matters based on the action/filter paramaters specified in the request.
+The endpoint returns a paginated list of matters based on the action/filter paramaters specified in the request.
 
 List of request parameters currently supported:
 
@@ -1003,7 +1005,7 @@ The endpoint supports the following actions:
 - Updating the clients and/or other sides using the `clientIds` and `otherSideIds` properties.
 - Updating matter items of provider type `role` and `layout` using the `items` property.
 
-The endpoint does not support the following actions:
+The endpoint **does not** support the following actions:
 
 - Converting a `Matter` back to a `Lead` is not supported.
 - Updating `matterTypeId` and `clientRole` on matters or on leads that are not being converted to matter is not supported.
@@ -1065,10 +1067,10 @@ Alternatively, we can update the client in the items property, like so:
     "purchasers": [
       {
         "id": "f794090d-183e-462a-9654-930d64a5f882",
-        // contact id can be provided in one of two ways: 
-        // option 1: 
+        // Contact Id can be provided in one of two ways: 
+        // Option 1: 
         "contactId": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
-        // option 2:
+        // Option 2:
         "contact": {
             "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
         }
@@ -1104,8 +1106,8 @@ Alternatively, we can add the role in the items property, like so:
         "contactId": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
       },
       {
-        // `id` is not required here if there is no existing vendors role item available
-        // `id` must be provided if the contact is being assigned to an existing role item 
+        // Id is not required here if there is no existing vendors role item available
+        // Id must be provided if the contact is being assigned to an existing role item 
         "contactId": "728cb5aa-a9d2-46e5-b75a-149f6c4fae0b"
       }
     ]
@@ -1119,11 +1121,11 @@ There are 2 ways we could do this. The first is to simply set the clientIds prop
 
 ```json
 {
+    // Assuming there were two clients here: 
+    // This patch request will remove the client who's Id was omitted here
     "clientIds": [
       "728cb5aa-a9d2-46e5-b75a-149f6c4fae0b"
     ],
-    // Assuming there were two clients here, 
-    // this patch request will remove the client who's id was omitted 
 }
 ```
 
@@ -1132,13 +1134,13 @@ The client/item we are removing is omitted from the payload:
 ```json
 {
   "items": {
+    // Assuming there were two vendors here: 
+    // This patch request will remove the vendor item that was omitted 
     "vendors": [
       {
         "id": "5c65358d-1502-463c-9464-f36f21c7e610",
         "contactId": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
       }
-      // Assuming there were two vendots here, 
-      // this patch request will remove the vendot item that was omitted 
     ]
   }
 }
@@ -1153,7 +1155,7 @@ The client/item we are removing is omitted from the payload:
       {
         "id": "5c65358d-1502-463c-9464-f36f21c7e610",
         "contactId": "c555185b-4062-4e74-9ecf-f0b87dd4ee79",
-        // contact id can also be set this way (as mentioned in a previous example)
+        // Contact Id can also be set this way (as mentioned in a previous example)
         "contact": {
             "id": "c555185b-4062-4e74-9ecf-f0b87dd4ee79",
         },
@@ -1161,7 +1163,7 @@ The client/item we are removing is omitted from the payload:
             "Solicitor": [
                 {
                     "id": "e46248a6-f71a-4991-b791-9f03e402a937",
-                    // contact id also updated for sub item here
+                    // Contact Id also updated for sub item here
                     "contact": {
                         "id": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
                     }
@@ -1215,12 +1217,12 @@ The client/item we are removing is omitted from the payload:
 {
   "items": {
         
+        // Assuming there were two Case Details layout items: 
+        // This patch request will remove the one that was omitted
         "Case Details": [
             {
                 "id": "52f51059-2a0c-4b5e-a86d-55bf5638a10d"
             }
-            // Assuming there were two `Case Details` layout items, 
-            // this patch request will remove the one that was omitted 
         ]
     }
 }
