@@ -4405,27 +4405,7 @@
             "name": "Fields",
             "in": "query",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/SortField"
-              }
-            }
-          },
-          {
-            "name": "Fields",
-            "in": "query",
-            "schema": {
               "type": "string"
-            }
-          },
-          {
-            "name": "FieldNames",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
           }
         ],
@@ -14203,7 +14183,7 @@
                 "$ref": "#/components/schemas/IMatterItem"
               }
             },
-            "description": "Items associated with the matter.\r\n            \r\nNote: This is only available in the v2.0 endpoints.",
+            "description": "Items associated with the matter.\r\n            \r\nNote: This field is only available when using the v2.0 endpoint. See Matters documentation for further details.",
             "nullable": true
           }
         },
@@ -14865,34 +14845,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "SortField": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "order": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SortType"
-              }
-            ]
-          },
-          "validSyntax": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SortType": {
-        "enum": [
-          0,
-          1
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "MatterListItem": {
         "type": "object",
