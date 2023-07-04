@@ -5847,16 +5847,6 @@
                 "type": "string"
               }
             }
-          },
-          {
-            "name": "Terms",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/SearchTerm"
-              }
-            }
           }
         ],
         "responses": {
@@ -6981,16 +6971,6 @@
               "type": "array",
               "items": {
                 "type": "string"
-              }
-            }
-          },
-          {
-            "name": "Terms",
-            "in": "query",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/SearchTerm"
               }
             }
           }
@@ -12438,50 +12418,6 @@
             "description": "Unique identifier of the associated staff member..",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ISearchExpressionProvider": {
-        "type": "object",
-        "additionalProperties": false
-      },
-      "SearchTerm": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "searchFields": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "operator": {
-            "type": "string",
-            "nullable": true
-          },
-          "value": {
-            "type": "string",
-            "nullable": true
-          },
-          "validSyntax": {
-            "type": "boolean"
-          },
-          "index": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "expressionProvider": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ISearchExpressionProvider"
-              }
-            ],
-            "nullable": true
           }
         },
         "additionalProperties": false
