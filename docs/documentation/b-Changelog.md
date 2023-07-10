@@ -6,13 +6,28 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
+## July 2023
+
+###### Expenses
+* Added `AssignToFirmOwner` option when creating an expense.
+
+###### Files
+* Added `DateModified` field when creating a file.
+* Added `DateModified` field when bulk creating files.
+
+###### Firm
+* Deprecated the `Product` field and introduced the `ProductId` field.
+
+###### Matters
+* Fix issue with combining search filters, e.g. `IsLead` and `ContactId`.
+
 ## May 2023
 
-##### Staff
+###### Staff
 * Added `ColorFill` and `ColorStroke` fields.
 
-##### Webhooks
-* Improveements to `Matter` webhooks, notifications are more accurate aswell as more deteministic.
+###### Webhooks
+* Improvements to `Matter` webhooks, notifications are more accurate aswell as more deterministic.
 * Added `Memo` webhooks. Use the `memo.created`, `memo.updated`, `memo.deleted`, `memo.restored` event types to listen to chages made to memos. 
 
 ## March 2023
