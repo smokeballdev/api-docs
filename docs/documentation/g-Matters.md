@@ -2,7 +2,7 @@
 tags: [Documentation]
 ---
 
-# Creating a Matter
+# Matters
 
 ### 1. Matter Types
 
@@ -75,7 +75,7 @@ When creating a matter in Smokeball we can see
 }
 ```
 
-> Here the important information to note is the `id` and `representativeOptions` of the matter type. We’ll need those when creating a matter. 
+> Here the important information to note is the `id` and `representativeOptions` of the matter type. We’ll need those when creating a matter.
 
 ---
 
@@ -91,7 +91,7 @@ Right now, the API supports the following contact types
 
 ![New Contact](../../assets/images/newcontact.png)
 
-#### API - Creating Contacts
+#### API - Creating contacts
 
 To create a client contact you can make the following request which would create a person called ‘Test Contact’.
 
@@ -200,7 +200,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ---
 
-### 4. Matter Creation
+### 4. Creating a matter
 
 Now we have everything we need to create a matter.
 
@@ -268,6 +268,8 @@ The matter is now shown in Smokeball:
 ---
 
 ### 5. Retrieving a matter
+
+> New enhanced endpoint version available to retrieve matters. See section 8 for more details.
 
 ```http
 GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
@@ -529,7 +531,6 @@ PATCH https://api.smokeball.com/matters/{matterId}/layouts/{itemId}
 
 > Note: a field with type `DateTime` expects a UTC date/time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (e.g. `2021-10-12T13:00:00.0000000Z`).
 
-
 ---
 
 ### 7. Roles
@@ -635,3 +636,597 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 ```
 
 ![New Role](../../assets/images/newroleadded.png)
+
+---
+
+### 8. Retrieving matters (v2)
+
+#### Retrieving a matter
+
+```http
+GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
+```
+
+Set header variable `Api-Version` with value `2.0` to access new version.
+
+This is an enhanced version of the endpoint which combines the following APIs:
+- Matters API
+- MatterItems API
+- Roles API
+- Relationships API
+
+**Response**
+
+```json
+{
+  "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/matters/b7982ad5-0d43-4cd1-9b0e-185caf30f05e",
+  "id": "b7982ad5-0d43-4cd1-9b0e-185caf30f05e",
+  "externalSystemId": "EXT01",
+  "versionId": "638138489289266248",
+  "number": "AM-0323-0005",
+  "matterType": {
+    "id": "0623643a-48a4-41d7-8c91-d35915b291cd_ACT",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/mattertypes/0623643a-48a4-41d7-8c91-d35915b291cd_ACT",
+    "rel": "MatterTypes"
+  },
+  "clients": [
+    {
+      "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+      "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/ec499947-9d3d-442a-b431-05c8ee280687",
+      "rel": "Contacts"
+    }
+  ],
+  "otherSides": [
+    {
+      "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+      "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+      "rel": "Contacts"
+    }
+  ],
+  "title": "AM-0323-0005 - Smith - Sale - Jones",
+  "description": "1, Flat 23 Gerald Street, Greystanes NSW",
+  "status": "Open",
+  "personResponsible": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "personAssisting": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "originatingStaff": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "supervisor": {
+    "id": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "href": "https://api.smokeball.com/884a9809-c997-41bc-b1d2-e9f8c317cc29/staff/526670af-acd8-401e-bc64-6d4cafb4a12a",
+    "rel": "Staff"
+  },
+  "clientCode": "Client A",
+  "openedDate": "2023-03-08T04:18:22.3044791Z",
+  "isLead": false,
+  "items": {
+    "vendors": [
+      {
+        "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+        "type": "role",
+        "name": "Vendor",
+        "contact": {
+          "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+          "href": "https://api.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/ec499947-9d3d-442a-b431-05c8ee280687",
+          "rel": "Contacts"
+        },
+        "subItems": {
+          "solicitors": [
+            {
+              "id": "4a31c76f-0952-4069-8259-840cd6106246",
+              "type": "role",
+              "contact": {
+                "id": "MyFirm"
+              },
+              "name": "Solicitor",
+            }
+          ],
+          "relationshipDetails": [
+            {
+              "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+              "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/matters/b7982ad5-0d43-4cd1-9b0e-185caf30f05e/layouts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+              "rel": "layout",
+              "type": "layout"
+            }
+          ]
+        }
+      }
+    ],
+    "purchasers": [
+      {
+        "id": "f794090d-183e-462a-9654-930d64a5f882",
+        "name": "Purchaser",
+        "contact": {
+          "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+          "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+          "rel": "Contacts"
+        },
+        "subItems": {
+          "solicitors": [
+            {
+              "id": "2761eb3a-caeb-4b6d-911e-9daf302f6799",
+              "name": "Solicitor",
+              "contact": {
+                "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+                "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+                "rel": "Contacts"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "marriageDetails": [
+      {
+        "id": "0ea6eb6e-b078-4de3-8639-26c99ec9c32c",
+        "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/matters/b7982ad5-0d43-4cd1-9b0e-185caf30f05e/layouts/0ea6eb6e-b078-4de3-8639-26c99ec9c32c",
+        "rel": "layout",
+        "type": "layout",
+        "subItems": {
+          "solicitors": [
+            {
+              "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+              "type": "role",
+              "name": "Solicitor",
+              "contact": {
+                "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+                "href": "https://stagingapi.smokeball.com.au/884a9809-c997-41bc-b1d2-e9f8c317cc29/contacts/ec499947-9d3d-442a-b431-05c8ee280687",
+                "rel": "Contacts"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```  
+
+#### Retrieving multiple matters
+
+This endpoint can be used to sort, filter and retrieve one or more matters.
+
+```http
+GET https://api.smokeball.com/matters
+```
+
+Set header variable `Api-Version` with value `2.0` to access new version.
+
+The endpoint returns a paginated list of matters based on the action/filter paramaters specified in the request.
+
+List of request parameters currently supported:
+
+Parameter | Description
+---------|----------
+ `limit` | Use this to limit number of records to be returned. Defaults to 500.
+ `offset` | Use this to set offset for the records to be returned.
+ `matterTypeId` | Use this to filter by matter type identifier.
+ `contactId` |  Use this to filter by the contact identifier.
+ `status` |  Use this to filter by current status of the matter. Possible values: `Open`, `Pending`, `Closed`, `Deleted` or `Cancelled`
+ `isLead`| Boolean flag to restrict search to `Leads`.
+ `updatedSince` | Use this to filter by matters updated since a specified time (.net ticks representation of the UTC datetime).
+ `sort` | Use this to provide comma separated list of sort fields. Expected format `asc/desc(field)`. Sort fields currently supported: `Status`, `LastUpdated` - e.g. `asc(Status)`, `desc(LastUpdated)`
+`fields` | Use this to provide comma separated list of optional fields to include in the result. Optional fields currently supported: `Items`.
+
+> The matter `items` field is not returned by default. Use the `fields` in the request to include this in the result.
+
+**Response**
+
+```json
+{
+    "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters",
+    "offset": 0,
+    "limit": 100,
+    "size": 1396,
+    "first": {
+        "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters?limit=100",
+        "rel": "collection"
+    },
+    "next": {
+        "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters?limit=100&offset=100",
+        "rel": "collection"
+    },
+    "last": {
+        "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters?limit=100&offset=1300",
+        "rel": "collection"
+    },
+    "value": [
+        {
+            "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/matters/04db8d78-f222-42de-b3d6-10809642402e",
+            "id": "04db8d78-f222-42de-b3d6-10809642402e",
+            "versionId": "638193848837974931",
+            "title": "Company Incorporation",
+            "matterType": {
+                "name": "Company Incorporation",
+                "id": "0d157e91-f3e1-4161-ae7d-03e9c23be912_NSW",
+                "href": "https://api.smokeball.com.au/f4ff1eff-2351-489c-9470-01d985838d76/mattertypes/0d157e91-f3e1-4161-ae7d-03e9c23be912_NSW",
+                "rel": "MatterTypes"
+            },
+            "clients": [],
+            "otherSides": [],
+            "status": "Open",
+            "openedDate": "2017-08-09T22:01:27.373097Z",
+            "isLead": false,
+            "clientIds": [],
+            "otherSideIds": [],
+            "items": {}
+        },
+        ...
+        ...
+    ]
+}
+```
+
+### 9. Updating a matter
+
+There are two ways to update a matter.
+
+#### Using PUT endpoint
+
+This endpoint is similar to the endpoint used to create a new matter.
+
+```json http
+{
+  "method": "PUT",
+  "url": "https://api.smokeball.com/matters/{matterId}",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "number": "Matter-001",
+    "matterTypeId": "8aca3574-aecb-4a6f-991d-680861bece1d_IL",
+    "clientIds": [
+      "9a9ce552-6bee-45e4-8eb1-afe2c18c489f"
+    ],
+    "otherSidesIds": [
+      "52f551d9-6c1c-44d1-8bf7-ddce5a856134"
+    ],
+    "clientRole": "Borrower",
+    "otherSideRole": "Lender",
+    "description": "Updated via API",
+    "status": "Open",
+    "dateOpened": "2020-05-20T04:20:55.035Z",
+    "personResponsibleStaffId": "c85d28cb-a760-4627-aa59-0a853c2e65ed",
+    "personAssistingStaffId": "66f7fa24-bb03-4d89-ac28-e19620cc1e45",
+    "isLead": false
+  }
+}
+```
+
+**Response**
+
+```json
+202 Accepted
+
+{
+  "id": "51cefb72-6247-4ca2-8926-5d14d65f7cb9",
+  "href": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9"
+}
+```
+
+Limitations:
+
+- The `matterTypeId` field can only be modified when converting a `Lead` to a `Matter`.
+- The `clientIds` field cannot be modified.
+- The `otherSideIds` field cannot be modified.
+- The `Matter` cannot be converted back to `Lead`.
+
+
+#### Using PATCH endpoint (beta)
+
+This endpoint can be used to update specific properties and also supports updating matter items, roles and relationships.
+
+```json http
+{
+  "method": "PATCH",
+  "url": "https://api.smokeball.com/matters/{matterId}",
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+      "externalSystemId": "EXT123",
+      "number": "AM-API-001",
+      "matterTypeId": "0623643a-48a4-41d7-8c91-d35915b291cd_NSW", 
+      "description": "Matter description",
+      "status": "Open",
+      "openedDate": "2022-04-23T14:00:00Z",
+      "personResponsibleStaffId": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+      "personAssistingStaffId": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+      "originatingStaffId": "526670af-acd8-401e-bc64-6d4cafb4a12a",
+      "supervisorStaffId": "526670af-acd8-401e-bc64-6d4cafb4a12a",    
+      "clientCode": "Client A",   
+      "branchId": "c85d28cb-a760-4627-aa59-0a853c2e65ed",
+      "branchProviderId": "c85d28cb-a760-4627-aa59-0a853c2e65ed",
+      "clientRole": "Buyer",
+      "isLead": false,    
+      "clientIds": [
+          "5bc557e8-2a14-4c23-8d35-4f0fd1bff40e"
+      ],
+      "otherSideIds": [
+          "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
+      ],
+      "items": {
+        "vendors": [
+          {
+            "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+            "contact": {
+              "id": "ec499947-9d3d-442a-b431-05c8ee280687",
+            },
+            "subItems": {
+              "solicitors": [
+                {
+                  "id": "4a31c76f-0952-4069-8259-840cd6106246",
+                  "contact": {
+                    "id": "MyFirm"
+                  }
+                }
+              ],
+              "relationshipDetails": [
+                {
+                  "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+                }
+              ]
+            }
+          }
+        ]
+    }
+  }
+}
+```
+
+**Response**
+
+```json
+202 Accepted
+
+{
+  "id": "51cefb72-6247-4ca2-8926-5d14d65f7cb9",
+  "href": "https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9"
+}
+```
+
+**Rule and limitations**
+
+The endpoint supports the following actions:
+
+- Updating one or more supported properties (keeping in mind the other rules that follow).
+- Converting a lead to a matter - by setting `isLead: true -> isLead: false`.
+- Updating `matterTypeId` and `clientRole` when a lead is being converted to matter.
+- Updating the clients and/or other sides using the `clientIds` and `otherSideIds` properties.
+- Updating matter items of provider type `role` and `layout` using the `items` property.
+
+The endpoint **does not** support the following actions:
+
+- Converting a `Matter` back to a `Lead` is not supported.
+- Updating `matterTypeId` and `clientRole` on matters or on leads that are not being converted to matter is not supported.
+- Updating `items` in a patch request where a lead is being converted to a matter is not supported.
+- Updating `items` in a patch request where clients and/or other sides are being patched via `clientIds` and `otherSideIds` properties is not supported.
+- Updating matter `items` of provider type other than `role` or `layout` is not supported.
+- Removing all items of a type is not supported.
+
+How updating `items` works:
+
+- If the `items` property is not passed in, they will be left unchanged.
+- There is **no need** to pass items of all types in a patch request.
+- If one of more items of a type are being added/updated in the patch request, we must include all relevant items under that type (i.e., including the ones that are unchanged) in order to preserve them. Any existing item that is **not included** will be removed.
+- The consumer **cannot update** the name on an item, e.g., the Vendor name.
+- Contact Id **must be provided** when adding/update Items of role provider type. 
+- A new item/sub item of a 'type' can only be added if there is an existing item/sub item of that type already present in the lead/matter.
+
+*Also see examples in the usage scenarios section below.*
+
+
+**Usage scenarios**
+
+Common scenarios are described below with clear examples.
+
+*Patch request to update the status and description.*
+
+```json
+{
+    "status": "Closed",
+    "description": "Hectic Matter updated"
+}
+```
+
+*Patch request to convert lead to matter.*
+
+```json
+{
+    "matterTypeId": "16052e57-8a05-44ca-b22f-4adf96132095_NSW",
+    "clientRole": "Client",
+    "isLead": false
+}
+```
+*Patch request to update the client.*
+
+There are 2 ways we could do this. The first is to simply set the clientIds property, like so:
+
+```json
+{
+    "clientIds": [
+      "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
+    ],
+}
+```
+Alternatively, we can update the client in the items property, like so:
+
+```json
+{
+  "items": {
+    "purchasers": [
+      {
+        "id": "f794090d-183e-462a-9654-930d64a5f882",
+        // Contact Id can be provided in one of two ways: 
+        // Option 1: 
+        "contactId": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+        // Option 2:
+        "contact": {
+            "id": "71b597c3-c1dd-4fe8-91c1-3c731a1e4394",
+        }
+        // Note: As subitems are omitted here, they will not be updated 
+      }
+    ]
+  }
+}
+```
+
+*Patch request to add a new client/item.*
+
+There are 2 ways we could do this. The first is to simply set the clientIds property, like so:
+
+```json
+{
+    "clientIds": [
+      // Existing client must be provided here or it will be registered as a removal
+      "9aec5a99-be4d-441a-80c3-21dcb549dd5a", // Existing client
+      "728cb5aa-a9d2-46e5-b75a-149f6c4fae0b" // New client
+    ],
+}
+```
+Alternatively, we can add the role in the items property, like so:
+
+```json
+{
+  "items": {
+    "vendors": [
+      // The existing vendors must be here or it will be registered as a removal
+      {
+        "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+        "contactId": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
+      },
+      {
+        // Id is not required here if there is no existing vendors role item available
+        // Id must be provided if the contact is being assigned to an existing role item 
+        "contactId": "728cb5aa-a9d2-46e5-b75a-149f6c4fae0b"
+      }
+    ]
+  }
+}
+```
+
+*Patch request to remove a client/item.*
+
+There are 2 ways we could do this. The first is to simply set the clientIds property where the missing items are removed, like so:
+
+```json
+{
+    // Assuming there were two clients here: 
+    // This patch request will remove the client who's Id was omitted here
+    "clientIds": [
+      "728cb5aa-a9d2-46e5-b75a-149f6c4fae0b"
+    ],
+}
+```
+
+The client/item we are removing is omitted from the payload:
+
+```json
+{
+  "items": {
+    // Assuming there were two vendors here: 
+    // This patch request will remove the vendor item that was omitted 
+    "vendors": [
+      {
+        "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+        "contactId": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
+      }
+    ]
+  }
+}
+```
+
+*Patch request to update contact id on an existing item.*
+
+```json
+{
+  "items": {
+    "purchasers": [
+      {
+        "id": "5c65358d-1502-463c-9464-f36f21c7e610",
+        "contactId": "c555185b-4062-4e74-9ecf-f0b87dd4ee79",
+        // Contact Id can also be set this way (as mentioned in a previous example)
+        "contact": {
+            "id": "c555185b-4062-4e74-9ecf-f0b87dd4ee79",
+        },
+        "subItems": {
+            "Solicitor": [
+                {
+                    "id": "e46248a6-f71a-4991-b791-9f03e402a937",
+                    // Contact Id also updated for sub item here
+                    "contact": {
+                        "id": "9aec5a99-be4d-441a-80c3-21dcb549dd5a"
+                    }
+                }
+            ]
+        }
+      }
+    ]
+  }
+}
+```
+
+*Patch request to add a new layout item.*
+
+```json
+{
+  "items": {
+        "Client": [
+            {
+                "id": "32663bf8-7e12-4b34-8ea4-596ff9350d2d",
+                "contact": {
+                    "id": "77b73607-761a-43a0-bdaa-a43e4568011d"
+                },
+                "subItems": {
+                    "Details": [
+                        {
+                            "id": "5dd582e1-222b-4cf1-b0d7-1daf70d3627a"
+                        },
+                        // New `Details` sub item added here
+                        {
+                        }
+                    ]
+                }
+            }
+        ],
+        "Case Details": [
+            {
+                "id": "52f51059-2a0c-4b5e-a86d-55bf5638a10d"
+            },
+            // New 'Case details' item added here
+            {
+            }
+        ]
+    }
+}
+```
+
+*Patch request to remove an existing layout item.*
+
+```json
+{
+  "items": {
+        
+        // Assuming there were two Case Details layout items: 
+        // This patch request will remove the one that was omitted
+        "Case Details": [
+            {
+                "id": "52f51059-2a0c-4b5e-a86d-55bf5638a10d"
+            }
+        ]
+    }
+}
+
+```
+
+---
