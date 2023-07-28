@@ -13758,9 +13758,17 @@
       "LayoutMatterItemData": {
         "type": "object",
         "properties": {
+          "itemId": {
+            "type": "string",
+            "description": "Unique identifier for the matter list item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
+          },
           "layoutDesignId": {
             "type": "string",
-            "nullable": true
+            "description": "Identifier of the layout design.",
+            "nullable": true,
+            "example": "414ab774-adce-4659-b18c-82d1b0e826a0"
           },
           "index": {
             "type": "integer",
@@ -13768,11 +13776,11 @@
             "format": "int32",
             "example": 0
           },
-          "parentIndex": {
-            "type": "integer",
-            "description": "Zero-based index of the parent matter list item.",
-            "format": "int32",
-            "example": 0
+          "parentItemId": {
+            "type": "string",
+            "description": "Unique identifier for the parent matter list item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "parentId": {
             "type": "string",
@@ -13780,11 +13788,11 @@
             "nullable": true,
             "example": "Client"
           },
-          "itemId": {
-            "type": "string",
-            "description": "Unique identifier for the layout item.",
-            "nullable": true,
-            "example": "59791902-6280-471b-bd18-f8439ba3042f"
+          "parentIndex": {
+            "type": "integer",
+            "description": "Zero-based index of the parent matter list item.",
+            "format": "int32",
+            "example": 0
           },
           "name": {
             "type": "string",
@@ -13797,12 +13805,6 @@
             "description": "Brief description of the layout item.",
             "nullable": true,
             "example": "Text describing item"
-          },
-          "parentItemId": {
-            "type": "string",
-            "description": "Unique identifier of the parent matter list item.",
-            "nullable": true,
-            "example": "59791902-6280-471b-bd18-f8439ba3042f"
           },
           "values": {
             "type": "array",
