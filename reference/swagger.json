@@ -9145,7 +9145,60 @@
             "type": "string",
             "description": "Unique identifier of the contact.",
             "nullable": true,
-            "example": "009f778f-83df-454a-b344-768a862a7e55"
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "versionId": {
+            "type": "string",
+            "description": "Version id of the record.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
+          "externalSystemId": {
+            "type": "string",
+            "description": "External system id for the contact.",
+            "nullable": true,
+            "example": "EXT01"
+          },
+          "person": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PersonDto"
+              }
+            ],
+            "description": "Contact person details (if applicable).",
+            "nullable": true
+          },
+          "company": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CompanyDto"
+              }
+            ],
+            "description": "Contact company details (if applicable).",
+            "nullable": true
+          },
+          "trust": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TrustDto"
+              }
+            ],
+            "description": "Contact trust details (if applicable).\r\n\r\nOnly supported in US.",
+            "nullable": true
+          },
+          "groupOfPeople": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GroupOfPeopleDto"
+              }
+            ],
+            "description": "Contact group details (if applicable).\r\n\r\nOnly supported in US and AU.",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Contact can be restored by setting this to false.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -14454,6 +14507,18 @@
         },
         "additionalProperties": false
       },
+      "MatterItemContactDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the contact.",
+            "nullable": true,
+            "example": "009f778f-83df-454a-b344-768a862a7e55"
+          }
+        },
+        "additionalProperties": false
+      },
       "MatterItemDto": {
         "type": "object",
         "properties": {
@@ -14472,7 +14537,7 @@
           "contact": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ContactDto"
+                "$ref": "#/components/schemas/MatterItemContactDto"
               }
             ],
             "description": "Associated contact.\r\n\r\nOnly applicable for 'role' matter items.",
@@ -16604,7 +16669,7 @@
   },
   "servers": [
     {
-      "url": "https://api.smokeball.com",
+      "url": "https://api.smokeball.com.au",
       "description": "API"
     }
   ],
