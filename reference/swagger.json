@@ -2808,60 +2808,6 @@
           }
         }
       },
-      "post": {
-        "tags": [
-          "Firm"
-        ],
-        "summary": "Create firm",
-        "description": "Creates a firm for the current authenticated client and registers an existing user as a staff member and firm owner.",
-        "operationId": "CreateFirm",
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CreateFirmDto"
-                  }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CreateFirmDto"
-                  }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CreateFirmDto"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the firm to be created.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Link"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "When staff user does not exist or is already associated with another firm."
-          }
-        }
-      },
       "put": {
         "tags": [
           "Firm"
@@ -2913,6 +2859,60 @@
           },
           "404": {
             "description": "When firm does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Firm"
+        ],
+        "summary": "Create firm",
+        "description": "Creates a firm for the current authenticated client and registers an existing user as a staff member and firm owner.",
+        "operationId": "CreateFirm",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateFirmDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateFirmDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateFirmDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the firm to be created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When staff user does not exist or is already associated with another firm."
           }
         }
       }
@@ -12031,6 +12031,12 @@
             "description": "The name of the firm.",
             "nullable": true,
             "example": "Brown LLC"
+          },
+          "productId": {
+            "type": "string",
+            "description": "The Product the firm is subscribed to.",
+            "nullable": true,
+            "example": "SMK001"
           },
           "email": {
             "type": "string",
