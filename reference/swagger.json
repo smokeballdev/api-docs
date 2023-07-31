@@ -9141,18 +9141,6 @@
       "ContactDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier of the contact.",
-            "nullable": true,
-            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
-          },
-          "versionId": {
-            "type": "string",
-            "description": "Version id of the record.",
-            "nullable": true,
-            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
-          },
           "externalSystemId": {
             "type": "string",
             "description": "External system id for the contact.",
@@ -12168,6 +12156,14 @@
             ],
             "description": "Styling details of the firm.",
             "nullable": true
+          },
+          "licenceNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LicenceNumber"
+            },
+            "description": "Licence numbers of the firm.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12481,6 +12477,29 @@
         },
         "additionalProperties": false
       },
+      "LicenceNumber": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "description": "State associated to the licence.",
+            "nullable": true,
+            "example": "IL"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the licence.",
+            "nullable": true,
+            "example": ""
+          },
+          "number": {
+            "type": "string",
+            "description": "Licence number.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Staff": {
         "type": "object",
         "properties": {
@@ -12610,6 +12629,14 @@
             "description": "Staff member's stroke color hex code.",
             "nullable": true,
             "example": "#64666a"
+          },
+          "licenceNumbers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LicenceNumber"
+            },
+            "description": "Licence numbers of the staff member.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -16669,7 +16696,7 @@
   },
   "servers": [
     {
-      "url": "https://api.smokeball.com.au",
+      "url": "https://api.smokeball.com",
       "description": "API"
     }
   ],
