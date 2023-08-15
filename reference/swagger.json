@@ -7112,7 +7112,7 @@
       }
     },
     "/bankaccounts/{bankAccountId}/transactions": {
-      "get": {
+      "post": {
         "tags": [
           "Transactions"
         ],
