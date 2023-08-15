@@ -4148,7 +4148,6 @@
           {
             "name": "matterId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string",
@@ -4158,7 +4157,6 @@
           {
             "name": "itemId",
             "in": "path",
-            "description": "",
             "required": true,
             "schema": {
               "type": "string",
@@ -7050,6 +7048,145 @@
         }
       }
     },
+    "/bankaccounts/{bankAccountId}/transactions/{id}": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Get a bank account transaction",
+        "description": "Retrieves a specified bank account transaction.",
+        "operationId": "GetTransactionById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Transaction' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When transaction with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When transaction with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccounts/{bankAccountId}/transactions": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "Create bank account transaction",
+        "description": "Creates a bank account transaction.",
+        "operationId": "CreateTransactionForBankAccount",
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransactionDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransactionDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransactionDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Link"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the receipt to be created."
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/{id}": {
       "get": {
         "tags": [
@@ -7529,6 +7666,20 @@
         "type": "integer",
         "format": "int32"
       },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "BankAccount": {
         "type": "object",
         "properties": {
@@ -7791,6 +7942,141 @@
           }
         },
         "additionalProperties": {}
+      },
+      "Transaction": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true
+          },
+          "relation": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string",
+            "default": "GET",
+            "nullable": true
+          },
+          "self": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Link"
+              }
+            ],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the transaction.",
+            "nullable": true,
+            "example": "64818ee0-c7b4-46ec-862e-514d8b29540a"
+          },
+          "matterId": {
+            "type": "string",
+            "description": "Unique identifier of the associated matter.",
+            "nullable": true,
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+          },
+          "payorId": {
+            "type": "string",
+            "description": "Unique identifier of the associated contact.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the transaction.\r\n\r\nPossible values:\r\n    Deposit, DepositReversal, InvoicePayment, InvoicePaymentReversal, \r\n    VendorPayment, VendorPaymentReversal Transfer, \r\n    BankFees, BankFeesReversal, Interest, InterestReversal.",
+            "nullable": true,
+            "example": "Deposit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the transaction in dollars. Limited to 2 decimal places (cents).",
+            "format": "double",
+            "example": 102.65
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Date of the transaction.",
+            "format": "date-time"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Reference for the transaction.",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the transaction.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the transaction.",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "description": "Note for the transaction (for internal use).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionDto": {
+        "type": "object",
+        "properties": {
+          "matterId": {
+            "type": "string",
+            "description": "Unique identifier of the associated matter.",
+            "nullable": true,
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+          },
+          "payorId": {
+            "type": "string",
+            "description": "Unique identifier of the associated contact.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the transaction.\r\n\r\nPossible values: Deposit.",
+            "nullable": true,
+            "example": "Deposit"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount of the transaction in dollars. Limited to 2 decimal places (cents).",
+            "format": "double",
+            "example": 102.65
+          },
+          "reference": {
+            "type": "string",
+            "description": "Reference for the transaction.",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the transaction.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the transaction.",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "description": "Note for the transaction (for internal use).",
+            "nullable": true
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Date of the transaction.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
       },
       "Activity": {
         "type": "object",
@@ -13458,18 +13744,20 @@
         "additionalProperties": false
       },
       "LayoutContactData": {
+        "required": [
+          "contactId",
+          "key"
+        ],
         "type": "object",
         "properties": {
           "key": {
             "type": "string",
-            "description": "Unique key name for the layout contact.",
-            "nullable": true
+            "description": "Unique key name for the layout contact."
           },
           "contactId": {
             "type": "string",
             "description": "Unique identifier for the layout contact.",
-            "format": "uuid",
-            "nullable": true
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -13967,20 +14255,6 @@
           },
           "state": {
             "description": "Gets or sets the object that contains supplemental data about the key/value pair.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ApiError": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
-          "detail": {
-            "type": "string",
             "nullable": true
           }
         },
@@ -14761,6 +15035,10 @@
             "example": [
               "776e778f-83df-454a-b344-768a862a7e67"
             ]
+          },
+          "isMatterItemRequired": {
+            "type": "boolean",
+            "description": "Boolean flag indicating if a matter item is required."
           }
         },
         "additionalProperties": false
