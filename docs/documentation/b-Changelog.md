@@ -16,6 +16,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 - **Files**: Added `DateModified` field when creating a file.
 - **Files**: Added `DateModified` field when bulk creating files.
 - **Firm**: Deprecated the `Product` field and introduced the `ProductId` field.
+- **Firm**: Added support for the Boost Product.
 - **Matters**: Fix issue with combining search filters, e.g. `IsLead` and `ContactId`.
 
 ### May 2023
