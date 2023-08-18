@@ -7,8 +7,9 @@ tags: [Documentation]
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
 
 ## August 2023
+
 ###### Tasks
-* Added missing validation to the `MatterId` and `StaffId` fields
+* Added missing validation to the `MatterId` and `StaffId` fields. These fields must now be either NULL or valid GUID values, empty strings are no longer permitted.
 
 ## July 2023
 
