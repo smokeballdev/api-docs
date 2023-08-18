@@ -4,14 +4,34 @@ tags: [Documentation]
 
 # Changelog
 
-We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order. 
+We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog informs of upcoming releases as well as the changes as they are released, in reverse chronological order. 
 
-## August 2023
+## Upcoming releases
+Planned upcoming releases and their changelogs are documented below.
+
+### August 21st - August 23rd
+
+###### Expenses
+* Fix issue where the `Finalized` field was being ignored on POST and PUT endpoints.
+
+###### Firm
+* Added `productId` field to GET endpoint.
+
+###### Matters
+* Fix issue preventing matter creation when multiple clients are specified.
+
+###### MatterTypes
+* Fix issue exposing deleted matter types from GET endpoint.
+
+## Past releases
+The below changelog accounts for previous releases in reverse chronological order.
+
+### August 2023
 
 ###### Tasks
 * Added missing validation to the `MatterId` and `StaffId` fields. These fields must now be either NULL or valid GUID values, empty strings are no longer permitted.
 
-## July 2023
+### July 2023
 
 ###### Expenses
 * Added `AssignToFirmOwner` option when creating an expense.
@@ -26,7 +46,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ###### Matters
 * Fix issue with combining search filters, e.g. `IsLead` and `ContactId`.
 
-## May 2023
+### May 2023
 
 ###### Staff
 * Added `ColorFill` and `ColorStroke` fields.
@@ -59,7 +79,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Added `LayoutDesign` webhooks. Use the `layoutdesign.updated` event type to listen to changes made to layout designs.
 * Added `Archive` webhooks. Use the `archive.updated` event type to listen to changes made on a matters archive details.
 
-## January 2023
+### January 2023
 
 ###### Activities
 * Fixed issues with activity code(s) not being deleted.
@@ -94,7 +114,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ###### Webhooks
 * Added `BillingConfiguration` webhooks. Use the `billingconfiguration.updated` event type to listen to changes to billing configurations on a matter level.
 
-## November 2022
+### November 2022
 
 ###### Activities
 * Added additional validation for activity codes. Codes can no longer be more than 20 characters long.
@@ -119,7 +139,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Added `error` event type. This can be used to listen to errors when your API requests fail, see [Error Handling](3d812ecec78d9-webhooks#34-error-handling).
 
 
-## September 2022
+### September 2022
 
 ###### Contacts
 * Added ability to exclude deleted contacts from GET response (see `ExcludeDeletedContacts` [query parameter](0d6f4aba1a214-get-contacts)).
@@ -139,7 +159,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ###### Files
 * File access can now be restricted by `UserId` when using Client Credentials grant (see [Acting on behalf of a user](91f30a1eaee08-making-requests#31-acting-on-behalf-of-a-user)).
 
-## July 2022
+### July 2022
 
 ###### Activities
 * Fix `TaxInclusive` field returning incorrect value.
@@ -161,7 +181,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Fixed `MatterTypeId` field missing in some `matter.updated` event payloads.
 
 
-## June 2022
+### June 2022
 
 ###### Contacts
 * Fix webhook events not triggering for deleted contacts from Smokeball native application.
@@ -177,7 +197,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ###### SubTasks
 * Added API.
 
-## May 2022
+### May 2022
 
 ###### Stages & StageSets
 * Added API.
@@ -198,8 +218,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Fixed `RequestId` not propogating from some Matter API calls.
 * Fixed null fields on `Firm` update webhook events.
 
-
-## March 2022
+### March 2022
 
 ###### Firm
 * Added `Logo` field to GET responses.
@@ -212,8 +231,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 * Added `CompletedDate` field.
 * Added `LastUpdated` field to GET responses.
 
-
-## February 2022
+### February 2022
 
 ###### Firm
 * Added validation when creating a firm to ensure the user is not associated to another firm.
