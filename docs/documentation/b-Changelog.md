@@ -4,27 +4,7 @@ tags: [Documentation]
 
 # Changelog
 
-We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog informs of upcoming releases as well as the changes as they are released, in reverse chronological order. 
-
-## Upcoming releases
-Planned upcoming releases and their changelogs are documented below.
-
-### August 21st - August 23rd
-
-###### Expenses
-* Fix issue where the `Finalized` field was being ignored on POST and PUT endpoints.
-
-###### Firm
-* Added `productId` field to GET endpoint.
-
-###### Matters
-* Fix issue preventing matter creation when multiple clients are specified.
-
-###### MatterTypes
-* Fix issue exposing deleted matter types from GET endpoint.
-
-## Past releases
-The below changelog accounts for previous releases in reverse chronological order.
+We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
 ### August 2023
 
@@ -55,7 +35,7 @@ The below changelog accounts for previous releases in reverse chronological orde
 * Improvements to `Matter` webhooks, notifications are more accurate aswell as more deterministic.
 * Added `Memo` webhooks. Use the `memo.created`, `memo.updated`, `memo.deleted`, `memo.restored` event types to listen to chages made to memos. 
 
-## March 2023
+### March 2023
 
 ###### Archive
 * Added API.
@@ -213,7 +193,7 @@ The below changelog accounts for previous releases in reverse chronological orde
 ###### Expenses
 * Removed check for existing `Expense` when performing PUT, requests are accepted and queued asynchonously like a POST.
 
-####### Webhooks
+###### Webhooks
 * Added `MatterStages` webhooks.
 * Fixed `RequestId` not propogating from some Matter API calls.
 * Fixed null fields on `Firm` update webhook events.
