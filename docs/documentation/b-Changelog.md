@@ -19,7 +19,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
   - Ensured changes made via the PATCH endpoint reflect in the matter history correctly.
 - **MatterTypes**: Fix issue exposing deleted matter types from GET endpoint.
 - **Staff**: Added attorney/solicitor licence numbers to GET endpoint.
-- **Tasks**: Added missing validation to the `MatterId` and `StaffId` fields. These fields must now be either NULL or valid GUID values, empty strings are no longer permitted.
+- **Tasks**: Added missing validation to the `MatterId` and `StaffId` fields. These fields must now be valid GUID values, empty strings are no longer permitted. The `StaffId` is mandatory.
 
 ### July 2023
 
