@@ -8,6 +8,17 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ### August 2023
 
+- **Expenses**: Fix issue where the `Finalized` field was being ignored on POST and PUT endpoints.
+- **Files**: Fix issue preventing newly added files from being indexed for search.
+- **Files**: Fix issue where newly added files are being added to deleted folders. A new folder is now added if the file is being added to a deleted folder.
+- **Firm**: Added `productId` field to GET endpoint.
+- **Firm**: Added attorney/solicitor licence numbers to GET endpoint.
+- **Matters**: Fix issue preventing matter creation when multiple clients are specified.
+- **Matters**: Several improvements and fixes to the beta PATCH endpoint including:
+  - Added additional validation to multiple fields.
+  - Ensured changes made via the PATCH endpoint reflect in the matter history correctly.
+- **MatterTypes**: Fix issue exposing deleted matter types from GET endpoint.
+- **Staff**: Added attorney/solicitor licence numbers to GET endpoint.
 - **Tasks**: Added missing validation to the `MatterId` and `StaffId` fields. These fields must now be either NULL or valid GUID values, empty strings are no longer permitted.
 
 ### July 2023
