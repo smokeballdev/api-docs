@@ -125,7 +125,6 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
- "refresh_token":"dn43ud8uj32nk2je",
  "id_token":"dmcxd329ujdmkemkd349r",
  "token_type":"Bearer", 
  "expires_in":3600
