@@ -43,6 +43,8 @@ If authorized, the user will be redirected to:
  <https://your_redirect_uri?code=xxxxx>
 ```
 
+The response returns a one time use code that is valid for five minutes.
+
 > See <https://docs.aws.amazon.com/cognito/latest/developerguide/authorization-endpoint.html> for more information.
 
 ---
