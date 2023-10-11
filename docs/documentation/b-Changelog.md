@@ -6,6 +6,15 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### October 2023
+- **Fees**: Added `isInvoiceExternally` to GET.
+- **Matters**: Added additional validation for `ClientIds` and `OtherSideIds`.
+- **Matters**: Added `referralType`, `referrerId`, `closedDate`, `leadOpenedDate`, `leadClosedDate`, `leadClosedReason` fields.
+- **Matters**: Fixed issue where matters could not be created with more than one client.
+- **MatterTypes**: Added restrictions based on account white label.
+- **Memos**: Fixed data issue using GET endpoint.
+- **Tasks**: Add search by `matterId`.
+
 ### August 2023
 
 - **Expenses**: Fix issue where the `Finalized` field was being ignored on POST and PUT endpoints.
