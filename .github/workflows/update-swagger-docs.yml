@@ -19,7 +19,7 @@ jobs:
           sed -i 's/Staging API/API/g' ./reference/swagger.json ./reference/swagger.json
 
       - name: actionsx/prettier
-        uses: actionsx/prettier@v3
+        uses: actionsx/prettier@v2
         with:
           args: --write ./reference/swagger.json
 
