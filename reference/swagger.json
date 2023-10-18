@@ -7908,7 +7908,7 @@
           },
           "specialNeeds": {
             "type": "string",
-            "description": "Brief description of any special needs (if applicable).\r\n\r\nOnly supported in Australia (not the US).",
+            "description": "Brief description of any special needs (if applicable).\r\n\r\nOnly supported in Australia.",
             "nullable": true,
             "example": "Wheelchair access"
           },
@@ -7987,6 +7987,16 @@
           "deathDetails": {
             "allOf": [{ "$ref": "#/components/schemas/DeathDetails" }],
             "description": "Contact person's death details.",
+            "nullable": true
+          },
+          "correctionsReferenceNumber": {
+            "type": "string",
+            "description": "Contact person's corrections reference number.\r\n\r\nOnly supported in Australia.",
+            "nullable": true
+          },
+          "centrelinkReferenceNumber": {
+            "type": "string",
+            "description": "Contact person's centrelink reference number.\r\n\r\nOnly supported in Australia.",
             "nullable": true
           }
         },
@@ -8175,6 +8185,16 @@
             "description": "Language of interpreter.",
             "nullable": true,
             "example": "French"
+          },
+          "correctionsReferenceNumber": {
+            "type": "string",
+            "description": "Contact person's corrections reference number.\r\n\r\nOnly supported in Australia.",
+            "nullable": true
+          },
+          "centrelinkReferenceNumber": {
+            "type": "string",
+            "description": "Contact person's centrelink reference number.\r\n\r\nOnly supported in Australia.",
+            "nullable": true
           }
         },
         "additionalProperties": false
