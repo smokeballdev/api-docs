@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.2
+        uses: actions/checkout@v4
 
       - name: Get latest swagger JSON and update it for prod display.
         run: |
@@ -19,7 +19,7 @@ jobs:
           sed -i 's/Staging API/API/g' ./reference/swagger.json ./reference/swagger.json
 
       - name: actionsx/prettier
-        uses: actionsx/prettier@v2
+        uses: actionsx/prettier@v3
         with:
           args: --write ./reference/swagger.json
 
