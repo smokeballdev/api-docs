@@ -23,10 +23,10 @@ jobs:
         with:
           args: --write ./reference/swagger.json
 
-      - name: Commit and push changes
+      - name: Commit and push if any changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add -A
-          git commit -m "Update Swagger Docs"
+          git commit -m "Update Swagger Docs" || exit 0
           git push
