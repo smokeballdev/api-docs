@@ -3061,7 +3061,12 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be created."
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be created.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
           },
           "400": {
             "description": "When the new matter item contain invalid data.",
