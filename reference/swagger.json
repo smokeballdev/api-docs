@@ -8638,6 +8638,11 @@
             "additionalProperties": {},
             "description": "Collection of KeyValuePair(string, string) to update File meta data.",
             "nullable": true
+          },
+          "isFavorite": {
+            "type": "boolean",
+            "description": "Flag indicating whether this file is a favorite. If null it will be ignored",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -8721,6 +8726,10 @@
             "additionalProperties": {},
             "description": "Collection of file meta data as KeyValuePair(string, object).",
             "nullable": true
+          },
+          "isFavorite": {
+            "type": "boolean",
+            "description": "Flag indicating whether this file is a favorite"
           }
         },
         "additionalProperties": false
