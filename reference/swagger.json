@@ -792,9 +792,15 @@
           {
             "name": "Search",
             "in": "query",
+            "description": " Available fields: email, phone, name",
             "schema": { "type": "array", "items": { "type": "string" } }
           },
-          { "name": "Fields", "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "Fields",
+            "in": "query",
+            "description": " Available fields: passportDetails, deathDetails",
+            "schema": { "type": "string" }
+          }
         ],
         "responses": {
           "200": {
@@ -3531,8 +3537,18 @@
             },
             "example": "2022-04-23T14:00:00Z"
           },
-          { "name": "Sort", "in": "query", "schema": { "type": "string" } },
-          { "name": "Fields", "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "Sort",
+            "in": "query",
+            "description": " Available fields: status, lastUpdated",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Fields",
+            "in": "query",
+            "description": " Available fields: items",
+            "schema": { "type": "string" }
+          }
         ],
         "responses": {
           "200": {
@@ -5479,11 +5495,6 @@
             "in": "query",
             "description": "Returns tasks assigned to a specific MatterId.",
             "schema": { "type": "string" }
-          },
-          {
-            "name": "Search",
-            "in": "query",
-            "schema": { "type": "array", "items": { "type": "string" } }
           }
         ],
         "responses": {
@@ -9612,6 +9623,7 @@
         "additionalProperties": false
       },
       "FeeDto": {
+        "required": ["feeDate", "staffId", "subject"],
         "type": "object",
         "properties": {
           "updatedByUserId": {
@@ -9623,7 +9635,6 @@
           "staffId": {
             "type": "string",
             "description": "Unique identifier of the associated staff member.",
-            "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "invoiceId": {
@@ -9652,7 +9663,6 @@
           "subject": {
             "type": "string",
             "description": "The subject - this should be a short description of the fee.",
-            "nullable": true,
             "example": "Review contract"
           },
           "description": {
