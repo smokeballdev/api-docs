@@ -8,7 +8,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ### November 2023
 
-- **Contacts**: - Added `correctionsReferenceNumber` and `centrelinkReferenceNumber` to AU endpoints.
+- **Contacts**: Added `correctionsReferenceNumber` and `centrelinkReferenceNumber` to AU endpoints.
 - **Expenses**: Added PATCH endpoint.
 - **Fees**: Added PATCH endpoint.
 - **Files**: Added `isFavorite` field.
