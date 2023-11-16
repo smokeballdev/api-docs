@@ -1,6 +1,8 @@
 name: Update Swagger Docs
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Every day at midnight
 
 jobs:
   job1:
@@ -8,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.2
+        uses: actions/checkout@v4
 
       - name: Get latest swagger JSON and update it for prod display.
         run: |
@@ -21,10 +23,10 @@ jobs:
         with:
           args: --write ./reference/swagger.json
 
-      - name: Commit and push changes
+      - name: Commit and push if any changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add -A
-          git commit -m "Update Swagger Docs"
+          git commit -m "Update Swagger Docs" || exit 0
           git push
