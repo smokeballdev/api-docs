@@ -6,6 +6,14 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### November 2023
+- **Contacts**: - Added `correctionsReferenceNumber` and `centrelinkReferenceNumber` to AU endpoints.
+- **Expenses**: Added PATCH endpoint.
+- **Fees**: Added PATCH endpoint.
+- **Files**: Added `isFavorite` field.
+- **Folders**: Added folder name GET endpoint.
+- **Webhooks**: Added `matter.converted` event type.
+
 ### October 2023
 - **Fees**: Added `isInvoiceExternally` to GET.
 - **Matters**: Added additional validation for `ClientIds` and `OtherSideIds`.
