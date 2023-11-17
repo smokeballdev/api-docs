@@ -3200,7 +3200,12 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be updated."
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the layout item to be updated.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
           },
           "400": {
             "description": "When the update payload does not contain an ID that matched the ID of the item requiring update.",
