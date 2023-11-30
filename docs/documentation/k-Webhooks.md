@@ -69,9 +69,13 @@ Webhook subscriptions can be managed using the `/webhooks` endpoint. To see a li
 The `/webhooks` endpoint will also allow you to list, edit and delete any subscriptions that you have created.
 
 ### 2.2 Creating a subscription
+<!-- theme: warning -->
+> #### URL Timeout
+>
+> We will cancel requests to event notifcation URLs after 10 seconds.
+> Please ensure that your event notifcation URL responds in time.
 
 To create a subscription, make a POST request to the `/webhooks` endpoint:
-
 ```json http
 {
   "method": "POST",
@@ -83,7 +87,7 @@ To create a subscription, make a POST request to the `/webhooks` endpoint:
 }
 ```
 
-** Response **
+#### Response
 
 ``` json
 {
