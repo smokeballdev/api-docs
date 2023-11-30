@@ -14,7 +14,7 @@ jobs:
 
       - name: Get latest swagger JSON and update it for prod display.
         run: |
-          curl https://stagingapi.smokeball.com/swagger/docs/swagger.json > ./reference/swagger.json
+          curl -H 'Cache-Control: no-cache, no-store' https://stagingapi.smokeball.com/swagger/docs/swagger.json > ./reference/swagger.json
           sed -i 's/stagingapi.smokeball.com/api.smokeball.com/g' ./reference/swagger.json
           sed -i 's/Staging API/API/g' ./reference/swagger.json ./reference/swagger.json
 
