@@ -72,8 +72,8 @@ The `/webhooks` endpoint will also allow you to list, edit and delete any subscr
 <!-- theme: warning -->
 > #### URL Timeout
 >
-> We will cancel requests to event notifcation URLs after 10 seconds.
-> Please ensure that your event notifcation URL responds in time.
+> We will cancel requests to event notification URLs after 10 seconds.
+> Please ensure that your event notification URL responds in time.
 
 To create a subscription, make a POST request to the `/webhooks` endpoint:
 ```json http
