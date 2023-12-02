@@ -11085,12 +11085,6 @@
       "Rule": {
         "type": "object",
         "properties": {
-          "operationId": {
-            "type": "string",
-            "description": "The operation id associated to this rule.\r\n\r\nPossible values: 'access','execute'.\r\n\r\naccess - The Access permission is used when you want to control if a Resource can be 'Accessed' or not.\r\nThis encompasses Reading/Writing/Modifying the resource. If you have 'Access' to a resource\r\nyou can do whatever you want with it.\r\n\r\nexecute - The Execute permission is used when the Resource is an operation that requires execution.",
-            "nullable": true,
-            "example": "access"
-          },
           "principalId": {
             "type": "string",
             "description": "Principal id associated to this rule if the rule is associated to a resource based policy. This can be either a user id or a group id.\r\n\r\nThis is null if the policy is a principal based policy.",
@@ -11102,6 +11096,10 @@
             "description": "Resource id associated to this rule if it is a principal based policy.\r\n\r\nThis is null if the associated policy is a resource based policy.",
             "nullable": true,
             "example": "69406c65-309d-4e35-a636-ad145e64770a"
+          },
+          "operation": {
+            "allOf": [{ "$ref": "#/components/schemas/Operation" }],
+            "description": "The operation id associated to this rule.\r\n\r\nPossible values: 'Access','Execute'."
           },
           "type": {
             "allOf": [
