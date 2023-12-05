@@ -11071,7 +11071,7 @@
             "type": "string",
             "description": "Resource id associated to this policy if it is a resource based policy.\r\n\r\nThis is null if the policy is a principal based policy.",
             "nullable": true,
-            "example": "54171794-5ca3-472b-889a-c03538d8c89a"
+            "example": "matters/54171794-5ca3-472b-889a-c03538d8c89a"
           },
           "rules": {
             "type": "array",
@@ -11123,7 +11123,7 @@
             "type": "string",
             "description": "Resource id associated to this rule if it is a principal based policy.\r\n\r\nThis is null if the associated policy is a resource based policy.",
             "nullable": true,
-            "example": "69406c65-309d-4e35-a636-ad145e64770a"
+            "example": "matters/69406c65-309d-4e35-a636-ad145e64770a"
           },
           "operation": {
             "allOf": [{ "$ref": "#/components/schemas/Operation" }],
