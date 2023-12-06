@@ -140,8 +140,9 @@ Here is an example what a typical webhook notification would look like for a `ma
     },
     "timestamp": 637981232724209300
 }
-```
-
+```  
+  
+  
 Field | Description
 ---------|----------
  `accountId` | Identifies the specific account associated with the subscription.
