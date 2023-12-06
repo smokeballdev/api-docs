@@ -181,3 +181,47 @@ This produces the hash string `feb4b838a272884f6d2c2580b2c7ebb0b2f725b90e8baa6f9
 A replay attack is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks Smokeball provides a `Timestamp` header which is the ticks representation (.Net format) of when the webhook event was sent. It is also part of the verification signature so an attacker can not change the timestamp without invalidating the signature. 
 
 If the signature is valid but the timestamp is too old, you may choose to reject the message.
+
+## 5. Webhook notification schema
+
+A webhook notification captures changes related to the susbscribed event and includes specific information about the event. Notifications are dependent on the event type.
+
+Here is an example what a typical webhook notification would look like for a `matter.updated` event.
+
+
+``` json
+{    
+    "accountId": "1e53979d-9269-4159-b104-2e603670f59d",
+    "subscriptionId": "6543c46b-d1d5-4a00-8732-36a63a20c3b4",
+    "type": "matter.updated",
+    "source": "API",
+    "payload": {
+        "id": "42119e63-aca1-4d05-a4a5-9718f007bd1b",
+        "externalSystemId": null,
+        "number": "10001",
+        "title": "John Smith | Sale",
+        "matterType": {
+            "id": "db3c6058-8828-4f7d-a276-84f1ac98376f",
+            "rel": "MatterTypes"
+        },
+        "clients": [
+            {
+                "id": "0f0b9497-fbe7-4ac7-9d89-6ab3a4a9fee5",
+                "rel": "Contacts"
+            }
+        ],
+        "description": "Sale of Franchise",
+        "status": "Open"
+    },
+    "timestamp": 637981232724209300
+}
+```
+
+Field | Description
+---------|----------
+ `accountId` | Identifies the specific account associated with the subscription.
+ `subscriptionId` | Represents the unique identifier for the subscription.
+ `type` | Indicates the nature of the subscribed event.
+ `source` |  Specifies the origin of the event.
+ `payload` |  This section holds the detailed information pertinent to the event
+ `timestamp`| Captures the exact moment when the event occurred.
