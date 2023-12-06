@@ -178,13 +178,13 @@ This produces the hash string `feb4b838a272884f6d2c2580b2c7ebb0b2f725b90e8baa6f9
 
 ### 4.2 Guarding against replay attacks
 
-A replay attack is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks Smokeball provides a `Timestamp` header which is the ticks representation (.Net format) of when the webhook event was sent. It is also part of the verification signature so an attacker can not change the timestamp without invalidating the signature. 
+A replay attack is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks Smokeball provides a `Timestamp` header which is the ticks representation (.Net format) of when the webhook event was sent. It is also part of the verification signature so an attacker can not change the timestamp without invalidating the signature.
 
 If the signature is valid but the timestamp is too old, you may choose to reject the message.
 
 ## 5. Webhook notification schema
 
-A webhook notification captures changes related to the susbscribed event and includes specific information about the event. Notifications are dependent on the event type.
+A webhook notification captures changes related to the subscribed event and includes specific information about the event. The `payload` in notifications are dependant on the event type. See respective API docs for payload examples.
 
 Here is an example what a typical webhook notification would look like for a `matter.updated` event.
 
@@ -196,17 +196,17 @@ Here is an example what a typical webhook notification would look like for a `ma
     "type": "matter.updated",
     "source": "API",
     "payload": {
-        "id": "42119e63-aca1-4d05-a4a5-9718f007bd1b",
+        "id": "68df1d38-b9a3-4855-b32f-6af1aae2f258",
         "externalSystemId": null,
         "number": "10001",
         "title": "John Smith | Sale",
         "matterType": {
-            "id": "db3c6058-8828-4f7d-a276-84f1ac98376f",
+            "id": "602b31b2-da47-4b17-9ff5-f84f3f3efeec",
             "rel": "MatterTypes"
         },
         "clients": [
             {
-                "id": "0f0b9497-fbe7-4ac7-9d89-6ab3a4a9fee5",
+                "id": "6aeee3fb-7587-4b33-8570-9d34dbde5d8f",
                 "rel": "Contacts"
             }
         ],
@@ -222,6 +222,6 @@ Field | Description
  `accountId` | Identifies the specific account associated with the subscription.
  `subscriptionId` | Represents the unique identifier for the subscription.
  `type` | Indicates the nature of the subscribed event.
- `source` |  Specifies the origin of the event.
- `payload` |  This section holds the detailed information pertinent to the event
- `timestamp`| Captures the exact moment when the event occurred.
+ `source` |  Specifies the origin of the event - e.g. `Smokeball`, `API`
+ `payload` |  This section holds the detailed information pertinent to the event.
+ `timestamp`| Captures the exact moment when the event occurred. This is useful for the subscriber to ensure events are processed in order.
