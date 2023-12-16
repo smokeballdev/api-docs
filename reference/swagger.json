@@ -11098,8 +11098,9 @@
             "example": "matters/69406c65-309d-4e35-a636-ad145e64770a"
           },
           "operation": {
-            "allOf": [{ "$ref": "#/components/schemas/OperationType" }],
-            "description": "The operation associated to this rule.\r\n\r\nPossible values: 'Access','Execute'."
+            "type": "string",
+            "description": "The operation associated to this rule.\r\n\r\nPossible values: 'Access','Execute'.",
+            "example": "Access"
           },
           "type": {
             "allOf": [
@@ -11126,8 +11127,9 @@
             "example": "matters/69406c65-309d-4e35-a636-ad145e64770a"
           },
           "operation": {
-            "allOf": [{ "$ref": "#/components/schemas/OperationType" }],
-            "description": "The operation associated to this rule.\r\n\r\nPossible values: 'Access','Execute'."
+            "type": "string",
+            "description": "The operation associated to this rule.\r\n\r\nPossible values: 'Access','Execute'.",
+            "example": "Access"
           },
           "type": {
             "allOf": [
