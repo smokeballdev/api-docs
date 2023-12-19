@@ -4896,7 +4896,7 @@
           {
             "name": "Search",
             "in": "query",
-            "description": "email, name",
+            "description": " Available fields: email, name",
             "schema": { "type": "array", "items": { "type": "string" } }
           }
         ],
