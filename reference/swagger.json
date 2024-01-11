@@ -4271,6 +4271,222 @@
         }
       }
     },
+    "/plugins/{id}": {
+      "get": {
+        "tags": ["Plugins"],
+        "summary": "Get a plugin",
+        "description": "Returns the plugin.",
+        "operationId": "GetPlugin",
+        "parameters": [
+          {
+            "name": "pluginId",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the plugin.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Plugin" }
+              }
+            }
+          },
+          "404": {
+            "description": "When a plugin is not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Plugins"],
+        "summary": "Update existing plugin",
+        "description": "Updates a plugin with the specified plugin details.",
+        "operationId": "UpdatePlugin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PluginDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PluginDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PluginDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is successful. Returns a link to the plugin.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When a plugin is not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Plugins"],
+        "summary": "Delete existing plugin",
+        "description": "Deletes an existing plugin by id.",
+        "operationId": "DeletePlugin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the plugin to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "404": {
+            "description": "When a plugin is not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plugins": {
+      "get": {
+        "tags": ["Plugins"],
+        "summary": "Get plugins",
+        "description": "Returns existing plugins.",
+        "operationId": "GetPlugins",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns existing plugins.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PluginPagedCollection"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Plugins"],
+        "summary": "Create a new plugin",
+        "description": "Creates a new plugin with the specified plugin details.",
+        "operationId": "CreatePlugin",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PluginDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PluginDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PluginDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is successful. Returns a link to the plugin.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/policies/{reference}": {
       "get": {
         "tags": ["Policies"],
@@ -13042,6 +13258,319 @@
           },
           "last": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Plugin": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "application": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginApplication" }],
+            "description": "The application that the plugin should be rendered in."
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginType" }],
+            "description": "The type of component the plugin should represent."
+          },
+          "version": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginVersion" }],
+            "description": "Current version of the plugin.",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Flag indicating the deletion state of the plugin"
+          },
+          "lastUpdated": {
+            "type": "integer",
+            "description": "Last updated timestamp",
+            "format": "int64",
+            "example": 637847425252027400
+          },
+          "pluginVersion": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginVersion" }],
+            "description": "Current version of the Plugin",
+            "nullable": true
+          },
+          "createdAtUtc": {
+            "type": "string",
+            "description": "Plugin created date in UTC",
+            "format": "date-time"
+          },
+          "updatedAtUtc": {
+            "type": "string",
+            "description": "Plugin last updated date in UTC",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginApplication": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "The application that the plugin should be rendered in.",
+        "format": "int32"
+      },
+      "PluginAttributes": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "The text to be rendered on the plugin component (where applicable).",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "description": "The Icon to be rendered on the plugin component (where applicable).\r\nRefer to documentation for a full list of icons.",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "description": "The hex color code to be rendered on the plugin component (where applicable).",
+            "nullable": true
+          },
+          "tooltip": {
+            "type": "string",
+            "description": "Optional: The tooltip to display on component hover (where applicable).",
+            "nullable": true
+          },
+          "page": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginPage" }],
+            "description": "Page attributes for the plugin (where applicable).",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginAvailability": {
+        "type": "object",
+        "properties": {
+          "applicationVersions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional: The application versions applicable for a plugin.",
+            "nullable": true
+          },
+          "matterTypeIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional: Matter types applicable for a plugin.",
+            "nullable": true
+          },
+          "availabilityEndpoint": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginEndpoint" }],
+            "description": "Optional: Dynamic endpoint for determining visibility and enablement of a plugin.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginDto": {
+        "type": "object",
+        "properties": {
+          "application": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginApplication" }],
+            "description": "The application that the plugin should be rendered in."
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginType" }],
+            "description": "The type of component the plugin should represent."
+          },
+          "version": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginVersionDto" }],
+            "description": "Current version of the plugin.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginEndpoint": {
+        "type": "object",
+        "properties": {
+          "staging": {
+            "type": "string",
+            "description": "Staging URL for the endpoint.",
+            "nullable": true
+          },
+          "production": {
+            "type": "string",
+            "description": "Production URL for the endpoint.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginPage": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Optional: The title of the page rendered by the plugin (where applicable).\r\nIf not specified, the name of the plugin will be used.",
+            "nullable": true
+          },
+          "width": {
+            "type": "integer",
+            "description": "Optional: The width of the page rendered by the plugin (where applicable).\r\nIf not specified, a default width will be used.",
+            "format": "int32"
+          },
+          "height": {
+            "type": "integer",
+            "description": "Optional: The height of the page rendered by the plugin (where applicable).\r\nIf not specified, a default width will be used.",
+            "format": "int32"
+          },
+          "useDefaultBrowser": {
+            "type": "boolean",
+            "description": "Optional: Override browser behavior.\r\nWhen true, loads the endpoint in the internal browser (where applicable)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginPagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Plugin" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginType": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "The type of component the plugin should represent.",
+        "format": "int32"
+      },
+      "PluginVersion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the plugin version.",
+            "nullable": true
+          },
+          "pluginId": {
+            "type": "string",
+            "description": "The plugin id this version is associated to.",
+            "nullable": true
+          },
+          "versionNumber": {
+            "type": "integer",
+            "description": "The associated version number.",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the plugin.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the plugin.",
+            "nullable": true
+          },
+          "placement": {
+            "type": "string",
+            "description": "A placement key representing where the plugin should be rendered in the UI.\r\nPlacement key must correspond to the type of the plugin.\r\nRefer to documentation for valid placement keys.",
+            "nullable": true
+          },
+          "endpoint": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginEndpoint" }],
+            "description": "The endpoint for the plugin.\r\nButtons will open a new page/window using the endpoint.\r\nTabs will lazy-load the endpoint in the tab when selected.",
+            "nullable": true
+          },
+          "attributes": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
+            "description": "Visual attributes associated to this plugin.",
+            "nullable": true
+          },
+          "availability": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
+            "description": "Optional: Settings for determining the availability of a plugin.",
+            "nullable": true
+          },
+          "createdAtUtc": {
+            "type": "string",
+            "description": "Plugin version created date in UTC",
+            "format": "date-time"
+          },
+          "updatedAtUtc": {
+            "type": "string",
+            "description": "Plugin version last updated date in UTC",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginVersionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the plugin.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the plugin.",
+            "nullable": true
+          },
+          "placement": {
+            "type": "string",
+            "description": "A placement key representing where the plugin should be rendered in the UI.\r\nPlacement key must correspond to the type of the plugin.\r\nRefer to documentation for valid placement keys.",
+            "nullable": true
+          },
+          "endpoint": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginEndpoint" }],
+            "description": "The endpoint for the plugin.\r\nButtons will open a new page/window using the endpoint.\r\nTabs will lazy-load the endpoint in the tab when selected.",
+            "nullable": true
+          },
+          "attributes": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
+            "description": "Visual attributes associated to this plugin.",
+            "nullable": true
+          },
+          "availability": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
+            "description": "Optional: Settings for determining the availability of a plugin.",
             "nullable": true
           }
         },
