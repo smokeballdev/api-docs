@@ -108,15 +108,59 @@ To create a subscription, make a POST request to the `/webhooks` endpoint:
 
 ## 3. Event handling
 
-### 3.1 Handling duplicate events
+### 3.1 Notification schema
+
+A webhook notification captures changes related to the subscribed event and includes specific information about the event. The `payload` in notifications are dependant on the event type. See respective API docs for payload examples.
+
+Here is an example what a typical webhook notification would look like for a `matter.updated` event.
+
+``` json
+{    
+    "accountId": "1e53979d-9269-4159-b104-2e603670f59d",
+    "subscriptionId": "6543c46b-d1d5-4a00-8732-36a63a20c3b4",
+    "type": "matter.updated",
+    "source": "API",
+    "payload": {
+        "id": "68df1d38-b9a3-4855-b32f-6af1aae2f258",
+        "externalSystemId": null,
+        "number": "10001",
+        "title": "John Smith | Sale",
+        "matterType": {
+            "id": "602b31b2-da47-4b17-9ff5-f84f3f3efeec",
+            "rel": "MatterTypes"
+        },
+        "clients": [
+            {
+                "id": "6aeee3fb-7587-4b33-8570-9d34dbde5d8f",
+                "rel": "Contacts"
+            }
+        ],
+        "description": "Sale of Franchise",
+        "status": "Open"
+    },
+    "timestamp": 637981232724209300
+}
+```  
+  
+  
+Field | Description
+---------|----------
+ `accountId` | Identifies the specific account associated with the subscription.
+ `subscriptionId` | Represents the unique identifier for the subscription.
+ `type` | Indicates the nature of the subscribed event.
+ `source` |  Specifies the origin of the event - e.g. `Smokeball`, `API`
+ `payload` |  This section holds the detailed information pertinent to the event.
+ `timestamp`| Captures the exact moment when the event occurred. This is useful for the subscriber to ensure events are processed in order.
+
+### 3.2 Handling duplicate events
 
 Webhook endpoints may occasionally receive the same event more than once. We advise that you guard against this by making your event processing idempotent.
 
-### 3.2 Order of events
+### 3.3 Order of events
 
 Smokeball does not guarantee delivery of events in the order in which they are generated. It is rare but possible that you may receive a `contact.updated` event before a `contact.created` event.
 
-### 3.3 Preventing infinite update loops
+### 3.4 Preventing infinite update loops
 
 If you initiate a change to a resource via the API you will more than likely receive one or more webhook events caused by that change. If you are not careful you might find yourself in an update loop like the following scenario:
 1. A change is made to a resource in your system
@@ -128,15 +172,14 @@ If you initiate a change to a resource via the API you will more than likely rec
 
 To avoid this scenario it is recommended that you set the `RequestId` header with all of you API requests. If supplied, this header will always be returned in your API responses as well as all webhook events that were triggered from your original request. This allows you to filter or ignore webhook events that were initiaited by your changes.
 
-### 3.4 Error Handling
+### 3.5 Error Handling
 
 Because our API request handling is an eventually consistent operation, we supply a `error` webhook event so you can be notified when processing your API request has failed. We provide the name and id of the failed resource and a description of the problem.
 
 A sample of the `error` payload is as follows:
 ``` json
 {
-  "body": {
-    "accountId": "1e53979d-9269-4159-b104-2e603670f59d",
+   "accountId": "1e53979d-9269-4159-b104-2e603670f59d",
     "subscriptionId": "6543c46b-d1d5-4a00-8732-36a63a20c3b4",
     "type": "error",
     "source": "API",
@@ -146,7 +189,6 @@ A sample of the `error` payload is as follows:
       "resourceId": "fbd61c97-ee92-49b7-ba8e-84e0ed857078"
     },
     "timestamp": 637981232724209300
-  }
 }
 ```
 
@@ -182,6 +224,6 @@ This produces the hash string `feb4b838a272884f6d2c2580b2c7ebb0b2f725b90e8baa6f9
 
 ### 4.2 Guarding against replay attacks
 
-A replay attack is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks Smokeball provides a `Timestamp` header which is the ticks representation (.Net format) of when the webhook event was sent. It is also part of the verification signature so an attacker can not change the timestamp without invalidating the signature. 
+A replay attack is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks Smokeball provides a `Timestamp` header which is the ticks representation (.Net format) of when the webhook event was sent. It is also part of the verification signature so an attacker can not change the timestamp without invalidating the signature.
 
 If the signature is valid but the timestamp is too old, you may choose to reject the message.
