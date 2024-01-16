@@ -7,6 +7,7 @@ tags: [Documentation]
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
 ### January 2024
+
 - **Files**: Added `IsCancelled` and `IsUploaded` to GET.
 - **Matters**: Resolved issues with incorrect matter access permissions.
 
