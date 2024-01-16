@@ -6,6 +6,10 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### January 2024
+- **Files**: Added `IsCancelled` and `IsUploaded` to GET.
+- **Matters**: Resolved issues with incorrect matter access permissions.
+
 ### November 2023
 
 - **Contacts**: Added `correctionsReferenceNumber` and `centrelinkReferenceNumber` to AU endpoints.
@@ -16,6 +20,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 - **Webhooks**: Added `matter.converted` event type which is triggered once a lead is converted to a matter.
 
 ### October 2023
+
 - **Fees**: Added `isInvoiceExternally` to GET.
 - **Matters**: Added additional validation for `ClientIds` and `OtherSideIds`.
 - **Matters**: Added `referralType`, `referrerId`, `closedDate`, `leadOpenedDate`, `leadClosedDate`, `leadClosedReason` fields.
@@ -49,6 +54,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 - **Matters**: Fix issue with combining search filters, e.g. `IsLead` and `ContactId`.
 
 ### May 2023
+
 - **Staff**: Added `ColorFill` and `ColorStroke` fields.
 - **Webhooks**: Improvements to `Matter` webhooks, notifications are more accurate aswell as more deterministic.
 - **Webhooks**: Added `Memo` webhooks. Use the `memo.created`, `memo.updated`, `memo.deleted`, `memo.restored` event types to listen to chages made to memos. 
