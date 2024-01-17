@@ -4279,12 +4279,6 @@
         "operationId": "GetPlugin",
         "parameters": [
           {
-            "name": "pluginId",
-            "in": "query",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
             "name": "id",
             "in": "path",
             "required": true,
