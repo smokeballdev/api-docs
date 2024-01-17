@@ -52,7 +52,7 @@ The response returns a one time use code that is valid for five minutes.
 
 Once you have obtained an authorization code, you can now use it to get an **access_token** which may be used to make requests to the API.
 
-> Note: The use of **id_token** to make API requests has been depricated. API requests can now only be made using **access_token**. See *section 1.4* below on how to migrate from **id_token** to **access_token**.  
+> Note: The use of **id_token** to make API requests has been deprecated. API requests can now only be made using **access_token**. See *section 1.4* below on how to migrate from **id_token** to **access_token**.  
 
 Make a POST request to <https://auth.smokeball.com/oauth2/token> with the following parameters and headers:
 
@@ -132,11 +132,10 @@ Content-Type: application/json
 
 ### 1.4 Migrating from Id Token to Access Token
 
-The use of **id_token** to make API requests has been depricated. An **id_token** will no longer be issued going forward when you make a **token** request.
+The use of **id_token** to make API requests has been deprecated.
+We will be phasing out issuing an **id_token** when you request a **token** in the near future.
 
-If you have been using an **id_token** for your API requests, please contact us via the link below and provide us with a list of endpoints that you need access to, so we can verify that your **access_token** is appropriately configured with the necessary permissions.
-
-<https://smokeball.zendesk.com/hc/en-us/requests/new?ticket_form_id=17187301754135>
+If you have been using an **id_token** for your API requests, please [contact us via this link](https://smokeball.zendesk.com/hc/en-us/requests/new?ticket_form_id=17187301754135) and provide us with a list of endpoints that you need access to, so we can verify that your **access_token** is appropriately configured with the necessary permissions.
 
 ---
 
