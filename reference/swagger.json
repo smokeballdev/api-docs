@@ -12892,6 +12892,12 @@
           "isMatterItemRequired": {
             "type": "boolean",
             "description": "Boolean flag indicating if matter item is required."
+          },
+          "relationshipContactIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Unique identifier of contacts related to the role.",
+            "nullable": true
           }
         },
         "additionalProperties": false
