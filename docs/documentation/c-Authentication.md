@@ -52,7 +52,7 @@ The response returns a one time use code that is valid for five minutes.
 
 Once you have obtained an authorization code, you can now use it to get an **access_token** which may be used to make requests to the API.
 
-> Note: The use of **id_token** to make API requests has been deprecated. The **id_token** will continue to work  API requests can now be made using the **access_token**. See *section 1.4* below on how to migrate from **id_token** to **access_token**.  
+> Note: The use of **id_token** to make API requests has been deprecated. API requests can now also be made using the **access_token**. For further information, see *section 1.4* below on migration from **id_token** to **access_token**. Please note that the **id_token** will continue to work and **no immediate action is required**.
 
 Make a POST request to <https://auth.smokeball.com/oauth2/token> with the following parameters and headers:
 
