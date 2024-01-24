@@ -13316,10 +13316,9 @@
         "additionalProperties": false
       },
       "PluginApplication": {
-        "enum": [0, 1],
-        "type": "integer",
-        "description": "The application that the plugin should be rendered in.",
-        "format": "int32"
+        "enum": ["Native", "Web"],
+        "type": "string",
+        "description": "The application that the plugin should be rendered in."
       },
       "PluginAttributes": {
         "type": "object",
@@ -13474,10 +13473,9 @@
         "additionalProperties": false
       },
       "PluginType": {
-        "enum": [0, 1],
-        "type": "integer",
-        "description": "The type of component the plugin should represent.",
-        "format": "int32"
+        "enum": ["Button", "Tab"],
+        "type": "string",
+        "description": "The type of component the plugin should represent."
       },
       "PluginVersion": {
         "type": "object",
