@@ -1816,7 +1816,8 @@
               "type": "integer",
               "format": "int32"
             }
-          }
+          },
+          { "name": "Cursor", "in": "query", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
@@ -4271,7 +4272,7 @@
         }
       }
     },
-    "/plugins/{id}": {
+    "/plugins/{pluginId}": {
       "get": {
         "tags": ["Plugins"],
         "summary": "Get a plugin",
@@ -4279,7 +4280,7 @@
         "operationId": "GetPlugin",
         "parameters": [
           {
-            "name": "id",
+            "name": "pluginId",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -4311,7 +4312,7 @@
         "operationId": "UpdatePlugin",
         "parameters": [
           {
-            "name": "id",
+            "name": "pluginId",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -4378,7 +4379,7 @@
         "operationId": "DeletePlugin",
         "parameters": [
           {
-            "name": "id",
+            "name": "pluginId",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -9513,15 +9514,23 @@
           },
           "isFavorite": {
             "type": "boolean",
-            "description": "Flag indicating whether this file is a favorite"
+            "description": "Flag indicating whether this file is a favorite",
+            "example": false
           },
           "isUploaded": {
             "type": "boolean",
-            "description": "Flag indicating whether the file contents are uploaded to the server."
+            "description": "Flag indicating whether the file contents are uploaded to the server.",
+            "example": false
           },
           "isCancelled": {
             "type": "boolean",
-            "description": "Flag indicating whether the file upload has been cancelled."
+            "description": "Flag indicating whether the file upload has been cancelled.",
+            "example": false
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Flag indicating whether the file has been deleted.",
+            "example": false
           }
         },
         "additionalProperties": false
