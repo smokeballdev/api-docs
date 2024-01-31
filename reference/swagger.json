@@ -10408,6 +10408,12 @@
             "items": { "$ref": "#/components/schemas/FeeSourceItem" },
             "description": "The source items on the fee.",
             "nullable": true
+          },
+          "createdFromActivityId": {
+            "type": "string",
+            "description": "Unique identifier of the Activity used to create the fee, if applicable.",
+            "nullable": true,
+            "example": "504b9f77-20c7-4dee-8227-d3007c8f6cea"
           }
         },
         "additionalProperties": false
@@ -10510,6 +10516,12 @@
             "items": { "$ref": "#/components/schemas/FeeSourceItemDto" },
             "description": "The source items on the fee.",
             "nullable": true
+          },
+          "createdFromActivityId": {
+            "type": "string",
+            "description": "Associates an existing activity id to a fee.\r\nOnly valid for Fee creation. \r\nValue is supplied by Smokeball for some partners.",
+            "nullable": true,
+            "example": "504b9f77-20c7-4dee-8227-d3007c8f6cea"
           }
         },
         "additionalProperties": false
