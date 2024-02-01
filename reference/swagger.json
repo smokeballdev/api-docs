@@ -4716,31 +4716,6 @@
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/PluginSubscriptionDto" }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/PluginSubscriptionDto" }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/PluginSubscriptionDto" }
-                ]
-              }
-            }
-          }
-        },
         "responses": {
           "202": {
             "description": "When request is successful. Returns a link to the plugin subscription.",
@@ -13824,18 +13799,6 @@
           "isDisabled": {
             "type": "boolean",
             "description": "True when the subscription is disabled (the plugin will not function for the user)."
-          }
-        },
-        "additionalProperties": false
-      },
-      "PluginSubscriptionDto": {
-        "type": "object",
-        "properties": {
-          "pluginVersionId": {
-            "type": "string",
-            "description": "Unique identifier of the plugin version. Can be null.",
-            "nullable": true,
-            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           }
         },
         "additionalProperties": false
