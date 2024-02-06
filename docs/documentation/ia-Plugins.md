@@ -25,13 +25,19 @@ The zones are unique places on a page where content can appear. For instance, a 
 Smokeball desktop determines how a set of plugins appear in the zone, generally at the end of the existing list. For ribbon buttons, they will be placed into their own ribbon group at the end of the zone.
 
 Matter window zones:
+
 `MatterWindow-MatterDetailsRibbon` - Places a Tab in Matter page
+
 `MatterWindow-MatterDetailsRibbonTab` - Places a Button in the 'Matter' Tab of Matter page
 
 Main window zones:
+
 `Window-SmokeballRibbonTab` - Places a Button in the 'Smokeball' Tab of Main page
+
 `Window-LeftDockedTabControl` - Places a navigation tab inside the Smokeball left-side tabs
+
 `Window-Ribbon` - Places a tab in the main window ribbon
+
 
 #### 1.2 SDK Support
 All browsers opened by plugins support integration with the Smokeball SDK as long as the SB browser is used, when `attributes.page.useDefaultBrowser` is `true`.
