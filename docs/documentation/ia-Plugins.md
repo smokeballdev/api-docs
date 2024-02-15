@@ -34,9 +34,9 @@ Main window zones:
 
 `Window-SmokeballRibbonTab` - Places a Button in the 'Smokeball' Tab of Main page
 
-`Window-LeftDockedTabControl` - Places a navigation tab inside the Smokeball left-side tabs
+`Window-MainTabs` - Places a navigation tab inside the Smokeball left-side tabs
 
-`Window-Ribbon` - Places a tab in the main window ribbon
+`Window-MainRibbon` - Places a tab in the main window ribbon
 
 
 #### 1.2 SDK Support
