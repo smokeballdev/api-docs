@@ -10087,7 +10087,7 @@
           },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member.",
+            "description": "Unique identifier of the associated staff member.\r\n\r\nWhen StaffId is not provided, the API will attempt to match your User Id to a Staff Id automatically.",
             "nullable": true,
             "example": "47efff74-3e4b-45b3-bddf-affc6649db0b"
           },
@@ -10394,7 +10394,7 @@
         "additionalProperties": false
       },
       "FeeDto": {
-        "required": ["feeDate", "staffId", "subject"],
+        "required": ["feeDate", "subject"],
         "type": "object",
         "properties": {
           "updatedByUserId": {
@@ -10405,7 +10405,8 @@
           },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member.",
+            "description": "Unique identifier of the associated staff member.\r\n\r\nWhen StaffId is not provided, the API will attempt to match your User Id to a Staff Id automatically.",
+            "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "invoiceId": {
