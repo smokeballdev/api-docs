@@ -1000,6 +1000,12 @@
             "example": "2000-01-01T20:00:00 OR 630823536000000000"
           },
           {
+            "name": "MatterId",
+            "in": "query",
+            "description": "Filter by events assigned to a specific MatterId.",
+            "schema": { "type": "string" }
+          },
+          {
             "name": "ExcludeDeletedEvents",
             "in": "query",
             "description": "Filter out any events that have been deleted, default: false",
