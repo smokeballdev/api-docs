@@ -8,7 +8,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ### February 2024
 - **Fees**: Added `CreatedFromActivityId` to GET endpoint.
-- **Fees**: Resolve issues where StaffId could cause PATCH failures
+- **Fees**: Resolved issues where StaffId could cause PATCH failures
 - **Webhooks**: Added `files.updated` event type which is triggered against a matter. Use the cursor returned to rereive the updates files via the files API.
 
 ### January 2024
