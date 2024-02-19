@@ -1000,6 +1000,12 @@
             "example": "2000-01-01T20:00:00 OR 630823536000000000"
           },
           {
+            "name": "MatterId",
+            "in": "query",
+            "description": "Filter by events assigned to a specific MatterId.",
+            "schema": { "type": "string" }
+          },
+          {
             "name": "ExcludeDeletedEvents",
             "in": "query",
             "description": "Filter out any events that have been deleted, default: false",
@@ -1816,7 +1822,8 @@
               "type": "integer",
               "format": "int32"
             }
-          }
+          },
+          { "name": "Cursor", "in": "query", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
@@ -4271,7 +4278,7 @@
         }
       }
     },
-    "/plugins/{id}": {
+    "/plugins/{pluginId}": {
       "get": {
         "tags": ["Plugins"],
         "summary": "Get a plugin",
@@ -4279,10 +4286,10 @@
         "operationId": "GetPlugin",
         "parameters": [
           {
-            "name": "id",
+            "name": "pluginId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
@@ -4311,7 +4318,7 @@
         "operationId": "UpdatePlugin",
         "parameters": [
           {
-            "name": "id",
+            "name": "pluginId",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -4349,6 +4356,14 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
@@ -4370,7 +4385,7 @@
         "operationId": "DeletePlugin",
         "parameters": [
           {
-            "name": "id",
+            "name": "pluginId",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -4382,6 +4397,22 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -4472,6 +4503,252 @@
           },
           "400": {
             "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plugins/{pluginId}/subscriptions/{id}": {
+      "get": {
+        "tags": ["PluginSubscriptions"],
+        "summary": "Get a plugin subscription",
+        "description": "Returns the plugin subscription.",
+        "operationId": "GetPluginSubscription",
+        "parameters": [
+          {
+            "name": "pluginId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the plugin.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PluginSubscription" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When a plugin is not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["PluginSubscriptions"],
+        "summary": "Unsubscribes account from plugin",
+        "description": "Unsubscribes an account from the specified plugin.",
+        "operationId": "DeletePluginSubscription",
+        "parameters": [
+          {
+            "name": "pluginId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the plugin subscription to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When a plugin is not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plugins/{pluginId}/subscriptions": {
+      "get": {
+        "tags": ["PluginSubscriptions"],
+        "summary": "Get plugin subscriptions",
+        "description": "Returns plugin subscriptions for the account.",
+        "operationId": "GetPluginSubscriptions",
+        "parameters": [
+          {
+            "name": "pluginId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns plugin subscriptions for the account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PluginSubscriptionPagedCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["PluginSubscriptions"],
+        "summary": "Subscribe account to plugin",
+        "description": "Subscribes an account with the specified plugin.",
+        "operationId": "CreatePluginSubscription",
+        "parameters": [
+          {
+            "name": "pluginId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is successful. Returns a link to the plugin subscription.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9218,15 +9495,23 @@
           },
           "isFavorite": {
             "type": "boolean",
-            "description": "Flag indicating whether this file is a favorite"
+            "description": "Flag indicating whether this file is a favorite",
+            "example": false
           },
           "isUploaded": {
             "type": "boolean",
-            "description": "Flag indicating whether the file contents are uploaded to the server."
+            "description": "Flag indicating whether the file contents are uploaded to the server.",
+            "example": false
           },
           "isCancelled": {
             "type": "boolean",
-            "description": "Flag indicating whether the file upload has been cancelled."
+            "description": "Flag indicating whether the file upload has been cancelled.",
+            "example": false
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Flag indicating whether the file has been deleted.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -9808,7 +10093,7 @@
           },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member.",
+            "description": "Unique identifier of the associated staff member.\r\n\r\nWhen StaffId is not provided, the API will attempt to match your User Id to a Staff Id automatically.",
             "nullable": true,
             "example": "47efff74-3e4b-45b3-bddf-affc6649db0b"
           },
@@ -10104,12 +10389,18 @@
             "items": { "$ref": "#/components/schemas/FeeSourceItem" },
             "description": "The source items on the fee.",
             "nullable": true
+          },
+          "createdFromActivityId": {
+            "type": "string",
+            "description": "Unique identifier of the Activity used to create the fee, if applicable.",
+            "nullable": true,
+            "example": "504b9f77-20c7-4dee-8227-d3007c8f6cea"
           }
         },
         "additionalProperties": false
       },
       "FeeDto": {
-        "required": ["feeDate", "staffId", "subject"],
+        "required": ["feeDate", "subject"],
         "type": "object",
         "properties": {
           "updatedByUserId": {
@@ -10120,7 +10411,8 @@
           },
           "staffId": {
             "type": "string",
-            "description": "Unique identifier of the associated staff member.",
+            "description": "Unique identifier of the associated staff member.\r\n\r\nWhen StaffId is not provided, the API will attempt to match your User Id to a Staff Id automatically.",
+            "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "invoiceId": {
@@ -10206,6 +10498,12 @@
             "items": { "$ref": "#/components/schemas/FeeSourceItemDto" },
             "description": "The source items on the fee.",
             "nullable": true
+          },
+          "createdFromActivityId": {
+            "type": "string",
+            "description": "Associates an existing activity id to a fee.\r\nOnly valid for Fee creation. \r\nValue is supplied by Smokeball for some partners.",
+            "nullable": true,
+            "example": "504b9f77-20c7-4dee-8227-d3007c8f6cea"
           }
         },
         "additionalProperties": false
@@ -13287,39 +13585,31 @@
             "description": "Current version of the plugin.",
             "nullable": true
           },
-          "isDeleted": {
-            "type": "boolean",
-            "description": "Flag indicating the deletion state of the plugin"
-          },
           "lastUpdated": {
             "type": "integer",
             "description": "Last updated timestamp",
             "format": "int64",
             "example": 637847425252027400
           },
-          "pluginVersion": {
-            "allOf": [{ "$ref": "#/components/schemas/PluginVersion" }],
-            "description": "Current version of the Plugin",
-            "nullable": true
-          },
-          "createdAtUtc": {
+          "createdDate": {
             "type": "string",
             "description": "Plugin created date in UTC",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
           },
-          "updatedAtUtc": {
+          "lastUpdatedDate": {
             "type": "string",
             "description": "Plugin last updated date in UTC",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
           }
         },
         "additionalProperties": false
       },
       "PluginApplication": {
-        "enum": [0, 1],
-        "type": "integer",
-        "description": "The application that the plugin should be rendered in.",
-        "format": "int32"
+        "enum": ["Native", "Web"],
+        "type": "string",
+        "description": "The application that the plugin should be rendered in."
       },
       "PluginAttributes": {
         "type": "object",
@@ -13473,11 +13763,95 @@
         },
         "additionalProperties": false
       },
+      "PluginSubscription": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the subscription.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "pluginId": {
+            "type": "string",
+            "description": "Unique identifier of the plugin.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "pluginVersionId": {
+            "type": "string",
+            "description": "Unique identifier of the plugin version. Can be null.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "Plugin subscription created date in UTC.",
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "lastUpdatedDate": {
+            "type": "string",
+            "description": "Plugin subscription last updated date in UTC.",
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "isDisabled": {
+            "type": "boolean",
+            "description": "True when the subscription is disabled (the plugin will not function for the user)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "PluginSubscriptionPagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PluginSubscription" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PluginType": {
-        "enum": [0, 1],
-        "type": "integer",
-        "description": "The type of component the plugin should represent.",
-        "format": "int32"
+        "enum": ["Button", "Tab"],
+        "type": "string",
+        "description": "The type of component the plugin should represent."
       },
       "PluginVersion": {
         "type": "object",
@@ -13527,15 +13901,17 @@
             "description": "Optional: Settings for determining the availability of a plugin.",
             "nullable": true
           },
-          "createdAtUtc": {
+          "createdDate": {
             "type": "string",
             "description": "Plugin version created date in UTC",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
           },
-          "updatedAtUtc": {
+          "lastUpdatedDate": {
             "type": "string",
             "description": "Plugin version last updated date in UTC",
-            "format": "date-time"
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
           }
         },
         "additionalProperties": false
