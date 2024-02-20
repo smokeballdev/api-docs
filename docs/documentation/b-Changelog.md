@@ -167,8 +167,6 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 - **Firm**: Added `IsInternal` field when creating a firm so that a firm can be flagged as an internal firm and skip payment subscription.
 - **Firm**: Added `ABN`, `ACN` and postal details, `CareOf`, `PoBoxType` and `PoBoxNumber` to firm MailingAddress.
 - **Users**: Added functionality to create users with no password, and email is sent out with a temporary password.
-
-###### Matters
 - **Matters**: Deprecated the following fields in the response payloads, this includes the fields in the Webhooks payload:
   - `MatterTypeId`, instead use `MatterType`.
   - `ClientIds`, instead use `Clients`.
