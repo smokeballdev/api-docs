@@ -3694,7 +3694,7 @@
           {
             "name": "LastUpdated",
             "in": "query",
-            "description": "Deprecated, use updatedSince.\r\n\r\nFilter by last updated date of matter.",
+            "description": "Filter by last updated date of matter.",
             "schema": {
               "type": "string",
               "format": "date-time",
@@ -12447,9 +12447,9 @@
           },
           "versionId": {
             "type": "string",
-            "description": "Version id of the record.",
+            "description": "Version id of the record. This can be used in the UpdatedSince query parameter.",
             "nullable": true,
-            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+            "example": "637771038395217729"
           },
           "number": {
             "type": "string",
@@ -13191,10 +13191,10 @@
             "type": "boolean",
             "description": "Boolean flag indicating if matter item is required."
           },
-          "relationshipContactIds": {
+          "relationships": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Unique identifier of contacts related to the role.",
+            "items": { "$ref": "#/components/schemas/RelationshipDto" },
+            "description": "List if relationships associated with the role.",
             "nullable": true
           }
         },
