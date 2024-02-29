@@ -34,7 +34,7 @@ Example:
 }
 ```
 
-> Note: **Please do not include** the `scope` query parameter when making an authorize request. This will ensure that all assigned scopes are automatically included in the access token.
+> Note: Please **do not include** the `scope` query parameter when making an authorize request. This will ensure that all assigned scopes are automatically included in the access token.
 
 The user will be directed to a login page where they will need to use their Smokeball credentials to login.
 
