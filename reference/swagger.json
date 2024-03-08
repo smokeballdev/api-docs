@@ -10608,9 +10608,16 @@
         "properties": {
           "productId": {
             "type": "string",
-            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "description": "The product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
+          },
+          "addOnIds": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nPossible values: ADD01, ADD002, ADD003",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -10713,6 +10720,12 @@
             "description": "The Product the firm is subscribed to.",
             "nullable": true,
             "example": "SMK001"
+          },
+          "addOnIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The AddOns the firm is subscribed to.",
+            "nullable": true
           },
           "email": {
             "type": "string",
@@ -11362,9 +11375,16 @@
         "properties": {
           "productId": {
             "type": "string",
-            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "description": "The product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
+          },
+          "addOnIds": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nPossible values: ADD01, ADD002, ADD003",
+            "nullable": true
           },
           "name": {
             "type": "string",
