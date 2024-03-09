@@ -14649,6 +14649,13 @@
             "type": "string",
             "description": "Password for the user.\r\n\r\nPassword must include atleast one lowercase character, uppercase character, numeric character as well as a special character.",
             "nullable": true
+          },
+          "expireAfterDays": {
+            "type": "integer",
+            "description": "Expire after the specified days. Must be left blank for users that do not expire.",
+            "format": "int32",
+            "nullable": true,
+            "example": 7
           }
         },
         "additionalProperties": false
