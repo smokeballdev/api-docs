@@ -6462,6 +6462,42 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Remove a user",
+        "description": "Removes a user. Only accessible using client credentials grant.\r\n            \r\nUser must beong to the specified account.",
+        "operationId": "DeleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "When request is successful." },
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When user does not exist or is not associated to the specified account",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the request is not made using client credentials grant."
+          }
+        }
       }
     },
     "/users": {
