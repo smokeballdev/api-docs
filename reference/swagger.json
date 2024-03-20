@@ -14668,6 +14668,11 @@
             "description": "Email address of the user.",
             "nullable": true,
             "example": "user@domain.com"
+          },
+          "isInternal": {
+            "type": "boolean",
+            "description": "Returns true if the user is flagged as an internal user.",
+            "example": true
           }
         },
         "additionalProperties": false
@@ -14692,6 +14697,11 @@
             "format": "int32",
             "nullable": true,
             "example": 7
+          },
+          "isInternal": {
+            "type": "boolean",
+            "description": "Creates the user as an internal user.",
+            "example": true
           }
         },
         "additionalProperties": false
