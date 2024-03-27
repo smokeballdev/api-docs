@@ -10713,6 +10713,11 @@
             "allOf": [{ "$ref": "#/components/schemas/StaffDto" }],
             "description": "The staff member that will be created with the firm. This staff member will become the firm owner.",
             "nullable": true
+          },
+          "subscription": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmSubscriptionDto" }],
+            "description": "The subscription details that will be used when creating the firm.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -11068,6 +11073,18 @@
           }
         },
         "additionalProperties": false
+      },
+      "FirmSubscriptionDto": {
+        "type": "object",
+        "properties": {
+          "coupon": {
+            "type": "string",
+            "description": "The Coupon that will be used when the firm is subscribed.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The subscription details for the firm."
       },
       "FirmUser": {
         "type": "object",
