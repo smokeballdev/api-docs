@@ -2447,12 +2447,46 @@
             }
           }
         }
+      }
+    },
+    "/firmusers/{id}": {
+      "get": {
+        "tags": ["FirmUsers"],
+        "summary": "Get firm staff/user mapping",
+        "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
+        "operationId": "GetFirmUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'FirmUser' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FirmUser" }
+              }
+            }
+          }
+        }
       },
       "put": {
         "tags": ["FirmUsers"],
         "summary": "Update firm staff/user mapping",
         "description": "Updates a staff/user mapping in the firm associated with the authenticated client.",
         "operationId": "UpdateFirmUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -2484,32 +2518,6 @@
           "400": { "description": "When staff or user has not been provided." },
           "403": { "description": "When staff does not belong to the firm." },
           "404": { "description": "When 'FirmUser' does not exist." }
-        }
-      }
-    },
-    "/firmusers/{id}": {
-      "get": {
-        "tags": ["FirmUsers"],
-        "summary": "Get firm staff/user mapping",
-        "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
-        "operationId": "GetFirmUserById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'FirmUser' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/FirmUser" }
-              }
-            }
-          }
         }
       },
       "delete": {
