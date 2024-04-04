@@ -2447,46 +2447,12 @@
             }
           }
         }
-      }
-    },
-    "/firmusers/{id}": {
-      "get": {
-        "tags": ["FirmUsers"],
-        "summary": "Get firm staff/user mapping",
-        "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
-        "operationId": "GetFirmUserById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'FirmUser' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/FirmUser" }
-              }
-            }
-          }
-        }
       },
       "put": {
         "tags": ["FirmUsers"],
         "summary": "Update firm staff/user mapping",
         "description": "Updates a staff/user mapping in the firm associated with the authenticated client.",
         "operationId": "UpdateFirmUser",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -2519,11 +2485,37 @@
           "403": { "description": "When staff does not belong to the firm." },
           "404": { "description": "When 'FirmUser' does not exist." }
         }
+      }
+    },
+    "/firmusers/{id}": {
+      "get": {
+        "tags": ["FirmUsers"],
+        "summary": "Get firm staff/user mapping",
+        "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
+        "operationId": "GetFirmUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'FirmUser' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FirmUser" }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "tags": ["FirmUsers"],
         "summary": "Delete firm staff/user mapping",
-        "description": "Removes the user from the firm associated with the authenticated client.\r\n\r\nThe associated staff member is set as a former staff member and if they are a user, becomes a former user.",
+        "description": "Removes the user from the firm associated with the authenticated client.",
         "operationId": "DeleteFirmUser",
         "parameters": [
           {
@@ -10756,6 +10748,11 @@
             "nullable": true,
             "example": "Brown LLC"
           },
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmStatus" }],
+            "description": "The status of the firm.",
+            "nullable": true
+          },
           "productId": {
             "type": "string",
             "description": "The Product the firm is subscribed to.",
@@ -10830,6 +10827,10 @@
           }
         },
         "additionalProperties": false
+      },
+      "FirmAccountStatus": {
+        "enum": ["Active", "Warning", "Suspended"],
+        "type": "string"
       },
       "FirmAddress": {
         "type": "object",
@@ -11073,6 +11074,40 @@
           }
         },
         "additionalProperties": false
+      },
+      "FirmStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmAccountStatus" }],
+            "description": "The status of the firm.",
+            "example": "Active"
+          },
+          "statusMessage": {
+            "type": "string",
+            "description": "The status message of the firm.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The status of the firm."
+      },
+      "FirmStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmAccountStatus" }],
+            "description": "The status of the firm account.",
+            "example": "Active"
+          },
+          "statusMessage": {
+            "type": "string",
+            "description": "The status message of the firm. If left blank, an appropriate message is set depending on the status.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The status of the firm."
       },
       "FirmSubscriptionDto": {
         "type": "object",
@@ -11486,6 +11521,11 @@
           "fax": {
             "allOf": [{ "$ref": "#/components/schemas/PhoneNumberDto" }],
             "description": "Fax number of the firm.",
+            "nullable": true
+          },
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmStatusDto" }],
+            "description": "The status of the firm.",
             "nullable": true
           }
         },
