@@ -2523,7 +2523,7 @@
       "delete": {
         "tags": ["FirmUsers"],
         "summary": "Delete firm staff/user mapping",
-        "description": "Removes the user from the firm associated with the authenticated client.\r\n\r\nThe associated staff member is set as a former staff member and if they are a user, becomes a former user.",
+        "description": "Removes the user from the firm associated with the authenticated client.",
         "operationId": "DeleteFirmUser",
         "parameters": [
           {
@@ -3694,7 +3694,7 @@
           {
             "name": "LastUpdated",
             "in": "query",
-            "description": "Deprecated, use updatedSince.\r\n\r\nFilter by last updated date of matter.",
+            "description": "Filter by last updated date of matter.",
             "schema": {
               "type": "string",
               "format": "date-time",
@@ -6460,6 +6460,42 @@
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Remove a user",
+        "description": "Removes a user. Only accessible using client credentials grant.\r\n            \r\nUser must beong to the specified account.",
+        "operationId": "DeleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "When request is successful." },
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When user does not exist or is not associated to the specified account",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the request is not made using client credentials grant."
           }
         }
       }
@@ -10608,9 +10644,16 @@
         "properties": {
           "productId": {
             "type": "string",
-            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "description": "The product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
+          },
+          "addOnIds": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nPossible values: ADD01, ADD002, ADD003",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -10670,6 +10713,11 @@
             "allOf": [{ "$ref": "#/components/schemas/StaffDto" }],
             "description": "The staff member that will be created with the firm. This staff member will become the firm owner.",
             "nullable": true
+          },
+          "subscription": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmSubscriptionDto" }],
+            "description": "The subscription details that will be used when creating the firm.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -10708,11 +10756,22 @@
             "nullable": true,
             "example": "Brown LLC"
           },
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmStatus" }],
+            "description": "The status of the firm.",
+            "nullable": true
+          },
           "productId": {
             "type": "string",
             "description": "The Product the firm is subscribed to.",
             "nullable": true,
             "example": "SMK001"
+          },
+          "addOnIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The AddOns the firm is subscribed to.",
+            "nullable": true
           },
           "email": {
             "type": "string",
@@ -10776,6 +10835,10 @@
           }
         },
         "additionalProperties": false
+      },
+      "FirmAccountStatus": {
+        "enum": ["Active", "Warning", "Suspended"],
+        "type": "string"
       },
       "FirmAddress": {
         "type": "object",
@@ -11019,6 +11082,52 @@
           }
         },
         "additionalProperties": false
+      },
+      "FirmStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmAccountStatus" }],
+            "description": "The status of the firm.",
+            "example": "Active"
+          },
+          "statusMessage": {
+            "type": "string",
+            "description": "The status message of the firm.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The status of the firm."
+      },
+      "FirmStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmAccountStatus" }],
+            "description": "The status of the firm account.",
+            "example": "Active"
+          },
+          "statusMessage": {
+            "type": "string",
+            "description": "The status message of the firm. If left blank, an appropriate message is set depending on the status.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The status of the firm."
+      },
+      "FirmSubscriptionDto": {
+        "type": "object",
+        "properties": {
+          "coupon": {
+            "type": "string",
+            "description": "The Coupon that will be used when the firm is subscribed.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "The subscription details for the firm."
       },
       "FirmUser": {
         "type": "object",
@@ -11362,9 +11471,16 @@
         "properties": {
           "productId": {
             "type": "string",
-            "description": "The Product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe support products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "description": "The product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
+          },
+          "addOnIds": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nPossible values: ADD01, ADD002, ADD003",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -11413,6 +11529,11 @@
           "fax": {
             "allOf": [{ "$ref": "#/components/schemas/PhoneNumberDto" }],
             "description": "Fax number of the firm.",
+            "nullable": true
+          },
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/FirmStatusDto" }],
+            "description": "The status of the firm.",
             "nullable": true
           }
         },
@@ -12447,9 +12568,9 @@
           },
           "versionId": {
             "type": "string",
-            "description": "Version id of the record.",
+            "description": "Version id of the record. This can be used in the UpdatedSince query parameter.",
             "nullable": true,
-            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+            "example": "637771038395217729"
           },
           "number": {
             "type": "string",
@@ -13174,6 +13295,12 @@
             "nullable": true,
             "example": "Client"
           },
+          "description": {
+            "type": "string",
+            "description": "Description of the role.",
+            "nullable": true,
+            "example": "Client"
+          },
           "contactId": {
             "type": "string",
             "description": "Unique identifier of the contact.",
@@ -13191,10 +13318,10 @@
             "type": "boolean",
             "description": "Boolean flag indicating if matter item is required."
           },
-          "relationshipContactIds": {
+          "relationships": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Unique identifier of contacts related to the role.",
+            "items": { "$ref": "#/components/schemas/RelationshipDto" },
+            "description": "List if relationships associated with the role.",
             "nullable": true
           }
         },
@@ -14612,6 +14739,11 @@
             "description": "Email address of the user.",
             "nullable": true,
             "example": "user@domain.com"
+          },
+          "isInternal": {
+            "type": "boolean",
+            "description": "Returns true if the user is flagged as an internal user.",
+            "example": true
           }
         },
         "additionalProperties": false
@@ -14629,6 +14761,18 @@
             "type": "string",
             "description": "Password for the user.\r\n\r\nPassword must include atleast one lowercase character, uppercase character, numeric character as well as a special character.",
             "nullable": true
+          },
+          "expireAfterDays": {
+            "type": "integer",
+            "description": "Expire after the specified days. Must be left blank for users that do not expire.",
+            "format": "int32",
+            "nullable": true,
+            "example": 7
+          },
+          "isInternal": {
+            "type": "boolean",
+            "description": "Creates the user as an internal user.",
+            "example": true
           }
         },
         "additionalProperties": false

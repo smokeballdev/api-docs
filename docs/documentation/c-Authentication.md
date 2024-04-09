@@ -34,6 +34,8 @@ Example:
 }
 ```
 
+> Note: Please **do not include** the `scope` query parameter when making an authorize request. This will ensure that all assigned scopes are automatically included in the access token.
+
 The user will be directed to a login page where they will need to use their Smokeball credentials to login.
 
 If authorized, the user will be redirected to:
@@ -135,8 +137,9 @@ Content-Type: application/json
 The use of **id_token** to make API requests has been deprecated.
 We will be phasing out issuing an **id_token** when you request a **token** in the future.
 
-If you have been using an **id_token** for your API requests, **no immediate action is required**. You will be contacted with instructions for transitioning to the **access_token**. You can also [contact us via this link](https://support.smokeball.com/hc/en-us/requests/new?ticket_form_id=20656684265495) and provide us with a list of endpoints that you need access to so we can verify that your **access_token** is appropriately configured with the necessary permissions.
+If you have been using an **id_token** for your API requests, **no immediate action is required**. You will be contacted with instructions for transitioning to the **access_token**. You can also [contact us via this link](https://marketplace.smokeball.com/application_forms/api-scope-request-form/partner_applications/new) and provide us with a list of endpoints that you need access to so we can verify that your **access_token** is appropriately configured with the necessary permissions.
 
+> Note: When you transition to **access_token** you will no longer require to include the `scope` query parameter in your user authorization requests. Please **remember to omit** `scope=openid` from your requests to `https://auth.smokeball.com/oauth2/authorize`, to ensure seamless operation. See *section 1.1* above for more information.
 ---
 
 ## 2. Client Credentials Grant
