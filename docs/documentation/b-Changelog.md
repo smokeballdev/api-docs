@@ -6,14 +6,23 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### April 2024
+- **Events**: Added `MatterId` to GET endpoint.
+- **Events**: Added source layout data to GET endpoint.
+- **Expenses**: Auto-assign callng staff if staff id is not provided.
+- **Fees**: Auto-assign callng staff if staff id is not provided.
+- **Firm**: Added AddOns to GET endpoint.
+- **Matters**: Added missing account validation checks.
+
 ### February 2024
+
 - **Fees**: Added `CreatedFromActivityId` to GET endpoint.
 - **Fees**: Resolved issues where StaffId could cause PATCH failures
 - **Webhooks**: Added `files.updated` event type which is triggered against a matter. Use the cursor returned to rereive the updated files via the files API.
 
 ### January 2024
 
-- **Files**: Added `IsCancelled` and `IsUploaded` to GET.
+- **Files**: Added `IsCancelled` and `IsUploaded` to GET endpoint.
 - **Matters**: Resolved issues with incorrect matter access permissions.
 
 ### November 2023
