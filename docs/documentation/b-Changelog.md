@@ -8,7 +8,6 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ### April 2024
 - **Events**: Added `MatterId` to GET endpoint.
-- **Events**: Added source layout data to GET endpoint.
 - **Expenses**: Auto-assign callng staff if staff id is not provided.
 - **Fees**: Auto-assign callng staff if staff id is not provided.
 - **Firm**: Added AddOns to GET endpoint.
