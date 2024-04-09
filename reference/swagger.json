@@ -13295,6 +13295,12 @@
             "nullable": true,
             "example": "Client"
           },
+          "description": {
+            "type": "string",
+            "description": "Description of the role.",
+            "nullable": true,
+            "example": "Client"
+          },
           "contactId": {
             "type": "string",
             "description": "Unique identifier of the contact.",
