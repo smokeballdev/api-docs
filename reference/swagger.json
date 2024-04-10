@@ -6466,7 +6466,7 @@
       "delete": {
         "tags": ["Users"],
         "summary": "Remove a user",
-        "description": "Removes a user. Only accessible using client credentials grant.\r\n            \r\nUser must beong to the specified account.",
+        "description": "Removes a user. Only accessible using client credentials grant.\r\n            \r\nUser must belong to the specified account.",
         "operationId": "DeleteUser",
         "parameters": [
           {
