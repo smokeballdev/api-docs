@@ -798,7 +798,7 @@
           {
             "name": "Fields",
             "in": "query",
-            "description": " Available fields: passportDetails, deathDetails, identificationDetails, citizenshipDetails",
+            "description": " Available fields: passportDetails, deathDetails, identificationDetails, citizenshipDetails, utbmsDetails",
             "schema": { "type": "string" }
           }
         ],
@@ -8632,7 +8632,7 @@
           },
           "nationalInsuranceNumber": {
             "type": "string",
-            "description": "National Insurance Number\r\nOnly supported in GB.",
+            "description": "National Insurance Number\r\nOnly supported in the UK.",
             "nullable": true
           }
         },
@@ -8707,7 +8707,7 @@
           },
           "passportIssueAuthority": {
             "type": "string",
-            "description": "Contact person's passport issuing authority.\r\n            \r\nOnly supported in UK.",
+            "description": "Contact person's passport issuing authority.\r\n            \r\nOnly supported in the UK.",
             "nullable": true,
             "example": "HM Passport Office"
           }
@@ -8745,7 +8745,7 @@
           },
           "passportIssueAuthority": {
             "type": "string",
-            "description": "Contact person's passport issuing authority.\r\n            \r\nOnly supported in UK.",
+            "description": "Contact person's passport issuing authority.\r\n            \r\nOnly supported in the UK.",
             "nullable": true,
             "example": "HM Passport Office"
           }
@@ -8949,6 +8949,11 @@
             "allOf": [{ "$ref": "#/components/schemas/CitizenshipDetails" }],
             "description": "Contact person's citizenship details.",
             "nullable": true
+          },
+          "utbmsDetails": {
+            "allOf": [{ "$ref": "#/components/schemas/UtbmsDetails" }],
+            "description": "Contact's UTBMS Details.\r\n\r\nOnly supported in the US.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9151,6 +9156,11 @@
           "citizenshipDetails": {
             "allOf": [{ "$ref": "#/components/schemas/CitizenshipDetailsDto" }],
             "description": "Contact person's citizenship details.",
+            "nullable": true
+          },
+          "utbmsDetails": {
+            "allOf": [{ "$ref": "#/components/schemas/UtbmsDetailsDto" }],
+            "description": "Contact's UTBMS Details\r\n\r\nOnly supported in the US.",
             "nullable": true
           }
         },
@@ -9479,6 +9489,30 @@
           }
         },
         "additionalProperties": false
+      },
+      "UtbmsDetails": {
+        "type": "object",
+        "properties": {
+          "ledesClientId": {
+            "type": "string",
+            "description": "LEDES client Id",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Utbms Details"
+      },
+      "UtbmsDetailsDto": {
+        "type": "object",
+        "properties": {
+          "ledesClientId": {
+            "type": "string",
+            "description": "LEDES client Id",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Utbms Details"
       },
       "AddFileDto": {
         "required": ["fileName"],
