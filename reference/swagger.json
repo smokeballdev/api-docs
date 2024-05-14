@@ -798,7 +798,7 @@
           {
             "name": "Fields",
             "in": "query",
-            "description": " Available fields: passportDetails, deathDetails, identificationDetails, citizenshipDetails, utbmsDetails",
+            "description": " Available fields: passportDetails, deathDetails, citizenshipDetails, utbmsDetails",
             "schema": { "type": "string" }
           }
         ],
@@ -8546,52 +8546,6 @@
         },
         "additionalProperties": false
       },
-      "IdentificationDetails": {
-        "type": "object",
-        "properties": {
-          "alienNumber": {
-            "type": "string",
-            "description": "Alien number\r\nOnly supported in the US.",
-            "nullable": true
-          },
-          "registrationAuthority": {
-            "type": "string",
-            "description": "Registration authority\r\nOnly supported in the US.",
-            "nullable": true
-          },
-          "registrationNumber": {
-            "type": "string",
-            "description": "Registration number\r\nOnly supported in the US.",
-            "nullable": true
-          },
-          "driversLicenseNumber": {
-            "type": "string",
-            "description": "Driver's license number",
-            "nullable": true
-          },
-          "driversLicenseState": {
-            "type": "string",
-            "description": "Driver's licence state\r\n<example>IL</example><example>NSW</example>",
-            "nullable": true
-          },
-          "medicareNumber": {
-            "type": "string",
-            "description": "Medicare number",
-            "nullable": true
-          },
-          "taxFileNumber": {
-            "type": "string",
-            "description": "Tax File Number\r\nOnly supported in AU.",
-            "nullable": true
-          },
-          "nationalInsuranceNumber": {
-            "type": "string",
-            "description": "National Insurance Number\r\nOnly supported in GB.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "IdentificationDetailsDto": {
         "type": "object",
         "properties": {
@@ -8623,16 +8577,6 @@
           "medicareNumber": {
             "type": "string",
             "description": "Medicare number",
-            "nullable": true
-          },
-          "taxFileNumber": {
-            "type": "string",
-            "description": "Tax File Number\r\nOnly supported in AU.",
-            "nullable": true
-          },
-          "nationalInsuranceNumber": {
-            "type": "string",
-            "description": "National Insurance Number\r\nOnly supported in the UK.",
             "nullable": true
           }
         },
@@ -8938,11 +8882,6 @@
           "centrelinkReferenceNumber": {
             "type": "string",
             "description": "Contact person's centrelink reference number.\r\n\r\nOnly supported in Australia.",
-            "nullable": true
-          },
-          "identificationDetails": {
-            "allOf": [{ "$ref": "#/components/schemas/IdentificationDetails" }],
-            "description": "Contact person's identification details.",
             "nullable": true
           },
           "citizenshipDetails": {
