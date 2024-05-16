@@ -7,7 +7,7 @@ tags: [Documentation]
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
 ### May 2024
-- **Contacts**: UTBMS (US only)and Citizenship details fields added.
+- **Contacts**: UTBMS (US only) and Citizenship details fields added.
 - **Expenses**: Previously invoiced externally expenses can now be unfinalized.
 - **Firm**: Added firm status
 - **MatterTypes**: Categories are now filtered by account white label.
