@@ -9607,7 +9607,7 @@
           },
           "ownerId": {
             "type": "string",
-            "description": "Unique identifier of the staff member who created/uploaded this file.",
+            "description": "Unique identifier of the user who created/uploaded this file.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
