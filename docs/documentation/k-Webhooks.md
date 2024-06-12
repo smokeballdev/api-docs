@@ -36,6 +36,7 @@ Webhook subscriptions can be managed using the `/webhooks` endpoint. To see a li
         "firm.created",
         "firm.updated",
         "firmuser.updated",
+        "invoice.finalized",
         "layoutdesign.updated",
         "layoutmatter.created",
         "layoutmatter.updated",
