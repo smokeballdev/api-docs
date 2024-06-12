@@ -9607,7 +9607,7 @@
           },
           "ownerId": {
             "type": "string",
-            "description": "Unique identifier of the staff member who created/uploaded this file.",
+            "description": "Unique identifier of the user who created/uploaded this file.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
@@ -11908,6 +11908,17 @@
         },
         "additionalProperties": false
       },
+      "Debtor": {
+        "type": "object",
+        "properties": {
+          "contact": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Hypermedia link of the associated contact.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Discount": {
         "type": "object",
         "properties": {
@@ -11959,6 +11970,11 @@
             "description": "The unique identifier of the invoice version.",
             "nullable": true,
             "example": "39ffde97-eeeb-4747-bb8f-7c7c10b3c985"
+          },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The matter associated to the invoice.",
+            "nullable": true
           },
           "matterId": {
             "type": "string",
@@ -12023,6 +12039,12 @@
           "discount": {
             "allOf": [{ "$ref": "#/components/schemas/Discount" }],
             "description": "The discount settings for the invoice. See InvoiceTotals.Discount if you need the \r\nactual discount amount applied to the invoice.",
+            "nullable": true
+          },
+          "debtors": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Debtor" },
+            "description": "The debtors for the invoice.",
             "nullable": true
           },
           "entries": {
