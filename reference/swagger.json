@@ -13914,29 +13914,6 @@
         },
         "additionalProperties": false
       },
-      "PluginAvailability": {
-        "type": "object",
-        "properties": {
-          "applicationVersions": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "Optional: The application versions applicable for a plugin.",
-            "nullable": true
-          },
-          "matterTypeIds": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "Optional: Matter types applicable for a plugin.",
-            "nullable": true
-          },
-          "availabilityEndpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/PluginEndpoint" }],
-            "description": "Optional: Dynamic endpoint for determining visibility and enablement of a plugin.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "PluginDto": {
         "type": "object",
         "properties": {
@@ -14168,11 +14145,6 @@
             "description": "Visual attributes associated to this plugin.",
             "nullable": true
           },
-          "availability": {
-            "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
-            "description": "Optional: Settings for determining the availability of a plugin.",
-            "nullable": true
-          },
           "createdDate": {
             "type": "string",
             "description": "Plugin version created date in UTC",
@@ -14214,11 +14186,6 @@
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
-            "nullable": true
-          },
-          "availability": {
-            "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
-            "description": "Optional: Settings for determining the availability of a plugin.",
             "nullable": true
           }
         },
