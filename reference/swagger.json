@@ -3624,8 +3624,8 @@
       "get": {
         "tags": ["Matters"],
         "summary": "Get matters",
-        "description": "Returns a list of matters.\r\n\r\nNote: A new version is now available for this endpoint.\r\n            \r\nSee `Matters` documentation for more details.\r\n\r\nSet header variable `Api-Version` with value `2.0` to access new version.",
-        "operationId": "GetMatters2",
+        "description": "Returns a list of matters.",
+        "operationId": "GetMatters",
         "parameters": [
           {
             "name": "Offset",
@@ -3721,7 +3721,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Matter2PagedCollection"
+                  "$ref": "#/components/schemas/MatterPagedCollection"
                 }
               }
             }
@@ -3776,8 +3776,8 @@
       "get": {
         "tags": ["Matters"],
         "summary": "Get a matter",
-        "description": "Retrieves a specified matter.\r\n            \r\nNote: A new version is now available for this endpoint.\r\n            \r\nSee `Matters` documentation for more details.\r\n\r\nSet header variable `Api-Version` with value `2.0` to access new version.",
-        "operationId": "GetMatterById2",
+        "description": "Retrieves a specified matter.",
+        "operationId": "GetMatterById",
         "parameters": [
           {
             "name": "matterId",
@@ -3791,7 +3791,7 @@
             "description": "When request is successful. Returns a `Matter` object.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Matter2" }
+                "schema": { "$ref": "#/components/schemas/Matter" }
               }
             }
           },
@@ -12689,7 +12689,7 @@
         },
         "additionalProperties": false
       },
-      "Matter2": {
+      "Matter": {
         "type": "object",
         "properties": {
           "href": { "type": "string", "nullable": true },
@@ -12851,44 +12851,6 @@
               "items": { "$ref": "#/components/schemas/IMatterItem" }
             },
             "description": "Items associated with the matter.\r\n            \r\nNote: This field is only available when using the v2.0 endpoint. See Matters documentation for further details.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Matter2PagedCollection": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "nullable": true },
-          "href": { "type": "string", "nullable": true },
-          "relation": { "type": "string", "nullable": true },
-          "method": { "type": "string", "default": "GET", "nullable": true },
-          "self": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "value": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Matter2" },
-            "nullable": true
-          },
-          "offset": { "type": "integer", "format": "int32", "nullable": true },
-          "limit": { "type": "integer", "format": "int32", "nullable": true },
-          "size": { "type": "integer", "format": "int64" },
-          "first": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "previous": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "next": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "last": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
           }
         },
@@ -13251,6 +13213,44 @@
               "items": { "$ref": "#/components/schemas/MatterItemDto" }
             },
             "description": "SubItems associated with the matter item.\r\n\r\nNot applicable for matter sub items.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MatterPagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Matter" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
           }
         },
