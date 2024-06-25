@@ -18,7 +18,7 @@ There are two OAuth 2.0 flows used to authenticate with the API based on your in
 
 ### 1.1 Request User Authorization
 
-Direct the user to `https://auth.smokeball.com/oauth2/authorize` with the following parameters:
+Direct the user to `https://auth.smokeball.com/oauth2/authorize` with the following parameters: 
 
 Example:
 
