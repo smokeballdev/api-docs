@@ -4868,6 +4868,126 @@
         }
       }
     },
+    "/matters/{matterId}/documents/files/{fileId}/preview/{documentVersionId}": {
+      "get": {
+        "tags": ["Preview"],
+        "summary": "Returns info to preview a file",
+        "operationId": "GetPreviewById",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "documentVersionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/documents/files/{fileId}/preview": {
+      "post": {
+        "tags": ["Preview"],
+        "summary": "Creates a preview request",
+        "description": "Creates a preview for the specified file.",
+        "operationId": "CreatePreview",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the file name does not exist or isn't uploaded yet.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/roles/{roleId}/relationships": {
       "get": {
         "tags": ["Relationships"],
@@ -9847,6 +9967,32 @@
         },
         "additionalProperties": false
       },
+      "PreviewFileInfo": {
+        "type": "object",
+        "properties": {
+          "fileId": {
+            "type": "string",
+            "description": "Unique identifier of the requested file",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "documentVersionId": { "type": "string", "nullable": true },
+          "downloadUrl": {
+            "type": "string",
+            "description": "Temporary Link to download file",
+            "nullable": true,
+            "example": ""
+          },
+          "expiry": {
+            "type": "string",
+            "description": "Expiry date/time when the download link is no longer accessible",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-04-23T14:30:00Z"
+          }
+        },
+        "additionalProperties": false
+      },
       "UploadFileInfo": {
         "type": "object",
         "properties": {
@@ -12312,7 +12458,7 @@
         "properties": {
           "key": {
             "type": "string",
-            "description": "Unique key name for the layout contact."
+            "description": "Name (mapping) of the layout field that contains ContactId."
           },
           "contactId": {
             "type": "string",
@@ -12371,7 +12517,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Name of the layout design field.",
+            "description": "Name (mapping) of the layout design field.",
             "nullable": true,
             "example": "PinAndLotSizes[]/AccountNumber"
           },
@@ -13357,7 +13503,13 @@
             "type": "string",
             "description": "Name of the relationship.",
             "nullable": true,
-            "example": "Solicitor"
+            "example": "Provider"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Display Name of the relationship.",
+            "nullable": true,
+            "example": "Medical Provider"
           },
           "contactId": {
             "type": "string",
@@ -13438,7 +13590,13 @@
             "type": "string",
             "description": "Name of the role.",
             "nullable": true,
-            "example": "Client"
+            "example": "Provider"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Display Name of the role.",
+            "nullable": true,
+            "example": "Medical Provider"
           },
           "description": {
             "type": "string",
