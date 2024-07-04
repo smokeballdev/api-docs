@@ -3648,6 +3648,13 @@
             }
           },
           {
+            "name": "Search",
+            "in": "query",
+            "description": "Filter matters by specified search term.\r\nThis field is wide reaching, it is used to search by clients, othersides, description and matter numbers.",
+            "schema": { "type": "string", "example": "Bob" },
+            "example": "Bob"
+          },
+          {
             "name": "MatterTypeId",
             "in": "query",
             "description": "Filter by matter type identifier.",
