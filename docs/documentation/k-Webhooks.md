@@ -12,7 +12,7 @@ You can use webhook subscriptions to receive notifications about particular even
 
 ### 2.1 Overview
 
-Webhook subscriptions can be managed using the `/webhooks` endpoint. To see a list of available events make a GET request to `/webhooks/events` which will return a list of strings representing the events:
+Webhook subscriptions can be managed using the `/webhooks` endpoint. To see a list of available events make a GET request to `/webhooks/types` which will return a list of strings representing the events:
 
 ```json
 {
