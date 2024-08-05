@@ -4931,6 +4931,117 @@
         }
       }
     },
+    "/matters/{matterId}/documents/files/{fileId}/preview": {
+      "get": {
+        "tags": ["Preview"],
+        "summary": "Returns info to preview a file",
+        "operationId": "GetPreview",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Preview"],
+        "summary": "Creates a preview request",
+        "description": "Creates a preview for the specified file.",
+        "operationId": "CreatePreview",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the file name does not exist or isn't uploaded yet.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/documents/files/{fileId}/preview/{documentVersionId}": {
       "get": {
         "tags": ["Preview"],
@@ -4995,58 +5106,59 @@
         }
       }
     },
-    "/matters/{matterId}/documents/files/{fileId}/preview": {
-      "post": {
-        "tags": ["Preview"],
-        "summary": "Creates a preview request",
-        "description": "Creates a preview for the specified file.",
-        "operationId": "CreatePreview",
+    "/referraltypes": {
+      "get": {
+        "tags": ["ReferralTypes"],
+        "summary": "Get referral types",
+        "description": "Returns referral types, including custom referral types.",
+        "operationId": "GetReferralTypes",
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of `ReferralType` objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferralTypeCollection"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/referraltypes/{id}": {
+      "get": {
+        "tags": ["ReferralTypes"],
+        "summary": "Get a referral type",
+        "description": "Retrieves a specified referral type.",
+        "operationId": "GetReferralTypeByIdOrName",
         "parameters": [
           {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "fileId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "responses": {
-          "202": {
-            "description": "When request is accepted.",
+          "200": {
+            "description": "When request is successful. Returns a `ReferralType` object.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+                "schema": { "$ref": "#/components/schemas/ReferralType" }
               }
             }
           },
           "404": {
-            "description": "When the file name does not exist or isn't uploaded yet.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When referral type with specified id does not exist."
           }
         }
       }
@@ -13234,7 +13346,7 @@
           },
           "referralType": {
             "type": "string",
-            "description": "Referral Type of the matter.\r\n\r\nPossible values are different per region.",
+            "description": "Referral Type of the matter.\r\n\r\nCustom Referral Types are also supported, the name or id of the Custom Referral Type can be used. If the name is used, it is looked up and stored as the id.\r\n\r\nSee the Referral Types API for retrieval of all valid Referral Types.\r\n\r\nPossible values may also differ per region.",
             "nullable": true,
             "example": "Google"
           },
@@ -13580,6 +13692,52 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/Role" },
             "description": "List of associated roles.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReferralType": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Id of the referral type.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the referral type.",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Flag indicating whether the referral type has been deleted."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReferralTypeCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ReferralType" },
             "nullable": true
           }
         },
