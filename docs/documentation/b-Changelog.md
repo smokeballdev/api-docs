@@ -6,6 +6,11 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### August 2024
+- **Matters**: Added ability to search for matters using the GET endpoint.
+- **Matters**: Lead PATCH endpoint bug fixes.
+- **Invoices**: Added ability to download finalized invoice pdfs.
+
 ### June 2024
 - **Matters**: Matters v2 API is now standard and the Api-Version header is no longer required.
 - **Invoices**: Added debtors to API payload.
