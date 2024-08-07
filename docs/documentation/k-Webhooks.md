@@ -207,6 +207,7 @@ The `Signature` hash is calculated using these three bits of information:
 These three parameters need to be concatenated into a single string, seperated by a `|` and can then be used to create the hash. 
 For example:
 
+C#
 ``` csharp
 //your key you provided in the subscription
 var key = "ei7641529ue420n8b9aa";
@@ -221,6 +222,27 @@ var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key));
 var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(payload));
 return BitConverter.ToString(hash).Replace("-", "").ToLower();
 ```
+
+JavaScript
+``` javascript
+const crypto = require('crypto');
+
+const key = "ei7641529ue420n8b9aa";
+
+const timestamp = "637558795239278688";
+const requestId = "38583489-09c4-49ef-b58c-ef1b34208cca";
+const clientId = "lou1qnn0llav95f";
+
+const payload = `${timestamp}|${requestId}|${clientId}`;
+
+const hmac = crypto.createHmac('sha256', key);
+hmac.update(payload);
+const hash = hmac.digest('hex');
+
+return hash;
+````
+
+
 This produces the hash string `feb4b838a272884f6d2c2580b2c7ebb0b2f725b90e8baa6f9b5e1a17a9faec2d`
 
 ### 4.2 Guarding against replay attacks
