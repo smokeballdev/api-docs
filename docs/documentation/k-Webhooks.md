@@ -207,7 +207,7 @@ The `Signature` hash is calculated using these three bits of information:
 These three parameters need to be concatenated into a single string, seperated by a `|` and can then be used to create the hash. 
 For example:
 
-C#
+#### C# Example
 ``` csharp
 //your key you provided in the subscription
 var key = "ei7641529ue420n8b9aa";
@@ -223,7 +223,7 @@ var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(payload));
 return BitConverter.ToString(hash).Replace("-", "").ToLower();
 ```
 
-JavaScript
+#### JavaScript Example
 ``` javascript
 const crypto = require('crypto');
 
