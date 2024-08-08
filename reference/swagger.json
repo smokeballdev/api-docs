@@ -11793,7 +11793,7 @@
         "properties": {
           "userId": {
             "type": "string",
-            "description": "Unique identifier of the associated user.",
+            "description": "Unique identifier of the associated user. Used to map staff member to the specified user id and ignored if left blank.\r\nUse the FirmUsers API to remove a staff/user mapping.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
@@ -11829,10 +11829,12 @@
           },
           "phone": {
             "allOf": [{ "$ref": "#/components/schemas/PhoneNumberDto" }],
+            "description": "Staff member's phone number.",
             "nullable": true
           },
           "cell": {
             "allOf": [{ "$ref": "#/components/schemas/PhoneNumberDto" }],
+            "description": "Staff member's cell number.",
             "nullable": true
           },
           "email": {
@@ -11855,7 +11857,7 @@
           },
           "former": {
             "type": "boolean",
-            "description": "Whether he/she is a former member.",
+            "description": "Whether he/she is a former member. \r\n\r\nCaution: Setting a staff member to former staff will also deregister them from the firm.",
             "nullable": true,
             "example": false
           },
