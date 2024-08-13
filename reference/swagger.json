@@ -11122,7 +11122,7 @@
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nPossible values: ADD01, ADD002, ADD003",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nFamilyPro (ADD004)\r\n\r\nApi (ADD005)\r\n\r\nWorkflows (ADD006)\r\n\r\nPowerBI (ADD007)\r\n\r\nArchie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
             "nullable": true
           },
           "name": {
@@ -11951,7 +11951,7 @@
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nPossible values: ADD01, ADD002, ADD003",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nFamilyPro (ADD004)\r\n\r\nApi (ADD005)\r\n\r\nWorkflows (ADD006)\r\n\r\nPowerBI (ADD007)\r\n\r\nArchie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
             "nullable": true
           },
           "name": {
