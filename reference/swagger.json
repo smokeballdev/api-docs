@@ -9883,6 +9883,11 @@
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
+          "versionId": {
+            "type": "string",
+            "description": "Unique identifier of the file's current version.",
+            "nullable": true
+          },
           "folder": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Hypermedia link of the folder to which the file belongs.",
