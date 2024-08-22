@@ -93,7 +93,9 @@ Content-Type: application/json
 
 The returned **access_token** is valid for 60 minutes.
 
-> See <https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html> for more information
+By default, the returned **refresh_troken** is valid for 30 days. If you require a longer expiration period, please contact us to discuss your specific needs.
+
+> **Important**: Your application is responsible for monitoring the expiration of the refresh token and prompting the user to re-authenticate when it expires. This ensures continuous access to the application without interruptions. See <https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html> for more information
 
 ---
 
