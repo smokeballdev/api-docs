@@ -5863,7 +5863,7 @@
             }
           },
           "404": {
-            "description": "When matter stage information with specified id does not exist.",
+            "description": "When matter stage information with specified matter id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
