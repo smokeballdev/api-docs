@@ -13242,7 +13242,7 @@
               "type": "array",
               "items": { "$ref": "#/components/schemas/IMatterItem" }
             },
-            "description": "Items associated with the matter.\r\n            \r\nNote: This field is only available when using the v2.0 endpoint. See Matters documentation for further details.",
+            "description": "Items associated with the matter.",
             "nullable": true
           }
         },

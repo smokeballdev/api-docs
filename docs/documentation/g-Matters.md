@@ -639,15 +639,13 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 
 ---
 
-### 8. Retrieving matters (v2)
+### 8. Retrieving matters
 
 #### Retrieving a matter
 
 ```http
 GET https://api.smokeball.com/matters/51cefb72-6247-4ca2-8926-5d14d65f7cb9
 ```
-
-Set header variable `Api-Version` with value `2.0` to access new version.
 
 This is an enhanced version of the endpoint which combines the following APIs:
 - Matters API
@@ -799,8 +797,6 @@ This endpoint can be used to sort, filter and retrieve one or more matters.
 ```http
 GET https://api.smokeball.com/matters
 ```
-
-Set header variable `Api-Version` with value `2.0` to access new version.
 
 The endpoint returns a paginated list of matters based on the action/filter paramaters specified in the request.
 
