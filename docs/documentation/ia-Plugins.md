@@ -147,7 +147,12 @@ A replay attack is when an attacker intercepts a valid payload and its signature
 If the signature is valid but the timestamp is too old, you may choose to reject the request.
 
 ## 6 Limitations
+
+### 6.1 API
 Not all Plugin API fields are currently in use. For now, please assume these fields are not in use by Smokeball and may be supported in future:
 
 -  `endpoint` field has been deprecated. Use `RequestEndpointUrl` for all new plugins. You can migrate an existing app to the new field by updating the `endpoint` field to null, and set `RequestEndpointUrl` to your new url.
 -  `availability` - availability settings are currently not supported.
+
+### 6.2 Web App
+Plugins are currently not supported in the Smokeball web app.
