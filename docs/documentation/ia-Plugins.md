@@ -8,7 +8,11 @@ Smokeball offers a simple Plugin framework for developers to create custom web v
 
 Smokeball offers two implementations of a Plugin - Button or Tab. Partners can customize the appearance of the button/tab for what is shown to users.
 
-Plugins are managed through two resources [Plugins](https://smokeball.stoplight.io/docs/api-docs/1f775a2b8e24d-create-a-new-plugin) for creating or managing Plugins and [PluginSubscriptions](https://smokeball.stoplight.io/docs/api-docs/e451fe7575947-subscribe-account-to-plugin) for assigning a Plugin to one or many Smokeball firms.
+Plugins are managed through two resources:
+
+[Plugins](https://smokeball.stoplight.io/docs/api-docs/1f775a2b8e24d-create-a-new-plugin) for creating or managing Plugins
+
+[PluginSubscriptions](https://smokeball.stoplight.io/docs/api-docs/e451fe7575947-subscribe-account-to-plugin) for assigning a Plugin to one or many Smokeball firms.
 
 ## 1. Placement Keys
 One of the most important fields of a plugin is its `placement` key, which defines where the plugin appears in Smokeball.
