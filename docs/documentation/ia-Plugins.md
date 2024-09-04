@@ -23,7 +23,7 @@ Smokeball desktop supports two pages where plugins can be placed:
 
 2. Matter Window, denoted by `MatterWindow` key
 
-#### 1.2 Desktop Zones
+### 1.2 Desktop Zones
 The zones are unique places on a page where content can appear. For instance, a page can have both button zones and tab zones and the placement key determines where the Plugin appears in the page.
 
 Smokeball  determines how a set of plugins appear in the zone, generally at the end of the existing list. For ribbon buttons, they will be placed into their own ribbon group at the end of the zone.
