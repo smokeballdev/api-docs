@@ -4,6 +4,8 @@ tags: [Documentation]
  
 # Plugins
 
+## 1. Overview
+
 Smokeball offers a simple Plugin framework for developers to create custom web views within Smokeball desktop. A Plugin is defined by an integration partner, and can be assigned or subscribed to by multiple Smokeball firms.
 
 Smokeball offers two implementations of a Plugin - Button or Tab. Partners can customize the appearance of the button/tab for what is shown to users.
@@ -14,19 +16,19 @@ Plugins are managed through two resources:
 
 [PluginSubscriptions](https://smokeball.stoplight.io/docs/api-docs/e451fe7575947-subscribe-account-to-plugin) for assigning a Plugin to one or many Smokeball firms.
 
-### 1. Placement Keys
+## 2. Placement Keys
 One of the most important fields of a plugin is its `placement` key, which defines where the plugin appears in Smokeball.
 
 The syntax of a placement key for the Plugins API is `page-zone`. Pages and Zones are described in further detail below:
 
-#### 1.1 Desktop Pages
+### 2.1 Desktop Pages
 Smokeball desktop supports two pages where plugins can be placed:
 
 1. Main Window, denoted by `Window` key
 
 2. Matter Window, denoted by `MatterWindow` key
 
-#### 1.2 Desktop Zones
+### 2.2 Desktop Zones
 The zones are unique places on a page where content can appear. For instance, a page can have both button zones and tab zones and the placement key determines where the Plugin appears in the page.
 
 Smokeball  determines how a set of plugins appear in the zone, generally at the end of the existing list. For ribbon buttons, they will be placed into their own ribbon group at the end of the zone.
@@ -45,24 +47,24 @@ Below are the supported Main window zones:
 
 `Window-MainRibbon` - Places a tab in the main window ribbon
 
-### 2. SDK Support
+## 3. SDK Support
 All browsers opened by Plugins support integration with the Smokeball SDK as long as the internal browser is used, when `attributes.page.useDefaultBrowser` is `true`.
 See [SDK Documentation](https://smokeball.stoplight.io/docs/sdk-docs/) for usage information.
 
-### 3. Creating a Plugin
+## 4. Creating a Plugin
 Currently, Plugins can only be created and maintained by select partners. Smokeball is currently controlling the process of which accounts can access plugins.
 
-### 4. Subscribing Smokeball Firms to Plugins
+## 5. Subscribing Smokeball Firms to Plugins
 Smokeball firms are subscribed to plugins through the [PluginSubscriptions](https://smokeball.stoplight.io/docs/api-docs/e451fe7575947-subscribe-account-to-plugin) resource. Partners authorized through the Client Credentials Grant can then subscribe accounts to their plugins. Available plugins are scoped to API client ids, meaning that you can only subscribe to plugins that were created using the same API client id.
 
 Smokeball firms that have subscribed to plugins will always receive the latest version of your plugins, and would be automatically updated to the latest changes.
 
-### 5. Loading your Plugin
+## 6. Loading your Plugin
 When a Plugin is accessed in Smokeball, a request is dynamically made to the endpoint defined in the Plugins `requestEndpointUrl` field. The url returned by this request is then loaded into Smokeball.
 
 For more detailed usage documentation please refer to the below.
 
-#### 5.1 Requesting your URL
+### 6.1 Requesting your URL
 Plugins support two fields which help load your view into Smokeball.
 
 Field | Description
@@ -98,12 +100,12 @@ Your endpoint should use this information to generate a URL to be viewed by the 
 ```
 > It is critical that the above structure is used in the response payload. If an incorrect format is used or the URL is missin, the user will not be able to use your app.
 
-####  5.2 Request Validation
+###  6.2 Request Validation
 It is important that you verify that the URL request is from Smokeball to prevent malicious usage of your endpoint.
 
 If you supplied a `Key` property when creating a Plugin, a header named `Signature` will be included when Smokeball calls your `requestEndpointUrl`. The signature is a HMAC SHA256 hash that was created with the key that you provided. You can perform the same hashing process on your processing side to verify that the request came from Smokeball.
 
-#### 5.3 Computing the HMAC
+### 6.3 Computing the HMAC
 The `Signature` hash is calculated using these three bits of information:
 1. The `Timestamp` header which is the ticks representation of the UTC datetime (.Net format) the webhook was sent
 2. The `RequestId` header
@@ -145,18 +147,18 @@ return hash;
 
 This produces the hash string `58817681863148b0e624c00f3094f99e1af31cd7b99a3c2e0655d64a2764d650`
 
-#### 5.4 Guarding against replay attacks
+### 6.4 Guarding against replay attacks
 A replay attack is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks Smokeball provides a `Timestamp` header which is the ticks representation (.NET format) of when the request was sent. It is also part of the verification signature so an attacker can not change the timestamp without invalidating the signature.
 
 If the signature is valid but the timestamp is too old, you may choose to reject the request.
 
-### 6 Limitations
+## 7 Limitations
 
-#### 6.1 API
+### 7.1 API
 Not all Plugin API fields are currently in use. For now, please assume these fields are not in use by Smokeball and may be supported in future:
 
 -  `endpoint` field has been deprecated. Use `RequestEndpointUrl` for all new plugins. You can migrate an existing app to the new field by updating the `endpoint` field to null, and set `RequestEndpointUrl` to your new url.
 -  `availability` - availability settings are currently not supported.
 
-#### 6.2 Web App
+### 7.2 Web App
 Plugins are currently not supported in the Smokeball web app.
