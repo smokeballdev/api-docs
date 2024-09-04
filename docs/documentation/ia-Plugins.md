@@ -62,7 +62,7 @@ Smokeball firms that have subscribed to plugins will always receive the latest v
 ## 6. Loading your Plugin
 When a Plugin is accessed in Smokeball, a request is dynamically made to the endpoint defined in the Plugins `requestEndpointUrl` field. The url returned by this request is then loaded into Smokeball.
 
-For more detailed usage documentation please refer to the below.
+For more detailed usage documentation, please refer to the information below.
 
 ### 6.1 Requesting your URL
 Plugins support two fields which help load your view into Smokeball.
@@ -98,7 +98,7 @@ Your endpoint should use this information to generate a URL to be viewed by the 
   "url": "https://your-site.com/app"
 }
 ```
-> It is critical that the above structure is used in the response payload. If an incorrect format is used or the URL is missin, the user will not be able to use your app.
+> It is critical that the above structure is used in the response payload. If an incorrect format is used or the URL is missing, the user will not be able to use your app.
 
 ###  6.2 Request Validation
 It is important that you verify that the URL request is from Smokeball to prevent malicious usage of your endpoint.
@@ -107,7 +107,7 @@ If you supplied a `Key` property when creating a Plugin, a header named `Signatu
 
 ### 6.3 Computing the HMAC
 The `Signature` hash is calculated using these three bits of information:
-1. The `Timestamp` header which is the ticks representation of the UTC datetime (.Net format) the webhook was sent
+1. The `Timestamp` header which is the ticks representation of the UTC datetime (.Net format) the request was sent
 2. The `RequestId` header
 3. Your `ClientId` that you use to authenticate with the API
 
