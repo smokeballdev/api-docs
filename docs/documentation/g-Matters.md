@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Matters
 
-### 1. Matter Types
+## 1. Matter Types
 
 Smokeball comes with a range of pre-configured matter types for different areas of law. These are provided by Smokeball’s internal content team and are not user editable.
 
@@ -79,7 +79,7 @@ When creating a matter in Smokeball we can see
 
 ---
 
-### 2. Contacts
+## 2. Contacts
 
 In order to successfully create a matter, we’re going to need to provide one or more contacts that are clients and/or other-sides (if applicable).
 
@@ -139,7 +139,7 @@ Alternatively, if the contact already exists in Smokeball, you can query it to f
 
 ---
 
-### 3. Staff
+## 3. Staff
 
 In Smokeball, staff can be assigned to a matter as the **Attorney Responsible** or the **Person Assisting**. The matter list can then be filtered by Attorney responsible, etc.
 
@@ -200,7 +200,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ---
 
-### 4. Creating a matter
+## 4. Creating a matter
 
 Now we have everything we need to create a matter.
 
@@ -267,7 +267,7 @@ The matter is now shown in Smokeball:
 
 ---
 
-### 5. Retrieving a matter
+## 5. Retrieving a matter
 
 > New enhanced endpoint version available to retrieve matters. See section 8 for more details.
 
@@ -323,7 +323,7 @@ There is also the items collection which we’ll explore in more detail next.
 
 ---
 
-### 6. Matter Items
+## 6. Matter Items
 
 A matter can contain various items and sub items that store hierarchical data relevant to that area of law.
 
@@ -533,7 +533,7 @@ PATCH https://api.smokeball.com/matters/{matterId}/layouts/{itemId}
 
 ---
 
-### 7. Roles
+## 7. Roles
 
 To find out which contact is assigned to a role, we can get retrieve the role details:
 
@@ -639,7 +639,7 @@ Let’s say we’ve already created a contact called ‘ABC Lender’ with id ` 
 
 ---
 
-### 8. Retrieving matters
+## 8. Retrieving matters
 
 #### Retrieving a matter
 
@@ -863,7 +863,7 @@ Parameter | Description
 }
 ```
 
-### 9. Updating a matter
+## 9. Updating a matter
 
 There are two ways to update a matter.
 

@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Leads
 
-### 1. Lead Matter Types
+## 1. Lead Matter Types
 
 Smokeball comes with a range of pre-configured lead matter types for different areas of law. These are provided by Smokeball’s internal content team and are not user editable.
 
@@ -80,7 +80,7 @@ When creating a lead in Smokeball we can see a list of lead Matter Types. Here, 
 
 ---
 
-### 2. Contacts
+## 2. Contacts
 
 In order to successfully create a lead, we’re going to need to provide a contact that is the potential client.
 
@@ -127,7 +127,7 @@ Alternatively, if the contact already exists in Smokeball, you can query it to f
 
 ---
 
-### 3. Staff
+## 3. Staff
 
 In Smokeball, staff can be assigned to a lead as the **Attorney Responsible** or the **Person Assisting**. The lead list can then be filtered by Attorney responsible, etc.
 
@@ -188,7 +188,7 @@ If you want to specify the Attorney Responsible or Person Assisting when creatin
 
 ---
 
-### 4. Creating a lead
+## 4. Creating a lead
 
 Now we have everything we need to create a lead.
 

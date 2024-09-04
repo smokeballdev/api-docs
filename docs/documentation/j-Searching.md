@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Searching
 
-### 1. Overview
+## 1. Overview
 
 Some endpoints will have a query parameter called `search` _(array[[string]])_ which allows you to specify multiple search terms. These terms will be combined using an **AND** operator. At the moment, there is no support for other logical operators.
 
@@ -14,7 +14,7 @@ In the Swagger documentation for an endpoint that supports searching, the descri
 
 This **GET** Contacts endpoint supports searching for *email*, *phone*, and *name*.
 
-### 2. Syntax
+## 2. Syntax
 
 The basic syntax for a search term is:
 

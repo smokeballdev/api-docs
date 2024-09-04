@@ -4,7 +4,7 @@ tags: [Documentation]
 
 # Files and Folders
 
-### 1. Structure
+## 1. Structure
 
 Every Matter has a familiar folder structure used to store files and documents:
 
@@ -75,7 +75,7 @@ GET https://api.smokeball.com/matters/5bbc4d72-3001-46bf-acd7-c90dff4dc9fa/docum
 
 ---
 
-### 2. Adding a File
+## 2. Adding a File
 
 Adding a File to a Matter is a two-step process involving creating the meta-data for the File by POSTing to the [Files](../../reference/swagger.json/paths/~1matters~1{matterId}~1documents~1files/post) endpoint and then using the response to upload the actual file to the provided URL.
 
@@ -110,7 +110,7 @@ You will get back the `fileId` of the new File and an `uploadUrl` that you can u
 
 ---
 
-### 3. Uploading a new version
+## 3. Uploading a new version
 
 To upload a new version of a file to an existing File on a Matter you need to get a new upload URL from the files endpoint:
 
@@ -133,7 +133,7 @@ You will get back an `uploadUrl` that you can use to upload the new version to A
 
 ---
 
-### 4. Downloading a File
+## 4. Downloading a File
 
 To download a file you need to make a request to the files endpoint to get a temporary `downloadUrl`:
 
