@@ -4,7 +4,6 @@ tags: [Documentation]
  
 # Plugins
 
-## Plugins Framework
 Smokeball offers a simple Plugin framework for developers to create custom web views within Smokeball desktop. A Plugin is defined by an integration partner, and can be assigned or subscribed to by multiple Smokeball firms.
 
 Smokeball offers two implementations of a Plugin - Button or Tab. Partners can customize the appearance of the button/tab for what is shown to users.
