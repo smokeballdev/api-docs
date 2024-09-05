@@ -14309,21 +14309,26 @@
           },
           "lastUpdated": {
             "type": "integer",
-            "description": "Last updated timestamp",
+            "description": "Last updated timestamp.",
             "format": "int64",
             "example": 637847425252027400
           },
           "createdDate": {
             "type": "string",
-            "description": "Plugin created date in UTC",
+            "description": "Plugin created date in UTC.",
             "format": "date-time",
             "example": "2020-02-15T00:00:00Z"
           },
           "lastUpdatedDate": {
             "type": "string",
-            "description": "Plugin last updated date in UTC",
+            "description": "Plugin last updated date in UTC.",
             "format": "date-time",
             "example": "2020-02-15T00:00:00Z"
+          },
+          "key": {
+            "type": "string",
+            "description": "Signing key of the plugin to verify integrity of requesting secure URLs.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -14379,26 +14384,16 @@
             "allOf": [{ "$ref": "#/components/schemas/PluginVersionDto" }],
             "description": "Current version of the plugin.",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PluginEndpoint": {
-        "type": "object",
-        "properties": {
-          "staging": {
-            "type": "string",
-            "description": "Staging URL for the endpoint.",
-            "nullable": true
           },
-          "production": {
+          "key": {
             "type": "string",
-            "description": "Production URL for the endpoint.",
+            "description": "Signing key of the plugin to verify integrity of requesting secure URLs.\r\nOnly available to set on Plugin creation.",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
+      "PluginEndpoint": { "type": "object", "additionalProperties": false },
       "PluginPage": {
         "type": "object",
         "properties": {
@@ -14585,9 +14580,9 @@
             "description": "A placement key representing where the plugin should be rendered in the UI.\r\nPlacement key must correspond to the type of the plugin.\r\nRefer to documentation for valid placement keys.",
             "nullable": true
           },
-          "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/PluginEndpoint" }],
-            "description": "The endpoint for the plugin.\r\nButtons will open a new page/window using the endpoint.\r\nTabs will lazy-load the endpoint in the tab when selected.",
+          "requestEndpointUrl": {
+            "type": "string",
+            "description": "The endpoint to request url for the plugin.",
             "nullable": true
           },
           "attributes": {
@@ -14633,6 +14628,7 @@
             "description": "The endpoint for the plugin.\r\nButtons will open a new page/window using the endpoint.\r\nTabs will lazy-load the endpoint in the tab when selected.",
             "nullable": true
           },
+          "requestEndpointUrl": { "type": "string", "nullable": true },
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
