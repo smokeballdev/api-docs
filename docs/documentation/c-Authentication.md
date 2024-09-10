@@ -152,7 +152,7 @@ The **Client Credentials** grant type is typically used for server-to-server API
 
 Make a POST request to <https://auth.smokeball.com/oauth2/token> with the following parameters and headers:
 
-```http
+```json http
 {
   "method": "post",
   "url": "https://auth.smokeball.com/oauth2/token",
