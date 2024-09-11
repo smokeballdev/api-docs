@@ -20,7 +20,7 @@ Refer to the below base urls for different environments and regions.
 
 Use this base URL for [authentication](c916c683c136e-authentication).
 
-| Region | Production                    | Test                                      |
+| Region | Production                    | Staging/Test                              |
 | ------ | ----------------------------- | ----------------------------------------- |
 | US     | https://auth.smokeball.com    | https://datastaging-auth.smokeball.com    |
 | AU     | https://auth.smokeball.com.au | https://datastaging-auth.smokeball.com.au |
@@ -30,7 +30,7 @@ Use this base URL for [authentication](c916c683c136e-authentication).
 
 Use this base URL for [making api requests](91f30a1eaee08-making-requests).
 
-| Region | Production                   | Test                                |
+| Region | Production                   | Staging/Test                        |
 | ------ | ---------------------------- | ----------------------------------- |
 | US     | https://api.smokeball.com    | https://stagingapi.smokeball.com    |
 | AU     | https://api.smokeball.com.au | https://stagingapi.smokeball.com.au |
