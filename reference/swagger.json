@@ -4017,7 +4017,7 @@
       "get": {
         "tags": ["MatterTypes"],
         "summary": "Get matter types",
-        "description": "Returns a paginated list of matter types based on search criteria.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
+        "description": "Returns a paginated list of matter types based on search criteria. Deleted matter types are not included.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
         "operationId": "GetMatterTypes",
         "parameters": [
           {
@@ -14017,6 +14017,10 @@
             "nullable": true,
             "example": "Litigation"
           },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Returns true if the matter type is deleted.\r\n\r\nDeleted matter types cannot be used when creating new leads/matters."
+          },
           "items": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/MatterListItem" },
@@ -14076,6 +14080,10 @@
             "description": "State to which the matter type belongs.",
             "nullable": true,
             "example": "Litigation"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Returns true if the matter type is deleted.\r\n\r\nDeleted matter types cannot be used when creating new leads/matters."
           }
         },
         "additionalProperties": false
