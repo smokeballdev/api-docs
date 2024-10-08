@@ -190,7 +190,7 @@ function base64UrlEncode(arrayBuffer) {
 #### 1.2.1.2 Request Authorization Code for Access Token
 Direct the user to `https://auth.smokeball.com/oauth2/authorize` with the following parameters: 
 
-```json
+```json http
 {
   "method": "get",
   "url": "https://auth.smokeball.com/oauth2/authorize",
@@ -209,7 +209,7 @@ The user will be directed to the login page, and if authorized, redirected back 
 
 #### 1.2.1.3 Exchange Authorization Code for Access Token
 After receiving the authorization code, use it along with the code_verifier to request an access token:
-```json
+```json http
 {
   "method": "post",
   "url": "https://auth.smokeball.com/oauth2/token",
