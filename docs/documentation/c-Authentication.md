@@ -100,7 +100,7 @@ By default, the returned **refresh_troken** is valid for 30 days. If you require
 ### 1.2.1 PKCE (Proof Key for Code Exchange)
 PKCE is an extension of the Authorization Code Grant flow, designed for mobile and single-page applications where storing a client secret securely is difficult. It ensures a more secure flow by requiring a dynamically generated code verifier and code challenge. It is recommended that all authorization code flows are authorized using PKCE and it is *required* for all public api clients, which do not have a client secret.
 
-### Generate a Code Verifier and Code Challenge
+### 1.2.1.1 Generate a Code Verifier and Code Challenge
 To initiate the PKCE flow, you must generate a **code_verifier**, which is a random string, and a **code_challenge**, which is derived by hashing the **code_verifier** using SHA-256 and then Base64-URL encoding it.
 
 ##### C# Example
@@ -187,7 +187,7 @@ function base64UrlEncode(arrayBuffer) {
     console.log('Code Challenge:', codeChallenge);
 })();
 ```
-### Request Authorization Code for Access Token
+### 1.2.1.2 Request Authorization Code for Access Token
 Direct the user to `https://auth.smokeball.com/oauth2/authorize` with the following parameters: 
 
 ```json
@@ -207,7 +207,7 @@ For Smokeball API, only `S256` method is allowed for `code_challenge_method`
 
 The user will be directed to the login page, and if authorized, redirected back with a code.
 
-### Exchange Authorization Code for Access Token
+### 1.2.1.3 Exchange Authorization Code for Access Token
 After receiving the authorization code, use it along with the code_verifier to request an access token:
 ```json
 {
