@@ -97,6 +97,136 @@ By default, the returned **refresh_troken** is valid for 30 days. If you require
 
 > **Important**: Your application is responsible for monitoring the expiration of the refresh token and prompting the user to re-authenticate when it expires. This ensures continuous access to the application without interruptions. See <https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html> for more information
 
+#### 1.2.1 PKCE (Proof Key for Code Exchange)
+PKCE is an extension of the Authorization Code Grant flow, designed for mobile and single-page applications where storing a client secret securely is difficult. It ensures a more secure flow by requiring a dynamically generated code verifier and code challenge. It is recommended that all authorization code flows are authorized using PKCE and it is *required* for all public api clients, which do not have a client secret.
+
+### 1.2.2 Generate a Code Verifier and Code Challenge
+To initiate the PKCE flow, you must generate a **code_verifier**, which is a random string, and a **code_challenge**, which is derived by hashing the **code_verifier** using SHA-256 and then Base64-URL encoding it.
+
+##### C# Example
+``` csharp
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
+class PKCEGenerator
+{
+    public static void Main()
+    {
+        string codeVerifier = GenerateCodeVerifier();
+        string codeChallenge = GenerateCodeChallenge(codeVerifier);
+
+        Console.WriteLine("Code Verifier: " + codeVerifier);
+        Console.WriteLine("Code Challenge: " + codeChallenge);
+    }
+
+    // Generate a random code verifier
+    private static string GenerateCodeVerifier()
+    {
+        var randomBytes = new byte[32]; // 32-byte random string
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            rng.GetBytes(randomBytes);
+        }
+        return Base64UrlEncode(randomBytes);
+    }
+
+    // Create code challenge using SHA256
+    private static string GenerateCodeChallenge(string codeVerifier)
+    {
+        using (var sha256 = SHA256.Create())
+        {
+            byte[] challengeBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(codeVerifier));
+            return Base64UrlEncode(challengeBytes);
+        }
+    }
+
+    // Base64 URL Encoding (removes padding, uses '-' and '_')
+    private static string Base64UrlEncode(byte[] bytes)
+    {
+        return Convert.ToBase64String(bytes)
+            .Replace("+", "-")
+            .Replace("/", "_")
+            .TrimEnd('=');
+    }
+}
+```
+
+##### JavaScript Example
+``` javascript
+// Function to generate a random code verifier
+function generateCodeVerifier() {
+    const array = new Uint8Array(32); // 32-byte random string
+    window.crypto.getRandomValues(array);
+    return base64UrlEncode(array);
+}
+
+// Function to create a code challenge from the code verifier using SHA256
+async function generateCodeChallenge(codeVerifier) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(codeVerifier);
+    const digest = await crypto.subtle.digest('SHA-256', data);
+    return base64UrlEncode(new Uint8Array(digest));
+}
+
+// Function to Base64 URL encode (removes padding, uses '-' and '_')
+function base64UrlEncode(arrayBuffer) {
+    let base64 = btoa(String.fromCharCode.apply(null, arrayBuffer))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+    return base64;
+}
+
+// Example usage
+(async () => {
+    const codeVerifier = generateCodeVerifier();
+    const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+    console.log('Code Verifier:', codeVerifier);
+    console.log('Code Challenge:', codeChallenge);
+})();
+```
+### 1.2.3 Request Authorization Code for Access Token
+Direct the user to `https://auth.smokeball.com/oauth2/authorize` with the following parameters: 
+
+```json
+{
+  "method": "get",
+  "url": "https://auth.smokeball.com/oauth2/authorize",
+  "query": {
+    "response_type": "code",
+    "client_id": "xxxxx",
+    "redirect_uri": "https://your_redirect_uri",
+    "code_challenge_method": "S256",
+    "code_challenge": "your_code_challenge"
+  }
+}
+```
+For Smokeball API, only `S256` method is allowed for `code_challenge_method`
+
+The user will be directed to the login page, and if authorized, redirected back with a code.
+
+### 1.2.3 Exchange Authorization Code for Access Token
+After receiving the authorization code, use it along with the code_verifier to request an access token:
+```json
+{
+  "method": "post",
+  "url": "https://auth.smokeball.com/oauth2/token",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  "body": {
+    "grant_type": "authorization_code",
+    "client_id": "xxxxx",
+    "code": "authorization_code_from_previous_step",
+    "redirect_uri": "https://your_redirect_uri",
+    "code_verifier": "your_code_verifier"
+  }
+}
+```
+You will receive an access token that can be used to authenticate API requests.
+
 ---
 
 ### 1.3 Refreshing an Access Token
