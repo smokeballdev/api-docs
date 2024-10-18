@@ -10178,19 +10178,19 @@
         "properties": {
           "fileId": {
             "type": "string",
-            "description": "Unique identifier of the file",
+            "description": "Unique identifier of the file.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "uploadUrl": {
             "type": "string",
-            "description": "Temporary Link to upload file",
+            "description": "Temporary Link to upload file.\r\n\r\nImportant note: When uploading to this URL, set the 'Content-Type' header to an empty value.\r\n\r\nExample cURL: curl --location --request PUT 'URL_GOES_HERE' \\ --header 'Content-Type: \"\"' \\ --data '@/C:/dir/test.pdf'",
             "nullable": true,
             "example": ""
           },
           "expiry": {
             "type": "string",
-            "description": "Expiry date/time when the upload link is no longer accessible",
+            "description": "Expiry date/time when the upload link is no longer accessible.",
             "format": "date-time",
             "example": "2022-04-23T14:30:00Z"
           }
