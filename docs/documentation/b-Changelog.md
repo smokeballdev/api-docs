@@ -8,10 +8,10 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 
 ### October 2024
 
-- **Files**: Fix issue where some files with special characters cannot be downloaded.
-- **MatterTypes**: Fix issue where some matter types cannot be found.
+- **Files**: Fixed issue where some files with special characters cannot be downloaded.
+- **MatterTypes**: Fixed issue where some matter types cannot be found.
 - **Webhooks**: Added `matter.closed` event type which is triggered when a matter is closed.
-- **Webhooks**: Fix issue causing intermittent timeouts.
+- **Webhooks**: Fixed issue causing intermittent timeouts.
 
 ### September 2024
 
