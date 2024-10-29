@@ -6,27 +6,39 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### October 2024
+
+- **Files**: Fix issue where some files with special characters cannot be downloaded.
+- **MatterTypes**: Fix issue where some matter types cannot be found.
+- **Webhooks**: Added `matter.closed` event type which is triggered when a matter is closed.
+- **Webhooks**: Fix issue causing intermittent timeouts.
+
 ### September 2024
+
 - **FirmUsers**: Fixed intermittent issue where staff was not being set to former when FirmUser mapping is removed.
 - **ReferralTypes**: Added ReferralTypes API.
 
 ### August 2024
+
 - **Matters**: Added ability to search for matters using the GET endpoint.
 - **Matters**: Lead PATCH endpoint bug fixes.
 - **Invoices**: Added ability to download finalized invoice pdfs.
 
 ### June 2024
+
 - **Matters**: Matters v2 API is now standard and the Api-Version header is no longer required.
 - **Invoices**: Added debtors to API payload.
 - **Webhooks**: Added `invoice.updated` event type.
 
 ### May 2024
+
 - **Contacts**: UTBMS (US only) and Citizenship details fields added.
 - **Expenses**: Previously invoiced externally expenses can now be unfinalized.
 - **Firm**: Added firm status
 - **MatterTypes**: Categories are now filtered by account white label.
 
 ### April 2024
+
 - **Events**: Added `MatterId` to GET endpoint.
 - **Expenses**: Auto-assign callng staff if staff id is not provided.
 - **Fees**: Auto-assign callng staff if staff id is not provided.
