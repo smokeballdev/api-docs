@@ -72,7 +72,7 @@ Field | Description
  `requestEndpointUrl` | Used to request a URL from your backend.
  `key` | Used to calculate a signature which must be used by your backend to verify that the request is from Smokeball.
  
-When a Plugin view is loaded, a `POST` request is made to the supplied `requestEndpointUrl` url with the a payload similar to below:
+When a Plugin view is loaded, a `POST` request is made to the supplied `requestEndpointUrl` url with a payload similar to below:
 ``` json
 {
   "method": "POST",
@@ -114,7 +114,7 @@ The `Signature` hash is calculated using these three bits of information:
 These three parameters need to be concatenated into a single string, seperated by a `|` and can then be used to create the hash. 
 ##### C# Example
 ``` csharp
-// Key you provided in the Plugion creation
+// Key you provided in the Plugin creation
 var key = "ei7641529ue420n8b9aa";
 
 var timestamp = "638609288928990639";
