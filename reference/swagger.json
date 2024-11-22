@@ -9967,6 +9967,10 @@
             "description": "Flag indicating whether the file upload has been cancelled.",
             "example": false
           },
+          "isDuplicate": {
+            "type": "boolean",
+            "description": "Flag indicating whether the file data is duplicated. Applies to emails only for now."
+          },
           "isDeleted": {
             "type": "boolean",
             "description": "Flag indicating whether the file has been deleted.",
