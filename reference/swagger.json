@@ -6535,16 +6535,43 @@
             }
           },
           {
-            "name": "UpdatedSince",
-            "in": "query",
-            "description": "Returns tasks updated since a specified time (.net ticks representation of the UTC datetime).",
-            "schema": { "type": "integer", "format": "int64" }
-          },
-          {
             "name": "MatterId",
             "in": "query",
-            "description": "Returns tasks assigned to a specific MatterId.",
-            "schema": { "type": "string" }
+            "description": "Filter by tasks that are assigned to the specified matter id..",
+            "schema": {
+              "type": "string",
+              "example": "1bf55840-cba3-4f8a-8c0f-66082692e493"
+            },
+            "example": "1bf55840-cba3-4f8a-8c0f-66082692e493"
+          },
+          {
+            "name": "IsCompleted",
+            "in": "query",
+            "description": "Filter by tasks tasks that have been completed. Leave blank if",
+            "schema": { "type": "boolean", "example": true },
+            "example": true
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Filter by tasks updated since a specified time (.net ticks representation of the UTC datetime). Cannot be used in conjunction with `LastUpdated`.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 637873555398585000
+            },
+            "example": 637873555398585000
+          },
+          {
+            "name": "LastUpdated",
+            "in": "query",
+            "description": "Filter by last updated date of a task. Cannot be used in conjunction with `UpdatedSince`.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-23T14:00:00Z"
+            },
+            "example": "2022-04-23T14:00:00Z"
           }
         ],
         "responses": {
