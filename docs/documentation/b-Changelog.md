@@ -6,6 +6,11 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### December 2024
+
+- Performance improvements to all API endpoints.
+- **Files**: Added `IsDuplicate` field to GET endpoints.
+
 ### October 2024
 
 - **Files**: Fixed issue where some files with special characters cannot be downloaded.
