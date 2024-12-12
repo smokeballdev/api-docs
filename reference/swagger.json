@@ -3746,7 +3746,7 @@
           {
             "name": "UpdatedSince",
             "in": "query",
-            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime).",
+            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime). Cannot be used in conjunction with `LastUpdated`.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -3757,7 +3757,7 @@
           {
             "name": "LastUpdated",
             "in": "query",
-            "description": "Filter by last updated date of matter.",
+            "description": "Filter by last updated date of matter. Cannot be used in conjunction with `UpdatedSince`.",
             "schema": {
               "type": "string",
               "format": "date-time",
