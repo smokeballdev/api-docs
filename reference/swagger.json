@@ -546,7 +546,7 @@
     },
     "/contacts/{contactId}/relations": {
       "get": {
-        "tags": ["ContactRelations"],
+        "tags": ["Contacts"],
         "summary": "Get contact relations",
         "description": "Returns a list of relations for a specified contact if associated with the authenticated client.",
         "operationId": "GetRelations",
@@ -576,7 +576,7 @@
         }
       },
       "post": {
-        "tags": ["ContactRelations"],
+        "tags": ["Contacts"],
         "summary": "Create a contact relation",
         "description": "Creates a relation for a specified contact.",
         "operationId": "CreateRelation",
@@ -622,7 +622,7 @@
     },
     "/contacts/{contactId}/relations/{relatedContactId}": {
       "get": {
-        "tags": ["ContactRelations"],
+        "tags": ["Contacts"],
         "summary": "Get a contact relation",
         "description": "Retrieves a relation for a specified contact if associated with the authenticated client.",
         "operationId": "GetRelationById",
@@ -658,7 +658,7 @@
         }
       },
       "put": {
-        "tags": ["ContactRelations"],
+        "tags": ["Contacts"],
         "summary": "Update a contact relation",
         "description": "Updates a relation for a specified contact.",
         "operationId": "UpdateRelation",
@@ -713,7 +713,7 @@
         }
       },
       "delete": {
-        "tags": ["ContactRelations"],
+        "tags": ["Contacts"],
         "summary": "Delete a contact relation",
         "description": "Deletes a relation for a specified contact.",
         "operationId": "DeleteRelation",
@@ -8459,6 +8459,13 @@
             "description": "Company's directors hypermedia links.",
             "nullable": true,
             "readOnly": true
+          },
+          "staffIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Deprecated - use Staff instead. This field may not be supported in future.",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -8837,7 +8844,7 @@
             "type": "string",
             "description": "Names of the people in the group. Limited to the first 5 names.",
             "nullable": true,
-            "example": "John Smith &amp; Jane Citizen"
+            "example": "John Smith & Jane Citizen"
           }
         },
         "additionalProperties": false
