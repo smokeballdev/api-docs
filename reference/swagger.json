@@ -3842,7 +3842,7 @@
     },
     "/matters/{matterId}/items": {
       "get": {
-        "tags": ["MatterItems"],
+        "tags": ["Matter Items"],
         "summary": "Get items on a matter",
         "description": "Returns a list of items on a specified matter.",
         "operationId": "GetMatterItems",
@@ -3864,14 +3864,19 @@
             }
           },
           "404": {
-            "description": "When matter with specified id does not exist."
+            "description": "When matter with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
     },
     "/matters/{matterId}/items/{id}": {
       "get": {
-        "tags": ["MatterItems"],
+        "tags": ["Matter Items"],
         "summary": "Get an item on a matter",
         "description": "Returns an item on a specified matter.",
         "operationId": "GetMatterItem",
@@ -3899,7 +3904,12 @@
             }
           },
           "404": {
-            "description": "When the specified matter or item does not exist."
+            "description": "When the specified matter or item does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
