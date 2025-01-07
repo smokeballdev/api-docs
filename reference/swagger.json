@@ -334,6 +334,52 @@
         }
       }
     },
+    "/bankaccountbalances/{id}": {
+      "get": {
+        "tags": ["Bank Accounts"],
+        "summary": "Get a bank account balance",
+        "description": "Retrieves a specified bank account balance.",
+        "operationId": "GetBankAccountBalanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the bank account.",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BankAccountBalance" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When bank account balance with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When bank account balance with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/bankaccounts/{id}": {
       "get": {
         "tags": ["Bank Accounts"],
@@ -500,52 +546,6 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ApiError" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/bankaccountbalances/{id}": {
-      "get": {
-        "tags": ["BankAccountBalances"],
-        "summary": "Get a bank account balance",
-        "description": "Retrieves a specified bank account balance.",
-        "operationId": "GetBankAccountBalanceById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the bank account.",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/BankAccountBalance" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "When bank account balance with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When bank account balance with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
