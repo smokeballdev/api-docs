@@ -4,7 +4,7 @@
   "paths": {
     "/activitycodes/{id}": {
       "get": {
-        "tags": ["ActivityCodes"],
+        "tags": ["Activity Codes"],
         "summary": "Get activity code",
         "description": "Retrieves a specified activity code.",
         "operationId": "GetActivityCodeById",
@@ -44,7 +44,7 @@
         }
       },
       "put": {
-        "tags": ["ActivityCodes"],
+        "tags": ["Activity Codes"],
         "summary": "Update an activity code",
         "description": "Updates a specified activity code.",
         "operationId": "UpdateActivityCode",
@@ -98,7 +98,7 @@
         }
       },
       "delete": {
-        "tags": ["ActivityCodes"],
+        "tags": ["Activity Codes"],
         "summary": "Delete an activity code",
         "description": "Deletes a specified activity code.",
         "operationId": "DeleteActivityCode",
@@ -135,7 +135,7 @@
     },
     "/activitycodes": {
       "get": {
-        "tags": ["ActivityCodes"],
+        "tags": ["Activity Codes"],
         "summary": "Get activity codes",
         "description": "Returns a list of activity codes.",
         "operationId": "GetActivityCodes",
@@ -181,7 +181,7 @@
         }
       },
       "post": {
-        "tags": ["ActivityCodes"],
+        "tags": ["Activity Codes"],
         "summary": "Create an activity code",
         "description": "Creates an activity code.",
         "operationId": "CreateActivityCode",
@@ -334,55 +334,9 @@
         }
       }
     },
-    "/bankaccountbalances/{id}": {
-      "get": {
-        "tags": ["BankAccountBalances"],
-        "summary": "Get a bank account balance",
-        "description": "Retrieves a specified bank account balance.",
-        "operationId": "GetBankAccountBalanceById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the bank account.",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/BankAccountBalance" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "When bank account balance with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When bank account balance with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/bankaccounts/{id}": {
       "get": {
-        "tags": ["BankAccounts"],
+        "tags": ["Bank Accounts"],
         "summary": "Get a bank account",
         "description": "Retrieves a specified bank account.",
         "operationId": "GetBankAccountById",
@@ -427,7 +381,7 @@
     },
     "/bankaccounts": {
       "get": {
-        "tags": ["BankAccounts"],
+        "tags": ["Bank Accounts"],
         "summary": "Get bank accounts",
         "description": "Returns a list of bank accounts.",
         "operationId": "GetBankAccounts",
@@ -445,15 +399,21 @@
         }
       }
     },
-    "/matters/{matterId}/billingconfiguration": {
+    "/bankaccounts/{bankAccountId}/transactions/{id}": {
       "get": {
-        "tags": ["BillingConfiguration"],
-        "summary": "Get matter billing configuration",
-        "description": "Retrieves the specified matters billing configuration.",
-        "operationId": "GetBillingConfiguration",
+        "tags": ["Bank Accounts"],
+        "summary": "Get a bank account transaction",
+        "description": "Retrieves a specified bank account transaction.",
+        "operationId": "GetTransactionById",
         "parameters": [
           {
-            "name": "matterId",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "bankAccountId",
             "in": "path",
             "required": true,
             "schema": { "type": "string" }
@@ -461,17 +421,26 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns the specified memo.",
+            "description": "When request is successful. Returns a 'Transaction' object.",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BillingConfiguration"
-                }
+                "schema": { "$ref": "#/components/schemas/Transaction" }
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When transaction with specified id is not associated with authenticated client."
+          },
           "404": {
-            "description": "When the specified memo does not exist.",
+            "description": "When transaction with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -479,15 +448,17 @@
             }
           }
         }
-      },
-      "put": {
-        "tags": ["BillingConfiguration"],
-        "summary": "Update matter billing configuration",
-        "description": "Retrieves the specified matters billing configuration.",
-        "operationId": "UpdateBillingConfiguration",
+      }
+    },
+    "/bankaccounts/{bankAccountId}/transactions": {
+      "post": {
+        "tags": ["Bank Accounts"],
+        "summary": "Create bank account transaction",
+        "description": "Creates a bank account transaction.",
+        "operationId": "CreateTransactionForBankAccount",
         "parameters": [
           {
-            "name": "matterId",
+            "name": "bankAccountId",
             "in": "path",
             "required": true,
             "schema": { "type": "string" }
@@ -497,30 +468,24 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
-                ]
+                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
               }
             },
             "application/json": {
               "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
-                ]
+                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
               }
             },
             "application/*+json": {
               "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
-                ]
+                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -528,13 +493,56 @@
             }
           },
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the billing configuration to be updated."
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the receipt to be created."
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccountbalances/{id}": {
+      "get": {
+        "tags": ["BankAccountBalances"],
+        "summary": "Get a bank account balance",
+        "description": "Retrieves a specified bank account balance.",
+        "operationId": "GetBankAccountBalanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the bank account.",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BankAccountBalance" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "403": {
-            "description": "When matter with specified id is not associated with authenticated client."
+            "description": "When bank account balance with specified id is not associated with authenticated client."
           },
           "404": {
-            "description": "Not Found",
+            "description": "When bank account balance with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3733,6 +3741,105 @@
         }
       }
     },
+    "/matters/{matterId}/billingconfiguration": {
+      "get": {
+        "tags": ["Matter Billing Configuration"],
+        "summary": "Get matter billing configuration",
+        "description": "Retrieves the specified matters billing configuration.",
+        "operationId": "GetBillingConfiguration",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the specified memo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingConfiguration"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified memo does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Matter Billing Configuration"],
+        "summary": "Update matter billing configuration",
+        "description": "Retrieves the specified matters billing configuration.",
+        "operationId": "UpdateBillingConfiguration",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the billing configuration to be updated."
+          },
+          "403": {
+            "description": "When matter with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/items": {
       "get": {
         "tags": ["MatterItems"],
@@ -6623,113 +6730,6 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/bankaccounts/{bankAccountId}/transactions/{id}": {
-      "get": {
-        "tags": ["Transactions"],
-        "summary": "Get a bank account transaction",
-        "description": "Retrieves a specified bank account transaction.",
-        "operationId": "GetTransactionById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'Transaction' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Transaction" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "When transaction with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "When transaction with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/bankaccounts/{bankAccountId}/transactions": {
-      "post": {
-        "tags": ["Transactions"],
-        "summary": "Create bank account transaction",
-        "description": "Creates a bank account transaction.",
-        "operationId": "CreateTransactionForBankAccount",
-        "parameters": [
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia `Link` object of the receipt to be created."
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
