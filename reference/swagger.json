@@ -2281,6 +2281,181 @@
         }
       }
     },
+    "/matters/{matterId}/documents/files/{fileId}/preview": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "Returns info to preview a file",
+        "operationId": "GetPreview",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Files"],
+        "summary": "Creates a preview request",
+        "description": "Creates a preview for the specified file.",
+        "operationId": "CreatePreview",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the file name does not exist or isn't uploaded yet.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/documents/files/{fileId}/preview/{documentVersionId}": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "Returns info to preview a file",
+        "operationId": "GetPreviewById",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "documentVersionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/firm": {
       "get": {
         "tags": ["Firm"],
@@ -2370,60 +2545,6 @@
           },
           "400": {
             "description": "When staff user does not exist or is already associated with another firm."
-          }
-        }
-      }
-    },
-    "/stages": {
-      "get": {
-        "tags": ["FirmMatterStages"],
-        "summary": "Get stage to matter mappings in the firm",
-        "description": "Returns a list of stage to matter mappings in the firm.",
-        "operationId": "GetMatterStages",
-        "parameters": [
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "UpdatedSince",
-            "in": "query",
-            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
-            "schema": { "type": "integer", "format": "int64" }
-          },
-          {
-            "name": "LastUpdated",
-            "in": "query",
-            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
-            "schema": { "type": "string", "format": "date-time" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns the matter stage mappings.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterStagePagedCollection"
-                }
-              }
-            }
           }
         }
       }
@@ -4931,181 +5052,6 @@
         }
       }
     },
-    "/matters/{matterId}/documents/files/{fileId}/preview": {
-      "get": {
-        "tags": ["Preview"],
-        "summary": "Returns info to preview a file",
-        "operationId": "GetPreview",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["Preview"],
-        "summary": "Creates a preview request",
-        "description": "Creates a preview for the specified file.",
-        "operationId": "CreatePreview",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "When the file name does not exist or isn't uploaded yet.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/documents/files/{fileId}/preview/{documentVersionId}": {
-      "get": {
-        "tags": ["Preview"],
-        "summary": "Returns info to preview a file",
-        "operationId": "GetPreviewById",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "fileId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "documentVersionId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/referraltypes": {
       "get": {
         "tags": ["ReferralTypes"],
@@ -5831,6 +5777,60 @@
         }
       }
     },
+    "/stages": {
+      "get": {
+        "tags": ["Stages"],
+        "summary": "Get stage to matter mappings in the firm",
+        "description": "Returns a list of stage to matter mappings in the firm.",
+        "operationId": "GetMatterStages",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
+            "schema": { "type": "integer", "format": "int64" }
+          },
+          {
+            "name": "LastUpdated",
+            "in": "query",
+            "description": "Deprecated, use updatedSince\r\nReturns items updated since a specified time.",
+            "schema": { "type": "string", "format": "date-time" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the matter stage mappings.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterStagePagedCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/stages": {
       "get": {
         "tags": ["Stages"],
@@ -5875,7 +5875,7 @@
     },
     "/stagesets": {
       "get": {
-        "tags": ["StageSets"],
+        "tags": ["Stages"],
         "summary": "Get stage sets for the firm",
         "description": "Returns a list of stage sets for the firm.",
         "operationId": "GetStageSets",
@@ -5929,7 +5929,7 @@
     },
     "/stagesets/{id}": {
       "get": {
-        "tags": ["StageSets"],
+        "tags": ["Stages"],
         "summary": "Get a stage set",
         "description": "Returns the specified stage set.",
         "operationId": "GetStageSetById",
@@ -5971,7 +5971,7 @@
     },
     "/stagesets/{stageSetId}/stages/{id}": {
       "get": {
-        "tags": ["StageSets"],
+        "tags": ["Stages"],
         "summary": "Get a stage on a stage set",
         "description": "Return the specified stage on the stage set.",
         "operationId": "GetStageOnStageSet",
@@ -6012,7 +6012,7 @@
     },
     "/tasks/{taskId}/subtasks/{id}": {
       "get": {
-        "tags": ["SubTasks"],
+        "tags": ["Tasks"],
         "summary": "Get a subtask",
         "description": "Retrieves a specified subtask.",
         "operationId": "GetSubTaskById",
@@ -6048,7 +6048,7 @@
         }
       },
       "put": {
-        "tags": ["SubTasks"],
+        "tags": ["Tasks"],
         "summary": "Update a subtask",
         "description": "Updates a specified subtask of a specified task.",
         "operationId": "UpdateSubTask",
@@ -6100,7 +6100,7 @@
         }
       },
       "delete": {
-        "tags": ["SubTasks"],
+        "tags": ["Tasks"],
         "summary": "Delete a subtask",
         "description": "Deletes a specified subtask of a specified task.",
         "operationId": "DeleteSubTask",
@@ -6132,7 +6132,7 @@
     },
     "/tasks/{taskId}/subtasks": {
       "get": {
-        "tags": ["SubTasks"],
+        "tags": ["Tasks"],
         "summary": "Get subtasks",
         "description": "Returns a list of subtasks for a specified task if associated with the authenticated client.",
         "operationId": "GetSubTasks",
@@ -6162,7 +6162,7 @@
         }
       },
       "post": {
-        "tags": ["SubTasks"],
+        "tags": ["Tasks"],
         "summary": "Create a subtask",
         "description": "Creates a subtask for a specified task.",
         "operationId": "CreateSubTask",
@@ -6210,7 +6210,7 @@
     },
     "/tasks/{taskId}/documents": {
       "get": {
-        "tags": ["TaskDocuments"],
+        "tags": ["Tasks"],
         "summary": "Get task documents",
         "description": "Returns a list of document links for the specified task, if associated with the authenticated client.",
         "operationId": "GetTaskDocuments",
@@ -6242,7 +6242,7 @@
         }
       },
       "post": {
-        "tags": ["TaskDocuments"],
+        "tags": ["Tasks"],
         "summary": "Create a task document",
         "description": "Links the specified document to the specified task.",
         "operationId": "CreateTaskDocument",
@@ -6296,7 +6296,7 @@
     },
     "/tasks/{taskId}/documents/{id}": {
       "get": {
-        "tags": ["TaskDocuments"],
+        "tags": ["Tasks"],
         "summary": "Get a task document",
         "description": "Retrieves the specified task document for the specified task.",
         "operationId": "GetTaskDocumentById",
@@ -6332,7 +6332,7 @@
         }
       },
       "delete": {
-        "tags": ["TaskDocuments"],
+        "tags": ["Tasks"],
         "summary": "Delete a task document",
         "description": "Unlinks the specified document from the specified task.",
         "operationId": "DeleteTaskDocument",
@@ -9813,7 +9813,7 @@
           },
           "fileAdditionalData": {
             "type": "object",
-            "additionalProperties": {},
+            "additionalProperties": { "nullable": true },
             "description": "Collection of KeyValuePair(string, string) to update File meta data.",
             "nullable": true
           },
@@ -9889,7 +9889,7 @@
           },
           "fileAdditionalData": {
             "type": "object",
-            "additionalProperties": {},
+            "additionalProperties": { "nullable": true },
             "description": "Collection of KeyValuePair(string, string) to update File meta data.",
             "nullable": true
           },
@@ -9982,7 +9982,7 @@
           },
           "additionalData": {
             "type": "object",
-            "additionalProperties": {},
+            "additionalProperties": { "nullable": true },
             "description": "Collection of file meta data as KeyValuePair(string, object).",
             "nullable": true
           },
@@ -10088,6 +10088,7 @@
         "properties": {
           "name": {
             "maxLength": 256,
+            "minLength": 1,
             "type": "string",
             "description": "Name of the folder",
             "example": "Property Documents"
@@ -15006,6 +15007,7 @@
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "subject": {
+            "minLength": 1,
             "type": "string",
             "description": "Subject of the subtask.",
             "example": "Confer with Mary"
