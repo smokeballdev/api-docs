@@ -16147,43 +16147,64 @@
       "Subscription": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "format": "uuid" },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the subscription.",
+            "format": "uuid",
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "productSuite": {
+            "type": "string",
+            "description": "The product suite of the subscription.",
+            "nullable": true
+          },
           "tier": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Hypermedia link of the 'Tier' product that the subscription is subscribed to.",
             "nullable": true
           },
           "addOns": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Link" },
+            "description": "List of hypermedia links of 'AddOn' products that the subscription is subscribed to.",
             "nullable": true
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/SubscriptionStatus" }]
+            "allOf": [{ "$ref": "#/components/schemas/SubscriptionStatus" }],
+            "description": "Current status of the subscription.\r\n\r\nPossible values: Trialing, Active, Canceled, PastDue, Unpaid, Incomplete, IncompleteExpired,"
           },
           "billingInterval": {
             "allOf": [{ "$ref": "#/components/schemas/Interval" }],
+            "description": "Current billing interval of the subscription.\r\n\r\nCurrently only Monthly and Yearly are supported.\r\n\r\nPossible values: None, Daily, Weekly, Monthly, Yearly.",
             "nullable": true
           },
           "quantity": {
             "type": "integer",
+            "description": "The number of user licenses for this subscription.",
             "format": "int64",
-            "nullable": true
+            "nullable": true,
+            "example": 3
           },
-          "environment": { "type": "string", "nullable": true },
           "created": {
             "type": "string",
+            "description": "The created date of the subscription.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           },
           "trialPeriodStart": {
             "type": "string",
+            "description": "The trial period start date of the subscription.\r\n\r\nUsed in conjuction with the trial period end date to determine if the subscription is currently in trial mode.\r\n\r\nNull if the subscription is not in trial mode.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           },
           "trialPeriodEnd": {
             "type": "string",
+            "description": "The trial period end date of the subscription.\r\n\r\nUsed in conjuction with the trial period start date to determine if the subscription is currently in trial mode.\r\n\r\nNull if the subscription is not in trial mode.",
             "format": "date-time",
-            "nullable": true
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
           }
         },
         "additionalProperties": false
