@@ -6127,6 +6127,263 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/paymentmethods": {
+      "get": {
+        "tags": ["Subscription Payments"],
+        "summary": "Get payment methods",
+        "description": "Returns all payment methods associated with a subscription including:\r\n* Payment method ID\r\n* Payment system (e.g. STRIPE)\r\n* Payment type (e.g. CREDIT_CARD)\r\n* Default status\r\n* Date added\r\n* Payment method details\r\n* Archive status\r\n* Transaction state",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the payment methods",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PaymentMethod" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Subscription Payments"],
+        "summary": "Add payment method",
+        "description": "Adds a new payment method to a subscription.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "description": "Payment method details including system and payment information",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully added the payment method",
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/paymentsystems": {
+      "get": {
+        "tags": ["Subscription Payments"],
+        "summary": "Get supported payment systems",
+        "description": "Returns all supported payment systems and their supported payment method types.\r\nCurrently supports:\r\n* STRIPE with CREDIT_CARD payment type",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the supported payment systems",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PaymentSystem" }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}/default": {
+      "put": {
+        "tags": ["Subscription Payments"],
+        "summary": "Set default payment method",
+        "description": "Sets a payment method as the default for a subscription.\r\n\r\nImportant notes:\r\n* Replaces any existing default payment method\r\n* No-op if payment method is already default",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "paymentMethodId",
+            "in": "path",
+            "description": "The ID of the payment method to set as default",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully set the default payment method"
+          },
+          "404": {
+            "description": "Subscription or payment method not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}": {
+      "delete": {
+        "tags": ["Subscription Payments"],
+        "summary": "Remove payment method",
+        "description": "Removes a payment method from a subscription.\r\n\r\nImportant notes:\r\n* Can optionally specify a new default payment method\r\n* Removing default without replacement may cause subscription to go OVERDUE",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "paymentMethodId",
+            "in": "path",
+            "description": "The ID of the payment method to remove",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "description": "Optional request containing new default payment method ID",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Successfully removed the payment method" },
+          "404": {
+            "description": "Subscription or payment method not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/addons": {
       "get": {
         "tags": ["Subscriptions"],
@@ -6158,7 +6415,7 @@
     "/subscriptions/addons/{addOnId}": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Gets the specified add-on.",
+        "summary": "Get an add-on.",
         "description": "Returns the specified product add-on with its features and pricing.\r\n\r\nUse this endpoint to retreive add-on information when only an id is available.",
         "parameters": [
           {
@@ -6337,267 +6594,10 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/paymentmethods": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get subscription payment methods",
-        "description": "Returns all payment methods associated with a subscription including:\r\n* Payment method ID\r\n* Payment system (e.g. STRIPE)\r\n* Payment type (e.g. CREDIT_CARD)\r\n* Default status\r\n* Date added\r\n* Payment method details\r\n* Archive status\r\n* Transaction state",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the payment methods",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/PaymentMethod" }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["Subscriptions"],
-        "summary": "Add payment method",
-        "description": "Adds a new payment method to a subscription.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "requestBody": {
-          "description": "Payment method details including system and payment information",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successfully added the payment method",
-            "content": {
-              "application/json": { "schema": { "type": "string" } }
-            }
-          },
-          "400": {
-            "description": "Invalid request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/paymentsystems": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get supported payment systems",
-        "description": "Returns all supported payment systems and their supported payment method types.\r\nCurrently supports:\r\n* STRIPE with CREDIT_CARD payment type",
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the supported payment systems",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/PaymentSystem" }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}/default": {
-      "put": {
-        "tags": ["Subscriptions"],
-        "summary": "Set default payment method",
-        "description": "Sets a payment method as the default for a subscription.\r\n\r\nImportant notes:\r\n* Replaces any existing default payment method\r\n* No-op if payment method is already default",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "paymentMethodId",
-            "in": "path",
-            "description": "The ID of the payment method to set as default",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully set the default payment method"
-          },
-          "404": {
-            "description": "Subscription or payment method not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}": {
-      "delete": {
-        "tags": ["Subscriptions"],
-        "summary": "Remove payment method",
-        "description": "Removes a payment method from a subscription.\r\n\r\nImportant notes:\r\n* Can optionally specify a new default payment method\r\n* Removing default without replacement may cause subscription to go OVERDUE",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "paymentMethodId",
-            "in": "path",
-            "description": "The ID of the payment method to remove",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "description": "Optional request containing new default payment method ID",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Successfully removed the payment method" },
-          "404": {
-            "description": "Subscription or payment method not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/subscriptions/promotions": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Get available promotions",
+        "summary": "Get all promotions",
         "description": "Returns all available promotions with their eligibility criteria and benefits.\r\n\r\nPromotions can be filtered by:\r\n* Usage context\r\n* Product tier\r\n* State code\r\n* Active status",
         "responses": {
           "200": {
@@ -6625,7 +6625,7 @@
     "/subscriptions/{subscriptionId}/promotions": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Get subscription promotions",
+        "summary": "Get promotions",
         "description": "Returns all promotions applied to a subscription, including history.\r\n\r\nCan filter to exclude expired promotions using the includeExpired parameter.",
         "parameters": [
           {
@@ -6935,7 +6935,7 @@
     "/subscriptions/tiers/{tierId}": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Gets the specified tier.",
+        "summary": "Gets a tier",
         "description": "Returns the specified product tier with its features and pricing.\r\n\r\nUse this endpoint to retreive tier information when only an id is available.",
         "parameters": [
           {
