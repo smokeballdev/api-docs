@@ -334,6 +334,269 @@
         }
       }
     },
+    "/groups": {
+      "get": {
+        "tags": ["Authorization"],
+        "summary": "Get authorization groups",
+        "description": "Retrieves auhorization groups for the firm associated with the authenticated client.",
+        "operationId": "GetGroups",
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a list of authorization 'Group' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupPagedCollection"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Authorization"],
+        "summary": "Create an authorization group",
+        "description": "Creates an authorization group.",
+        "operationId": "CreateGroup",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/CreateGroupDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/CreateGroupDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/CreateGroupDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization group to be created.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": { "description": "When request is invalid." }
+        }
+      }
+    },
+    "/groups/{id}": {
+      "get": {
+        "tags": ["Authorization"],
+        "summary": "Get an authorization group",
+        "description": "Retrieves a specified authorization group.",
+        "operationId": "GetGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns an authorization 'Group' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Group" }
+              }
+            }
+          },
+          "404": { "description": "When authorization group does not exist." }
+        }
+      },
+      "put": {
+        "tags": ["Authorization"],
+        "summary": "Update an authorization group",
+        "description": "Updates a specified authorization group.",
+        "operationId": "UpdateGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/UpdateGroupDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/UpdateGroupDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/UpdateGroupDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization group to be updated.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": { "description": "When request is invalid." },
+          "404": { "description": "When authorization group does not exist" }
+        }
+      },
+      "delete": {
+        "tags": ["Authorization"],
+        "summary": "Deletes an authorization group",
+        "description": "Delete an authorization group.",
+        "operationId": "DeleteGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization group to be deleted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": { "description": "When request is invalid." }
+        }
+      }
+    },
+    "/policies/{reference}": {
+      "get": {
+        "tags": ["Authorization"],
+        "summary": "Get an authorization policy",
+        "description": "Retrieves a specified authorization policy.",
+        "operationId": "GetPolicy",
+        "parameters": [
+          {
+            "name": "reference",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns an authorization 'Policy' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Policy" }
+              }
+            }
+          },
+          "404": { "description": "When authorization Policy does not exist." }
+        }
+      },
+      "put": {
+        "tags": ["Authorization"],
+        "summary": "Update an authorization policy",
+        "description": "Updates a specified authorization policy.",
+        "operationId": "UpdatePolicy",
+        "parameters": [
+          {
+            "name": "reference",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization policy to be updated.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": { "description": "When request is invalid." },
+          "404": { "description": "When authorization policy does not exist" }
+        }
+      }
+    },
+    "/policies": {
+      "post": {
+        "tags": ["Authorization"],
+        "summary": "Create an authorization policy",
+        "description": "Creates an authorization policy.",
+        "operationId": "CreatePolicy",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization policy to be created.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": { "description": "When request is invalid." }
+        }
+      }
+    },
     "/bankaccountbalances/{id}": {
       "get": {
         "tags": ["Bank Accounts"],
@@ -3001,159 +3264,6 @@
         }
       }
     },
-    "/groups": {
-      "get": {
-        "tags": ["Groups"],
-        "summary": "Get authorization groups",
-        "description": "Retrieves auhorization groups for the firm associated with the authenticated client.",
-        "operationId": "GetGroups",
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a list of authorization 'Group' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupPagedCollection"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["Groups"],
-        "summary": "Create an authorization group",
-        "description": "Creates an authorization group.",
-        "operationId": "CreateGroup",
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/CreateGroupDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/CreateGroupDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/CreateGroupDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization group to be created.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": { "description": "When request is invalid." }
-        }
-      }
-    },
-    "/groups/{id}": {
-      "get": {
-        "tags": ["Groups"],
-        "summary": "Get an authorization group",
-        "description": "Retrieves a specified authorization group.",
-        "operationId": "GetGroup",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns an authorization 'Group' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Group" }
-              }
-            }
-          },
-          "404": { "description": "When authorization group does not exist." }
-        }
-      },
-      "put": {
-        "tags": ["Groups"],
-        "summary": "Update an authorization group",
-        "description": "Updates a specified authorization group.",
-        "operationId": "UpdateGroup",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/UpdateGroupDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/UpdateGroupDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/UpdateGroupDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization group to be updated.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": { "description": "When request is invalid." },
-          "404": { "description": "When authorization group does not exist" }
-        }
-      },
-      "delete": {
-        "tags": ["Groups"],
-        "summary": "Deletes an authorization group",
-        "description": "Delete an authorization group.",
-        "operationId": "DeleteGroup",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization group to be deleted.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": { "description": "When request is invalid." }
-        }
-      }
-    },
     "/matters/{matterId}/invoices": {
       "get": {
         "tags": ["Invoices"],
@@ -5056,116 +5166,6 @@
               }
             }
           }
-        }
-      }
-    },
-    "/policies/{reference}": {
-      "get": {
-        "tags": ["Policies"],
-        "summary": "Get an authorization policy",
-        "description": "Retrieves a specified authorization policy.",
-        "operationId": "GetPolicy",
-        "parameters": [
-          {
-            "name": "reference",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns an authorization 'Policy' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Policy" }
-              }
-            }
-          },
-          "404": { "description": "When authorization Policy does not exist." }
-        }
-      },
-      "put": {
-        "tags": ["Policies"],
-        "summary": "Update an authorization policy",
-        "description": "Updates a specified authorization policy.",
-        "operationId": "UpdatePolicy",
-        "parameters": [
-          {
-            "name": "reference",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization policy to be updated.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": { "description": "When request is invalid." },
-          "404": { "description": "When authorization policy does not exist" }
-        }
-      }
-    },
-    "/policies": {
-      "post": {
-        "tags": ["Policies"],
-        "summary": "Create an authorization policy",
-        "description": "Creates an authorization policy.",
-        "operationId": "CreatePolicy",
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/PolicyDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the authorization policy to be created.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": { "description": "When request is invalid." }
         }
       }
     },
