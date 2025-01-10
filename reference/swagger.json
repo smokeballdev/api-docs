@@ -6415,7 +6415,7 @@
     "/subscriptions/addons/{addOnId}": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Get an add-on.",
+        "summary": "Get an add-on",
         "description": "Returns the specified product add-on with its features and pricing.\r\n\r\nUse this endpoint to retreive add-on information when only an id is available.",
         "parameters": [
           {
@@ -6678,7 +6678,7 @@
     "/subscriptions/{subscriptionId}/promotions/{promotionId}": {
       "post": {
         "tags": ["Subscriptions"],
-        "summary": "Apply promotion",
+        "summary": "Apply promotion to subscription",
         "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers",
         "parameters": [
           {
@@ -6735,7 +6735,7 @@
       },
       "delete": {
         "tags": ["Subscriptions"],
-        "summary": "Remove promotion",
+        "summary": "Remove promotion from subscription",
         "description": "Removes a promotion from a subscription.",
         "parameters": [
           {
@@ -6846,7 +6846,7 @@
       "put": {
         "tags": ["Subscriptions"],
         "summary": "Update subscription",
-        "description": "Updates a subscription using JSON Patch operations.\r\n\r\nSupported operations:\r\n* Add or remove add-ons\r\n* Change tier\r\n\r\nImportant notes:\r\n* Changes are applied atomically\r\n* Invalid operations will cause the entire patch to fail\r\n* Some changes may trigger billing adjustments",
+        "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6935,7 +6935,7 @@
     "/subscriptions/tiers/{tierId}": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Gets a tier",
+        "summary": "Get a tier",
         "description": "Returns the specified product tier with its features and pricing.\r\n\r\nUse this endpoint to retreive tier information when only an id is available.",
         "parameters": [
           {
