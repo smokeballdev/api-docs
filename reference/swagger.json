@@ -6445,51 +6445,6 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/addons": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get subscription add-ons",
-        "description": "Retrieves all add-ons currently active on a specific subscription.\r\n\r\nThe response includes:\r\n* Active add-on details\r\n* Billing information\r\n* Activation dates\r\n* Status information",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the subscription's add-ons",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/AddOn" }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred while retrieving add-ons",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/subscriptions/{subscriptionId}/addons/{addOnId}": {
       "post": {
         "tags": ["Subscriptions"],
@@ -6959,48 +6914,6 @@
           },
           "500": {
             "description": "Internal server error occurred while retrieving tiers",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/tier": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get subscription tier",
-        "description": "Retrieves detailed information about the current product tier for a specific subscription.\r\n\r\nThe response includes:\r\n* Tier name and ID\r\n* Current pricing",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the subscription's tier details",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Tier" }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred while retrieving the tier",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -15921,12 +15834,40 @@
       "AddOn": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "nullable": true },
-          "smokeballId": { "type": "string", "nullable": true },
-          "name": { "type": "string", "nullable": true },
-          "description": { "type": "string", "nullable": true },
-          "createdDate": { "type": "string", "format": "date-time" },
-          "updatedDate": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the add-on.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "smokeballId": {
+            "type": "string",
+            "description": "Unique Smokeball identifier of the add-on. \r\n\r\nThis identifier convenience purposes only and should not be used to interact with the subscriptions API.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the add-on.",
+            "nullable": true,
+            "example": "LeadPro"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the add-on.\r\n\r\nCan be used to describe the add-on to a customer.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the add-on.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The updated date of the add-on.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          }
         },
         "additionalProperties": false
       },
@@ -16159,14 +16100,14 @@
             "nullable": true
           },
           "tier": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "description": "Hypermedia link of the 'Tier' product that the subscription is subscribed to.",
+            "allOf": [{ "$ref": "#/components/schemas/Tier" }],
+            "description": "'Tier' product that the subscription is subscribed to.",
             "nullable": true
           },
           "addOns": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Link" },
-            "description": "List of hypermedia links of 'AddOn' products that the subscription is subscribed to.",
+            "items": { "$ref": "#/components/schemas/AddOn" },
+            "description": "List of of 'AddOn' products that the subscription is subscribed to.",
             "nullable": true
           },
           "status": {
@@ -16185,7 +16126,7 @@
             "nullable": true,
             "example": 3
           },
-          "created": {
+          "createdDate": {
             "type": "string",
             "description": "The created date of the subscription.",
             "format": "date-time",
@@ -16199,9 +16140,23 @@
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
           },
-          "trialPeriodEnd": {
+          "trialPeriodEndDate": {
             "type": "string",
             "description": "The trial period end date of the subscription.\r\n\r\nUsed in conjuction with the trial period start date to determine if the subscription is currently in trial mode.\r\n\r\nNull if the subscription is not in trial mode.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "currentPeriodStartDate": {
+            "type": "string",
+            "description": "The start date of the subscription.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "currentPeriodEndDate": {
+            "type": "string",
+            "description": "The end date of the subscription.",
             "format": "date-time",
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
@@ -16300,12 +16255,40 @@
       "Tier": {
         "type": "object",
         "properties": {
-          "id": { "type": "string", "nullable": true },
-          "smokeballId": { "type": "string", "nullable": true },
-          "name": { "type": "string", "nullable": true },
-          "description": { "type": "string", "nullable": true },
-          "createdDate": { "type": "string", "format": "date-time" },
-          "updatedDate": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the tier.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "smokeballId": {
+            "type": "string",
+            "description": "Unique Smokeball identifier of the tier. \r\n\r\nThis identifier convenience purposes only and should not be used to interact with the subscriptions API.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the tier.",
+            "nullable": true,
+            "example": "LeadPro"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the tier.\r\n\r\nCan be used to describe the tier to a customer.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the tier.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The updated date of the tier.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          }
         },
         "additionalProperties": false
       },
@@ -16314,19 +16297,19 @@
         "properties": {
           "tierId": {
             "type": "string",
-            "description": "The tier id to subscribe to.\r\n\r\nSwitching tiers may clear unsupported add-ons. Included add-ons are ignored.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the supplied tier id.",
+            "description": "Optional tier id to subscribe to.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the supplied tier id.",
             "nullable": true,
             "example": "8d074e85-4d95-4d9a-8a63-187719470d49"
           },
           "addOnIds": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "The add-on ids to subscribe to. \r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the existing or supplied tier id.",
+            "description": "Optional add-on ids to subscribe to.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the existing or supplied tier id.",
             "nullable": true
           },
           "interval": {
             "allOf": [{ "$ref": "#/components/schemas/Interval" }],
-            "description": "The billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf no interval is provided then the default pricing option will be used.",
+            "description": "Optional billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf an interval is not supplied then the default interval option will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
             "nullable": true,
             "example": "Monthly"
           }
