@@ -6820,6 +6820,20 @@
                   { "$ref": "#/components/schemas/UpdateSubscriptionRequest" }
                 ]
               }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/UpdateSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/UpdateSubscriptionRequest" }
+                ]
+              }
             }
           }
         },
@@ -6850,6 +6864,53 @@
           },
           "500": {
             "description": "Internal server error occurred while updating the subscription",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/invoices": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get subscription invoices",
+        "description": "Retrieves invoices for the specified subscription. \r\n\r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the subscription details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Subscription" }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred while retrieving the subscription invoices",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -13745,7 +13806,7 @@
           },
           "type": {
             "type": "string",
-            "description": "Type of the layout design field.\r\n            \r\nPossible values: 'Text','Combobox','Checkbox','DateTime','Role','Number'.\r\n            \r\n'Role' type can represent a matter role (for a top-level layout item) or a matter relationship (for a sublayout item).",
+            "description": "Type of the layout design field.\r\n            \r\nPossible values: 'Text','Combobox','Checkbox','Date','Role','Number'.\r\n            \r\n'Role' type can represent a matter role (for a top-level layout item) or a matter relationship (for a sublayout item).",
             "example": "Combobox"
           },
           "possibleValues": {
@@ -14049,7 +14110,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "array",
-              "items": { "$ref": "#/components/schemas/IMatterItem" }
+              "items": { "$ref": "#/components/schemas/IMatterItem" },
+              "nullable": true
             },
             "description": "Subitems associated to the matter item. These items vary depending on the matter.",
             "nullable": true
@@ -14216,7 +14278,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "array",
-              "items": { "$ref": "#/components/schemas/IMatterItem" }
+              "items": { "$ref": "#/components/schemas/IMatterItem" },
+              "nullable": true
             },
             "description": "Items associated with the matter.",
             "nullable": true
@@ -14344,26 +14407,26 @@
           "personResponsibleStaffId": {
             "type": "string",
             "description": "Staff id of the person responsible for the matter (if applicable).",
-            "format": "string",
-            "nullable": true
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
           "personAssistingStaffId": {
             "type": "string",
             "description": "Staff id of the person assisting in the matter (if applicable).",
-            "format": "string",
-            "nullable": true
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
           "originatingStaffId": {
             "type": "string",
             "description": "Staff id of the originating attorney (if in US) or an Introducer (if in AU)",
-            "format": "string",
-            "nullable": true
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
           "supervisorStaffId": {
             "type": "string",
             "description": "Staff id of the supervisor of the matter.\r\n\r\nOnly supported in the UK.",
-            "format": "string",
-            "nullable": true
+            "nullable": true,
+            "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
           "clientCode": {
             "type": "string",
@@ -14534,7 +14597,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "array",
-              "items": { "$ref": "#/components/schemas/MatterItemDto" }
+              "items": { "$ref": "#/components/schemas/MatterItemDto" },
+              "nullable": true
             },
             "description": "Items associated with the matter.",
             "nullable": true
@@ -14578,7 +14642,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "array",
-              "items": { "$ref": "#/components/schemas/MatterItemDto" }
+              "items": { "$ref": "#/components/schemas/MatterItemDto" },
+              "nullable": true
             },
             "description": "SubItems associated with the matter item.\r\n\r\nNot applicable for matter sub items.",
             "nullable": true
@@ -15845,6 +15910,11 @@
             "description": "Unique Smokeball identifier of the add-on. \r\n\r\nThis identifier convenience purposes only and should not be used to interact with the subscriptions API.",
             "nullable": true
           },
+          "productSuite": {
+            "type": "string",
+            "description": "The product suite that this add-on belongs to.",
+            "nullable": true
+          },
           "name": {
             "type": "string",
             "description": "The display name of the add-on.",
@@ -15854,6 +15924,12 @@
           "description": {
             "type": "string",
             "description": "The description of the add-on.\r\n\r\nCan be used to describe the add-on to a customer.",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Price" },
+            "description": "The price options for the add-on.",
             "nullable": true
           },
           "createdDate": {
@@ -15897,8 +15973,9 @@
         "additionalProperties": false
       },
       "Interval": {
-        "enum": ["None", "Daily", "Weekly", "Monthly", "Yearly"],
-        "type": "string"
+        "enum": [0, 1, 2, 3, 4],
+        "type": "integer",
+        "format": "int32"
       },
       "PaymentMethod": {
         "type": "object",
@@ -15977,6 +16054,44 @@
         },
         "additionalProperties": false
       },
+      "Price": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "boolean",
+            "description": "Returns `true` if the price is the default price.",
+            "example": true
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Returns `true` if the Price is active.",
+            "example": true
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/PriceType" }],
+            "description": "The type of the pricing option."
+          },
+          "name": {
+            "type": "string",
+            "description": "The price display name.",
+            "nullable": true,
+            "example": "\"$109 per user/month\""
+          },
+          "amount": {
+            "type": "number",
+            "description": "The per user amount for this pricing option for the specified interval.",
+            "format": "double",
+            "nullable": true,
+            "example": 109
+          },
+          "interval": {
+            "allOf": [{ "$ref": "#/components/schemas/Interval" }],
+            "description": "The interval of the price."
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceType": { "enum": [0, 1, 2], "type": "integer", "format": "int32" },
       "Promotion": {
         "type": "object",
         "properties": {
@@ -16079,8 +16194,7 @@
           "interval": {
             "allOf": [{ "$ref": "#/components/schemas/Interval" }],
             "description": "Optional billing interval/pricing option.\r\n\r\nIf no interval is provided then the default pricing option will be used.\r\n\r\nIf the interval is provided but does not exist, the request will fail.",
-            "nullable": true,
-            "example": "Monthly"
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -16114,9 +16228,9 @@
             "allOf": [{ "$ref": "#/components/schemas/SubscriptionStatus" }],
             "description": "Current status of the subscription.\r\n\r\nPossible values: Trialing, Active, Canceled, PastDue, Unpaid, Incomplete, IncompleteExpired,"
           },
-          "billingInterval": {
+          "interval": {
             "allOf": [{ "$ref": "#/components/schemas/Interval" }],
-            "description": "Current billing interval of the subscription.\r\n\r\nCurrently only Monthly and Yearly are supported.\r\n\r\nPossible values: None, Daily, Weekly, Monthly, Yearly.",
+            "description": "Current billing interval of the subscription. \r\n\r\nDerived from the tiers billing interval. Returns 'None' if a tier is not associated to this subscription.\r\n\r\nCurrently only Monthly and Yearly are supported.\r\n\r\nPossible values: None, Daily, Weekly, Monthly, Yearly.",
             "nullable": true
           },
           "quantity": {
@@ -16241,16 +16355,9 @@
         "additionalProperties": false
       },
       "SubscriptionStatus": {
-        "enum": [
-          "Trialing",
-          "Active",
-          "Canceled",
-          "PastDue",
-          "Unpaid",
-          "Incomplete",
-          "IncompleteExpired"
-        ],
-        "type": "string"
+        "enum": [0, 1, 2, 3, 4, 5, 6],
+        "type": "integer",
+        "format": "int32"
       },
       "Tier": {
         "type": "object",
@@ -16266,6 +16373,17 @@
             "description": "Unique Smokeball identifier of the tier. \r\n\r\nThis identifier convenience purposes only and should not be used to interact with the subscriptions API.",
             "nullable": true
           },
+          "productSuite": {
+            "type": "string",
+            "description": "The product suite that this tier belongs to.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the tier.",
+            "nullable": true,
+            "example": "Recurring"
+          },
           "name": {
             "type": "string",
             "description": "The display name of the tier.",
@@ -16275,6 +16393,12 @@
           "description": {
             "type": "string",
             "description": "The description of the tier.\r\n\r\nCan be used to describe the tier to a customer.",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Price" },
+            "description": "The price options for the tier.",
             "nullable": true
           },
           "createdDate": {
@@ -16310,8 +16434,7 @@
           "interval": {
             "allOf": [{ "$ref": "#/components/schemas/Interval" }],
             "description": "Optional billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf an interval is not supplied then the default interval option will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
-            "nullable": true,
-            "example": "Monthly"
+            "nullable": true
           }
         },
         "additionalProperties": false
