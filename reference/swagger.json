@@ -6417,6 +6417,7 @@
         "tags": ["Subscriptions"],
         "summary": "Get an add-on",
         "description": "Returns the specified product add-on with its features and pricing.\r\n\r\nUse this endpoint to retreive add-on information when only an id is available.",
+        "operationId": "GetAddOnAsync",
         "parameters": [
           {
             "name": "addOnId",
@@ -6467,14 +6468,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully added the add-on",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
+          "200": { "description": "Successfully added the add-on" },
+          "202": { "description": "Accepted" },
           "400": {
             "description": "Add-on cannot be added to this subscription",
             "content": {
@@ -6522,14 +6517,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successfully removed the add-on",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
+          "200": { "description": "Successfully removed the add-on" },
+          "202": { "description": "Accepted" },
           "404": {
             "description": "Subscription or add-on not found",
             "content": {
@@ -6734,6 +6723,7 @@
         "tags": ["Subscriptions"],
         "summary": "Get subscriptions",
         "description": "Returns a list of all available subscriptions with their current status and details.\r\n\r\nThe response includes:\r\n* Subscription IDs\r\n* Current tier\r\n* Active add-ons\r\n* Subscription status",
+        "operationId": "GetSubscriptionsAsync",
         "responses": {
           "200": {
             "description": "Successfully retrieved the list of subscriptions",
@@ -6762,6 +6752,7 @@
         "tags": ["Subscriptions"],
         "summary": "Get subscription",
         "description": "Retrieves detailed information for a specific subscription.\r\n\r\nThe response includes:\r\n* Current tier\r\n* Active add-ons\r\n* Subscription status",
+        "operationId": "GetSubscriptionAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6802,6 +6793,7 @@
         "tags": ["Subscriptions"],
         "summary": "Update subscription",
         "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
+        "operationId": "UpdateSubscriptionAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6838,14 +6830,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Successfully updated the subscription",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
+          "200": { "description": "Successfully updated the subscription" },
+          "202": { "description": "Accepted" },
           "400": {
             "description": "Invalid patch document or operations",
             "content": {
@@ -6878,6 +6864,7 @@
         "tags": ["Subscriptions"],
         "summary": "Get subscription invoices",
         "description": "Retrieves invoices for the specified subscription. \r\n\r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
+        "operationId": "GetSubscriptionInvoicesAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6953,6 +6940,7 @@
         "tags": ["Subscriptions"],
         "summary": "Get a tier",
         "description": "Returns the specified product tier with its features and pricing.\r\n\r\nUse this endpoint to retreive tier information when only an id is available.",
+        "operationId": "GetTierAsync",
         "parameters": [
           {
             "name": "tierId",
@@ -7029,7 +7017,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/tier/{tierId}": {
+    "/subscriptions/{subscriptionId}/tiers/{tierId}": {
       "put": {
         "tags": ["Subscriptions"],
         "summary": "Switch product tier",
@@ -7076,14 +7064,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Successfully switched the product tier",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
+          "200": { "description": "Successfully switched the product tier" },
+          "202": { "description": "Accepted" },
           "404": {
             "description": "Subscription or tier not found",
             "content": {
@@ -15972,11 +15954,6 @@
         },
         "additionalProperties": false
       },
-      "Interval": {
-        "enum": [0, 1, 2, 3, 4],
-        "type": "integer",
-        "format": "int32"
-      },
       "PaymentMethod": {
         "type": "object",
         "properties": {
@@ -16068,8 +16045,9 @@
             "example": true
           },
           "type": {
-            "allOf": [{ "$ref": "#/components/schemas/PriceType" }],
-            "description": "The type of the pricing option."
+            "type": "string",
+            "description": "The type of the pricing option.",
+            "example": "Recurring"
           },
           "name": {
             "type": "string",
@@ -16085,13 +16063,13 @@
             "example": 109
           },
           "interval": {
-            "allOf": [{ "$ref": "#/components/schemas/Interval" }],
-            "description": "The interval of the price."
+            "type": "string",
+            "description": "The interval of the price.",
+            "example": "Monthly"
           }
         },
         "additionalProperties": false
       },
-      "PriceType": { "enum": [0, 1, 2], "type": "integer", "format": "int32" },
       "Promotion": {
         "type": "object",
         "properties": {
@@ -16192,9 +16170,10 @@
             "nullable": true
           },
           "interval": {
-            "allOf": [{ "$ref": "#/components/schemas/Interval" }],
+            "type": "string",
             "description": "Optional billing interval/pricing option.\r\n\r\nIf no interval is provided then the default pricing option will be used.\r\n\r\nIf the interval is provided but does not exist, the request will fail.",
-            "nullable": true
+            "nullable": true,
+            "example": "Monthly"
           }
         },
         "additionalProperties": false
@@ -16225,11 +16204,11 @@
             "nullable": true
           },
           "status": {
-            "allOf": [{ "$ref": "#/components/schemas/SubscriptionStatus" }],
+            "type": "string",
             "description": "Current status of the subscription.\r\n\r\nPossible values: Trialing, Active, Canceled, PastDue, Unpaid, Incomplete, IncompleteExpired,"
           },
           "interval": {
-            "allOf": [{ "$ref": "#/components/schemas/Interval" }],
+            "type": "string",
             "description": "Current billing interval of the subscription. \r\n\r\nDerived from the tiers billing interval. Returns 'None' if a tier is not associated to this subscription.\r\n\r\nCurrently only Monthly and Yearly are supported.\r\n\r\nPossible values: None, Daily, Weekly, Monthly, Yearly.",
             "nullable": true
           },
@@ -16354,11 +16333,6 @@
         },
         "additionalProperties": false
       },
-      "SubscriptionStatus": {
-        "enum": [0, 1, 2, 3, 4, 5, 6],
-        "type": "integer",
-        "format": "int32"
-      },
       "Tier": {
         "type": "object",
         "properties": {
@@ -16422,19 +16396,21 @@
           "tierId": {
             "type": "string",
             "description": "Optional tier id to subscribe to.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the supplied tier id.",
+            "format": "uuid",
             "nullable": true,
             "example": "8d074e85-4d95-4d9a-8a63-187719470d49"
           },
           "addOnIds": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": { "type": "string", "format": "uuid" },
             "description": "Optional add-on ids to subscribe to.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the existing or supplied tier id.",
             "nullable": true
           },
           "interval": {
-            "allOf": [{ "$ref": "#/components/schemas/Interval" }],
+            "type": "string",
             "description": "Optional billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf an interval is not supplied then the default interval option will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
-            "nullable": true
+            "nullable": true,
+            "example": "Monthly"
           }
         },
         "additionalProperties": false
