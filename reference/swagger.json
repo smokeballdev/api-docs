@@ -6907,6 +6907,151 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/cancel": {
+      "put": {
+        "tags": ["Subscriptions"],
+        "summary": "Cancel subscription",
+        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* SpecificDate - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.",
+        "operationId": "CancelSubscriptionAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CancelSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CancelSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CancelSubscriptionRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully cancelled the subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CancellationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters or subscription is already canceled"
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred while canceling the subscription",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resume": {
+      "put": {
+        "tags": ["Subscriptions"],
+        "summary": "Resume subscription",
+        "description": "Resumes a subscription that is pending cancellation or is already canceled.\r\n\r\nIf the subscription is in a CANCELED state:\r\n * An immediate charge for the subscription amount will be trigered.\r\n * If the charge is unsuccessful, the subscription will be moved to PASTDUE status until a charge is successful.\r\n * If all charge retry attempts fail, the subscription will be become CANCELED once again.\r\nIf the subscription is in the PENDING cancellation state:\r\n * The existing billing cycle should remain in place",
+        "operationId": "ResumeSubscriptionAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/ResumeSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/ResumeSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/ResumeSubscriptionRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Successfully resumed the subscription" },
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters or subscription is not canceled or pending cancellation"
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred while resuming the subscription",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/tiers": {
       "get": {
         "tags": ["Subscriptions"],
@@ -15954,6 +16099,43 @@
         },
         "additionalProperties": false
       },
+      "CancelSubscriptionRequest": {
+        "type": "object",
+        "properties": {
+          "cancellationType": {
+            "type": "string",
+            "description": "Optional: When to cancel the subscription.\r\n\r\nIf 'SpecificDate' is specified then 'CancelAt' must also be supplied.\r\n\r\nDefaults to cancel at period end (end of the billing cycle)."
+          },
+          "cancelAt": {
+            "type": "string",
+            "description": "Optional: Cancel at the supplied date. Will only be used if CancellationType is set to 'SpecificDate'.\r\n\r\nIf set to a date before the current period ends, this will cause a proration if prorations have been enabled.\r\n\r\nIf set during a future period, this will always cause a proration for that period.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "preview": {
+            "type": "boolean",
+            "description": "Optional: Preview cancellation request. \r\n\r\nIf 'true', the Subscription is not cancelled and the CancellationType and CancellationDate are returned.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CancellationResponse": {
+        "type": "object",
+        "properties": {
+          "cancellationType": {
+            "type": "string",
+            "description": "The cancellation type."
+          },
+          "cancelAt": {
+            "type": "string",
+            "description": "The date the subscription will be cancelled.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PaymentMethod": {
         "type": "object",
         "properties": {
@@ -16046,7 +16228,7 @@
           },
           "type": {
             "type": "string",
-            "description": "The type of the pricing option.",
+            "description": "The type of price.",
             "example": "Recurring"
           },
           "name": {
@@ -16064,7 +16246,7 @@
           },
           "interval": {
             "type": "string",
-            "description": "The interval of the price.",
+            "description": "Recurring payment interval type.",
             "example": "Monthly"
           }
         },
@@ -16161,6 +16343,10 @@
         },
         "additionalProperties": false
       },
+      "ResumeSubscriptionRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
       "SetSubscriptionTierRequest": {
         "type": "object",
         "properties": {
@@ -16205,7 +16391,7 @@
           },
           "status": {
             "type": "string",
-            "description": "Current status of the subscription.\r\n\r\nPossible values: Trialing, Active, Canceled, PastDue, Unpaid, Incomplete, IncompleteExpired,"
+            "description": "The subscription status."
           },
           "interval": {
             "type": "string",
@@ -16253,6 +16439,31 @@
             "format": "date-time",
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
+          },
+          "cancellationStatus": {
+            "type": "string",
+            "description": "The cancellation status of the subscription.\r\n\r\nThe cancelation is not canceled and no cancelation requests have been made.\r\n            \r\nThe subscription has been canceled and will be canceled at a later date.\r\n            \r\nThe subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
+            "nullable": true
+          },
+          "cancellationType": {
+            "type": "string",
+            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\nPossible values: PeriodEnd, Immediate, SpecificDate",
+            "nullable": true,
+            "example": "PeriodEnd"
+          },
+          "canceledAt": {
+            "type": "string",
+            "description": "If the subscription has been canceled, the date of that cancellation.\r\n\r\nOtherwise, the date of the cancel request.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2024-12-01T09:00:00Z"
+          },
+          "cancelAt": {
+            "type": "string",
+            "description": "A date in the future at which the subscription will automatically get canceled and the status will change to 'Canceled'.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2025-04-23T14:00:00Z"
           }
         },
         "additionalProperties": false
@@ -16351,12 +16562,6 @@
             "type": "string",
             "description": "The product suite that this tier belongs to.",
             "nullable": true
-          },
-          "type": {
-            "type": "string",
-            "description": "The type of the tier.",
-            "nullable": true,
-            "example": "Recurring"
           },
           "name": {
             "type": "string",
