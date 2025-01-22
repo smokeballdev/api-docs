@@ -6911,7 +6911,7 @@
       "put": {
         "tags": ["Subscriptions"],
         "summary": "Cancel subscription",
-        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* SpecificDate - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.",
+        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* Date - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.",
         "operationId": "CancelSubscriptionAsync",
         "parameters": [
           {
@@ -16104,12 +16104,17 @@
         "properties": {
           "cancellationType": {
             "type": "string",
-            "description": "Optional: When to cancel the subscription.\r\n\r\nIf 'SpecificDate' is specified then 'CancelAt' must also be supplied.\r\n\r\nDefaults to cancel at period end (end of the billing cycle)."
+            "description": "Optional: When to cancel the subscription.\r\n\r\nIf 'Date' is specified then 'CancelAt' must also be supplied.\r\n\r\nDefaults to cancel at period end (end of the billing cycle).\r\n\r\nPossible values: PeriodEnd, Immediate, Date."
           },
           "cancelAt": {
             "type": "string",
-            "description": "Optional: Cancel at the supplied date. Will only be used if CancellationType is set to 'SpecificDate'.\r\n\r\nIf set to a date before the current period ends, this will cause a proration if prorations have been enabled.\r\n\r\nIf set during a future period, this will always cause a proration for that period.",
+            "description": "Optional: Cancel at the supplied date. Will only be used if CancellationType is set to 'Date'.\r\n\r\nIf set to a date before the current period ends, this will cause a proration if prorations have been enabled.\r\n\r\nIf set during a future period, this will always cause a proration for that period.",
             "format": "date-time",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "Optional: The reason for cancellation.",
             "nullable": true
           },
           "preview": {
@@ -16131,6 +16136,11 @@
             "type": "string",
             "description": "The date the subscription will be cancelled.",
             "format": "date-time",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "description": "The reason for cancellation.",
             "nullable": true
           }
         },
@@ -16447,7 +16457,7 @@
           },
           "cancellationType": {
             "type": "string",
-            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\nPossible values: PeriodEnd, Immediate, SpecificDate",
+            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\nPossible values: PeriodEnd, Immediate, Date.",
             "nullable": true,
             "example": "PeriodEnd"
           },
