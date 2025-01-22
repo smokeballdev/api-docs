@@ -16442,7 +16442,7 @@
           },
           "cancellationStatus": {
             "type": "string",
-            "description": "The cancellation status of the subscription.\r\n\r\nThe cancelation is not canceled and no cancelation requests have been made.\r\n            \r\nThe subscription has been canceled and will be canceled at a later date.\r\n            \r\nThe subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
+            "description": "The cancellation status of the subscription.\r\n\r\nNone - The cancelation is not canceled and no cancelation requests have been made.\r\n            \r\nPending - The subscription has been canceled and will be canceled at a later date.\r\n            \r\nCanceled - The subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
             "nullable": true
           },
           "cancellationType": {
