@@ -2822,7 +2822,7 @@
     },
     "/firmusers": {
       "get": {
-        "tags": ["FirmUsers"],
+        "tags": ["Firm Users"],
         "summary": "Get firm staff/user mappings",
         "description": "Retrieves a list of staff/user mappings in the firm associated with the authenticated client.",
         "operationId": "GetFirmUsers",
@@ -2843,7 +2843,7 @@
     },
     "/firmusers/{id}": {
       "get": {
-        "tags": ["FirmUsers"],
+        "tags": ["Firm Users"],
         "summary": "Get firm staff/user mapping",
         "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
         "operationId": "GetFirmUserById",
@@ -2867,7 +2867,7 @@
         }
       },
       "put": {
-        "tags": ["FirmUsers"],
+        "tags": ["Firm Users"],
         "summary": "Update firm staff/user mapping",
         "description": "Updates a staff/user mapping in the firm associated with the authenticated client.",
         "operationId": "UpdateFirmUser",
@@ -2913,7 +2913,7 @@
         }
       },
       "delete": {
-        "tags": ["FirmUsers"],
+        "tags": ["Firm Users"],
         "summary": "Delete firm staff/user mapping",
         "description": "Removes the user from the firm associated with the authenticated client.\r\n\r\nThe staff member is set as a former staff member and a former user. User access is also disabled.",
         "operationId": "DeleteFirmUser",
@@ -2927,7 +2927,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -4024,6 +4024,128 @@
         }
       }
     },
+    "/mattertypes": {
+      "get": {
+        "tags": ["Matter Types"],
+        "summary": "Get matter types",
+        "description": "Returns a paginated list of matter types based on search criteria. Deleted matter types are not included.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
+        "operationId": "GetMatterTypes",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "description": "Searches for partial match on matter type name",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Location",
+            "in": "query",
+            "description": "Return matter types from a specific location. In the US API this is the ANSI 2 letter state code (e.g. IL, NY). In the AU API this is shorthand state code (e.g. NSW, ACT, etc)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Category",
+            "in": "query",
+            "description": "Return matter types from a specific category.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "Return matter types by category type (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
+            "schema": {
+              "allOf": [{ "$ref": "#/components/schemas/TypeCategory" }],
+              "example": 0
+            },
+            "example": 0
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a paged collection of 'MatterTypeInfo' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mattertypes/{id}": {
+      "get": {
+        "tags": ["Matter Types"],
+        "summary": "Get a matter type",
+        "description": "Retrieves a specified matter type.",
+        "operationId": "GetMatterTypeById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'MatterType' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MatterType" }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter type with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mattertypes/categories": {
+      "get": {
+        "tags": ["Matter Types"],
+        "summary": "Get matter types categories",
+        "description": "Returns a list of all the possible matter type categories.",
+        "operationId": "GetCategories",
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns all 'Categories'.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StringCollection" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters": {
       "get": {
         "tags": ["Matters"],
@@ -4357,128 +4479,6 @@
           },
           "404": {
             "description": "When matter with specified id does not exist."
-          }
-        }
-      }
-    },
-    "/mattertypes": {
-      "get": {
-        "tags": ["MatterTypes"],
-        "summary": "Get matter types",
-        "description": "Returns a paginated list of matter types based on search criteria. Deleted matter types are not included.\r\n\r\nNote: If no `Location` is provided, all matter types from all locations will be returned.",
-        "operationId": "GetMatterTypes",
-        "parameters": [
-          {
-            "name": "Offset",
-            "in": "query",
-            "schema": {
-              "maximum": 2147483647,
-              "minimum": 0,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Limit",
-            "in": "query",
-            "schema": {
-              "maximum": 500,
-              "minimum": 1,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "Name",
-            "in": "query",
-            "description": "Searches for partial match on matter type name",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "Location",
-            "in": "query",
-            "description": "Return matter types from a specific location. In the US API this is the ANSI 2 letter state code (e.g. IL, NY). In the AU API this is shorthand state code (e.g. NSW, ACT, etc)",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "Category",
-            "in": "query",
-            "description": "Return matter types from a specific category.",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "Type",
-            "in": "query",
-            "description": "Return matter types by category type (i.e. MatterType or LeadType).\r\n            \r\nPossible values: Matter Type = 0, Lead Type = 1.",
-            "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/TypeCategory" }],
-              "example": 0
-            },
-            "example": 0
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a paged collection of 'MatterTypeInfo' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MatterTypeInfoPagedCollection"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/mattertypes/{id}": {
-      "get": {
-        "tags": ["MatterTypes"],
-        "summary": "Get a matter type",
-        "description": "Retrieves a specified matter type.",
-        "operationId": "GetMatterTypeById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'MatterType' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MatterType" }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter type with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/mattertypes/categories": {
-      "get": {
-        "tags": ["MatterTypes"],
-        "summary": "Get matter types categories",
-        "description": "Returns a list of all the possible matter type categories.",
-        "operationId": "GetCategories",
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns all 'Categories'.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/StringCollection" }
-              }
-            }
           }
         }
       }
@@ -5171,7 +5171,7 @@
     },
     "/referraltypes": {
       "get": {
-        "tags": ["ReferralTypes"],
+        "tags": ["Referral Types"],
         "summary": "Get referral types",
         "description": "Returns referral types, including custom referral types.",
         "operationId": "GetReferralTypes",
@@ -5199,7 +5199,7 @@
     },
     "/referraltypes/{id}": {
       "get": {
-        "tags": ["ReferralTypes"],
+        "tags": ["Referral Types"],
         "summary": "Get a referral type",
         "description": "Retrieves a specified referral type.",
         "operationId": "GetReferralTypeByIdOrName",
@@ -6384,6 +6384,186 @@
         }
       }
     },
+    "/subscriptions/promotions": {
+      "get": {
+        "tags": ["Subscription Promotions"],
+        "summary": "Get all promotions",
+        "description": "Returns all available promotions with their eligibility criteria and benefits.\r\n\r\nPromotions can be filtered by:\r\n* Usage context\r\n* Product tier\r\n* State code\r\n* Active status",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the promotions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Promotion" }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/promotions": {
+      "get": {
+        "tags": ["Subscription Promotions"],
+        "summary": "Get promotions",
+        "description": "Returns all promotions applied to a subscription, including history.\r\n\r\nCan filter to exclude expired promotions using the includeExpired parameter.",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "includeExpired",
+            "in": "query",
+            "description": "Whether to include expired promotions in the response",
+            "schema": { "type": "boolean", "default": false }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the subscription promotions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubscriptionPromotion"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/promotions/{promotionId}": {
+      "post": {
+        "tags": ["Subscription Promotions"],
+        "summary": "Apply promotion to subscription",
+        "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "promotionId",
+            "in": "path",
+            "description": "The identifier of the promotion to apply",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully applied the promotion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PromotionApplicationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Promotion cannot be applied",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription or promotion not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Subscription Promotions"],
+        "summary": "Remove promotion from subscription",
+        "description": "Removes a promotion from a subscription.",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "promotionId",
+            "in": "path",
+            "description": "The identifier of the promotion to remove",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Successfully removed the promotion" },
+          "404": {
+            "description": "Subscription or promotion not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/addons": {
       "get": {
         "tags": ["Subscriptions"],
@@ -6529,186 +6709,6 @@
           },
           "500": {
             "description": "Internal server error occurred while removing the add-on",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/promotions": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get all promotions",
-        "description": "Returns all available promotions with their eligibility criteria and benefits.\r\n\r\nPromotions can be filtered by:\r\n* Usage context\r\n* Product tier\r\n* State code\r\n* Active status",
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the promotions",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Promotion" }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/promotions": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get promotions",
-        "description": "Returns all promotions applied to a subscription, including history.\r\n\r\nCan filter to exclude expired promotions using the includeExpired parameter.",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "includeExpired",
-            "in": "query",
-            "description": "Whether to include expired promotions in the response",
-            "schema": { "type": "boolean", "default": false }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved the subscription promotions",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SubscriptionPromotion"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/promotions/{promotionId}": {
-      "post": {
-        "tags": ["Subscriptions"],
-        "summary": "Apply promotion to subscription",
-        "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "promotionId",
-            "in": "path",
-            "description": "The identifier of the promotion to apply",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully applied the promotion",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PromotionApplicationResult"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Promotion cannot be applied",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription or promotion not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Subscriptions"],
-        "summary": "Remove promotion from subscription",
-        "description": "Removes a promotion from a subscription.",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "promotionId",
-            "in": "path",
-            "description": "The identifier of the promotion to remove",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": { "description": "Successfully removed the promotion" },
-          "404": {
-            "description": "Subscription or promotion not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
