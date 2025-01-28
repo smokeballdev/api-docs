@@ -16503,7 +16503,7 @@
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
           },
-          "trialPeriodStart": {
+          "trialPeriodStartDate": {
             "type": "string",
             "description": "The trial period start date of the subscription.\r\n\r\nUsed in conjuction with the trial period end date to determine if the subscription is currently in trial mode.\r\n\r\nNull if the subscription is not in trial mode.",
             "format": "date-time",
