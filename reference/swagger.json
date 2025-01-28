@@ -16243,13 +16243,13 @@
             "nullable": true,
             "example": "promo_1234"
           },
-          "applicableTiers": {
+          "tiers": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Link" },
             "description": "List of tiers this promotion can be applied to.\r\nIf tiers and add-ons are both empty, the promotion can be applied to any tier or add-on.",
             "nullable": true
           },
-          "applicableAddOns": {
+          "addOns": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Link" },
             "description": "List of add-ons this promotion can be applied to.\r\nIf tiers and add-ons are both empty, the promotion can be applied to any tier or add-on.",
@@ -16355,7 +16355,7 @@
       "PromotionCode": {
         "type": "object",
         "properties": {
-          "id": {
+          "externalId": {
             "type": "string",
             "description": "Unique identifier of the promotion code.",
             "nullable": true,
