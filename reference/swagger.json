@@ -6388,7 +6388,7 @@
       "get": {
         "tags": ["Subscription Promotions"],
         "summary": "Get all promotions",
-        "description": "Returns all available promotions with their eligibility criteria and benefits.\r\n\r\nPromotions can be filtered by:\r\n* Usage context\r\n* Product tier\r\n* State code\r\n* Active status",
+        "description": "Returns all available promotions with their eligibility criteria and benefits.",
         "responses": {
           "200": {
             "description": "Successfully retrieved the promotions",
@@ -6412,45 +6412,28 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/promotions": {
+    "/subscriptions/promotions/{promotionId}": {
       "get": {
         "tags": ["Subscription Promotions"],
-        "summary": "Get promotions",
-        "description": "Returns all promotions applied to a subscription, including history.\r\n\r\nCan filter to exclude expired promotions using the includeExpired parameter.",
+        "summary": "Get promotion",
+        "description": "Retrieves detailed information for a specific promotion.",
         "parameters": [
           {
-            "name": "subscriptionId",
+            "name": "promotionId",
             "in": "path",
-            "description": "The unique identifier of the subscription",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "includeExpired",
-            "in": "query",
-            "description": "Whether to include expired promotions in the response",
-            "schema": { "type": "boolean", "default": false }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved the subscription promotions",
+            "description": "Successfully retrieved the promotions",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SubscriptionPromotion"
-                  }
+                  "items": { "$ref": "#/components/schemas/Promotion" }
                 }
-              }
-            }
-          },
-          "404": {
-            "description": "Subscription not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6469,7 +6452,7 @@
       "post": {
         "tags": ["Subscription Promotions"],
         "summary": "Apply promotion to subscription",
-        "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers",
+        "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers or add-ons",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6483,7 +6466,7 @@
             "in": "path",
             "description": "The identifier of the promotion to apply",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
@@ -6491,9 +6474,7 @@
             "description": "Successfully applied the promotion",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PromotionApplicationResult"
-                }
+                "schema": { "$ref": "#/components/schemas/Link" }
               }
             }
           },
@@ -6540,7 +6521,7 @@
             "in": "path",
             "description": "The identifier of the promotion to remove",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
@@ -6984,7 +6965,7 @@
       "put": {
         "tags": ["Subscriptions"],
         "summary": "Resume subscription",
-        "description": "Resumes a subscription that is pending cancellation or is already canceled.\r\n\r\nIf the subscription is in a CANCELED state:\r\n * An immediate charge for the subscription amount will be trigered.\r\n * If the charge is unsuccessful, the subscription will be moved to PASTDUE status until a charge is successful.\r\n * If all charge retry attempts fail, the subscription will be become CANCELED once again.\r\nIf the subscription is in the PENDING cancellation state:\r\n * The existing billing cycle should remain in place",
+        "description": "Resumes a subscription that is pending cancellation or is already canceled.\r\n\r\nIf the subscription is in a CANCELED state:\r\n * An immediate charge for the subscription amount will be trigered.\r\n * If the charge is unsuccessful, the subscription will be moved to PASTDUE status until a charge is successful.\r\n * If all charge retry attempts fail, the subscription will be become CANCELED once again.\r\nIf the subscription is in the PENDING cancellation state:\r\n * The existing billing cycle will remain in place",
         "operationId": "ResumeSubscriptionAsync",
         "parameters": [
           {
@@ -13442,28 +13423,19 @@
       "Discount": {
         "type": "object",
         "properties": {
-          "type": {
-            "allOf": [{ "$ref": "#/components/schemas/DiscountType" }],
-            "description": "The type of discount (Fixed = 0, Percentage = 1).",
-            "example": 0
+          "promotion": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
           },
-          "fixedDiscount": {
-            "type": "number",
-            "description": "The amount of fixed discount applied.",
-            "format": "double",
-            "example": 100
-          },
-          "percentage": {
-            "type": "number",
-            "description": "The amount of percentage discount applied.",
-            "format": "double",
-            "example": 0
-          },
-          "description": {
+          "activationDate": {
             "type": "string",
-            "description": "Discount description.",
-            "nullable": true,
-            "example": "Friend of the Firm"
+            "format": "date-time",
+            "nullable": true
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -16104,7 +16076,7 @@
         "properties": {
           "cancellationType": {
             "type": "string",
-            "description": "Optional: When to cancel the subscription.\r\n\r\nIf 'Date' is specified then 'CancelAt' must also be supplied.\r\n\r\nDefaults to cancel at period end (end of the billing cycle).\r\n\r\nPossible values: PeriodEnd, Immediate, Date."
+            "description": "The subscription cancellation type."
           },
           "cancelAt": {
             "type": "string",
@@ -16130,7 +16102,7 @@
         "properties": {
           "cancellationType": {
             "type": "string",
-            "description": "The cancellation type."
+            "description": "The subscription cancellation type."
           },
           "cancelAt": {
             "type": "string",
@@ -16268,75 +16240,178 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the promotion.",
-            "nullable": true
-          },
-          "usageContext": {
-            "type": "string",
-            "description": "Usage context of the promotion (e.g., BAR_ASSOCIATION, CANCEL_RETENTION).",
-            "nullable": true
+            "nullable": true,
+            "example": "promo_1234"
           },
           "applicableTiers": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "List of product tiers this promotion can be applied to.",
+            "items": { "$ref": "#/components/schemas/Link" },
+            "description": "List of tiers this promotion can be applied to.\r\nIf tiers and add-ons are both empty, the promotion can be applied to any tier or add-on.",
             "nullable": true
           },
-          "stateCode": {
-            "type": "string",
-            "description": "State code this promotion applies to (optional).",
-            "nullable": true
-          },
-          "targetedProducts": {
+          "applicableAddOns": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Specific products this promotion targets (optional).",
+            "items": { "$ref": "#/components/schemas/Link" },
+            "description": "List of add-ons this promotion can be applied to.\r\nIf tiers and add-ons are both empty, the promotion can be applied to any tier or add-on.",
             "nullable": true
           },
-          "isActive": {
-            "type": "boolean",
-            "description": "Whether the promotion is currently active."
+          "usage": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "The usage context of a promotion.\r\n\r\nThe context can be used by apps to determine how and when to apply a promotion."
+            },
+            "description": "Intended usage type for this promotion.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the promotion.",
+            "nullable": true,
+            "example": "Summer Sale 2024"
           },
           "description": {
             "type": "string",
-            "description": "User-friendly description of the promotion.",
-            "nullable": true
+            "description": "Description of the promotion.",
+            "nullable": true,
+            "example": "Summer Sale 2024"
           },
-          "durationInDays": {
-            "type": "integer",
-            "description": "Duration of the promotion in days (null means forever).",
-            "format": "int32",
-            "nullable": true
-          },
-          "isOneTimeOnly": {
-            "type": "boolean",
-            "description": "Whether this promotion can only be used once."
-          },
-          "isFreePromotion": {
-            "type": "boolean",
-            "description": "Whether this promotion makes the targeted products free."
-          },
-          "signUpTierOverride": {
+          "durationType": {
             "type": "string",
-            "description": "Sign-up tier override for sign-up promotions.",
+            "description": "The duration type."
+          },
+          "durationMonths": {
+            "type": "integer",
+            "description": "Number of months the promotion applies for if DurationType is Repeating.",
+            "format": "int64",
+            "nullable": true,
+            "example": 3
+          },
+          "amountOff": {
+            "type": "integer",
+            "description": "Fixed amount off in cents.\r\nOnly one of AmountOff or PercentOff will be set.",
+            "format": "int64",
+            "nullable": true,
+            "example": 2000
+          },
+          "percentOff": {
+            "type": "number",
+            "description": "Percentage discount.\r\nOnly one of AmountOff or PercentOff will be set.",
+            "format": "double",
+            "nullable": true,
+            "example": 20.5
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the promotion is currently valid and can be applied."
+          },
+          "numUsed": {
+            "type": "integer",
+            "description": "Number of times this promotion has been used.",
+            "format": "int64",
+            "example": 42
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When the promotion was created.",
+            "format": "date-time",
+            "example": "2024-01-15T10:00:00Z"
+          },
+          "expirationDate": {
+            "type": "string",
+            "description": "When the promotion expires.\r\nNull if the promotion does not expire.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2024-12-31T23:59:59Z"
+          },
+          "codes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PromotionCode" },
+            "description": "List of promotion codes associated with this promotion.",
             "nullable": true
           },
           "isPersistent": {
             "type": "boolean",
-            "description": "Whether the promotion persists across tier switches."
+            "description": "Whether the promotion persists across tier switches.\r\n\r\nFor example, if a BILL only promotion is applied to the subscription and the firm upgrades to BOOST, the Promotion should be deactivated\r\n\r\n* If the promotion is non-persistent, it should be removed completely\r\n\r\n* If the promotion is persistent and the firm reverts back to BILL at a later date, the promotion should automatically be reactivated"
+          },
+          "isFreePromotion": {
+            "type": "boolean",
+            "description": "Whether this promotion makes the targeted tier or add-on free."
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Additional metadata associated with the promotion.",
+            "nullable": true
+          },
+          "deleted": {
+            "type": "boolean",
+            "description": "Whether this promotion has been deleted.",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "PromotionApplicationResult": {
+      "PromotionCode": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean",
-            "description": "Whether the promotion was successfully applied."
-          },
-          "message": {
+          "id": {
             "type": "string",
-            "description": "User-friendly message explaining why the promotion failed to apply.",
+            "description": "Unique identifier of the promotion code.",
+            "nullable": true,
+            "example": "promo_code_1234"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the promotion code.",
+            "nullable": true,
+            "example": "SUMMER2024"
+          },
+          "code": {
+            "type": "string",
+            "description": "The actual code that customers can use.",
+            "nullable": true,
+            "example": "SUMMER2024"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether this promotion code is currently active."
+          },
+          "minimumAmount": {
+            "type": "integer",
+            "description": "Minimum amount in cents required to apply this promotion code.",
+            "format": "int64",
+            "nullable": true,
+            "example": 5000
+          },
+          "firstTimeCustomersOnly": {
+            "type": "boolean",
+            "description": "Whether this code can only be used by first-time customers."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of times this code can be used.\r\nNull means unlimited uses.",
+            "format": "int64",
+            "nullable": true,
+            "example": 100
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When the promotion code was created.",
+            "format": "date-time",
+            "example": "2024-01-15T10:00:00Z"
+          },
+          "expiratonDate": {
+            "type": "string",
+            "description": "When the promotion code expires.\r\nNull if the code does not expire.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2024-12-31T23:59:59Z"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Additional metadata associated with the promotion code.",
             "nullable": true
           }
         },
@@ -16397,6 +16472,12 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/AddOn" },
             "description": "List of of 'AddOn' products that the subscription is subscribed to.",
+            "nullable": true
+          },
+          "discounts": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Discount" },
+            "description": "List of Discounts (promotions) applied to the subscription.",
             "nullable": true
           },
           "status": {
@@ -16474,82 +16555,6 @@
             "format": "date-time",
             "nullable": true,
             "example": "2025-04-23T14:00:00Z"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SubscriptionPromotion": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier of the promotion.",
-            "nullable": true
-          },
-          "usageContext": {
-            "type": "string",
-            "description": "Usage context of the promotion (e.g., BAR_ASSOCIATION, CANCEL_RETENTION).",
-            "nullable": true
-          },
-          "applicableTiers": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "List of product tiers this promotion can be applied to.",
-            "nullable": true
-          },
-          "stateCode": {
-            "type": "string",
-            "description": "State code this promotion applies to (optional).",
-            "nullable": true
-          },
-          "targetedProducts": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "Specific products this promotion targets (optional).",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "description": "User-friendly description of the promotion.",
-            "nullable": true
-          },
-          "durationInDays": {
-            "type": "integer",
-            "description": "Duration of the promotion in days (null means forever).",
-            "format": "int32",
-            "nullable": true
-          },
-          "isOneTimeOnly": {
-            "type": "boolean",
-            "description": "Whether this promotion can only be used once."
-          },
-          "isFreePromotion": {
-            "type": "boolean",
-            "description": "Whether this promotion makes the targeted products free."
-          },
-          "signUpTierOverride": {
-            "type": "string",
-            "description": "Sign-up tier override for sign-up promotions.",
-            "nullable": true
-          },
-          "isPersistent": {
-            "type": "boolean",
-            "description": "Whether the promotion persists across tier switches."
-          },
-          "appliedDate": {
-            "type": "string",
-            "description": "When the promotion was applied to the subscription.",
-            "format": "date-time"
-          },
-          "expiryDate": {
-            "type": "string",
-            "description": "When the promotion expires (if applicable).",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean",
-            "description": "Whether the promotion is currently active on the subscription."
           }
         },
         "additionalProperties": false
