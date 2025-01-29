@@ -16338,12 +16338,6 @@
             "type": "boolean",
             "description": "Whether this promotion makes the targeted tier or add-on free."
           },
-          "metadata": {
-            "type": "object",
-            "additionalProperties": { "type": "string" },
-            "description": "Additional metadata associated with the promotion.",
-            "nullable": true
-          },
           "deleted": {
             "type": "boolean",
             "description": "Whether this promotion has been deleted.",
