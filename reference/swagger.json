@@ -6389,6 +6389,7 @@
         "tags": ["Subscription Promotions"],
         "summary": "Get all promotions",
         "description": "Returns all available promotions with their eligibility criteria and benefits.",
+        "operationId": "GetPromotions",
         "responses": {
           "200": {
             "description": "Successfully retrieved the promotions",
@@ -6412,14 +6413,15 @@
         }
       }
     },
-    "/subscriptions/promotions/{promotionId}": {
+    "/subscriptions/promotions/{id}": {
       "get": {
         "tags": ["Subscription Promotions"],
         "summary": "Get promotion",
         "description": "Retrieves detailed information for a specific promotion.",
+        "operationId": "GetPromotion",
         "parameters": [
           {
-            "name": "promotionId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -6430,10 +6432,7 @@
             "description": "Successfully retrieved the promotions",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Promotion" }
-                }
+                "schema": { "$ref": "#/components/schemas/Promotion" }
               }
             }
           },
@@ -6453,6 +6452,7 @@
         "tags": ["Subscription Promotions"],
         "summary": "Apply promotion to subscription",
         "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers or add-ons",
+        "operationId": "ApplyPromotionAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6503,11 +6503,14 @@
             }
           }
         }
-      },
+      }
+    },
+    "/subscriptions/{subscriptionId}/promotions/{id}": {
       "delete": {
         "tags": ["Subscription Promotions"],
         "summary": "Remove promotion from subscription",
         "description": "Removes a promotion from a subscription.",
+        "operationId": "RemovePromotionAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6517,9 +6520,8 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "promotionId",
+            "name": "id",
             "in": "path",
-            "description": "The identifier of the promotion to remove",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
@@ -6573,7 +6575,7 @@
         }
       }
     },
-    "/subscriptions/addons/{addOnId}": {
+    "/subscriptions/addons/{id}": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get an add-on",
@@ -6581,7 +6583,7 @@
         "operationId": "GetAddOnAsync",
         "parameters": [
           {
-            "name": "addOnId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -6607,7 +6609,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/addons/{addOnId}": {
+    "/subscriptions/{subscriptionId}/addons/{id}": {
       "post": {
         "tags": ["Subscriptions"],
         "summary": "Add add-on",
@@ -6621,7 +6623,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "addOnId",
+            "name": "id",
             "in": "path",
             "description": "The identifier of the add-on to add",
             "required": true,
@@ -6670,7 +6672,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "addOnId",
+            "name": "id",
             "in": "path",
             "description": "The identifier of the add-on to remove",
             "required": true,
@@ -6704,7 +6706,7 @@
         "tags": ["Subscriptions"],
         "summary": "Get subscriptions",
         "description": "Returns a list of all available subscriptions with their current status and details.\r\n\r\nThe response includes:\r\n* Subscription IDs\r\n* Current tier\r\n* Active add-ons\r\n* Subscription status",
-        "operationId": "GetSubscriptionsAsync",
+        "operationId": "GetSubscriptions",
         "responses": {
           "200": {
             "description": "Successfully retrieved the list of subscriptions",
@@ -6728,15 +6730,15 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}": {
+    "/subscriptions/{id}": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get subscription",
         "description": "Retrieves detailed information for a specific subscription.\r\n\r\nThe response includes:\r\n* Current tier\r\n* Active add-ons\r\n* Subscription status",
-        "operationId": "GetSubscriptionAsync",
+        "operationId": "GetSubscription",
         "parameters": [
           {
-            "name": "subscriptionId",
+            "name": "id",
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
@@ -6770,14 +6772,14 @@
           }
         }
       },
-      "put": {
+      "patch": {
         "tags": ["Subscriptions"],
         "summary": "Update subscription",
         "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
         "operationId": "UpdateSubscriptionAsync",
         "parameters": [
           {
-            "name": "subscriptionId",
+            "name": "id",
             "in": "path",
             "description": "The unique identifier of the subscription to update",
             "required": true,
@@ -6840,7 +6842,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/invoices": {
+    "/subscriptions/{id}/invoices": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get subscription invoices",
@@ -6848,7 +6850,7 @@
         "operationId": "GetSubscriptionInvoicesAsync",
         "parameters": [
           {
-            "name": "subscriptionId",
+            "name": "id",
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
@@ -6888,15 +6890,15 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/cancel": {
-      "put": {
+    "/subscriptions/{id}/cancel": {
+      "patch": {
         "tags": ["Subscriptions"],
         "summary": "Cancel subscription",
         "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* Date - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.",
         "operationId": "CancelSubscriptionAsync",
         "parameters": [
           {
-            "name": "subscriptionId",
+            "name": "id",
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
@@ -6961,15 +6963,15 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resume": {
-      "put": {
+    "/subscriptions/{id}/resume": {
+      "patch": {
         "tags": ["Subscriptions"],
         "summary": "Resume subscription",
         "description": "Resumes a subscription that is pending cancellation or is already canceled.\r\n\r\nIf the subscription is in a CANCELED state:\r\n * An immediate charge for the subscription amount will be trigered.\r\n * If the charge is unsuccessful, the subscription will be moved to PASTDUE status until a charge is successful.\r\n * If all charge retry attempts fail, the subscription will be become CANCELED once again.\r\nIf the subscription is in the PENDING cancellation state:\r\n * The existing billing cycle will remain in place",
         "operationId": "ResumeSubscriptionAsync",
         "parameters": [
           {
-            "name": "subscriptionId",
+            "name": "id",
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
@@ -7061,7 +7063,7 @@
         }
       }
     },
-    "/subscriptions/tiers/{tierId}": {
+    "/subscriptions/tiers/{id}": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get a tier",
@@ -7069,7 +7071,7 @@
         "operationId": "GetTierAsync",
         "parameters": [
           {
-            "name": "tierId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
@@ -7098,14 +7100,14 @@
         }
       }
     },
-    "/subscriptions/tiers/{tierId}/addons": {
+    "/subscriptions/tiers/{id}/addons": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get tier add-ons",
         "description": "Lists all available add-ons for a specific product tier.\r\n\r\nThe response includes:\r\n* Add-on details and pricing\r\n* Compatibility information\r\n* Usage limits\r\n* Dependencies or prerequisites\r\n\r\nUse this endpoint to show customers which add-ons are available for their tier.",
         "parameters": [
           {
-            "name": "tierId",
+            "name": "id",
             "in": "path",
             "description": "The identifier of the product tier",
             "required": true,
@@ -7143,8 +7145,8 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/tiers/{tierId}": {
-      "put": {
+    "/subscriptions/{subscriptionId}/tiers/{id}": {
+      "patch": {
         "tags": ["Subscriptions"],
         "summary": "Switch product tier",
         "description": "Changes a subscription's product tier to the specified tier.\r\n\r\nImportant considerations:\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
@@ -7157,7 +7159,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "tierId",
+            "name": "id",
             "in": "path",
             "description": "The identifier of the target product tier",
             "required": true,
@@ -13427,6 +13429,8 @@
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
           },
+          "externalPromotionId": { "type": "string", "nullable": true },
+          "externalPromotionCodeId": { "type": "string", "nullable": true },
           "activationDate": {
             "type": "string",
             "format": "date-time",
@@ -16001,8 +16005,15 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the add-on.",
-            "nullable": true,
+            "format": "uuid",
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
           },
           "smokeballId": {
             "type": "string",
@@ -16240,8 +16251,15 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the promotion.",
-            "nullable": true,
-            "example": "promo_1234"
+            "format": "uuid",
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
           },
           "tiers": {
             "type": "array",
@@ -16334,7 +16352,7 @@
             "type": "boolean",
             "description": "Whether the promotion persists across tier switches.\r\n\r\nFor example, if a BILL only promotion is applied to the subscription and the firm upgrades to BOOST, the Promotion should be deactivated\r\n\r\n* If the promotion is non-persistent, it should be removed completely\r\n\r\n* If the promotion is persistent and the firm reverts back to BILL at a later date, the promotion should automatically be reactivated"
           },
-          "isFreePromotion": {
+          "isFree": {
             "type": "boolean",
             "description": "Whether this promotion makes the targeted tier or add-on free."
           },
@@ -16452,6 +16470,13 @@
             "format": "uuid",
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
           "productSuite": {
             "type": "string",
             "description": "The product suite of the subscription.",
@@ -16559,8 +16584,15 @@
           "id": {
             "type": "string",
             "description": "Unique identifier of the tier.",
-            "nullable": true,
+            "format": "uuid",
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
           },
           "smokeballId": {
             "type": "string",
