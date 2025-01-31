@@ -16036,6 +16036,12 @@
             "description": "The description of the add-on.\r\n\r\nCan be used to describe the add-on to a customer.",
             "nullable": true
           },
+          "trialPeriodDays": {
+            "type": "integer",
+            "description": "The number of days the add-on can be trialed for.\r\n\r\nCannot be trialed if zero or missing.",
+            "format": "int32",
+            "nullable": true
+          },
           "prices": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Price" },
@@ -16613,6 +16619,12 @@
           "description": {
             "type": "string",
             "description": "The description of the tier.\r\n\r\nCan be used to describe the tier to a customer.",
+            "nullable": true
+          },
+          "trialPeriodDays": {
+            "type": "integer",
+            "description": "The number of days the tier can be trialed for.\r\n\r\nCannot be trialed if zero or missing.",
+            "format": "int32",
             "nullable": true
           },
           "prices": {
