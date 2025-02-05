@@ -6390,6 +6390,28 @@
         "summary": "Get all promotions",
         "description": "Returns all available promotions with their eligibility criteria and benefits.",
         "operationId": "GetPromotions",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved the promotions",
@@ -16238,10 +16260,10 @@
           },
           "amount": {
             "type": "number",
-            "description": "The per user amount for this pricing option for the specified interval.",
+            "description": "The per user amount for this pricing option for the specified interval (in cents).",
             "format": "double",
             "nullable": true,
-            "example": 109
+            "example": 5900
           },
           "interval": {
             "type": "string",
@@ -16285,7 +16307,7 @@
               "type": "string",
               "description": "The usage context of a promotion.\r\n\r\nThe context can be used by apps to determine how and when to apply a promotion."
             },
-            "description": "Intended usage type for this promotion.",
+            "description": "Intended usage type for this promotion.\r\n\r\n* Manual - Promotion can be applied manually at any time (with a code).\r\n\r\n* Trial - The promotion can be used for trialing tiers or add-ons.\r\n\r\n* CancelRetention - The promotion can be used when the user is trying to cancel their subscription.\r\n\r\n* DowngradeRetention - The promotion can be used when the user is trying to downgrade their subscription.\r\n\r\n* Signup - The promotion can be used on sign up.",
             "nullable": true
           },
           "name": {
@@ -16302,7 +16324,7 @@
           },
           "durationType": {
             "type": "string",
-            "description": "The duration type."
+            "description": "Type of duration for this promotion.\r\n\r\n* None - Duration cannot be determined.\r\n\r\n* Forever - Promotion applies indefinitely.\r\n\r\n* Once - Promotion applies once then expires.\r\n\r\n* Repeating - Promotion applies for a specified number of months."
           },
           "durationMonths": {
             "type": "integer",
@@ -16313,7 +16335,7 @@
           },
           "amountOff": {
             "type": "integer",
-            "description": "Fixed amount off in cents.\r\nOnly one of AmountOff or PercentOff will be set.",
+            "description": "Fixed amount off (in cents).\r\nOnly one of AmountOff or PercentOff will be set.",
             "format": "int64",
             "nullable": true,
             "example": 2000
@@ -16356,7 +16378,7 @@
           },
           "isPersistent": {
             "type": "boolean",
-            "description": "Whether the promotion persists across tier switches.\r\n\r\nFor example, if a BILL only promotion is applied to the subscription and the firm upgrades to BOOST, the Promotion should be deactivated\r\n\r\n* If the promotion is non-persistent, it should be removed completely\r\n\r\n* If the promotion is persistent and the firm reverts back to BILL at a later date, the promotion should automatically be reactivated"
+            "description": "Whether the promotion persists across tier switches.\r\n\r\nFor example, if a BILL only promotion is applied to the subscription and the firm upgrades to BOOST, the Promotion should be deactivated.\r\n\r\n* If the promotion is non-persistent, it should be removed completely.\r\n\r\n* If the promotion is persistent and the firm reverts back to BILL at a later date, the promotion should automatically be reactivated."
           },
           "isFree": {
             "type": "boolean",
@@ -16431,12 +16453,6 @@
             "format": "date-time",
             "nullable": true,
             "example": "2024-12-31T23:59:59Z"
-          },
-          "metadata": {
-            "type": "object",
-            "additionalProperties": { "type": "string" },
-            "description": "Additional metadata associated with the promotion code.",
-            "nullable": true
           }
         },
         "additionalProperties": false
