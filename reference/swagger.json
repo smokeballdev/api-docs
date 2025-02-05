@@ -16373,7 +16373,7 @@
       "PromotionCode": {
         "type": "object",
         "properties": {
-          "externalId": {
+          "id": {
             "type": "string",
             "description": "Unique identifier of the promotion code.",
             "nullable": true,
@@ -16384,6 +16384,12 @@
             "description": "Display name of the promotion code.",
             "nullable": true,
             "example": "SUMMER2024"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the promotion code.",
+            "nullable": true,
+            "example": "100% discount!"
           },
           "code": {
             "type": "string",
