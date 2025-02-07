@@ -16376,6 +16376,12 @@
             "description": "List of promotion codes associated with this promotion.",
             "nullable": true
           },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Additional metadata associated with the promotion code.",
+            "nullable": true
+          },
           "isPersistent": {
             "type": "boolean",
             "description": "Whether the promotion persists across tier switches.\r\n\r\nFor example, if a BILL only promotion is applied to the subscription and the firm upgrades to BOOST, the Promotion should be deactivated.\r\n\r\n* If the promotion is non-persistent, it should be removed completely.\r\n\r\n* If the promotion is persistent and the firm reverts back to BILL at a later date, the promotion should automatically be reactivated."
@@ -16453,6 +16459,12 @@
             "format": "date-time",
             "nullable": true,
             "example": "2024-12-31T23:59:59Z"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Additional metadata associated with the promotion code.",
+            "nullable": true
           }
         },
         "additionalProperties": false
