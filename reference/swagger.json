@@ -15765,7 +15765,11 @@
             "description": "A placement key representing where the plugin should be rendered in the UI.\r\nPlacement key must correspond to the type of the plugin.\r\nRefer to documentation for valid placement keys.",
             "nullable": true
           },
-          "requestEndpointUrl": { "type": "string", "nullable": true },
+          "requestEndpointUrl": {
+            "type": "string",
+            "description": "The url that is called to request the plugin endpoint.\r\n\r\nWhen a user views a plugin, we request the url to view securely through your backend.\r\n\r\nMatter and user information is passed to the endpoint through POST body, and the endpoint is expected to return a JSON object containing a url field.\r\nThe plugin will then load the URL and display it to the user.\r\n\r\nPlugins are documented at <see href=\"https://smokeball.stoplight.io/docs/api-docs/ff7bf18edd573-plugins\" />",
+            "nullable": true
+          },
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
@@ -15804,7 +15808,11 @@
             "description": "A placement key representing where the plugin should be rendered in the UI.\r\n\r\nPlacement key must correspond to the type of the plugin.\r\n\r\nRefer to documentation for valid placement keys.",
             "nullable": true
           },
-          "requestEndpointUrl": { "type": "string", "nullable": true },
+          "requestEndpointUrl": {
+            "type": "string",
+            "description": "The url that is called to request the plugin endpoint.\r\n\r\nWhen a user views a plugin, we request the url to view securely through your backend.\r\n\r\nMatter and user information is passed to the endpoint through POST body, and the endpoint is expected to return a JSON object containing a url field.\r\nThe plugin will then load the URL and display it to the user.\r\n\r\nPlugins are documented at <see href=\"https://smokeball.stoplight.io/docs/api-docs/ff7bf18edd573-plugins\" />",
+            "nullable": true
+          },
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
