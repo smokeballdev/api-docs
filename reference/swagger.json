@@ -15508,7 +15508,7 @@
         "additionalProperties": false
       },
       "PluginApplication": {
-        "enum": ["Native", "Web"],
+        "enum": ["Native", "Web", "Archie"],
         "type": "string",
         "description": "The application that the plugin should be rendered in."
       },
@@ -15543,6 +15543,18 @@
         },
         "additionalProperties": false
       },
+      "PluginAvailability": {
+        "type": "object",
+        "properties": {
+          "matterTypeIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional matter types applicable for the plugin.\r\n\r\nPlugin is applicable for all matter types if this is left empty.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PluginDto": {
         "type": "object",
         "properties": {
@@ -15567,7 +15579,6 @@
         },
         "additionalProperties": false
       },
-      "PluginEndpoint": { "type": "object", "additionalProperties": false },
       "PluginPage": {
         "type": "object",
         "properties": {
@@ -15754,11 +15765,7 @@
             "description": "A placement key representing where the plugin should be rendered in the UI.\r\nPlacement key must correspond to the type of the plugin.\r\nRefer to documentation for valid placement keys.",
             "nullable": true
           },
-          "requestEndpointUrl": {
-            "type": "string",
-            "description": "The endpoint to request url for the plugin.",
-            "nullable": true
-          },
+          "requestEndpointUrl": { "type": "string", "nullable": true },
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
@@ -15794,18 +15801,18 @@
           },
           "placement": {
             "type": "string",
-            "description": "A placement key representing where the plugin should be rendered in the UI.\r\nPlacement key must correspond to the type of the plugin.\r\nRefer to documentation for valid placement keys.",
-            "nullable": true
-          },
-          "endpoint": {
-            "allOf": [{ "$ref": "#/components/schemas/PluginEndpoint" }],
-            "description": "The endpoint for the plugin.\r\nButtons will open a new page/window using the endpoint.\r\nTabs will lazy-load the endpoint in the tab when selected.",
+            "description": "A placement key representing where the plugin should be rendered in the UI.\r\n\r\nPlacement key must correspond to the type of the plugin.\r\n\r\nRefer to documentation for valid placement keys.",
             "nullable": true
           },
           "requestEndpointUrl": { "type": "string", "nullable": true },
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
+            "nullable": true
+          },
+          "availability": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
+            "description": "Optional settings for determining the availability of a plugin.",
             "nullable": true
           }
         },
