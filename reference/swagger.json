@@ -4726,7 +4726,7 @@
         "tags": ["Plugins"],
         "summary": "Update existing plugin",
         "description": "Updates a plugin with the specified plugin details.",
-        "operationId": "UpdatePlugin",
+        "operationId": "UpdatePluginAsync",
         "parameters": [
           {
             "name": "pluginId",
@@ -4793,7 +4793,7 @@
         "tags": ["Plugins"],
         "summary": "Delete existing plugin",
         "description": "Deletes an existing plugin by id.",
-        "operationId": "DeletePlugin",
+        "operationId": "DeletePluginAsync",
         "parameters": [
           {
             "name": "pluginId",
@@ -4883,7 +4883,7 @@
         "tags": ["Plugins"],
         "summary": "Create a new plugin",
         "description": "Creates a new plugin with the specified plugin details.",
-        "operationId": "CreatePlugin",
+        "operationId": "CreatePluginAsync",
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -4998,7 +4998,7 @@
         "tags": ["Plugins"],
         "summary": "Unsubscribes account from plugin",
         "description": "Unsubscribes an account from the specified plugin.",
-        "operationId": "DeletePluginSubscription",
+        "operationId": "DeletePluginSubscriptionAsync",
         "parameters": [
           {
             "name": "pluginId",
@@ -5124,7 +5124,7 @@
         "tags": ["Plugins"],
         "summary": "Subscribe account to plugin",
         "description": "Subscribes an account with the specified plugin.",
-        "operationId": "CreatePluginSubscription",
+        "operationId": "CreatePluginSubscriptionAsync",
         "parameters": [
           {
             "name": "pluginId",
@@ -15767,7 +15767,7 @@
           },
           "requestEndpointUrl": {
             "type": "string",
-            "description": "The url that is called to request the plugin endpoint.\r\n\r\nWhen a user views a plugin, we request the url to view securely through your backend.\r\n\r\nMatter and user information is passed to the endpoint through POST body, and the endpoint is expected to return a JSON object containing a url field.\r\nThe plugin will then load the URL and display it to the user.\r\n\r\nPlugins are documented at <see href=\"https://smokeball.stoplight.io/docs/api-docs/ff7bf18edd573-plugins\" />",
+            "description": "The url that is called to request the plugin endpoint.\r\n\r\nWhen a user views a plugin, we request the url to view securely through your backend.\r\n\r\nMatter and user information is passed to the endpoint through POST body, and the endpoint is expected to return a JSON object containing a url field.\r\nThe plugin will then load the URL and display it to the user.",
             "nullable": true
           },
           "attributes": {
@@ -15810,7 +15810,7 @@
           },
           "requestEndpointUrl": {
             "type": "string",
-            "description": "The url that is called to request the plugin endpoint.\r\n\r\nWhen a user views a plugin, we request the url to view securely through your backend.\r\n\r\nMatter and user information is passed to the endpoint through POST body, and the endpoint is expected to return a JSON object containing a url field.\r\nThe plugin will then load the URL and display it to the user.\r\n\r\nPlugins are documented at <see href=\"https://smokeball.stoplight.io/docs/api-docs/ff7bf18edd573-plugins\" />",
+            "description": "The url that is called to request the plugin endpoint.\r\n\r\nWhen a user views a plugin, we request the url to view securely through your backend.\r\n\r\nMatter and user information is passed to the endpoint through POST body, and the endpoint is expected to return a JSON object containing a url field.\r\nThe plugin will then load the URL and display it to the user.",
             "nullable": true
           },
           "attributes": {
