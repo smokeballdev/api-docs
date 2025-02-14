@@ -12288,7 +12288,7 @@
         "properties": {
           "productId": {
             "type": "string",
-            "description": "The product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "description": "The product/tier the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (in brackets) must be used.\r\n\r\n* Bill (SMK001)\r\n\r\n* Boost (SMK004)\r\n\r\n* Grow (SMK002)\r\n\r\n* Prosper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
           },
@@ -12296,7 +12296,7 @@
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nFamilyPro (ADD004)\r\n\r\nApi (ADD005)\r\n\r\nWorkflows (ADD006)\r\n\r\nPowerBI (ADD007)\r\n\r\nArchie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* LeadPro (ADD001)\r\n\r\n* MatterFlow (ADD002)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
             "nullable": true,
             "example": ["ADD01", "ADD002"]
           },
@@ -12308,19 +12308,19 @@
           },
           "email": {
             "type": "string",
-            "description": "The email of the firm.\r\n\r\nOnly supported in AUS.",
+            "description": "The email of the firm.\r\n\r\nOnly supported in AU.",
             "nullable": true,
             "example": "john.smith@law.com"
           },
           "abn": {
             "type": "string",
-            "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
+            "description": "Represents a different field depending on the region.\r\n\r\n* For AU: Australian Business Number (ABN) of the firm.\r\n\r\n* For UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
             "nullable": true,
             "example": "1234567890"
           },
           "acn": {
             "type": "string",
-            "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
+            "description": "Represents a different field depending on the region.\r\n\r\n* For AU: Australian Company Number (ACN) of the firm.\r\n\r\n* For UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
             "nullable": true,
             "example": "1234567890"
           },
@@ -12336,7 +12336,7 @@
           },
           "dxAddress": {
             "allOf": [{ "$ref": "#/components/schemas/FirmDxAddressDto" }],
-            "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
+            "description": "DX address of the firm.\r\n\r\nOnly supported in AU.",
             "nullable": true
           },
           "phone": {
@@ -12361,7 +12361,7 @@
           },
           "subscription": {
             "allOf": [{ "$ref": "#/components/schemas/FirmSubscriptionDto" }],
-            "description": "The subscription details that will be used when creating the firm.",
+            "description": "Optional subscription details that will be used when creating the firm.",
             "nullable": true
           }
         },
@@ -12765,9 +12765,19 @@
       "FirmSubscriptionDto": {
         "type": "object",
         "properties": {
-          "coupon": {
+          "productSuite": {
             "type": "string",
-            "description": "The Coupon that will be used when the firm is subscribed.",
+            "description": "Optional product suite to use when creating the firm.\r\n\r\nUse 'SMOKEBALL' to use the new product suite.",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "Optional promotion ID that will be used when the firm is subscribed.",
+            "nullable": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "Optional interval to register the account subscription with.",
             "nullable": true
           }
         },
@@ -13118,7 +13128,7 @@
         "properties": {
           "productId": {
             "type": "string",
-            "description": "The product the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (listed in brackets) must be used.\r\n\r\nBill (SMK001)\r\n\r\nBoost (SMK004)\r\n\r\nGrow (SMK002)\r\n\r\nProsper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
+            "description": "The product/tier the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (in brackets) must be used.\r\n\r\n* Bill (SMK001)\r\n\r\n* Boost (SMK004)\r\n\r\n* Grow (SMK002)\r\n\r\n* Prosper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
           },
@@ -13126,7 +13136,7 @@
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\nLeadPro (ADD001)\r\n\r\nMatterFlow (ADD002)\r\n\r\nAutoTime (ADD003)\r\n\r\nFamilyPro (ADD004)\r\n\r\nApi (ADD005)\r\n\r\nWorkflows (ADD006)\r\n\r\nPowerBI (ADD007)\r\n\r\nArchie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* LeadPro (ADD001)\r\n\r\n* MatterFlow (ADD002)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
             "nullable": true,
             "example": ["ADD01", "ADD002"]
           },
@@ -13138,19 +13148,19 @@
           },
           "email": {
             "type": "string",
-            "description": "The email of the firm.\r\n\r\nOnly supported in AUS.",
+            "description": "The email of the firm.\r\n\r\nOnly supported in AU.",
             "nullable": true,
             "example": "john.smith@law.com"
           },
           "abn": {
             "type": "string",
-            "description": "For AU: Australian Business Number (ABN) of the firm.\r\n\r\nFor UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
+            "description": "Represents a different field depending on the region.\r\n\r\n* For AU: Australian Business Number (ABN) of the firm.\r\n\r\n* For UK: Value-added Tax Number (VAT) of the firm.\r\n\r\nOnly supported in AU and UK.",
             "nullable": true,
             "example": "1234567890"
           },
           "acn": {
             "type": "string",
-            "description": "For AU: Australian Company Number (ACN) of the firm.\r\n\r\nFor UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
+            "description": "Represents a different field depending on the region.\r\n\r\n* For AU: Australian Company Number (ACN) of the firm.\r\n\r\n* For UK: Company Registration Number (CRN) of the firm.\r\n\r\nOnly supported in AU and UK.",
             "nullable": true,
             "example": "1234567890"
           },
@@ -13166,7 +13176,7 @@
           },
           "dxAddress": {
             "allOf": [{ "$ref": "#/components/schemas/FirmDxAddressDto" }],
-            "description": "DX address of the firm.\r\n\r\nOnly supported in AUS.",
+            "description": "DX address of the firm.\r\n\r\nOnly supported in AU.",
             "nullable": true
           },
           "phone": {
@@ -16134,18 +16144,18 @@
           },
           "cancelAt": {
             "type": "string",
-            "description": "Optional: Cancel at the supplied date. Will only be used if CancellationType is set to 'Date'.\r\n\r\nIf set to a date before the current period ends, this will cause a proration if prorations have been enabled.\r\n\r\nIf set during a future period, this will always cause a proration for that period.",
+            "description": "Optional date used to cancel at the supplied date. Will only be used if CancellationType is set to 'Date'.\r\n\r\nIf set to a date before the current period ends, this will cause a proration if prorations have been enabled.\r\n\r\nIf set during a future period, this will always cause a proration for that period.",
             "format": "date-time",
             "nullable": true
           },
           "reason": {
             "type": "string",
-            "description": "Optional: The reason for cancellation.",
+            "description": "Optional reason for cancellation of the subscription.",
             "nullable": true
           },
           "preview": {
             "type": "boolean",
-            "description": "Optional: Preview cancellation request. \r\n\r\nIf 'true', the Subscription is not cancelled and the CancellationType and CancellationDate are returned.",
+            "description": "Optional flag to preview cancellation request. \r\n\r\nIf 'true', the Subscription is not cancelled and the CancellationType and CancellationDate are returned.",
             "example": true
           }
         },
@@ -16607,12 +16617,12 @@
           },
           "cancellationStatus": {
             "type": "string",
-            "description": "The cancellation status of the subscription.\r\n\r\nNone - The cancelation is not canceled and no cancelation requests have been made.\r\n            \r\nPending - The subscription has been canceled and will be canceled at a later date.\r\n            \r\nCanceled - The subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
+            "description": "The cancellation status of the subscription.\r\n\r\n* None - The cancelation is not canceled and no cancelation requests have been made.\r\n            \r\n* Pending - The subscription has been canceled and will be canceled at a later date.\r\n            \r\n* Canceled - The subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
             "nullable": true
           },
           "cancellationType": {
             "type": "string",
-            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\nPossible values: PeriodEnd, Immediate, Date.",
+            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\n* PeriodEnd - Subscription will be canceled at the end of the billing cycle.\r\n\r\n* Immediate - Subscription was canceled immediatly. \r\n\r\n* Date - If not already canceled, the subscription will be canceled at the 'CanceledAt' date.\r\n\r\nPossible values: PeriodEnd, Immediate, Date.",
             "nullable": true,
             "example": "PeriodEnd"
           },
