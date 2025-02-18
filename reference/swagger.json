@@ -6131,7 +6131,7 @@
       "get": {
         "tags": ["Subscription Payments"],
         "summary": "Get payment methods",
-        "description": "Returns all payment methods associated with a subscription including:\r\n* Payment method ID\r\n* Payment system (e.g. STRIPE)\r\n* Payment type (e.g. CREDIT_CARD)\r\n* Default status\r\n* Date added\r\n* Payment method details\r\n* Archive status\r\n* Transaction state",
+        "description": "Returns all payment methods associated with a subscriptions customer sorted by the most recently added payment methods first.",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6139,6 +6139,26 @@
             "description": "The unique identifier of the subscription",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
@@ -6244,6 +6264,121 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}": {
+      "get": {
+        "tags": ["Subscription Payments"],
+        "summary": "Get payment method",
+        "description": "Returns a specific payment method associated with a subscription.",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "paymentMethodId",
+            "in": "path",
+            "description": "The unique identifier of the payment method",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the payment method",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaymentMethod" }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription or payment method not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Subscription Payments"],
+        "summary": "Remove payment method",
+        "description": "Removes a payment method from a subscription.\r\n\r\nImportant notes:\r\n* Can optionally specify a new default payment method\r\n* Removing default without replacement may cause subscription to go OVERDUE",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "paymentMethodId",
+            "in": "path",
+            "description": "The ID of the payment method to remove",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "description": "Optional request containing new default payment method ID",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Successfully removed the payment method" },
+          "404": {
+            "description": "Subscription or payment method not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/paymentsystems": {
       "get": {
         "tags": ["Subscription Payments"],
@@ -6290,81 +6425,13 @@
             "in": "path",
             "description": "The ID of the payment method to set as default",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
           "200": {
             "description": "Successfully set the default payment method"
           },
-          "404": {
-            "description": "Subscription or payment method not found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error occurred",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}": {
-      "delete": {
-        "tags": ["Subscription Payments"],
-        "summary": "Remove payment method",
-        "description": "Removes a payment method from a subscription.\r\n\r\nImportant notes:\r\n* Can optionally specify a new default payment method\r\n* Removing default without replacement may cause subscription to go OVERDUE",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "paymentMethodId",
-            "in": "path",
-            "description": "The ID of the payment method to remove",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "description": "Optional request containing new default payment method ID",
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/RemovePaymentMethodRequest" }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": { "description": "Successfully removed the payment method" },
           "404": {
             "description": "Subscription or payment method not found",
             "content": {
@@ -16113,24 +16180,28 @@
       "AddPaymentMethodRequest": {
         "type": "object",
         "properties": {
-          "paymentSystem": {
+          "paymentSystemId": {
             "type": "string",
-            "description": "Payment system to use (e.g., STRIPE).",
-            "nullable": true
+            "description": "Payment system to use.",
+            "nullable": true,
+            "example": "STRIPE"
           },
           "paymentInformation": {
-            "description": "Payment information (e.g., Stripe setup intent).",
+            "allOf": [{ "$ref": "#/components/schemas/PaymentInformation" }],
+            "description": "Payment information specific to the payment system.\r\n\r\nFor Stripe, this should be StripePaymentInformation.",
             "nullable": true
           },
           "isDefault": {
             "type": "boolean",
             "description": "Whether to set this as the default payment method.",
-            "nullable": true
+            "nullable": true,
+            "example": true
           },
           "chargeImmediate": {
             "type": "boolean",
             "description": "Whether to charge immediately if subscription is overdue.",
-            "nullable": true
+            "nullable": true,
+            "example": true
           }
         },
         "additionalProperties": false
@@ -16182,46 +16253,51 @@
         },
         "additionalProperties": false
       },
+      "PaymentInformation": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Base class for payment information."
+      },
       "PaymentMethod": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "description": "Unique identifier of the payment method.",
-            "nullable": true
+            "nullable": true,
+            "example": "784b3497-bf1f-47d2-93e6-1d38b96b8d3f"
           },
           "paymentSystem": {
             "type": "string",
-            "description": "Payment system (e.g., STRIPE).",
-            "nullable": true
+            "description": "Payment system.",
+            "nullable": true,
+            "example": "STRIPE"
           },
-          "paymentType": {
+          "type": {
             "type": "string",
-            "description": "Type of payment method (currently only CREDIT_CARD).",
-            "nullable": true
+            "description": "The payment type.\r\n\r\n* None - The payment type is missing or unknown.\r\n\r\n* CreditCard - Credit Card payment type.\r\n\r\n* DirectDeposit - Direct Deposit payment type. (not currently supported)",
+            "example": "CreditCard"
           },
           "isDefault": {
             "type": "boolean",
-            "description": "Whether this is the default payment method for the subscription."
-          },
-          "addedDate": {
-            "type": "string",
-            "description": "When this payment method was added to the subscription.",
-            "format": "date-time"
+            "description": "Whether this is the default payment method for the customer.",
+            "example": true
           },
           "details": {
             "allOf": [{ "$ref": "#/components/schemas/PaymentMethodDetails" }],
             "description": "Payment method specific details for display.",
             "nullable": true
           },
-          "isArchived": {
-            "type": "boolean",
-            "description": "Whether this payment method has been archived."
-          },
-          "transactionState": {
+          "lastPaymentState": {
             "type": "string",
-            "description": "Current transaction state (SUCCESS, FAILED_RETRYING, FAILED).",
-            "nullable": true
+            "description": "The status of a payment.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.None: The payment status is unknown.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Succeeded: The payment was successful.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Processing: The payment is being processed.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Canceled: The payment was canceled.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Failed: The payment requires a payment method to be provided, the provided payment method failed or other action is required (e.g. confirmation or other action by the customer)",
+            "example": "Succeeded"
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When this payment method was added.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
           }
         },
         "additionalProperties": false
@@ -16229,15 +16305,46 @@
       "PaymentMethodDetails": {
         "type": "object",
         "properties": {
+          "brand": {
+            "type": "string",
+            "description": "The brand of the credit card.",
+            "nullable": true
+          },
           "lastFourDigits": {
             "type": "string",
             "description": "Last four digits of the credit card.",
-            "nullable": true
+            "nullable": true,
+            "example": "1234"
           },
           "expiry": {
             "type": "string",
-            "description": "Expiry date in MM/YY format.",
-            "nullable": true
+            "description": "Expiry date of the credit card in MM/YY format.",
+            "nullable": true,
+            "example": "10/28"
+          },
+          "expiryMonth": {
+            "type": "string",
+            "description": "Expiry month.",
+            "nullable": true,
+            "example": "10"
+          },
+          "expiryYear": {
+            "type": "string",
+            "description": "Expiry year.",
+            "nullable": true,
+            "example": "2028"
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "The account number of the direct deposit account.\r\n\r\nNot yet supported.",
+            "nullable": true,
+            "example": "123456789"
+          },
+          "bsb": {
+            "type": "string",
+            "description": "The BSB of the direct deposit account.\r\n\r\nNot yet supported.",
+            "nullable": true,
+            "example": "062123"
           }
         },
         "additionalProperties": false
@@ -16245,14 +16352,18 @@
       "PaymentSystem": {
         "type": "object",
         "properties": {
-          "type": {
+          "id": {
             "type": "string",
-            "description": "Type of payment system (e.g., STRIPE).",
-            "nullable": true
+            "description": "Id of payment system.",
+            "nullable": true,
+            "example": "STRIPE"
           },
-          "supportedPaymentMethods": {
+          "supportedPaymentTypes": {
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string",
+              "description": "The payment type.\r\n\r\n* None - The payment type is missing or unknown.\r\n\r\n* CreditCard - Credit Card payment type.\r\n\r\n* DirectDeposit - Direct Deposit payment type. (not currently supported)"
+            },
             "description": "List of supported payment method types.",
             "nullable": true
           }
