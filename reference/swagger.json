@@ -16839,6 +16839,11 @@
             "description": "Optional billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf an interval is not supplied then the default interval option will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
             "nullable": true,
             "example": "Monthly"
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "Optional Promotion ID.\r\n\r\nIf the provided promotion id does not exist, the request will fail.",
+            "nullable": true
           }
         },
         "additionalProperties": false
