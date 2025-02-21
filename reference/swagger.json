@@ -6979,6 +6979,63 @@
         }
       }
     },
+    "/subscriptions/{id}/changes": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get subscription changes",
+        "description": "Returns a log of changes made to the subscription through the API.",
+        "operationId": "GetSubscriptionChangesAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the subscription changes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/SubscriptionChange" }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/{id}/cancel": {
       "patch": {
         "tags": ["Subscriptions"],
@@ -16211,7 +16268,7 @@
         "properties": {
           "cancellationType": {
             "type": "string",
-            "description": "The subscription cancellation type."
+            "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date."
           },
           "cancelAt": {
             "type": "string",
@@ -16237,7 +16294,7 @@
         "properties": {
           "cancellationType": {
             "type": "string",
-            "description": "The subscription cancellation type."
+            "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date."
           },
           "cancelAt": {
             "type": "string",
@@ -16750,6 +16807,63 @@
             "format": "date-time",
             "nullable": true,
             "example": "2025-04-23T14:00:00Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionChange": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The subscription change type.\r\n\r\n* Updated\r\n\r\n* AddOnAdded\r\n\r\n* AddOnRemoved\r\n\r\n* PromotionApplied\r\n\r\n* PromotionRemoved\r\n\r\n* Canceled\r\n\r\n* Resumed\r\n\r\n* PaymentMethodAdded\r\n\r\n* PaymentMethodRemoved\r\n\r\n* PaymentMethodSetAsDefault\r\n\r\n* QuantityUpdated"
+          },
+          "accountId": {
+            "type": "string",
+            "description": "The Smokeball firm id.",
+            "nullable": true
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "The subscription id.",
+            "nullable": true
+          },
+          "tierId": {
+            "type": "string",
+            "description": "The tier id that was set (if applicable).",
+            "nullable": true
+          },
+          "addOnIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The add-on ids that were set or removed (if applicable).",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "The promotion id that was applied or removed (if applicable).",
+            "nullable": true
+          },
+          "paymentMethodId": {
+            "type": "string",
+            "description": "The payment method is that was added or removed (if applicable).",
+            "nullable": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "The interval that was set (if applicable).",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The quantity that was set (if applicable).",
+            "format": "int64",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "description": "The timestamp of the change.",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
