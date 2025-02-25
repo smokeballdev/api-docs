@@ -6132,6 +6132,7 @@
         "tags": ["Subscription Payments"],
         "summary": "Get payment methods",
         "description": "Returns all payment methods associated with a subscriptions customer sorted by the most recently added payment methods first.",
+        "operationId": "GetPaymentMethodsAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6195,6 +6196,7 @@
         "tags": ["Subscription Payments"],
         "summary": "Add payment method",
         "description": "Adds a new payment method to a subscription.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
+        "operationId": "AddPaymentMethodAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6269,6 +6271,7 @@
         "tags": ["Subscription Payments"],
         "summary": "Get payment method",
         "description": "Returns a specific payment method associated with a subscription.",
+        "operationId": "GetPaymentMethodAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6316,6 +6319,7 @@
         "tags": ["Subscription Payments"],
         "summary": "Remove payment method",
         "description": "Removes a payment method from a subscription.\r\n\r\nImportant notes:\r\n* Can optionally specify a new default payment method\r\n* Removing default without replacement may cause subscription to go OVERDUE",
+        "operationId": "RemovePaymentMethodAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6384,6 +6388,7 @@
         "tags": ["Subscription Payments"],
         "summary": "Get supported payment systems",
         "description": "Returns all supported payment systems and their supported payment method types.\r\nCurrently supports:\r\n* STRIPE with CREDIT_CARD payment type",
+        "operationId": "GetSupportedPaymentSystemsAsync",
         "responses": {
           "200": {
             "description": "Successfully retrieved the supported payment systems",
@@ -6412,6 +6417,7 @@
         "tags": ["Subscription Payments"],
         "summary": "Set default payment method",
         "description": "Sets a payment method as the default for a subscription.\r\n\r\nImportant notes:\r\n* Replaces any existing default payment method\r\n* No-op if payment method is already default",
+        "operationId": "SetDefaultPaymentMethodAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -6536,7 +6542,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/promotions/{promotionId}": {
+    "/subscriptions/{subscriptionId}/promotions/{id}": {
       "post": {
         "tags": ["Subscription Promotions"],
         "summary": "Apply promotion to subscription",
@@ -6551,7 +6557,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "promotionId",
+            "name": "id",
             "in": "path",
             "description": "The identifier of the promotion to apply",
             "required": true,
@@ -6592,9 +6598,7 @@
             }
           }
         }
-      }
-    },
-    "/subscriptions/{subscriptionId}/promotions/{id}": {
+      },
       "delete": {
         "tags": ["Subscription Promotions"],
         "summary": "Remove promotion from subscription",
@@ -6611,6 +6615,7 @@
           {
             "name": "id",
             "in": "path",
+            "description": "The identifier of the promotion to remove",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
@@ -16318,6 +16323,13 @@
       "PaymentMethod": {
         "type": "object",
         "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
           "id": {
             "type": "string",
             "description": "Unique identifier of the payment method.",
@@ -16380,28 +16392,31 @@
             "example": "10/28"
           },
           "expiryMonth": {
-            "type": "string",
+            "type": "integer",
             "description": "Expiry month.",
+            "format": "int64",
             "nullable": true,
-            "example": "10"
+            "example": 10
           },
           "expiryYear": {
-            "type": "string",
+            "type": "integer",
             "description": "Expiry year.",
+            "format": "int64",
             "nullable": true,
-            "example": "2028"
+            "example": 2028
           },
           "accountNumber": {
-            "type": "string",
+            "type": "integer",
             "description": "The account number of the direct deposit account.\r\n\r\nNot yet supported.",
+            "format": "int64",
             "nullable": true,
-            "example": "123456789"
+            "example": 123456789
           },
           "bsb": {
-            "type": "string",
+            "type": "integer",
             "description": "The BSB of the direct deposit account.\r\n\r\nNot yet supported.",
-            "nullable": true,
-            "example": "062123"
+            "format": "int64",
+            "nullable": true
           }
         },
         "additionalProperties": false
