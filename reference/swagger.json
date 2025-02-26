@@ -1457,6 +1457,183 @@
         }
       }
     },
+    "/events/{eventId}/reminders": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Gets reminders for specified event",
+        "description": "Returns the collection of reminders for an event",
+        "operationId": "GetReminders",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the collection of reminders.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/ReminderDto" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the event."
+          },
+          "404": {
+            "description": "When event with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Events"],
+        "summary": "Create reminder for specified event",
+        "description": "Create new reminder for an event.",
+        "operationId": "CreateReminder",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ReminderDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ReminderDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ReminderDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the event reminders.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the event."
+          },
+          "404": {
+            "description": "When event with specified id does not exist."
+          }
+        }
+      }
+    },
+    "/events/{eventId}/reminders/{reminderId}": {
+      "put": {
+        "tags": ["Events"],
+        "summary": "Update a reminder for specified event",
+        "description": "Updates an existing reminder for an event.",
+        "operationId": "UpdateReminder",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "reminderId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ReminderDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ReminderDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ReminderDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the event reminders.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the event."
+          },
+          "404": {
+            "description": "When event with specified id does not exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Events"],
+        "summary": "Delete reminder for specified event",
+        "description": "Deletes a specified event reminder.",
+        "operationId": "DeleteReminder",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "reminderId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the event reminders.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the event."
+          },
+          "404": {
+            "description": "When event with specified id does not exist."
+          }
+        }
+      }
+    },
     "/matters/{matterId}/expenses": {
       "get": {
         "tags": ["Expenses"],
@@ -11587,7 +11764,7 @@
           },
           "additionalData": {
             "type": "object",
-            "additionalProperties": { "type": "string" },
+            "additionalProperties": { "type": "string", "nullable": true },
             "description": "Any additional data provided for the event.",
             "nullable": true
           },
@@ -11679,7 +11856,7 @@
           },
           "additionalData": {
             "type": "object",
-            "additionalProperties": { "type": "string" },
+            "additionalProperties": { "type": "string", "nullable": true },
             "description": "Collection of key value pairs to update file meta data.",
             "nullable": true
           }
@@ -11729,6 +11906,20 @@
         "type": "integer",
         "description": "The type of the event.\r\n\r\nPossible values: Non Recurring Event = 0, Recurring Pattern Series = 1, Single Recurring Occurrence = 2, Modified Recurring Occurrence = 3, Deleted Recurring Occurrence = 4",
         "format": "int32"
+      },
+      "ReminderDto": {
+        "type": "object",
+        "properties": {
+          "offset": { "type": "integer", "format": "int32" },
+          "offsetTypeId": { "type": "integer", "format": "int32" },
+          "isAllDayReminder": { "type": "boolean" },
+          "userIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "Expense": {
         "type": "object",
@@ -13587,7 +13778,7 @@
         "type": "object",
         "properties": {
           "promotion": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "allOf": [{ "$ref": "#/components/schemas/Promotion" }],
             "nullable": true
           },
           "externalPromotionId": { "type": "string", "nullable": true },
