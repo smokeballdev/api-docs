@@ -6,6 +6,11 @@ tags: [Documentation]
 
 We improve the Smokeball API all the time by releasing new features, fixing bugs and updating the documentation. This changelog accounts for all of the changes as they are released, in chronological order.
 
+### February 2025
+
+- **Matters**: Add ability to clear referal type using matter PATCH and PUT endpoints.
+- **Tasks **: Added IsCompleted query parameter.
+
 ### December 2024
 
 - Performance improvements to all API endpoints.
