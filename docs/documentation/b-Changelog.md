@@ -9,7 +9,7 @@ We improve the Smokeball API all the time by releasing new features, fixing bugs
 ### February 2025
 
 - **Matters**: Add ability to clear referal type using matter PATCH and PUT endpoints.
-- **Tasks **: Added IsCompleted query parameter.
+- **Tasks**: Added IsCompleted query parameter.
 
 ### December 2024
 
