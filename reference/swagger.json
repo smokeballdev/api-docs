@@ -1460,7 +1460,7 @@
     "/events/{eventId}/reminders": {
       "get": {
         "tags": ["Events"],
-        "summary": "Gets reminders for specified event",
+        "summary": "Gets reminders for an event",
         "description": "Returns the collection of reminders for an event",
         "operationId": "GetReminders",
         "parameters": [
@@ -1493,7 +1493,7 @@
       },
       "post": {
         "tags": ["Events"],
-        "summary": "Create reminder for specified event",
+        "summary": "Create reminder for an event",
         "description": "Create new reminder for an event.",
         "operationId": "CreateReminder",
         "parameters": [
@@ -1544,7 +1544,7 @@
     "/events/{eventId}/reminders/{reminderId}": {
       "put": {
         "tags": ["Events"],
-        "summary": "Update a reminder for specified event",
+        "summary": "Update a reminder for an event",
         "description": "Updates an existing reminder for an event.",
         "operationId": "UpdateReminder",
         "parameters": [
@@ -1599,7 +1599,7 @@
       },
       "delete": {
         "tags": ["Events"],
-        "summary": "Delete reminder for specified event",
+        "summary": "Delete reminder for an event",
         "description": "Deletes a specified event reminder.",
         "operationId": "DeleteReminder",
         "parameters": [
@@ -11910,12 +11910,27 @@
       "ReminderDto": {
         "type": "object",
         "properties": {
-          "offset": { "type": "integer", "format": "int32" },
-          "offsetTypeId": { "type": "integer", "format": "int32" },
-          "isAllDayReminder": { "type": "boolean" },
+          "offset": {
+            "type": "integer",
+            "description": "Offset of the reminder.\r\n\r\nValue must be between 0 and 100.",
+            "format": "int32",
+            "example": 10
+          },
+          "offsetTypeId": {
+            "type": "integer",
+            "description": "Offset Type id of the reminder.\r\n\r\nPossible values:\r\n    1 = Minute\r\n       \r\n    2 = Hourly\r\n            \r\n    3 = Daily\r\n            \r\n    4 = Weekly\r\n            \r\n    5 = Monthly",
+            "format": "int32",
+            "example": 1
+          },
+          "isAllDayReminder": {
+            "type": "boolean",
+            "description": "Boolean flag indicating if the reminder is an all day reminder.",
+            "example": false
+          },
           "userIds": {
             "type": "array",
             "items": { "type": "string" },
+            "description": "Array of unique identifier of the users of the reminder.",
             "nullable": true
           }
         },
