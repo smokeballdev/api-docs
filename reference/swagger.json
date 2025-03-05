@@ -6723,7 +6723,7 @@
       "post": {
         "tags": ["Subscription Promotions"],
         "summary": "Apply promotion to subscription",
-        "description": "Applies a promotion to a subscription.\r\n\r\nImportant notes:\r\n* Can be applied in any subscription state\r\n* One-time promotions can only be used once\r\n* Some promotions may have duration limits\r\n* Promotions may be tied to specific tiers or add-ons",
+        "description": "Applies a promotion to a subscription.\r\n\r\nImportant considerations:\r\n* Some promotions may have redemption limits per subscription\r\n* Some promotions may have duration limits\r\n* Signup promotions cannot be applied to an existing subscription\r\n* Trial promotions are tied to a single tier or add-on",
         "operationId": "ApplyPromotionAsync",
         "parameters": [
           {
@@ -6884,7 +6884,7 @@
       "post": {
         "tags": ["Subscriptions"],
         "summary": "Add add-on",
-        "description": "Adds a specific add-on to a subscription.\r\n\r\nImportant considerations:\r\n* Add-ons must be compatible with the subscription's current tier\r\n* Some add-ons may have dependencies on other add-ons\r\n* Billing will be prorated for the remaining period\r\n* Usage limits may be adjusted immediately",
+        "description": "Adds a specific add-on to a subscription.\r\n\r\nImportant considerations:\r\n* Add-ons must be compatible with the subscription's current tier\r\n* Billing will be prorated for the remaining period",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -7046,7 +7046,7 @@
       "patch": {
         "tags": ["Subscriptions"],
         "summary": "Update subscription",
-        "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
+        "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Updates cannot be made to canceled subscriptions\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
         "operationId": "UpdateSubscriptionAsync",
         "parameters": [
           {
@@ -7222,7 +7222,7 @@
       "patch": {
         "tags": ["Subscriptions"],
         "summary": "Cancel subscription",
-        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* Date - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.",
+        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* Date - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.\r\n\r\nImportant considerations:\r\n* If the subscription is trialing a tier, the tier is reverted to the previous tier at the end of the trials duration. This is only supported with PeriodEnd CancellationType.\r\n* If the subscription is trialing an add-on, the add-on is removed at the end of the trials duration. This is only supported with PeriodEnd CancellationType.",
         "operationId": "CancelSubscriptionAsync",
         "parameters": [
           {
@@ -13794,17 +13794,18 @@
         "properties": {
           "promotion": {
             "allOf": [{ "$ref": "#/components/schemas/Promotion" }],
+            "description": "The promotion associated with the discount.",
             "nullable": true
           },
-          "externalPromotionId": { "type": "string", "nullable": true },
-          "externalPromotionCodeId": { "type": "string", "nullable": true },
           "activationDate": {
             "type": "string",
+            "description": "The date the discount was activated.",
             "format": "date-time",
             "nullable": true
           },
           "expirationDate": {
             "type": "string",
+            "description": "The date the discount will expire.",
             "format": "date-time",
             "nullable": true
           }
@@ -16503,9 +16504,17 @@
       "CancellationResponse": {
         "type": "object",
         "properties": {
+          "preview": {
+            "type": "boolean",
+            "description": "True if this is a cancellation preview."
+          },
           "cancellationType": {
             "type": "string",
             "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date."
+          },
+          "cancellationBehaviour": {
+            "type": "string",
+            "description": "The subscription cancellation behaviour.\r\n\r\n* Cancel - Standard behaviour. The subscription will be canceled as normal.\r\n\r\n* CancelTrials - Any trials applied to the subscription will be canceled."
           },
           "cancelAt": {
             "type": "string",
@@ -16516,6 +16525,17 @@
           "reason": {
             "type": "string",
             "description": "The reason for cancellation.",
+            "nullable": true
+          },
+          "tiers": {
+            "allOf": [{ "$ref": "#/components/schemas/Tier" }],
+            "description": "The tier that will be set at the as a result of the cancellation.",
+            "nullable": true
+          },
+          "addOns": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AddOn" },
+            "description": "The add-ons that will be set at the as a result of the cancellation.",
             "nullable": true
           }
         },
@@ -16746,6 +16766,12 @@
             "format": "int64",
             "nullable": true,
             "example": 3
+          },
+          "trialPeriodDays": {
+            "type": "integer",
+            "description": "If the promotion is a trial promotion, how many days the associated tier or add-on will be trialed for.\r\n\r\nNote: This will return null or 0 if the promotion is not trialable.",
+            "format": "int64",
+            "nullable": true
           },
           "amountOff": {
             "type": "integer",
@@ -17081,7 +17107,7 @@
             "format": "int64",
             "nullable": true
           },
-          "created": {
+          "updated": {
             "type": "string",
             "description": "The timestamp of the change.",
             "format": "date-time"
@@ -17174,11 +17200,6 @@
             "description": "Optional billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf an interval is not supplied then the default interval option will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
             "nullable": true,
             "example": "Monthly"
-          },
-          "promotionId": {
-            "type": "string",
-            "description": "Optional Promotion ID.\r\n\r\nIf the provided promotion id does not exist, the request will fail.",
-            "nullable": true
           }
         },
         "additionalProperties": false
