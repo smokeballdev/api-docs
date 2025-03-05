@@ -88,7 +88,8 @@ When a Plugin view is loaded, a `POST` request is made to the supplied `requestE
   "body": {
     "accountId": "a58f2f17-f138-4432-9965-d2cb539cde4d",
     "userId": "b3d70217-791f-4d82-9fb8-2fcff5c04e58",
-    "userEmail": "user@organization.com"
+    "userEmail": "user@organization.com",
+    "matterId": "86375bb7-0720-4dc6-b584-458bd7865d9e"
   }
 }
 ```
