@@ -16527,7 +16527,7 @@
             "description": "The reason for cancellation.",
             "nullable": true
           },
-          "tiers": {
+          "tier": {
             "allOf": [{ "$ref": "#/components/schemas/Tier" }],
             "description": "The tier that will be set at the as a result of the cancellation.",
             "nullable": true
@@ -17002,6 +17002,11 @@
             "nullable": true,
             "example": "2022-04-23T14:00:00Z"
           },
+          "trialStatus": {
+            "type": "string",
+            "description": "The trial status of the subscription.\r\n\r\n* None - The subscription is not trialing a tier or add-on.\r\n\r\n* Trialing - The subscription is in its trial phase (on signup) or a promotion is applied and atier or add-on is being trialed.",
+            "nullable": true
+          },
           "trialPeriodStartDate": {
             "type": "string",
             "description": "The trial period start date of the subscription.\r\n\r\nUsed in conjuction with the trial period end date to determine if the subscription is currently in trial mode.\r\n\r\nNull if the subscription is not in trial mode.",
@@ -17063,7 +17068,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "The subscription change type.\r\n\r\n* Updated\r\n\r\n* AddOnAdded\r\n\r\n* AddOnRemoved\r\n\r\n* PromotionApplied\r\n\r\n* PromotionRemoved\r\n\r\n* Canceled\r\n\r\n* Resumed\r\n\r\n* PaymentMethodAdded\r\n\r\n* PaymentMethodRemoved\r\n\r\n* PaymentMethodSetAsDefault\r\n\r\n* QuantityUpdated"
+            "description": "The subscription change type.\r\n\r\n* Updated\r\n\r\n* AddOnAdded\r\n\r\n* AddOnRemoved\r\n\r\n* PromotionApplied\r\n\r\n* PromotionRemoved\r\n\r\n* Canceled\r\n\r\n* Resumed\r\n\r\n* PaymentMethodAdded\r\n\r\n* PaymentMethodRemoved\r\n\r\n* PaymentMethodSetAsDefault\r\n\r\n* QuantityUpdated\r\n\r\n* Created"
           },
           "accountId": {
             "type": "string",
