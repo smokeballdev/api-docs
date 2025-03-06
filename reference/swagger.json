@@ -16466,7 +16466,7 @@
             "nullable": true,
             "example": true
           },
-          "chargeImmediate": {
+          "chargeImmediately": {
             "type": "boolean",
             "description": "Whether to charge immediately if subscription is overdue.",
             "nullable": true,
@@ -17004,7 +17004,7 @@
           },
           "trialStatus": {
             "type": "string",
-            "description": "The trial status of the subscription.\r\n\r\n* None - The subscription is not trialing a tier or add-on.\r\n\r\n* Trialing - The subscription is in its trial phase (on signup) or a promotion is applied and atier or add-on is being trialed.",
+            "description": "The trial status of the subscription.\r\n\r\n* None - The subscription is not trialing a tier or add-on.\r\n\r\n* Trialing - The subscription is in its trial phase (on signup) or a promotion is applied and a tier or add-on is being trialed.",
             "nullable": true
           },
           "trialPeriodStartDate": {
