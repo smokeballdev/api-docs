@@ -6443,7 +6443,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}": {
+    "/subscriptions/{subscriptionId}/paymentmethods/{id}": {
       "get": {
         "tags": ["Subscription Payments"],
         "summary": "Get payment method",
@@ -6458,7 +6458,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "paymentMethodId",
+            "name": "id",
             "in": "path",
             "description": "The unique identifier of the payment method",
             "required": true,
@@ -6506,7 +6506,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "paymentMethodId",
+            "name": "id",
             "in": "path",
             "description": "The ID of the payment method to remove",
             "required": true,
@@ -6589,7 +6589,7 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/paymentmethods/{paymentMethodId}/default": {
+    "/subscriptions/{subscriptionId}/paymentmethods/{id}/default": {
       "put": {
         "tags": ["Subscription Payments"],
         "summary": "Set default payment method",
@@ -6604,7 +6604,7 @@
             "schema": { "type": "string", "format": "uuid" }
           },
           {
-            "name": "paymentMethodId",
+            "name": "id",
             "in": "path",
             "description": "The ID of the payment method to set as default",
             "required": true,
