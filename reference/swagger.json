@@ -8165,7 +8165,7 @@
         "tags": ["Users"],
         "summary": "Get a user",
         "description": "Retrieves a specified user. Only accessible using client credentials grant.",
-        "operationId": "GetUserById",
+        "operationId": "GetUserByIdAsync",
         "parameters": [
           {
             "name": "id",
@@ -8213,7 +8213,7 @@
         "tags": ["Users"],
         "summary": "Remove a user",
         "description": "Removes a user. Only accessible using client credentials grant.\r\n            \r\nUser must belong to the specified account.",
-        "operationId": "DeleteUser",
+        "operationId": "DeleteUserAsync",
         "parameters": [
           {
             "name": "id",
@@ -8251,7 +8251,7 @@
         "tags": ["Users"],
         "summary": "Create a user",
         "description": "Creates a user. Only accessible using client credentials grant.\r\n            \r\nSends an email with a generated password if the password is missing.",
-        "operationId": "CreateUser",
+        "operationId": "CreateUserAsync",
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -8285,6 +8285,44 @@
           },
           "400": {
             "description": "When user or password validation fails.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the request is not made using client credentials grant."
+          }
+        }
+      }
+    },
+    "/users/{id}/invite": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Resend a user invitation",
+        "description": "Resends an invitation email with a temporary password for the specified user.\r\nOnly accessible using client credentials grant.\r\n\r\nThe user must exist and belong to the specified account.",
+        "operationId": "InviteUserAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "When request is successful." },
+          "202": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When user does not exist or is not associated to the specified account",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
