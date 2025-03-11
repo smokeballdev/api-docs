@@ -1067,6 +1067,12 @@
             "schema": { "type": "array", "items": { "type": "string" } }
           },
           {
+            "name": "Sort",
+            "in": "query",
+            "description": " Available fields: lastUpdated",
+            "schema": { "type": "string" }
+          },
+          {
             "name": "Fields",
             "in": "query",
             "description": " Available fields: passportDetails, deathDetails, citizenshipDetails, utbmsDetails",
@@ -10198,6 +10204,25 @@
             "nullable": true,
             "example": "2020-08-01"
           },
+          "isDeathDateUnknown": {
+            "type": "boolean",
+            "description": "Whether the person's exact date of death is known.",
+            "example": false
+          },
+          "deathDateFrom": {
+            "type": "string",
+            "description": "Starting range for person's possible date of death.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-08-01"
+          },
+          "deathDateTo": {
+            "type": "string",
+            "description": "Ending range for person's possible date of death.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-08-01"
+          },
           "deathPlace": {
             "type": "string",
             "description": "Contact person's place of death.",
@@ -10231,6 +10256,25 @@
           "deathDate": {
             "type": "string",
             "description": "Contact person's date of death.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-08-01"
+          },
+          "isDeathDateUnknown": {
+            "type": "boolean",
+            "description": "Whether the person's exact date of death is known.",
+            "example": false
+          },
+          "deathDateFrom": {
+            "type": "string",
+            "description": "Starting range for person's possible date of death.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-08-01"
+          },
+          "deathDateTo": {
+            "type": "string",
+            "description": "Ending range for person's possible date of death.",
             "format": "date-time",
             "nullable": true,
             "example": "2020-08-01"
