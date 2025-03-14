@@ -14819,12 +14819,28 @@
           },
           "referralType": {
             "type": "string",
-            "description": "The referal type of the matter.",
+            "description": "The referral type of the matter.",
             "nullable": true
           },
           "referrer": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "The referrer contact of the matter.",
+            "nullable": true
+          },
+          "referralAgreementFeeType": {
+            "type": "string",
+            "description": "The referral agreement fee type.",
+            "nullable": true
+          },
+          "referralAgreementFee": {
+            "type": "number",
+            "description": "The referral agreement fee value.",
+            "format": "double",
+            "nullable": true
+          },
+          "referralAgreementFeeComment": {
+            "type": "string",
+            "description": "The referral agreement fee comment.",
             "nullable": true
           },
           "items": {
@@ -14957,6 +14973,22 @@
             "nullable": true,
             "example": "97bbe49f-6460-4bfc-b287-34ddfdbb81ef"
           },
+          "referralAgreementFeeType": {
+            "type": "string",
+            "description": "The referral agreement fee type.\r\n\r\nPossible values: %, Flat fee, Other",
+            "nullable": true
+          },
+          "referralAgreementFee": {
+            "type": "number",
+            "description": "The referral agreement fee value.",
+            "format": "double",
+            "nullable": true
+          },
+          "referralAgreementFeeComment": {
+            "type": "string",
+            "description": "The referral agreement fee comment.",
+            "nullable": true
+          },
           "personResponsibleStaffId": {
             "type": "string",
             "description": "Staff id of the person responsible for the matter (if applicable).",
@@ -15080,6 +15112,22 @@
             "description": "Contact id of the person that referred the matter.",
             "nullable": true,
             "example": "97bbe49f-6460-4bfc-b287-34ddfdbb81ef"
+          },
+          "referralAgreementFeeType": {
+            "type": "string",
+            "description": "The referral agreement fee type.\r\n\r\nPossible values: %, Flat fee, Other",
+            "nullable": true
+          },
+          "referralAgreementFee": {
+            "type": "number",
+            "description": "The referral agreement fee value.",
+            "format": "double",
+            "nullable": true
+          },
+          "referralAgreementFeeComment": {
+            "type": "string",
+            "description": "The referral agreement fee comment.",
+            "nullable": true
           },
           "personResponsibleStaffId": {
             "type": "string",
@@ -16807,13 +16855,13 @@
           },
           "tiers": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Link" },
+            "items": { "$ref": "#/components/schemas/Tier" },
             "description": "List of tiers this promotion can be applied to.\r\nIf tiers and add-ons are both empty, the promotion can be applied to any tier or add-on.",
             "nullable": true
           },
           "addOns": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Link" },
+            "items": { "$ref": "#/components/schemas/AddOn" },
             "description": "List of add-ons this promotion can be applied to.\r\nIf tiers and add-ons are both empty, the promotion can be applied to any tier or add-on.",
             "nullable": true
           },
@@ -17150,7 +17198,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "The subscription change type.\r\n\r\n* Updated\r\n\r\n* AddOnAdded\r\n\r\n* AddOnRemoved\r\n\r\n* PromotionApplied\r\n\r\n* PromotionRemoved\r\n\r\n* Canceled\r\n\r\n* Resumed\r\n\r\n* PaymentMethodAdded\r\n\r\n* PaymentMethodRemoved\r\n\r\n* PaymentMethodSetAsDefault\r\n\r\n* QuantityUpdated\r\n\r\n* Created"
+            "description": "The subscription change type.\r\n\r\n* Updated\r\n\r\n* AddOnAdded\r\n\r\n* AddOnRemoved\r\n\r\n* PromotionApplied\r\n\r\n* PromotionRemoved\r\n\r\n* Canceled\r\n\r\n* Resumed\r\n\r\n* PaymentMethodAdded\r\n\r\n* PaymentMethodRemoved\r\n\r\n* PaymentMethodSetAsDefault\r\n\r\n* QuantityUpdated\r\n\r\n* Created\r\n\r\n* Advanced"
           },
           "accountId": {
             "type": "string",
