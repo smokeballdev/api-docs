@@ -16610,7 +16610,7 @@
         "properties": {
           "cancellationType": {
             "type": "string",
-            "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date."
+            "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date - see 'CancelAt'."
           },
           "cancelAt": {
             "type": "string",
@@ -16640,7 +16640,7 @@
           },
           "cancellationType": {
             "type": "string",
-            "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date."
+            "description": "The subscription cancellation type.\r\n\r\n* None - No cancellation type has been set.\r\n\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle.\r\n\r\n* Immediate - Cancel subscription immediately.\r\n\r\n* Date - Cancel at specified date - see 'CancelAt'."
           },
           "cancellationBehaviour": {
             "type": "string",
@@ -17172,7 +17172,7 @@
           },
           "cancellationType": {
             "type": "string",
-            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\n* PeriodEnd - Subscription will be canceled at the end of the billing cycle.\r\n\r\n* Immediate - Subscription was canceled immediatly. \r\n\r\n* Date - If not already canceled, the subscription will be canceled at the 'CanceledAt' date.\r\n\r\nPossible values: PeriodEnd, Immediate, Date.",
+            "description": "Represents the most recent cancellation type for the subscription.\r\n\r\nThis can be used alongside the CanceledAt and CancelAt properties to determine the cancellation status and timing.\r\n\r\n* PeriodEnd - Subscription will be canceled at the end of the billing cycle.\r\n\r\n* Immediate - Subscription was canceled immediatly. \r\n\r\n* Date - If not already canceled, the subscription will be canceled at the 'CancelAt' date.\r\n\r\nPossible values: PeriodEnd, Immediate, Date.",
             "nullable": true,
             "example": "PeriodEnd"
           },
