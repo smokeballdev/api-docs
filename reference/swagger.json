@@ -7167,6 +7167,72 @@
         }
       }
     },
+    "/subscriptions/{id}/promotions": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get subscription promotions",
+        "description": "Retrieves promotions available for the specified subscription.",
+        "operationId": "GetSubscriptionPromotions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the subscription details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Promotion" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred while retrieving the subscription promotions",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/subscriptions/{id}/changes": {
       "get": {
         "tags": ["Subscriptions"],
@@ -16249,6 +16315,11 @@
           "attributes": {
             "allOf": [{ "$ref": "#/components/schemas/PluginAttributes" }],
             "description": "Visual attributes associated to this plugin.",
+            "nullable": true
+          },
+          "availability": {
+            "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
+            "description": "Optional: Settings for determining the availability of a plugin.",
             "nullable": true
           },
           "createdDate": {
