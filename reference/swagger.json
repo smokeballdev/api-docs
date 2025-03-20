@@ -16010,6 +16010,11 @@
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
           },
+          "externalId": {
+            "type": "string",
+            "description": "Optional id provided by the external system that owns this plugin.",
+            "nullable": true
+          },
           "application": {
             "allOf": [{ "$ref": "#/components/schemas/PluginApplication" }],
             "description": "The application that the plugin should be rendered in."
@@ -16100,6 +16105,11 @@
       "PluginDto": {
         "type": "object",
         "properties": {
+          "externalId": {
+            "type": "string",
+            "description": "Optional id provided by the external system that owns this plugin.",
+            "nullable": true
+          },
           "application": {
             "allOf": [{ "$ref": "#/components/schemas/PluginApplication" }],
             "description": "The application that the plugin should be rendered in."
