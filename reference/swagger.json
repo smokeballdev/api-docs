@@ -12176,7 +12176,7 @@
           },
           "amount": {
             "type": "number",
-            "description": "Total amount of the expense. Calculated as Price * Quantity.\r\n\r\nThis amount ignores GST (if applicable). See Billing.Expenses.Api.Shared.Resources.Expense.AmountExcTax and Billing.Expenses.Api.Shared.Resources.Expense.AmountIncTax.",
+            "description": "Total amount of the expense. Calculated as Price * Quantity.\r\n\r\nThis amount ignores GST (if applicable). See AmountExcTax and AmountIncTax.",
             "format": "double",
             "example": 900.21
           },
@@ -12507,7 +12507,7 @@
           },
           "amount": {
             "type": "number",
-            "description": "Total amount of the fee in dollars. Calculated using Rate and Duration depending on the fee type.\r\n\r\nThis amount includes tax depending on the TaxInclusive property. See Billing.Fees.Api.Shared.Resources.Fee.AmountExcTax and Billing.Fees.Api.Shared.Resources.Fee.AmountIncTax.",
+            "description": "Total amount of the fee in dollars. Calculated using Rate and Duration depending on the fee type.\r\n\r\nThis amount includes tax depending on the TaxInclusive property. See AmountExcTax and AmountIncTax.",
             "format": "double",
             "example": 350
           },
@@ -16050,6 +16050,12 @@
             "type": "string",
             "description": "Signing key of the plugin to verify integrity of requesting secure URLs.",
             "nullable": true
+          },
+          "additionalData": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Collection of plugin meta data as KeyValuePair(string, object).",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -16126,6 +16132,12 @@
           "key": {
             "type": "string",
             "description": "Signing key of the plugin to verify integrity of requesting secure URLs.\r\nOnly available to set on Plugin creation.",
+            "nullable": true
+          },
+          "additionalData": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Collection of KeyValuePair(string, object) to update Plugin meta data.",
             "nullable": true
           }
         },
