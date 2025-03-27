@@ -30,6 +30,7 @@ Webhook subscriptions can be managed using the `/webhooks` endpoint. To see a li
         "expense.deleted",
         "expense.updated",
         "event.updated",
+        "files.updated",
         "fee.created",
         "fee.deleted",
         "fee.updated",
@@ -106,6 +107,19 @@ To create a subscription, make a POST request to the `/webhooks` endpoint:
   "updatedDateUtc": "2021-05-05T01:36:43.0503944Z"
 }
 ```
+
+> **Warning**  
+> **Effective May 30, 2025**, Webhook subscriptions will be automatically removed if:  
+> - The acquired refresh token has expired.  
+> - The user or firm explicitly revokes access to the integration.  
+>  
+> **Action Required:**  
+> - Do not assume Webhook subscriptions persist after a user re-authenticates.  
+> - After obtaining a new access token, check if Webhook subscriptions exist.  
+> - If they do not exist, recreate them; otherwise, no action is needed.  
+> - **Avoid creating duplicate Webhook subscriptions** to prevent redundant load on your endpoints.  
+>  
+> Ensure your integration follows this workflow to maintain Webhook functionality. If you have any questions, please contact **support@smokeball.com.au**.
 
 ## 3. Event handling
 
