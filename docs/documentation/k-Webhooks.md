@@ -107,8 +107,7 @@ To create a subscription, make a POST request to the `/webhooks` endpoint:
   "updatedDateUtc": "2021-05-05T01:36:43.0503944Z"
 }
 ```
-
-> **Warning**  
+<!-- theme: warning -->
 > **Effective May 30, 2025**, Webhook subscriptions will be automatically removed if:  
 > - The acquired refresh token has expired.  
 > - The user or firm explicitly revokes access to the integration.  
