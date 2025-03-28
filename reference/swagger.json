@@ -1061,6 +1061,12 @@
             "example": true
           },
           {
+            "name": "Type",
+            "in": "query",
+            "description": "Filters result by one more contact types if set. Returns all contact types by default.\r\nPossible values: Staff, Person, Organisation, GroupOfPeople, Trust",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          },
+          {
             "name": "Search",
             "in": "query",
             "description": " Available fields: email, phone, name",
