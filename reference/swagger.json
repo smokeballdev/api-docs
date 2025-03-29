@@ -5932,6 +5932,12 @@
             "in": "query",
             "description": " Available fields: email, name",
             "schema": { "type": "array", "items": { "type": "string" } }
+          },
+          {
+            "name": "Fields",
+            "in": "query",
+            "description": " Available fields: rate",
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -13418,6 +13424,13 @@
             "description": "Staff member's role.",
             "nullable": true,
             "example": "Bookkeeper"
+          },
+          "rate": {
+            "type": "number",
+            "description": "Staff member's hourly rate in dollars.",
+            "format": "double",
+            "nullable": true,
+            "example": 150
           },
           "avatar": {
             "type": "string",
