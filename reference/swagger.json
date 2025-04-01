@@ -12156,6 +12156,12 @@
             "nullable": true,
             "example": "PRT"
           },
+          "utbmsTaskCode": {
+            "type": "string",
+            "description": "The UTBMS task code associated to the expense, where UTBMS is enabled. Only applicable in US.",
+            "nullable": true,
+            "example": "E101"
+          },
           "subject": {
             "type": "string",
             "description": "The subject - this should be a short description of the expense.",
@@ -12442,6 +12448,12 @@
             "description": "The activity code associated to the fee.",
             "nullable": true,
             "example": "PRT"
+          },
+          "utbmsTaskCode": {
+            "type": "string",
+            "description": "The UTBMS task code associated to the fee, where UTBMS is enabled. Only applicable in US.",
+            "nullable": true,
+            "example": "L110"
           },
           "subject": {
             "type": "string",
