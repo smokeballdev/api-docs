@@ -16839,7 +16839,7 @@
           },
           "lastPaymentState": {
             "type": "string",
-            "description": "The status of a payment.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.None: The payment status is unknown.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Succeeded: The payment was successful.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Processing: The payment is being processed.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Canceled: The payment was canceled.\r\n\r\n* Finance.Subscriptions.Entities.PaymentState.Failed: The payment requires a payment method to be provided, the provided payment method failed or other action is required (e.g. confirmation or other action by the customer)",
+            "description": "The status of a payment.\r\n\r\n* None: The payment status is unknown.\r\n\r\n* Succeeded: The payment was successful.\r\n\r\n* Processing: The payment is being processed.\r\n\r\n* Canceled: The payment was canceled.\r\n\r\n* Failed: The payment requires a payment method to be provided, the provided payment method failed or other action is required (e.g. confirmation or other action by the customer)",
             "example": "Succeeded"
           },
           "createdDate": {
