@@ -12803,9 +12803,9 @@
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* LeadPro (ADD001)\r\n\r\n* MatterFlow (ADD002)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* Intake (ADD001)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\n* SSO (ADD010)\r\n\r\nPossible values: ADD01, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008, ADD010",
             "nullable": true,
-            "example": ["ADD01", "ADD002"]
+            "example": ["ADD01", "ADD003"]
           },
           "name": {
             "type": "string",
@@ -13284,7 +13284,7 @@
           },
           "interval": {
             "type": "string",
-            "description": "Optional interval to register the account subscription with.",
+            "description": "Optional interval to register the account subscription with.\r\n\r\nPossible values: Monthly, Yearly",
             "nullable": true
           }
         },
@@ -13650,9 +13650,9 @@
             "uniqueItems": true,
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* LeadPro (ADD001)\r\n\r\n* MatterFlow (ADD002)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\nPossible values: ADD01, ADD002, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* Intake (ADD001)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\n* SSO (ADD010)\r\n\r\nPossible values: ADD01, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008, ADD010",
             "nullable": true,
-            "example": ["ADD01", "ADD002"]
+            "example": ["ADD01", "ADD003"]
           },
           "name": {
             "type": "string",
