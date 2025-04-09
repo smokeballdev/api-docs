@@ -12915,15 +12915,16 @@
           },
           "productId": {
             "type": "string",
-            "description": "The Product the firm is subscribed to.",
+            "description": "The product/tier the firm is subscribed to. Must be set when creating the firm and is optional when updating the firm.\r\n\r\nThe supported products are listed in order below, the identifier (in brackets) must be used.\r\n\r\n* Bill (SMK001)\r\n\r\n* Boost (SMK004)\r\n\r\n* Grow (SMK002)\r\n\r\n* Prosper + (SMK003)\r\n\r\nPossible values: SMK001, SMK004, SMK002, SMK003",
             "nullable": true,
             "example": "SMK001"
           },
           "addOnIds": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "The AddOns the firm is subscribed to.",
-            "nullable": true
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* Intake (ADD001)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\n* SSO (ADD010)\r\n\r\nPossible values: ADD01, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008, ADD010",
+            "nullable": true,
+            "example": ["ADD01", "ADD003"]
           },
           "email": {
             "type": "string",
