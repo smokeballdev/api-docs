@@ -16667,7 +16667,7 @@
             "type": "string",
             "description": "The display name of the add-on.",
             "nullable": true,
-            "example": "LeadPro"
+            "example": "Intake"
           },
           "description": {
             "type": "string",
@@ -17405,7 +17405,7 @@
             "type": "string",
             "description": "The display name of the tier.",
             "nullable": true,
-            "example": "LeadPro"
+            "example": "Intake"
           },
           "description": {
             "type": "string",
