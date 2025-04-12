@@ -16978,6 +16978,11 @@
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
           },
+          "productSuite": {
+            "type": "string",
+            "description": "The product suite that this promotion belongs to.",
+            "nullable": true
+          },
           "tiers": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Tier" },
