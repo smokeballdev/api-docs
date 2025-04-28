@@ -11439,6 +11439,18 @@
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
+          "name": {
+            "type": "string",
+            "description": "Name of the file, excluding file extension.",
+            "nullable": true,
+            "example": "court filing"
+          },
+          "fileExtension": {
+            "type": "string",
+            "description": "Extension of the file.",
+            "nullable": true,
+            "example": ".pdf"
+          },
           "downloadUrl": {
             "type": "string",
             "description": "Temporary Link to download file",
