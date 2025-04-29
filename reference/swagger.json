@@ -12631,6 +12631,7 @@
             "example": "2022-07-01"
           },
           "subject": {
+            "minLength": 1,
             "type": "string",
             "description": "The subject - this should be a short description of the fee.",
             "example": "Review contract"
@@ -14122,18 +14123,6 @@
         },
         "additionalProperties": false
       },
-      "InvoicedMatterEntryItem": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "nullable": true },
-          "versionId": { "type": "string", "nullable": true },
-          "type": {
-            "allOf": [{ "$ref": "#/components/schemas/EntryType" }],
-            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'"
-          }
-        },
-        "additionalProperties": false
-      },
       "InvoiceFileInfo": {
         "type": "object",
         "properties": {
@@ -14301,6 +14290,18 @@
             "description": "Written off expenses total.",
             "format": "double",
             "example": 180
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoicedMatterEntryItem": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "versionId": { "type": "string", "nullable": true },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/EntryType" }],
+            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'"
           }
         },
         "additionalProperties": false
