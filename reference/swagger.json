@@ -12022,7 +12022,7 @@
           },
           "timeZone": {
             "type": "string",
-            "description": "Time zone of the event for determining the start time and end time.\r\nTime zones are expected in the IANA time zone format.",
+            "description": "Time zone of the event for determining the start time and end time.\r\nTime zones are expected in the IANA time zone format.\r\nFor a list of valid time zones, see https://nodatime.org/TimeZones.",
             "nullable": true,
             "example": "Australia/Sydney"
           },
