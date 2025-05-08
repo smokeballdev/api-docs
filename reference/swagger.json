@@ -3566,7 +3566,7 @@
     },
     "/layouts": {
       "get": {
-        "tags": ["LayoutDesigns"],
+        "tags": ["Layout Designs"],
         "summary": "Get layout designs",
         "description": "Returns a list of layout designs.",
         "operationId": "GetLayoutDesigns",
@@ -3608,7 +3608,7 @@
     },
     "/layouts/{id}": {
       "get": {
-        "tags": ["LayoutDesigns"],
+        "tags": ["Layout Designs"],
         "summary": "Get a layout design",
         "description": "Retrieves a specified layout design.",
         "operationId": "GetLayoutDesignById",
@@ -3643,7 +3643,7 @@
     },
     "/matters/{matterId}/layouts": {
       "get": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Get layouts",
         "description": "Returns a collection of layout items on a specified matter.",
         "operationId": "GetLayoutMatterItems",
@@ -3670,7 +3670,7 @@
         }
       },
       "post": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Add a new layout",
         "description": "Adds a new layout matter item to a matter.",
         "operationId": "AddLayout",
@@ -3750,13 +3750,13 @@
               }
             }
           },
-          "503": { "description": "Server Error" }
+          "503": { "description": "Service Unavailable" }
         }
       }
     },
     "/matters/{matterId}/layouts/{itemId}": {
       "get": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Get a layout",
         "description": "Retrieves a layout item on a specified matter.",
         "operationId": "GetLayoutMatterItemById",
@@ -3796,7 +3796,7 @@
         }
       },
       "patch": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Merge a layout",
         "description": "Merges layout data.",
         "operationId": "MergeLayout",
@@ -3883,11 +3883,11 @@
               }
             }
           },
-          "503": { "description": "Server Error" }
+          "503": { "description": "Service Unavailable" }
         }
       },
       "delete": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Remove a layout",
         "description": "Removes a layout matter item from a matter.",
         "operationId": "RemoveLayout",
@@ -3941,13 +3941,13 @@
               }
             }
           },
-          "503": { "description": "Server Error" }
+          "503": { "description": "Service Unavailable" }
         }
       }
     },
     "/matters/{matterId}/layouts/{itemId}/contacts": {
       "get": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Get layout contacts",
         "description": "Returns a list of contacts on a specified layout.",
         "operationId": "GetLayoutMatterItemContacts",
@@ -3990,7 +3990,7 @@
         }
       },
       "post": {
-        "tags": ["LayoutMatterItems"],
+        "tags": ["Layout Matter Items"],
         "summary": "Add a contact to a layout",
         "description": "Adds a new contact on a specified layout.\r\nIf contactData.Key already refers a contact, the current role/relationship will need to be removed manually using\r\n`DELETE /matters/{matterId}/roles/{id}` or `DELETE /matters/{matterId}/roles/{roleId}/relationships/{id}`.",
         "operationId": "AddLayoutMatterItemContact",
@@ -14271,19 +14271,19 @@
             "type": "number",
             "description": "All fees (written off + non written off).",
             "format": "double",
-            "example": 250
+            "example": 100
           },
           "writtenOffFeeTotal": {
             "type": "number",
             "description": "Written off fees.",
             "format": "double",
-            "example": 120
+            "example": 100
           },
           "expenseTotal": {
             "type": "number",
             "description": "All expenses (written off + non written off).",
             "format": "double",
-            "example": 300
+            "example": 100
           },
           "writtenOffExpenseTotal": {
             "type": "number",
@@ -14404,6 +14404,7 @@
         "type": "object",
         "properties": {
           "key": {
+            "minLength": 1,
             "type": "string",
             "description": "Name (mapping) of the layout field that contains ContactId."
           },
