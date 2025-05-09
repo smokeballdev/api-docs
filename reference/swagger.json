@@ -6951,7 +6951,7 @@
       "delete": {
         "tags": ["Subscriptions"],
         "summary": "Remove add-on",
-        "description": "Removes a specific add-on from a subscription.\r\n\r\nImportant considerations:\r\n* Removal takes effect immediately\r\n* Usage limits will be adjusted\r\n* Billing will be prorated\r\n* Dependent add-ons may also be removed",
+        "description": "Removes a specific add-on from a subscription.\r\n\r\nImportant considerations:\r\n* Billing will be prorated\r\n* Dependent add-ons may also be removed",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -7064,7 +7064,7 @@
       "patch": {
         "tags": ["Subscriptions"],
         "summary": "Update subscription",
-        "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Updates cannot be made to canceled subscriptions\r\n* Tier changes take effect immediately\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier",
+        "description": "Updates a subscriptions tiers, add-ons, or interval.\r\n\r\nImportant considerations:\r\n* Updates cannot be made to canceled subscriptions\r\n* Billing will be prorated for the remaining period\r\n* Existing add-ons may need to be re-validated\r\n* Some features may be disabled if not available in new tier or add-ons",
         "operationId": "UpdateSubscriptionAsync",
         "parameters": [
           {
