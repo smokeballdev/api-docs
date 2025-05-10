@@ -10157,7 +10157,6 @@
           },
           "trust": {
             "allOf": [{ "$ref": "#/components/schemas/Trust" }],
-            "description": "Contact trust details (if applicable).\r\n\r\nNote that trusts are currently not a feature for Australia (only the US).",
             "nullable": true
           },
           "groupOfPeople": {
