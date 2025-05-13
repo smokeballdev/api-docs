@@ -4878,6 +4878,96 @@
         }
       }
     },
+    "/notifications/{id}": {
+      "get": {
+        "tags": ["Notifications"],
+        "summary": "Get a notification",
+        "description": "Retrieves a specified notification.",
+        "operationId": "GetNotificationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Notification' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Notification" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When notification with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When notification with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "post": {
+        "tags": ["Notifications"],
+        "summary": "Create a notification",
+        "description": "Creates a notification.",
+        "operationId": "CreateNotification",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/NotificationDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/NotificationDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/NotificationDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the notification to be created.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/plugins/{pluginId}": {
       "get": {
         "tags": ["Plugins"],
@@ -16039,6 +16129,136 @@
           },
           "last": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the notification.",
+            "nullable": true,
+            "example": "e2fd015b-8a60-42be-9ea4-b2ef7aa0289b"
+          },
+          "createdByUserId": {
+            "type": "string",
+            "description": "The user that created this notification.",
+            "nullable": true,
+            "example": "db0b4298-67ef-4638-a92a-5bb830ea6af6"
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "Staff id to notify.",
+            "nullable": true,
+            "example": "\"832e778f-83df-454a-b344-768a862a7e67\""
+          },
+          "icon": {
+            "type": "string",
+            "description": "The icon to display for the notification.",
+            "nullable": true,
+            "example": ""
+          },
+          "iconColor": {
+            "type": "string",
+            "description": "The icon hex color to display for the notification.",
+            "nullable": true,
+            "example": "#25C9A4"
+          },
+          "message": {
+            "type": "string",
+            "description": "The message to display for the notification.",
+            "nullable": true,
+            "example": "[@staffId] has **assigned** you a Task."
+          },
+          "toastyIcon": {
+            "type": "string",
+            "description": "The icon to display for the toast notification.",
+            "nullable": true
+          },
+          "toastyMessage": {
+            "type": "string",
+            "description": "The message to display for the message.",
+            "nullable": true
+          },
+          "isRead": {
+            "type": "boolean",
+            "description": "True if the notification has been forcefully read by the user.\r\n            \r\nThis is different to the <seealso cref=\"P:ItOps.NotificationCentre.Api.Resources.Notification.HasBeenSeen\" /> property - which is not forceful.",
+            "example": false
+          },
+          "hasBeenSeen": {
+            "type": "boolean",
+            "description": "True if the notification was \"seen\" by the user.\r\n\r\nThis is different to the forceful \"read\" state.",
+            "example": false
+          },
+          "creationTimestamp": {
+            "type": "string",
+            "description": "The time the notification was created.",
+            "format": "date-time"
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The last time the notification was modified (marked as read, deleted etc).",
+            "format": "date-time",
+            "example": "2020-02-15T00:00:00Z"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "True if the notification has been deleted.",
+            "example": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationDto": {
+        "type": "object",
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "description": "Staff id to notify.",
+            "nullable": true,
+            "example": "\"832e778f-83df-454a-b344-768a862a7e67\""
+          },
+          "icon": {
+            "type": "string",
+            "description": "The icon to display for the notification.\r\n\r\nWill be validated against the Smokeball icon sets.",
+            "nullable": true,
+            "example": ""
+          },
+          "iconColor": {
+            "type": "string",
+            "description": "The icon hex color to display for the notification.",
+            "nullable": true,
+            "example": "#25C9A4"
+          },
+          "message": {
+            "type": "string",
+            "description": "The message to display for the notification.\r\n\r\nSupports basic markdown syntax, such as: ** bold **, -- italic --\r\n            \r\nSupports basic UI markdown syntax for staff member id, such as [@staffId]",
+            "nullable": true,
+            "example": "[@staffId] has **assigned** you a Task."
+          },
+          "toastyIcon": {
+            "type": "string",
+            "description": "The toast notification icon to display for the notification.",
+            "nullable": true
+          },
+          "toastyMessage": {
+            "type": "string",
+            "description": "The toast notification message to display for the notification.",
+            "nullable": true
+          },
+          "actionUri": {
+            "type": "string",
+            "description": "The Smokeball uri to execute when the notification is clicked.",
             "nullable": true
           }
         },
