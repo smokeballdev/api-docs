@@ -7243,10 +7243,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved the subscription details",
+            "description": "Successfully retrieved the subscription invoices",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/Subscription" }
+                "schema": { "$ref": "#/components/schemas/InvoiceCollection" }
               }
             }
           },
@@ -7383,6 +7383,83 @@
           },
           "500": {
             "description": "Internal server error occurred",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{id}/preview": {
+      "post": {
+        "tags": ["Subscriptions"],
+        "summary": "Preview upcoming subscription charges or refunds based on specified updates to subscription.",
+        "description": "Returns a preview of upcoming subscription charges or refunds for any specified update to subscriptions tiers, add-ons, or interval.",
+        "operationId": "PreviewSubscriptionUpdateAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "description": "The subscription upcoming request",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/PreviewSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/PreviewSubscriptionRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/PreviewSubscriptionRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upcomimg subscription response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoicePreview" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid patch document or operations",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error occurred while updating the subscription",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -14099,116 +14176,33 @@
       "Invoice": {
         "type": "object",
         "properties": {
-          "href": { "type": "string", "nullable": true },
-          "relation": { "type": "string", "nullable": true },
-          "method": { "type": "string", "default": "GET", "nullable": true },
-          "self": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "id": {
+          "status": {
             "type": "string",
-            "description": "The unique identifier of the invoice.",
-            "nullable": true,
-            "example": "16567e88-784c-470e-8952-e5a70fe2eb0c"
-          },
-          "versionId": {
-            "type": "string",
-            "description": "The unique identifier of the invoice version.",
-            "nullable": true,
-            "example": "39ffde97-eeeb-4747-bb8f-7c7c10b3c985"
-          },
-          "matter": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "description": "The matter associated to the invoice.",
-            "nullable": true
-          },
-          "matterId": {
-            "type": "string",
-            "description": "The unique identifier of the matter that the invoice belongs to.",
-            "nullable": true,
-            "example": "6398a045-509e-49a2-9268-bb8231fa9340"
-          },
-          "lastUpdatedByUserId": {
-            "type": "string",
-            "description": "The unique identifier of the user that last updated the invoice.",
-            "nullable": true,
-            "example": "5fc5ee85-6643-4623-b019-a0dccceafe47"
+            "description": "The invoice status.",
+            "example": "Paid"
           },
           "description": {
             "type": "string",
             "description": "The invoice description.",
-            "nullable": true,
-            "example": "Services provided."
+            "nullable": true
           },
-          "status": {
-            "allOf": [{ "$ref": "#/components/schemas/InvoiceStatus" }],
-            "description": "The status of the invoice.\r\n\r\nPossible values: Draft = 0, Final = 1, Paid = 2, Deleted = 3 or Void = 4.",
-            "example": 0
-          },
-          "invoiceNumber": {
+          "total": {
             "type": "integer",
-            "description": "The invoice number.",
+            "description": "The total amount for the invoice.",
             "format": "int64",
-            "nullable": true,
-            "example": 10001
+            "example": 1899
           },
-          "invoiceTitle": {
-            "type": "string",
-            "description": "The invoice title.",
-            "nullable": true,
-            "example": "My First Invoice"
-          },
-          "invoiceTitleLine2": {
-            "type": "string",
-            "description": "The invoice title.",
-            "nullable": true,
-            "example": "Subtitle"
-          },
-          "issuedDate": {
-            "type": "string",
-            "description": "The date the invoice has been issued.",
-            "format": "date-time",
-            "example": "2022-09-16T00:00:00+00:00"
-          },
-          "dueDate": {
-            "type": "string",
-            "description": "The date the invoice is due.",
-            "format": "date-time",
-            "example": "2022-09-25T00:00:00+00:00"
-          },
-          "paidDate": {
-            "type": "string",
-            "description": "The date the invoice was paid. This date is only available if the invoice is fully paid.",
-            "format": "date-time",
-            "example": "2022-09-20T00:00:00+00:00"
-          },
-          "discount": {
-            "allOf": [{ "$ref": "#/components/schemas/Discount" }],
-            "description": "The discount settings for the invoice. See InvoiceTotals.Discount if you need the \r\nactual discount amount applied to the invoice.",
-            "nullable": true
-          },
-          "debtors": {
+          "lineItems": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Debtor" },
-            "description": "The debtors for the invoice.",
+            "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
+            "description": "The line items associated to the invoice.",
             "nullable": true
           },
-          "entries": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/InvoicedMatterEntryItem" },
-            "description": "The entries on the invoice.",
-            "nullable": true
-          },
-          "waived": {
-            "type": "boolean",
-            "description": "True if the invoice is waived.",
-            "example": false
-          },
-          "invoiceTotals": {
-            "allOf": [{ "$ref": "#/components/schemas/InvoiceTotals" }],
-            "description": "The invoice totals.",
-            "nullable": true
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the invoice.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
           }
         },
         "additionalProperties": false
@@ -16228,7 +16222,7 @@
             "type": "string",
             "description": "Staff id to notify.",
             "nullable": true,
-            "example": "\"832e778f-83df-454a-b344-768a862a7e67\""
+            "example": "832e778f-83df-454a-b344-768a862a7e67"
           },
           "icon": {
             "type": "string",
@@ -17031,6 +17025,95 @@
         },
         "additionalProperties": false
       },
+      "InvoiceCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Invoice" },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoiceLineItem": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The tier or add-on this item is associated to.\r\n\r\nReturns nothing if the product is not known by our system.",
+            "nullable": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "Recurring payment interval type."
+          },
+          "amount": {
+            "type": "integer",
+            "description": "The amount charged for this line item",
+            "format": "int64",
+            "example": 109
+          },
+          "amountExcludingTax": {
+            "type": "integer",
+            "description": "The amount charged for this line item, excluding taxes",
+            "format": "int64",
+            "nullable": true,
+            "example": 100
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of users for this line item.",
+            "format": "int64",
+            "nullable": true,
+            "example": 3
+          }
+        },
+        "additionalProperties": false
+      },
+      "InvoicePreview": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "The total amount in the invoice preview.",
+            "format": "int64",
+            "example": 1899
+          },
+          "subTotal": {
+            "type": "integer",
+            "description": "The subtotal amount in the invoice preview.",
+            "format": "int64",
+            "example": 1000
+          },
+          "tax": {
+            "type": "integer",
+            "description": "The tax amount in the invoice preview.",
+            "format": "int64",
+            "example": 1000
+          },
+          "lineItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
+            "description": "The line items associated to the invoice.",
+            "nullable": true
+          },
+          "taxRate": {
+            "allOf": [{ "$ref": "#/components/schemas/TaxRate" }],
+            "description": "The current active tax rate.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PaymentInformation": {
         "type": "object",
         "additionalProperties": false,
@@ -17158,6 +17241,36 @@
         },
         "additionalProperties": false
       },
+      "PreviewSubscriptionRequest": {
+        "type": "object",
+        "properties": {
+          "tierId": {
+            "type": "string",
+            "description": "Optional tier id subscription update to preview.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the supplied tier id.",
+            "format": "uuid",
+            "nullable": true,
+            "example": "8d074e85-4d95-4d9a-8a63-187719470d49"
+          },
+          "addOnIds": {
+            "type": "array",
+            "items": { "type": "string", "format": "uuid" },
+            "description": "Optional add-on ids subscription update to preview.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the existing or supplied tier id.",
+            "nullable": true
+          },
+          "promotionId": {
+            "type": "string",
+            "description": "Optional promotion Id subscription update to preview.",
+            "nullable": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "Optional billing interval/pricing option change in subscription tier to preview.\r\n\r\nIf an interval is not supplied and a tier id is supplied, the default interval option for the supplied tier will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
+            "nullable": true,
+            "example": "Monthly"
+          }
+        },
+        "additionalProperties": false
+      },
       "Price": {
         "type": "object",
         "properties": {
@@ -17251,22 +17364,12 @@
             "nullable": true,
             "example": "Summer Sale 2024"
           },
-          "durationType": {
-            "type": "string",
-            "description": "Type of duration for this promotion.\r\n\r\n* None - Duration cannot be determined.\r\n\r\n* Forever - Promotion applies indefinitely.\r\n\r\n* Once - Promotion applies once then expires.\r\n\r\n* Repeating - Promotion applies for a specified number of months."
-          },
-          "durationMonths": {
+          "durationDays": {
             "type": "integer",
-            "description": "Number of months the promotion applies for if DurationType is Repeating.",
+            "description": "Number of days the promotion applies for.\r\n\r\nFor example, if the promotion is a trial promotion, how many days the associated tier or add-on will be trialed for.",
             "format": "int64",
             "nullable": true,
-            "example": 3
-          },
-          "trialPeriodDays": {
-            "type": "integer",
-            "description": "If the promotion is a trial promotion, how many days the associated tier or add-on will be trialed for.\r\n\r\nNote: This will return null or 0 if the promotion is not trialable.",
-            "format": "int64",
-            "nullable": true
+            "example": 7
           },
           "amountOff": {
             "type": "integer",
@@ -17612,6 +17715,17 @@
             "description": "The timestamp of the change.",
             "format": "date-time"
           }
+        },
+        "additionalProperties": false
+      },
+      "TaxRate": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "nullable": true },
+          "country": { "type": "string", "nullable": true },
+          "state": { "type": "string", "nullable": true },
+          "percentage": { "type": "number", "format": "double" },
+          "inclusive": { "type": "boolean" }
         },
         "additionalProperties": false
       },
