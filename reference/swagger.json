@@ -8476,7 +8476,7 @@
         "responses": {
           "200": { "description": "When request is successful." },
           "202": {
-            "description": "Success",
+            "description": "Accepted",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -8527,7 +8527,7 @@
             "description": "When request is successful. Returns a 'User' object."
           },
           "202": {
-            "description": "Success",
+            "description": "Accepted",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -8565,7 +8565,7 @@
         "responses": {
           "200": { "description": "When request is successful." },
           "202": {
-            "description": "Success",
+            "description": "Accepted",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -17052,22 +17052,32 @@
             "description": "The tier or add-on this item is associated to.\r\n\r\nReturns nothing if the product is not known by our system.",
             "nullable": true
           },
+          "description": {
+            "type": "string",
+            "description": "Description of this line item.",
+            "nullable": true
+          },
           "interval": {
             "type": "string",
             "description": "Recurring payment interval type."
           },
           "amount": {
             "type": "integer",
-            "description": "The amount charged for this line item",
+            "description": "The amount charged for this line item.",
             "format": "int64",
             "example": 109
           },
-          "amountExcludingTax": {
+          "tax": {
             "type": "integer",
-            "description": "The amount charged for this line item, excluding taxes",
+            "description": "The tax amount in this line item.",
             "format": "int64",
-            "nullable": true,
-            "example": 100
+            "example": 10.9
+          },
+          "preTaxCredit": {
+            "type": "integer",
+            "description": "Any credit amount on this line item.",
+            "format": "int64",
+            "example": 200
           },
           "quantity": {
             "type": "integer",
@@ -17098,7 +17108,13 @@
             "type": "integer",
             "description": "The tax amount in the invoice preview.",
             "format": "int64",
-            "example": 1000
+            "example": 100
+          },
+          "preTaxCredit": {
+            "type": "integer",
+            "description": "Any credit amount in the invoice preview.",
+            "format": "int64",
+            "example": 200
           },
           "lineItems": {
             "type": "array",
@@ -17106,8 +17122,9 @@
             "description": "The line items associated to the invoice.",
             "nullable": true
           },
-          "taxRate": {
-            "allOf": [{ "$ref": "#/components/schemas/TaxRate" }],
+          "taxRates": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TaxRate" },
             "description": "The current active tax rate.",
             "nullable": true
           }
@@ -17721,13 +17738,25 @@
       "TaxRate": {
         "type": "object",
         "properties": {
+          "externalId": { "type": "string", "nullable": true },
           "name": { "type": "string", "nullable": true },
+          "description": { "type": "string", "nullable": true },
           "country": { "type": "string", "nullable": true },
           "state": { "type": "string", "nullable": true },
-          "percentage": { "type": "number", "format": "double" },
-          "inclusive": { "type": "boolean" }
+          "rate": { "type": "number", "format": "double" },
+          "behaviour": {
+            "allOf": [{ "$ref": "#/components/schemas/TaxRateBehavior" }],
+            "description": "The behavior set on Tax Rate."
+          },
+          "createdDate": { "type": "string", "format": "date-time" }
         },
         "additionalProperties": false
+      },
+      "TaxRateBehavior": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "The behavior set on Tax Rate.",
+        "format": "int32"
       },
       "Tier": {
         "type": "object",
@@ -18283,6 +18312,7 @@
         "type": "object",
         "properties": {
           "email": {
+            "minLength": 1,
             "type": "string",
             "description": "Email address of the user.",
             "example": "user@domain.com"
