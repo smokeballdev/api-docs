@@ -17123,6 +17123,13 @@
             "nullable": true,
             "example": 3
           },
+          "nextPaymentDate": {
+            "type": "string",
+            "description": "The date when the next payment attempt will be made.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
+          },
           "lineItems": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
