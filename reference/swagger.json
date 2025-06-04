@@ -7376,7 +7376,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": { "$ref": "#/components/schemas/SubscriptionChange" }
+                  "items": { "$ref": "#/components/schemas/SubscriptionAudit" }
                 }
               }
             }
@@ -17123,13 +17123,6 @@
             "nullable": true,
             "example": 3
           },
-          "nextPaymentDate": {
-            "type": "string",
-            "description": "The date when the next payment attempt will be made.",
-            "format": "date-time",
-            "nullable": true,
-            "example": "2022-04-23T14:00:00Z"
-          },
           "lineItems": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
@@ -17692,7 +17685,7 @@
         },
         "additionalProperties": false
       },
-      "SubscriptionChange": {
+      "SubscriptionAudit": {
         "type": "object",
         "properties": {
           "type": {
@@ -17709,39 +17702,18 @@
             "description": "The subscription id.",
             "nullable": true
           },
-          "tierId": {
+          "name": {
             "type": "string",
-            "description": "The tier id that was set (if applicable).",
-            "nullable": true
+            "description": "Name of the field that was changed or the type of change that was made",
+            "nullable": true,
+            "example": "\"TierId\", \"AddOnIds\", \"PromotionId\", \"PaymentMethodIds\", \"Interval\", \"Quantity\""
           },
-          "addOnIds": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "The add-on ids that were set or removed (if applicable).",
-            "nullable": true
-          },
-          "promotionId": {
+          "value": {
             "type": "string",
-            "description": "The promotion id that was applied or removed (if applicable).",
+            "description": "The value of the change, which can be a string representation of the new value or a JSON object for complex changes.",
             "nullable": true
           },
-          "paymentMethodId": {
-            "type": "string",
-            "description": "The payment method is that was added or removed (if applicable).",
-            "nullable": true
-          },
-          "interval": {
-            "type": "string",
-            "description": "The interval that was set (if applicable).",
-            "nullable": true
-          },
-          "quantity": {
-            "type": "integer",
-            "description": "The quantity that was set (if applicable).",
-            "format": "int64",
-            "nullable": true
-          },
-          "updated": {
+          "timestamp": {
             "type": "string",
             "description": "The timestamp of the change.",
             "format": "date-time"
