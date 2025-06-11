@@ -7395,7 +7395,7 @@
     "/subscriptions/{id}/preview": {
       "post": {
         "tags": ["Subscriptions"],
-        "summary": "Preview upcoming subscription charges or refunds based on specified updates to subscription.",
+        "summary": "Preview upcoming subscription charges",
         "description": "Returns a preview of upcoming subscription charges or refunds for any specified update to subscriptions tiers, add-ons, or interval.",
         "operationId": "PreviewSubscriptionUpdateAsync",
         "parameters": [
@@ -7438,7 +7438,7 @@
             "description": "Upcomimg subscription response",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/InvoicePreview" }
+                "schema": { "$ref": "#/components/schemas/SubscriptionPreview" }
               }
             }
           },
@@ -17092,49 +17092,89 @@
       "InvoicePreview": {
         "type": "object",
         "properties": {
+          "dueDate": {
+            "type": "string",
+            "description": "The date when the payment is due.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2022-04-23T14:00:00Z"
+          },
           "total": {
             "type": "integer",
-            "description": "The total amount in the invoice preview.",
+            "description": "The payment total amount.",
             "format": "int64",
             "example": 1899
           },
           "subTotal": {
             "type": "integer",
-            "description": "The subtotal amount in the invoice preview.",
+            "description": "The payment subtotal amount.",
             "format": "int64",
             "example": 1000
           },
           "tax": {
             "type": "integer",
-            "description": "The tax amount in the invoice preview.",
+            "description": "The payment tax amount.",
             "format": "int64",
             "example": 100
           },
           "preTaxCredit": {
             "type": "integer",
-            "description": "Any credit amount in the invoice preview.",
+            "description": "Total pre-tax credits applied to this payment.",
             "format": "int64",
             "example": 200
           },
-          "quantity": {
-            "type": "integer",
-            "description": "The number of users on the subscription.",
-            "format": "int64",
-            "nullable": true,
-            "example": 3
-          },
-          "lineItems": {
+          "previewLineItems": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
-            "description": "The line items associated to the invoice.",
-            "nullable": true
-          },
-          "taxRates": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/TaxRate" },
-            "description": "The current active tax rate.",
+            "items": { "$ref": "#/components/schemas/InvoicePreviewLineItem" },
+            "description": "The invoice line items showing breakdown of charges.",
             "nullable": true
           }
+        },
+        "additionalProperties": false
+      },
+      "InvoicePreviewLineItem": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "allOf": [{ "$ref": "#/components/schemas/Product" }],
+            "description": "The tier or add-on this item is associated to.\r\n\r\nReturns nothing if the product is not known by our system.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of this line item.",
+            "nullable": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "Recurring payment interval type."
+          },
+          "amount": {
+            "type": "integer",
+            "description": "The amount charged for this line item.",
+            "format": "int64",
+            "example": 109
+          },
+          "tax": {
+            "type": "integer",
+            "description": "The tax amount in this line item.",
+            "format": "int64",
+            "example": 10.9
+          },
+          "preTaxCredit": {
+            "type": "integer",
+            "description": "Pre-tax credits applied to this line item.",
+            "format": "int64",
+            "example": 200
+          }
+        },
+        "additionalProperties": false
+      },
+      "Metadata": {
+        "type": "object",
+        "properties": {
+          "key": { "type": "string", "nullable": true },
+          "value": { "type": "string", "nullable": true }
         },
         "additionalProperties": false
       },
@@ -17330,6 +17370,136 @@
             "type": "string",
             "description": "Recurring payment interval type.",
             "example": "Monthly"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the Product.",
+            "nullable": true
+          },
+          "smokeballId": {
+            "type": "string",
+            "description": "The Smokeball id. For example the tier or add-on id.",
+            "nullable": true,
+            "example": "SMK001"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source of the promotion (e.g. Stripe).",
+            "nullable": true
+          },
+          "externalProductId": {
+            "type": "string",
+            "description": "The external id of the Product.",
+            "nullable": true
+          },
+          "smokeballProductType": {
+            "allOf": [{ "$ref": "#/components/schemas/SmokeballProductType" }],
+            "description": "The type of the Product (Tier or AddOn)"
+          },
+          "productSuite": {
+            "type": "string",
+            "description": "The suite that the Product belongs to.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the Product.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the Product.",
+            "nullable": true
+          },
+          "trialPeriodDays": {
+            "type": "integer",
+            "description": "If the product is trialable, how many days it will be trialed for.\r\n\r\nNote: This will return null or 0 if the product is not trialable.",
+            "format": "int64",
+            "nullable": true
+          },
+          "created": {
+            "type": "string",
+            "description": "The created date of the Product.",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "description": "The updated date of the Product.",
+            "format": "date-time"
+          },
+          "prices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ProductPrice" },
+            "description": "The prices of the Product (e.g. Monthly or Yearly).",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Metadata" },
+            "description": "The metadata of the Product.",
+            "nullable": true
+          },
+          "testEnvironment": {
+            "type": "boolean",
+            "description": "Returns `true` if this Product is from the Test environment."
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Returns `true` if this Product is active."
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Returns `true` if this Product has been deleted."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductPrice": {
+        "type": "object",
+        "properties": {
+          "externalPriceId": {
+            "type": "string",
+            "description": "The external Price id.",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Returns `true` if the Price is active."
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Returns `true` if the Price is the default price."
+          },
+          "type": {
+            "type": "string",
+            "description": "The Price type (e.g. recurring)"
+          },
+          "name": {
+            "type": "string",
+            "description": "The Price display name e.g. \"$109 per user/month\"",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "The per user amount for this pricing option for the specified interval.",
+            "format": "double",
+            "nullable": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "The interval of the Price."
+          },
+          "metadata": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Metadata" },
+            "description": "The metadata of the Price.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -17563,6 +17733,11 @@
         },
         "additionalProperties": false
       },
+      "SmokeballProductType": {
+        "enum": [0, 1, 2],
+        "type": "integer",
+        "format": "int32"
+      },
       "Subscription": {
         "type": "object",
         "properties": {
@@ -17717,6 +17892,37 @@
             "type": "string",
             "description": "The timestamp of the change.",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionPreview": {
+        "type": "object",
+        "properties": {
+          "immediateProrationPayment": {
+            "allOf": [{ "$ref": "#/components/schemas/InvoicePreview" }],
+            "description": "The prorated invoice preview for subscription changes that take effect immediately.",
+            "nullable": true,
+            "example": 3
+          },
+          "nextBillingCyclePayment": {
+            "allOf": [{ "$ref": "#/components/schemas/InvoicePreview" }],
+            "description": "The preview of the next full billing cycle invoice for the updated subscription.",
+            "nullable": true,
+            "example": 3
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of users on the subscription.",
+            "format": "int64",
+            "nullable": true,
+            "example": 3
+          },
+          "taxRates": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TaxRate" },
+            "description": "The current active tax rate.",
+            "nullable": true
           }
         },
         "additionalProperties": false
