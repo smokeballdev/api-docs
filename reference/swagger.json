@@ -17764,6 +17764,11 @@
             "description": "'Tier' product that the subscription is subscribed to.",
             "nullable": true
           },
+          "trialingTier": {
+            "allOf": [{ "$ref": "#/components/schemas/Tier" }],
+            "description": "'Tier' product that the subscription is currently trialing.\r\n\r\nReturns nothing if no tiers are being trialed.",
+            "nullable": true
+          },
           "addOns": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/AddOn" },
