@@ -7122,6 +7122,11 @@
             "description": "The unique identifier of the subscription",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "useTrialingTier",
+            "in": "query",
+            "schema": { "type": "boolean", "default": false }
           }
         ],
         "responses": {
@@ -7246,7 +7251,9 @@
             "description": "Successfully retrieved the subscription invoices",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/InvoiceCollection" }
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionInvoiceCollection"
+                }
               }
             }
           },
@@ -14176,33 +14183,116 @@
       "Invoice": {
         "type": "object",
         "properties": {
-          "status": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
             "type": "string",
-            "description": "The invoice status.",
-            "example": "Paid"
+            "description": "The unique identifier of the invoice.",
+            "nullable": true,
+            "example": "16567e88-784c-470e-8952-e5a70fe2eb0c"
+          },
+          "versionId": {
+            "type": "string",
+            "description": "The unique identifier of the invoice version.",
+            "nullable": true,
+            "example": "39ffde97-eeeb-4747-bb8f-7c7c10b3c985"
+          },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The matter associated to the invoice.",
+            "nullable": true
+          },
+          "matterId": {
+            "type": "string",
+            "description": "The unique identifier of the matter that the invoice belongs to.",
+            "nullable": true,
+            "example": "6398a045-509e-49a2-9268-bb8231fa9340"
+          },
+          "lastUpdatedByUserId": {
+            "type": "string",
+            "description": "The unique identifier of the user that last updated the invoice.",
+            "nullable": true,
+            "example": "5fc5ee85-6643-4623-b019-a0dccceafe47"
           },
           "description": {
             "type": "string",
             "description": "The invoice description.",
-            "nullable": true
+            "nullable": true,
+            "example": "Services provided."
           },
-          "total": {
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/InvoiceStatus" }],
+            "description": "The status of the invoice.\r\n\r\nPossible values: Draft = 0, Final = 1, Paid = 2, Deleted = 3 or Void = 4.",
+            "example": 0
+          },
+          "invoiceNumber": {
             "type": "integer",
-            "description": "The total amount for the invoice.",
+            "description": "The invoice number.",
             "format": "int64",
-            "example": 1899
+            "nullable": true,
+            "example": 10001
           },
-          "lineItems": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
-            "description": "The line items associated to the invoice.",
+          "invoiceTitle": {
+            "type": "string",
+            "description": "The invoice title.",
+            "nullable": true,
+            "example": "My First Invoice"
+          },
+          "invoiceTitleLine2": {
+            "type": "string",
+            "description": "The invoice title.",
+            "nullable": true,
+            "example": "Subtitle"
+          },
+          "issuedDate": {
+            "type": "string",
+            "description": "The date the invoice has been issued.",
+            "format": "date-time",
+            "example": "2022-09-16T00:00:00+00:00"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "The date the invoice is due.",
+            "format": "date-time",
+            "example": "2022-09-25T00:00:00+00:00"
+          },
+          "paidDate": {
+            "type": "string",
+            "description": "The date the invoice was paid. This date is only available if the invoice is fully paid.",
+            "format": "date-time",
+            "example": "2022-09-20T00:00:00+00:00"
+          },
+          "discount": {
+            "allOf": [{ "$ref": "#/components/schemas/Discount" }],
+            "description": "The discount settings for the invoice. See InvoiceTotals.Discount if you need the \r\nactual discount amount applied to the invoice.",
             "nullable": true
           },
-          "createdDate": {
-            "type": "string",
-            "description": "The created date of the invoice.",
-            "format": "date-time",
-            "example": "2022-04-23T14:00:00Z"
+          "debtors": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Debtor" },
+            "description": "The debtors for the invoice.",
+            "nullable": true
+          },
+          "entries": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InvoicedMatterEntryItem" },
+            "description": "The entries on the invoice.",
+            "nullable": true
+          },
+          "waived": {
+            "type": "boolean",
+            "description": "True if the invoice is waived.",
+            "example": false
+          },
+          "invoiceTotals": {
+            "allOf": [{ "$ref": "#/components/schemas/InvoiceTotals" }],
+            "description": "The invoice totals.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -17025,25 +17115,6 @@
         },
         "additionalProperties": false
       },
-      "InvoiceCollection": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string", "nullable": true },
-          "href": { "type": "string", "nullable": true },
-          "relation": { "type": "string", "nullable": true },
-          "method": { "type": "string", "default": "GET", "nullable": true },
-          "self": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "value": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Invoice" },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "InvoiceLineItem": {
         "type": "object",
         "properties": {
@@ -17897,6 +17968,59 @@
             "type": "string",
             "description": "The timestamp of the change.",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionInvoice": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "The invoice status.",
+            "example": "Paid"
+          },
+          "description": {
+            "type": "string",
+            "description": "The invoice description.",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "description": "The total amount for the invoice.",
+            "format": "int64",
+            "example": 1899
+          },
+          "lineItems": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InvoiceLineItem" },
+            "description": "The line items associated to the invoice.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the invoice.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionInvoiceCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SubscriptionInvoice" },
+            "nullable": true
           }
         },
         "additionalProperties": false
