@@ -7493,7 +7493,7 @@
       "patch": {
         "tags": ["Subscriptions"],
         "summary": "Cancel subscription",
-        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* Date - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.\r\n\r\nImportant considerations:\r\n* If the subscription is trialing a tier, the tier is reverted to the previous tier at the end of the trials duration. This is only supported with PeriodEnd CancellationType.\r\n* If the subscription is trialing an add-on, the add-on is removed at the end of the trials duration. This is only supported with PeriodEnd CancellationType.",
+        "description": "Cancels a subscription using the supplied cancellation request.\r\n\r\nSupported cancellation types:\r\n* PeriodEnd - Cancel subscription at the end of the billing cycle\r\n* Immediate - Cancel subscription immediately\r\n* Date - Cancel at specified 'CancelAt' date\r\n\r\nIf not supplied, PeriodEnd is used and the subscription is cancelled at the end of the billing cycle.\r\n\r\nDefault behaviour:\r\n* If the subscription is trialing a tier, the tier is reverted to the previous tier at the end of the trials duration. This is only supported with PeriodEnd CancellationType.\r\n* If the subscription is trialing add-on(s), the add-on is removed at the end of the trials duration. This is only supported with PeriodEnd CancellationType.\r\n\r\nImportant considerations:\r\n* If 'cancelSubscription' is specified and set to 'true', the default behaviour specified above is ignored and the cancellation is applied directly on the subscription.",
         "operationId": "CancelSubscriptionAsync",
         "parameters": [
           {
@@ -17081,6 +17081,11 @@
             "format": "date-time",
             "nullable": true
           },
+          "cancelSubscription": {
+            "type": "boolean",
+            "description": "Optional flag to force cancellation of the subscription instead of applying default cancellation behaviour.",
+            "nullable": true
+          },
           "reason": {
             "type": "string",
             "description": "Optional reason for cancellation of the subscription.",
@@ -17648,6 +17653,11 @@
             "description": "Optional billing interval/pricing option.\r\n\r\nIf no interval is provided then the default pricing option will be used.\r\n\r\nIf the interval is provided but does not exist, the request will fail.",
             "nullable": true,
             "example": "Monthly"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Optional reason for changing the subscription tier.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -17684,7 +17694,7 @@
             "nullable": true
           },
           "trialingTier": {
-            "allOf": [{ "$ref": "#/components/schemas/Tier" }],
+            "allOf": [{ "$ref": "#/components/schemas/TrialingTier" }],
             "description": "'Tier' product that the subscription is currently trialing.\r\n\r\nReturns nothing if no tiers are being trialed.",
             "nullable": true
           },
@@ -17758,7 +17768,7 @@
           },
           "cancellationStatus": {
             "type": "string",
-            "description": "The cancellation status of the subscription.\r\n\r\n* None - The cancelation is not canceled and no cancelation requests have been made.\r\n            \r\n* Pending - The subscription has been canceled and will be canceled at a later date.\r\n            \r\n* Canceled - The subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
+            "description": "The cancellation status of the subscription.\r\n\r\n* None - The subscription is not canceled and no cancelation requests have been made.\r\n            \r\n* Pending - The subscription has been canceled and will be canceled at a later date.\r\n            \r\n* Canceled - The subscription has been canceled.\r\n\r\nPossible values: None, Pending, Canceled.",
             "nullable": true
           },
           "cancellationType": {
@@ -18187,6 +18197,87 @@
         },
         "additionalProperties": false
       },
+      "TrialingTier": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the tier.",
+            "format": "uuid",
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "smokeballId": {
+            "type": "string",
+            "description": "Unique Smokeball identifier of the tier. \r\n\r\nThis identifier convenience purposes only and should not be used to interact with the subscriptions API.",
+            "nullable": true
+          },
+          "productSuite": {
+            "type": "string",
+            "description": "The product suite that this tier belongs to.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the tier.",
+            "nullable": true,
+            "example": "Intake"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the tier.\r\n\r\nCan be used to describe the tier to a customer.",
+            "nullable": true
+          },
+          "trialPeriodDays": {
+            "type": "integer",
+            "description": "The number of days the tier can be trialed for.\r\n\r\nCannot be trialed if zero or missing.",
+            "format": "int32",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Price" },
+            "description": "The price options for the tier.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the tier.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The updated date of the tier.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "cancellationStatus": {
+            "type": "string",
+            "description": "The cancellation status of the trial.\r\n\r\n* None - The trial has not been canceled. If a payment method is added to the subscription, the trial product(s) will be applied to the subscription at expiration.\r\n            \r\n* Pending -  The trial has been canceled. The trial product(s) will not be applied to the subscription at expiration.\r\n\r\nPossible values: None, Pending.",
+            "nullable": true
+          },
+          "activationDate": {
+            "type": "string",
+            "description": "The date the trial was activated.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "expirationDate": {
+            "type": "string",
+            "description": "The date the trial will expire.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateSubscriptionRequest": {
         "type": "object",
         "properties": {
@@ -18208,6 +18299,11 @@
             "description": "Optional billing interval/pricing option to use when setting subscription tier.\r\n\r\nIf an interval is not supplied then the default interval option will be used.\r\n\r\nIf an interval is supplied but a tier is not supplied, the existing tier is used and the interval is changed.",
             "nullable": true,
             "example": "Monthly"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Optional reason for changing the subscription tier.",
+            "nullable": true
           }
         },
         "additionalProperties": false
