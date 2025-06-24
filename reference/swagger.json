@@ -14174,24 +14174,24 @@
         "properties": {
           "type": {
             "allOf": [{ "$ref": "#/components/schemas/DiscountType" }],
-            "description": "The type of discount (Fixed = 0, Percentage = 1).",
+            "description": "The type of discount applied to the invoice.\r\n\r\nFixed for a fixed amount, or Percentage for a percentage-based discount.\r\n\r\nPossible values: Fixed = 0, Percentage = 1.",
             "example": 0
           },
           "fixedDiscount": {
             "type": "number",
-            "description": "The amount of fixed discount applied.",
+            "description": "The fixed discount amount to be subtracted from the invoice total.\r\n\r\nOnly applicable when Type is Fixed.",
             "format": "double",
             "example": 100
           },
           "percentage": {
             "type": "number",
-            "description": "The amount of percentage discount applied.",
+            "description": "The percentage discount to be applied to the invoice total.\r\n\r\nOnly applicable when Type is Percentage.\r\n\r\nExpressed as a number between 0 and 100.",
             "format": "double",
-            "example": 0
+            "example": 10
           },
           "description": {
             "type": "string",
-            "description": "Discount description.",
+            "description": "A description of the discount, such as the reason or category.",
             "nullable": true,
             "example": "Friend of the Firm"
           }
@@ -14217,30 +14217,30 @@
           },
           "versionId": {
             "type": "string",
-            "description": "The unique identifier of the invoice version.",
+            "description": "The unique identifier representing the current version of the invoice.",
             "nullable": true,
             "example": "39ffde97-eeeb-4747-bb8f-7c7c10b3c985"
           },
           "matter": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "description": "The matter associated to the invoice.",
+            "description": "A link to the matter associated with the invoice.",
             "nullable": true
           },
           "matterId": {
             "type": "string",
-            "description": "The unique identifier of the matter that the invoice belongs to.",
+            "description": "The unique identifier of the matter this invoice belongs to.",
             "nullable": true,
             "example": "6398a045-509e-49a2-9268-bb8231fa9340"
           },
           "lastUpdatedByUserId": {
             "type": "string",
-            "description": "The unique identifier of the user that last updated the invoice.",
+            "description": "The unique identifier of the user who last updated the invoice.",
             "nullable": true,
             "example": "5fc5ee85-6643-4623-b019-a0dccceafe47"
           },
           "description": {
             "type": "string",
-            "description": "The invoice description.",
+            "description": "A short description of the invoice contents or purpose.",
             "nullable": true,
             "example": "Services provided."
           },
@@ -14251,66 +14251,66 @@
           },
           "invoiceNumber": {
             "type": "integer",
-            "description": "The invoice number.",
+            "description": "The sequential number assigned to the invoice.",
             "format": "int64",
             "nullable": true,
             "example": 10001
           },
           "invoiceTitle": {
             "type": "string",
-            "description": "The invoice title.",
+            "description": "The main title of the invoice.",
             "nullable": true,
             "example": "My First Invoice"
           },
           "invoiceTitleLine2": {
             "type": "string",
-            "description": "The invoice title.",
+            "description": "The optional second line of the invoice title.",
             "nullable": true,
             "example": "Subtitle"
           },
           "issuedDate": {
             "type": "string",
-            "description": "The date the invoice has been issued.",
+            "description": "The date the invoice was issued.",
             "format": "date-time",
             "example": "2022-09-16T00:00:00+00:00"
           },
           "dueDate": {
             "type": "string",
-            "description": "The date the invoice is due.",
+            "description": "The date by which payment for the invoice is due.",
             "format": "date-time",
             "example": "2022-09-25T00:00:00+00:00"
           },
           "paidDate": {
             "type": "string",
-            "description": "The date the invoice was paid. This date is only available if the invoice is fully paid.",
+            "description": "The date the invoice was fully paid.\r\n\r\nOnly populated if the invoice has been paid in full.",
             "format": "date-time",
             "example": "2022-09-20T00:00:00+00:00"
           },
           "discount": {
             "allOf": [{ "$ref": "#/components/schemas/Discount" }],
-            "description": "The discount settings for the invoice. See InvoiceTotals.Discount if you need the \r\nactual discount amount applied to the invoice.",
+            "description": "The discount configuration for the invoice (e.g., fixed or percentage).\r\n\r\nSee InvoiceTotals.Discount for the actual amount discounted.",
             "nullable": true
           },
           "debtors": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Debtor" },
-            "description": "The debtors for the invoice.",
+            "description": "The list of debtors associated with this invoice.",
             "nullable": true
           },
           "entries": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/InvoicedMatterEntryItem" },
-            "description": "The entries on the invoice.",
+            "description": "The individual entries (fees or expenses) included in the invoice.",
             "nullable": true
           },
           "waived": {
             "type": "boolean",
-            "description": "True if the invoice is waived.",
+            "description": "Indicates whether the invoice has been waived.",
             "example": false
           },
           "invoiceTotals": {
             "allOf": [{ "$ref": "#/components/schemas/InvoiceTotals" }],
-            "description": "The invoice totals.",
+            "description": "The calculated totals for the invoice, including billed, paid, unpaid, tax, interest, discounts, etc.",
             "nullable": true
           }
         },
@@ -14401,86 +14401,85 @@
         "properties": {
           "paid": {
             "type": "number",
-            "description": "Total amount paid on the invoice.",
+            "description": "The total amount that has been paid towards the invoice.",
             "format": "double",
             "example": 100
           },
           "billed": {
             "type": "number",
-            "description": "Amount billed. This is the sum of all fees and expenses on the invoice, without tax.",
+            "description": "The total amount billed on the invoice, excluding tax and interest.\r\n\r\nThis includes all fees and expenses before discounts or write-offs.",
             "format": "double",
             "example": 200
           },
           "unpaid": {
             "type": "number",
-            "description": "Amount unpaid.",
+            "description": "The remaining amount due on the invoice, including any unpaid tax or interest.",
+            "format": "double",
+            "example": 100
+          },
+          "unpaidExcInterest": {
+            "type": "number",
+            "description": "The total unpaid amount excluding interest.\r\n\r\nIf this value is zero on an interest-bearing invoice, it indicates the principal has been fully paid,\r\nalthough interest may still be outstanding.",
             "format": "double",
             "example": 100
           },
           "writtenOff": {
             "type": "number",
-            "description": "Amount written off.",
+            "description": "The total amount that has been written off from the invoice and is no longer expected to be paid.",
             "format": "double",
             "example": 0
           },
           "waived": {
             "type": "number",
-            "description": "Amount waived.",
+            "description": "The total amount that has been waived on the invoice.\r\n\r\nWaived amounts are not charged but are also not written off.",
             "format": "double",
             "example": 0
           },
           "discount": {
             "type": "number",
-            "description": "Amount of discount.",
+            "description": "The total amount discounted on the invoice.\r\n\r\nThis includes all applied discounts reducing the billed amount.",
             "format": "double",
             "example": 0
           },
           "total": {
             "type": "number",
-            "description": "Total amount for invoice, including tax and interest.",
+            "description": "The grand total for the invoice, including tax and interest, before any payments, discounts, or write-offs.",
             "format": "double",
             "example": 100
           },
           "tax": {
             "type": "number",
-            "description": "Amount of Tax on the invoice.",
+            "description": "The total tax amount applied to the invoice.",
             "format": "double",
             "example": 10
           },
           "interest": {
             "type": "number",
-            "description": "Amount of interest. This is the total interest amount, not taking into account\r\nwhat has been paid.",
+            "description": "The total interest charged on the invoice, regardless of what has been paid so far.",
             "format": "double",
-            "readOnly": true,
             "example": 0
-          },
-          "unpaidExcInterest": {
-            "type": "number",
-            "description": "Amount unpaid excluding interest. For invoices in interest, if this amount is zero,\r\nit means that the principal has been fully paid, though there might still be unpaid interest.",
-            "format": "double",
-            "example": 100
           },
           "feeTotal": {
             "type": "number",
-            "description": "All fees (written off + non written off).",
+            "description": "The total amount of all fees on the invoice, including both written off and non-written off fees.",
             "format": "double",
             "example": 100
           },
           "writtenOffFeeTotal": {
             "type": "number",
-            "description": "Written off fees.",
+            "description": "The total amount of fees that have been written off.",
             "format": "double",
             "example": 100
           },
           "expenseTotal": {
             "type": "number",
-            "description": "All expenses (written off + non written off).",
+            "description": "The total amount of all expenses on the invoice, including both written off and non-written off expenses.",
             "format": "double",
             "example": 100
           },
           "writtenOffExpenseTotal": {
             "type": "number",
-            "description": "Written off expenses total.",
+            "description": "The total amount of expenses that have been written off.",
             "format": "double",
             "example": 180
           }
