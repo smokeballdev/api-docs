@@ -887,7 +887,14 @@
               }
             }
           },
-          "400": { "description": "When related contact id is not provided" }
+          "400": {
+            "description": "When related contact id is not provided",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
         }
       }
     },
@@ -972,6 +979,14 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           },
