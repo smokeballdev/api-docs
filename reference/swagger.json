@@ -14306,6 +14306,11 @@
             "description": "The discount configuration for the invoice (e.g., fixed or percentage).\r\n\r\nSee InvoiceTotals.Discount for the actual amount discounted.",
             "nullable": true
           },
+          "surcharge": {
+            "allOf": [{ "$ref": "#/components/schemas/Surcharge" }],
+            "description": "The surcharge configuration for the invoice (e.g., fixed or percentage).",
+            "nullable": true
+          },
           "debtors": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Debtor" },
@@ -14512,6 +14517,50 @@
           }
         },
         "additionalProperties": false
+      },
+      "Surcharge": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/SurchargeType" }],
+            "description": "The type of surcharge applied to the invoice.\r\n\r\nPossible values: None = 0, Fixed = 1, Percentage = 2.",
+            "example": 1
+          },
+          "fixedSurcharge": {
+            "type": "number",
+            "description": "The fixed surcharge amount applied to the invoice total.\r\n\r\nOnly applicable when Type is Fixed.",
+            "format": "double",
+            "nullable": true,
+            "example": 100
+          },
+          "percentage": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the surcharge, such as the reason or category.",
+            "nullable": true,
+            "example": "Late Payment Fee"
+          },
+          "applyTo": {
+            "allOf": [{ "$ref": "#/components/schemas/SurchargeApplyType" }],
+            "description": "The surcharge application type, indicating what the surcharge applies to.\r\n\r\nPossible values: None = 0, Fees = 1, Expenses = 2, FeesAndExpenses = 3.",
+            "example": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "SurchargeApplyType": {
+        "enum": [0, 1, 2, 3],
+        "type": "integer",
+        "format": "int32"
+      },
+      "SurchargeType": {
+        "enum": [0, 1, 2],
+        "type": "integer",
+        "format": "int32"
       },
       "MatterItem": {
         "type": "object",
