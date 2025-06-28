@@ -17935,6 +17935,24 @@
             "format": "int64",
             "example": 1899
           },
+          "subTotal": {
+            "type": "integer",
+            "description": "The payment subtotal amount.",
+            "format": "int64",
+            "example": 1000
+          },
+          "tax": {
+            "type": "integer",
+            "description": "The payment tax amount.",
+            "format": "int64",
+            "example": 100
+          },
+          "preTaxCredit": {
+            "type": "integer",
+            "description": "Total pre-tax credits applied to this payment.",
+            "format": "int64",
+            "example": 200
+          },
           "lineItems": {
             "type": "array",
             "items": {
