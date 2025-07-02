@@ -12192,12 +12192,6 @@
             "description": "The type of the event.\r\n\r\nWe currently support create and updates requests for non recurring events (EventType = 0).",
             "example": 0
           },
-          "organizer": {
-            "type": "string",
-            "description": "The staff Id of the organizer of the event.",
-            "nullable": true,
-            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
-          },
           "attendees": {
             "type": "array",
             "items": { "type": "string" },
