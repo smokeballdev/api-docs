@@ -3837,21 +3837,21 @@
             "application/json-patch+json": {
               "schema": {
                 "allOf": [
-                  { "$ref": "#/components/schemas/LayoutMatterItemData" }
+                  { "$ref": "#/components/schemas/LayoutMatterItemApiPatch" }
                 ]
               }
             },
             "application/json": {
               "schema": {
                 "allOf": [
-                  { "$ref": "#/components/schemas/LayoutMatterItemData" }
+                  { "$ref": "#/components/schemas/LayoutMatterItemApiPatch" }
                 ]
               }
             },
             "application/*+json": {
               "schema": {
                 "allOf": [
-                  { "$ref": "#/components/schemas/LayoutMatterItemData" }
+                  { "$ref": "#/components/schemas/LayoutMatterItemApiPatch" }
                 ]
               }
             }
@@ -14881,6 +14881,77 @@
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Hypermedia link of the layout design.",
             "nullable": true
+          },
+          "values": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LayoutValue" },
+            "description": "List of layout values.",
+            "nullable": true
+          },
+          "events": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LayoutEvent" },
+            "description": "List of layout events.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LayoutMatterItemApiPatch": {
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "description": "Unique identifier for the matter list item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
+          },
+          "layoutDesignId": {
+            "type": "string",
+            "description": "Identifier of the layout design.",
+            "nullable": true,
+            "example": "414ab774-adce-4659-b18c-82d1b0e826a0"
+          },
+          "index": {
+            "type": "integer",
+            "description": "Zero-based index of the layout item.",
+            "format": "int32",
+            "example": 0
+          },
+          "parentItemId": {
+            "type": "string",
+            "description": "Unique identifier for the parent matter list item.",
+            "nullable": true,
+            "example": "59791902-6280-471b-bd18-f8439ba3042f"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Identifier of the parent matter list item specific to the provider.",
+            "nullable": true,
+            "example": "Client"
+          },
+          "parentIndex": {
+            "type": "integer",
+            "description": "Zero-based index of the parent matter list item.",
+            "format": "int32",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the layout item.",
+            "nullable": true,
+            "example": "Item"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the layout item.",
+            "nullable": true,
+            "example": "Text describing item"
+          },
+          "isRemoved": {
+            "type": "boolean",
+            "description": "Boolean flag indicating if the layout item is to be removed.",
+            "example": false
           },
           "values": {
             "type": "array",
