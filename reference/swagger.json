@@ -7105,13 +7105,6 @@
         "summary": "Get subscriptions",
         "description": "Returns a list of all available subscriptions with their current status and details.\r\n\r\nThe response includes:\r\n* Subscription IDs\r\n* Current tier\r\n* Active add-ons\r\n* Subscription status",
         "operationId": "GetSubscriptions",
-        "parameters": [
-          {
-            "name": "useTrialingTier",
-            "in": "query",
-            "schema": { "type": "boolean", "default": false }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successfully retrieved the list of subscriptions",
@@ -7148,11 +7141,6 @@
             "description": "The unique identifier of the subscription",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "useTrialingTier",
-            "in": "query",
-            "schema": { "type": "boolean", "default": false }
           }
         ],
         "responses": {
