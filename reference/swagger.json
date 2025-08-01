@@ -4543,7 +4543,7 @@
       "put": {
         "tags": ["Matters"],
         "summary": "Update a matter",
-        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `matterTypeId` cannot be modified, unless converting a lead to a matter\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n-  `Matter` cannot be converted back to `Lead`",
+        "description": "Updates a specified matter.\r\n            \r\nThe following actions are currently not supported:\r\n            \r\n- `clientIds` cannot be modified\r\n            \r\n- `otherSideIds` cannot be modified\r\n\r\n-  `Matter` cannot be converted back to `Lead`",
         "operationId": "UpdateMatter",
         "parameters": [
           {
@@ -4600,7 +4600,7 @@
       "patch": {
         "tags": ["Matters"],
         "summary": "Patch a matter (beta)",
-        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead` and to convert `Lead` to `Matter`.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter`\r\n            \r\n- `matterTypeId` and `clientRole` cannot be updated, unless converting a `Lead` to `Matter`\r\n            \r\n- `Matter` cannot be converted back to `Lead`",
+        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead`, convert `Lead` to `Matter` and change the `Lead`/`Matter` type.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `clientRole` cannot be updated, unless converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `Matter` cannot be converted back to `Lead`",
         "operationId": "PatchMatter",
         "parameters": [
           {
@@ -15440,11 +15440,25 @@
             "nullable": true,
             "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
+          "personAssistingStaffIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Staff ids of the other persons assisting in the matter (if applicable).",
+            "nullable": true,
+            "example": ["c85d28cb-a760-4627-aa59-0a853c2e65ed"]
+          },
           "originatingStaffId": {
             "type": "string",
             "description": "Staff id of the originating attorney (if in US) or an Introducer (if in AU)",
             "nullable": true,
             "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "originatingStaffIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Staff ids of the other originating attorneys (if in US) or an Introducer (if in AU)",
+            "nullable": true,
+            "example": ["c85d28cb-a760-4627-aa59-0a853c2e65ed"]
           },
           "supervisorStaffId": {
             "type": "string",
@@ -15580,11 +15594,25 @@
             "nullable": true,
             "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
           },
+          "personAssistingStaffIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Staff ids of the other persons assisting in the matter (if applicable).",
+            "nullable": true,
+            "example": ["c85d28cb-a760-4627-aa59-0a853c2e65ed"]
+          },
           "originatingStaffId": {
             "type": "string",
             "description": "Staff id of the originating attorney (if in US) or an Introducer (if in AU)",
             "nullable": true,
             "example": "c85d28cb-a760-4627-aa59-0a853c2e65ed"
+          },
+          "originatingStaffIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Staff ids of the other originating attorneys (if in US) or an Introducer (if in AU)",
+            "nullable": true,
+            "example": ["c85d28cb-a760-4627-aa59-0a853c2e65ed"]
           },
           "supervisorStaffId": {
             "type": "string",
