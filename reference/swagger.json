@@ -1096,7 +1096,7 @@
           {
             "name": "Fields",
             "in": "query",
-            "description": " Available fields: passportDetails, deathDetails, citizenshipDetails, utbmsDetails",
+            "description": " Available fields: passportDetails, deathDetails, citizenshipDetails, utbmsDetails, tags",
             "schema": { "type": "string" }
           }
         ],
@@ -1256,6 +1256,157 @@
           },
           "404": {
             "description": "When contact with specified id does not exist."
+          }
+        }
+      }
+    },
+    "/contacts/{id}/tags": {
+      "get": {
+        "tags": ["Contacts"],
+        "summary": "Get a contact",
+        "description": "Retrieves a specified contact.",
+        "operationId": "GetContactTagsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'Tag' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TagCollection" }
+              }
+            }
+          },
+          "403": {
+            "description": "When contact with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When contact with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Contacts"],
+        "summary": "Add custom tag(s) to a contact",
+        "operationId": "AddContactTags",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The contact ID",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "description": "The list of tags to add",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "When request is successful.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "404": {
+            "description": "When contact with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{id}/tags/{tagId}": {
+      "delete": {
+        "tags": ["Contacts"],
+        "summary": "Remove custom tag(s) from a contact",
+        "operationId": "RemoveContactTags",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The contact ID",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "description": "The tag ID (optional for bulk delete)",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "description": "The list of tags for bulk delete",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "When request is accepted.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "404": {
+            "description": "When contact with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -10362,6 +10513,12 @@
             "description": "Last updated timestamp.",
             "format": "int64",
             "example": 637847425252027400
+          },
+          "tags": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Tag" },
+            "description": "Set of contact's tags.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -11386,6 +11543,52 @@
         "additionalProperties": false,
         "description": "PO Box address."
       },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identifier of the tag. Role tags do not have an identifier.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of tag.",
+            "nullable": true
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/TagType" }],
+            "description": "Type of tag. Accepted values are 'Role' or 'Custom'"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a tag with an identifier, name, and type."
+      },
+      "TagCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Tag" },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TagDto": {
+        "type": "object",
+        "properties": { "name": { "type": "string", "nullable": true } },
+        "additionalProperties": false
+      },
+      "TagType": { "enum": [0, 1], "type": "integer", "format": "int32" },
       "Trust": {
         "type": "object",
         "properties": {
