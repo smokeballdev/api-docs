@@ -4599,7 +4599,7 @@
           {
             "name": "Fields",
             "in": "query",
-            "description": " Available fields: items",
+            "description": " Available fields: items, tags",
             "schema": { "type": "string" }
           }
         ],
@@ -4751,7 +4751,7 @@
       "patch": {
         "tags": ["Matters"],
         "summary": "Patch a matter (beta)",
-        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead`, convert `Lead` to `Matter` and change the `Lead`/`Matter` type.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `clientRole` cannot be updated, unless converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `Matter` cannot be converted back to `Lead`",
+        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead`, convert `Lead` to `Matter` and change the `Lead`/`Matter` type.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `clientRole` cannot be updated, unless converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `Matter` cannot be converted back to `Lead`\r\n            \r\n- `splitOriginatingStaffSettings` cannot be updated without also providing `originatingStaffIds` in the same PATCH request\r\n            \r\n- `personAssistingStaffIds` cannot contain `personAssistingStaffId`\r\n            \r\n- `originatingStaffIds` cannot contain `originatingStaffId`\r\n            \r\n- If split originating staff settings are enabled, `originatingStaffIds` and `originatingStaffId` cannot be updated",
         "operationId": "PatchMatter",
         "parameters": [
           {
@@ -7957,6 +7957,161 @@
           },
           "500": {
             "description": "Internal server error occurred while switching tiers",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/tags": {
+      "get": {
+        "tags": ["Tags"],
+        "summary": "Get matter tags",
+        "operationId": "GetMatterTagsByMatterId",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'Tag' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MatterTagCollection" }
+              }
+            }
+          },
+          "403": {
+            "description": "When matter with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When matter with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tags"],
+        "summary": "Add custom tag(s) to a matter",
+        "operationId": "AddMatterTags",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "When request is successful.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When adding staff that does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/tags/{tagId}": {
+      "delete": {
+        "tags": ["Tags"],
+        "summary": "Remove a tag from a matter",
+        "description": "Removes the tag from the matter without deleting from the account.",
+        "operationId": "DeleteMatterTag",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "No Content" },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -11585,10 +11740,35 @@
       },
       "TagDto": {
         "type": "object",
-        "properties": { "name": { "type": "string", "nullable": true } },
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id of the tag.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the tag.",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of the tag.",
+            "nullable": true
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/TagTypeDto" }],
+            "description": "Type of the tag."
+          }
+        },
         "additionalProperties": false
       },
-      "TagType": { "enum": [0, 1], "type": "integer", "format": "int32" },
+      "TagType": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "Type of the tag.",
+        "format": "int32"
+      },
       "Trust": {
         "type": "object",
         "properties": {
@@ -15393,9 +15573,28 @@
             "description": "Hypermedia link of the person assisting in the matter (if applicable).",
             "nullable": true
           },
+          "personAssistingStaffs": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Link" },
+            "description": "List of hypermedia links of additional person assisting staff members associated with the matter.",
+            "nullable": true
+          },
           "originatingStaff": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Hypermedia link of the originating attorney (if in US) or introducer (if in AU) of the matter.",
+            "nullable": true
+          },
+          "originatingStaffs": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Link" },
+            "description": "List of hypermedia links of additional originating (if in US) or introducer (if in AU) staff members associated with the matter.",
+            "nullable": true
+          },
+          "splitOriginatingStaffSettings": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SplitMatterStaffSettings" }
+            ],
+            "description": "Settings for splitting originating staff members on a matter.",
             "nullable": true
           },
           "supervisor": {
@@ -15493,6 +15692,12 @@
               "nullable": true
             },
             "description": "Items associated with the matter.",
+            "nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MatterTag" },
+            "description": "Tags associated with the matter.",
             "nullable": true
           }
         },
@@ -15659,9 +15864,16 @@
           "originatingStaffIds": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "Staff ids of the other originating attorneys (if in US) or an Introducer (if in AU)",
+            "description": "Staff ids of the other originating attorneys (if in US) or an Introducer (if in AU)\r\n\r\nRequired when SplitOriginatingStaffSettings is provided and enabled.",
             "nullable": true,
             "example": ["c85d28cb-a760-4627-aa59-0a853c2e65ed"]
+          },
+          "splitOriginatingStaffSettings": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SplitMatterStaffSettingsDto" }
+            ],
+            "description": "Settings for splitting originating staff members on a matter.",
+            "nullable": true
           },
           "supervisorStaffId": {
             "type": "string",
@@ -15813,9 +16025,16 @@
           "originatingStaffIds": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "Staff ids of the other originating attorneys (if in US) or an Introducer (if in AU)",
+            "description": "Staff ids of the other originating attorneys (if in US) or an Introducer (if in AU)\r\n\r\nRequired when SplitOriginatingStaffSettings is provided and enabled.\r\nThis field must be included when updating SplitOriginatingStaffSettings.",
             "nullable": true,
             "example": ["c85d28cb-a760-4627-aa59-0a853c2e65ed"]
+          },
+          "splitOriginatingStaffSettings": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SplitMatterStaffSettingsDto" }
+            ],
+            "description": "Settings for splitting originating staff members on a matter.",
+            "nullable": true
           },
           "supervisorStaffId": {
             "type": "string",
@@ -16013,6 +16232,65 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/Role" },
             "description": "List of associated roles.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MatterTag": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the tag.",
+            "nullable": true,
+            "example": "a15086f5-4da7-4271-8fea-b24d479ced2b"
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/TagType" }],
+            "description": "Tag type."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the tag.",
+            "nullable": true,
+            "example": ""
+          },
+          "color": {
+            "type": "string",
+            "description": "Color associated with the tag.",
+            "nullable": true,
+            "example": "Light Blue"
+          },
+          "staff": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Link to staff.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MatterTagCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MatterTag" },
             "nullable": true
           }
         },
@@ -16233,6 +16511,96 @@
           }
         },
         "additionalProperties": false
+      },
+      "SplitMatterStaff": {
+        "type": "object",
+        "properties": {
+          "matterStaffId": {
+            "type": "string",
+            "description": "The unique identifier for the split matter staff.",
+            "nullable": true
+          },
+          "matterStaffRatio": {
+            "type": "integer",
+            "description": "The split ratio for the matter staff.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SplitMatterStaffDto": {
+        "type": "object",
+        "properties": {
+          "matterStaffId": {
+            "type": "string",
+            "description": "The unique identifier for the split matter staff.",
+            "nullable": true
+          },
+          "matterStaffRatio": {
+            "type": "integer",
+            "description": "The split ratio for the matter staff.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SplitMatterStaffSettings": {
+        "type": "object",
+        "properties": {
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Indicates whether the split matter staff settings are enabled or not."
+          },
+          "splitMatterStaffs": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SplitMatterStaff" },
+            "description": "List of staff members involved in the split matter settings.",
+            "nullable": true
+          },
+          "splitMethod": {
+            "type": "string",
+            "description": "Method used to split the matter staff.\r\n\r\nPossible values: Unknown, SplitEvenly, UseRatio.",
+            "nullable": true
+          },
+          "remainderStaffId": {
+            "type": "string",
+            "description": "The unique identifier for the staff member who will handle the remainder of the matter after the split.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SplitMatterStaffSettingsDto": {
+        "type": "object",
+        "properties": {
+          "isEnabled": {
+            "type": "boolean",
+            "description": "Indicates whether the split matter staff settings are enabled or not."
+          },
+          "splitMatterStaffs": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SplitMatterStaffDto" },
+            "description": "List of staff members involved in the split matter settings.",
+            "nullable": true
+          },
+          "splitMethod": {
+            "type": "string",
+            "description": "Method used to split the matter staff.\r\n\r\nPossible values: Unknown, SplitEvenly, UseRatio.",
+            "nullable": true
+          },
+          "remainderStaffId": {
+            "type": "string",
+            "description": "The unique identifier for the staff member who will handle the remainder of the matter after the split.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TagTypeDto": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "Type of the tag.",
+        "format": "int32"
       },
       "MatterListItem": {
         "type": "object",
