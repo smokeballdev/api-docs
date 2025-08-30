@@ -2847,6 +2847,48 @@
         }
       }
     },
+    "/matters/{matterId}/documents/files/{fileId}/history": {
+      "get": {
+        "tags": ["Files"],
+        "summary": "Get file history on a matter",
+        "description": "Returns a list of history entries for the specified file",
+        "operationId": "GetFileHistory",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'FileFolderLogEntry' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileFolderLogEntryCollection"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested matter does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/documents/files/bulk": {
       "post": {
         "tags": ["Files"],
@@ -3610,6 +3652,48 @@
           },
           "400": {
             "description": "When the folder does not belong to the specified matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/documents/folders/{folderId}/history": {
+      "get": {
+        "tags": ["Folders"],
+        "summary": "Get folder history on a matter",
+        "description": "Returns a list of history entries for the specified folder.",
+        "operationId": "GetFolderHistory",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'FileFolderLogEntry' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileFolderLogEntryCollection"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested matter does not belong to the account making the request.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -8878,7 +8962,7 @@
       "post": {
         "tags": ["Users"],
         "summary": "Resend a user invitation",
-        "description": "Resends an invitation email with a temporary password for the specified user.\r\n\r\nThe user must exist and belong to the specified account.",
+        "description": "Resends an invitation email with a temporary password for the specified user.\r\n\r\nThe user must exist and belong to the specified account when specifying id.\r\nOptionally invite a user using a email address instead of user id. Use a default id of all zeros when posting email address payload.\r\nEmail address invites are only available to client credential grants.",
         "operationId": "InviteUserAsync",
         "parameters": [
           {
@@ -8888,6 +8972,25 @@
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/InviteUserDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/InviteUserDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/InviteUserDto" }]
+              }
+            }
+          }
+        },
         "responses": {
           "200": { "description": "When request is successful." },
           "202": {
@@ -12190,6 +12293,142 @@
           }
         },
         "additionalProperties": false
+      },
+      "FileFolderChangeType": {
+        "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+        "type": "integer",
+        "description": "Type of change that occurred.",
+        "format": "int32"
+      },
+      "FileFolderLogEntry": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of this log entry.",
+            "nullable": true,
+            "example": "3f2b1f2a-1d5f-48a4-8f3c-7a7a3c2b5e1a"
+          },
+          "type": {
+            "allOf": [
+              { "$ref": "#/components/schemas/FileFolderLogEntryType" }
+            ],
+            "description": "The type of entity this log entry refers to."
+          },
+          "changeType": {
+            "allOf": [{ "$ref": "#/components/schemas/FileFolderChangeType" }],
+            "description": "The type of change that occurred."
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "When the client recorded the action (UTC).",
+            "format": "date-time",
+            "example": "2025-08-27T04:12:45Z"
+          },
+          "file": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Link to the file affected by this entry (only populated when MatterManagement.ManageFiles2.Api.Resources.FileFolderLogEntry.Type is File).",
+            "nullable": true
+          },
+          "folder": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Link to the folder affected by this entry (only populated when MatterManagement.ManageFiles2.Api.Resources.FileFolderLogEntry.Type is Folder).",
+            "nullable": true
+          },
+          "oldName": {
+            "type": "string",
+            "description": "Old name prior to a rename operation (when applicable).",
+            "nullable": true,
+            "example": "Draft Response"
+          },
+          "newName": {
+            "type": "string",
+            "description": "New name after a rename operation (when applicable).",
+            "nullable": true,
+            "example": "Final Response"
+          },
+          "oldMatterId": {
+            "type": "string",
+            "description": "Previous matter identifier (for move/copy across matters).",
+            "nullable": true,
+            "example": "f9e1a9d5-1d2b-4bd2-9a72-6a6e7b5c2f01"
+          },
+          "newMatterId": {
+            "type": "string",
+            "description": "New matter identifier (for move/copy across matters).",
+            "nullable": true,
+            "example": "1c0b8a31-0a05-4601-8b87-2d7b1d0caa9a"
+          },
+          "oldFolderId": {
+            "type": "string",
+            "description": "Previous folder identifier (for move within/between matters).",
+            "nullable": true,
+            "example": "6a5c3b2e-0f1e-4c7e-90e2-2ad3c3e8b0b9"
+          },
+          "newFolderId": {
+            "type": "string",
+            "description": "New folder identifier (for move within/between matters).",
+            "nullable": true,
+            "example": "9b7a2c4d-2e1f-4b6a-8e01-1f2a3b4c5d6e"
+          },
+          "copySourceFileId": {
+            "type": "string",
+            "description": "For copy operations, the source file's identifier when copying a file.",
+            "nullable": true,
+            "example": "bb3a6c1d-1e2f-4a7b-9c01-0d9a8c7b6e5f"
+          },
+          "copySourceFolderId": {
+            "type": "string",
+            "description": "For copy operations, the source folder's identifier when copying a folder.",
+            "nullable": true,
+            "example": "aa2b5c1e-7f8a-4d9e-8c01-1a2b3c4d5e6f"
+          },
+          "documentVersionId": {
+            "type": "string",
+            "description": "Identifier of the document version involved (only for version replace/revert scenarios).\r\nCan be used to download particular file versions.",
+            "nullable": true,
+            "example": "2d97e267-0618-4822-a515-281cd4f31ae8-72324ca30d263b32bb38a481cc5f7a0b"
+          },
+          "userId": {
+            "type": "string",
+            "description": "The user who is responsible for this change.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a single file/folder activity (rename, move, delete, etc.)."
+      },
+      "FileFolderLogEntryCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FileFolderLogEntry" },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileFolderLogEntryType": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "Type of log entry.",
+        "format": "int32"
       },
       "FilePagedCollection": {
         "type": "object",
@@ -19484,6 +19723,18 @@
           "last": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InviteUserDto": {
+        "required": ["email"],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Invite user by email address."
           }
         },
         "additionalProperties": false
