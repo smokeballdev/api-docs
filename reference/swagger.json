@@ -1308,22 +1308,13 @@
           "description": "The list of tags to add",
           "content": {
             "application/json-patch+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
-              }
+              "schema": { "type": "array", "items": { "type": "string" } }
             },
             "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
-              }
+              "schema": { "type": "array", "items": { "type": "string" } }
             },
             "application/*+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
-              }
+              "schema": { "type": "array", "items": { "type": "string" } }
             }
           }
         },
@@ -1372,22 +1363,13 @@
           "description": "The list of tags for bulk delete",
           "content": {
             "application/json-patch+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
-              }
+              "schema": { "type": "array", "items": { "type": "string" } }
             },
             "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
-              }
+              "schema": { "type": "array", "items": { "type": "string" } }
             },
             "application/*+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
-              }
+              "schema": { "type": "array", "items": { "type": "string" } }
             }
           }
         },
@@ -8097,19 +8079,19 @@
             "application/json-patch+json": {
               "schema": {
                 "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
+                "items": { "$ref": "#/components/schemas/MatterTagDto" }
               }
             },
             "application/json": {
               "schema": {
                 "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
+                "items": { "$ref": "#/components/schemas/MatterTagDto" }
               }
             },
             "application/*+json": {
               "schema": {
                 "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
+                "items": { "$ref": "#/components/schemas/MatterTagDto" }
               }
             }
           }
@@ -8167,19 +8149,19 @@
             "application/json-patch+json": {
               "schema": {
                 "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
+                "items": { "$ref": "#/components/schemas/MatterTagDto" }
               }
             },
             "application/json": {
               "schema": {
                 "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
+                "items": { "$ref": "#/components/schemas/MatterTagDto" }
               }
             },
             "application/*+json": {
               "schema": {
                 "type": "array",
-                "items": { "$ref": "#/components/schemas/TagDto" }
+                "items": { "$ref": "#/components/schemas/MatterTagDto" }
               }
             }
           }
@@ -9688,6 +9670,16 @@
             "description": "Sets tax rate to 0 for the entry (e.g. expense).",
             "example": true
           },
+          "taxZeroRated": {
+            "type": "boolean",
+            "description": "Indicates the entry is zero-rated for tax purposes. Mutually exclusive with other tax settings.",
+            "example": false
+          },
+          "taxOutOfScope": {
+            "type": "boolean",
+            "description": "Indicates the entry is out of scope for tax purposes. Mutually exclusive with other tax settings.",
+            "example": false
+          },
           "isDeleted": {
             "type": "boolean",
             "description": "True if the activity is deleted.",
@@ -9748,12 +9740,22 @@
           },
           "taxInclusive": {
             "type": "boolean",
-            "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\n\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\n\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST.",
+            "description": "If true, the amount is tax inclusive, otherwise tax exclusive. Only applicable in AU and UK regions.\r\n\r\nTax inclusive means: Amount exc. tax = Amount - Tax, Amount inc. tax = Amount.\r\n\r\nTax exclusive means: Amount exc. tax = Amount, Amount inc. tax = Amount + Tax.",
             "example": false
           },
           "taxExempt": {
             "type": "boolean",
-            "description": "Sets tax rate to 0 for the entry (e.g. expense).",
+            "description": "True if the activity is exempt from tax.\r\n\r\nThis field is mutually exclusive with TaxZeroRated and TaxOutOfScope.",
+            "example": false
+          },
+          "taxZeroRated": {
+            "type": "boolean",
+            "description": "True if the activity is zero-rated for tax purposes. Only supported in UK regions.\r\n\r\nThis field is mutually exclusive with TaxOutOfScope and TaxExempt.",
+            "example": false
+          },
+          "taxOutOfScope": {
+            "type": "boolean",
+            "description": "True if the activity is out of scope for tax purposes. Only supported in UK regions.\r\n\r\nThis field is mutually exclusive with TaxZeroRated and TaxExempt.",
             "example": false
           }
         },
@@ -11815,8 +11817,9 @@
             "nullable": true
           },
           "type": {
-            "allOf": [{ "$ref": "#/components/schemas/TagType" }],
-            "description": "Type of tag. Accepted values are 'Role' or 'Custom'"
+            "type": "string",
+            "description": "Type of tag. Accepted values are 'Role' or 'Custom'",
+            "example": "Custom"
           }
         },
         "additionalProperties": false,
@@ -11840,37 +11843,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "TagDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Id of the tag.",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "description": "Display name of the tag.",
-            "nullable": true
-          },
-          "color": {
-            "type": "string",
-            "description": "Color of the tag.",
-            "nullable": true
-          },
-          "type": {
-            "allOf": [{ "$ref": "#/components/schemas/TagTypeDto" }],
-            "description": "Type of the tag."
-          }
-        },
-        "additionalProperties": false
-      },
-      "TagType": {
-        "enum": [0, 1],
-        "type": "integer",
-        "description": "Type of the tag.",
-        "format": "int32"
       },
       "Trust": {
         "type": "object",
@@ -13031,9 +13003,30 @@
             "format": "double",
             "example": 90
           },
+          "outputTax": {
+            "type": "number",
+            "description": "Output tax amount of the expense in dollars. Only applicable in AU and UK regions.\r\n\r\nWhen TaxOutOfScope or TaxZeroRated is true, this value must be 0.\r\nWhen TaxExempt is true, this value can be greater than 0.",
+            "format": "double",
+            "example": 85
+          },
           "taxInclusive": {
             "type": "boolean",
             "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\n\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\n\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST.\r\n(Amount = Price * Quantity, GST = value of the Tax field)",
+            "example": false
+          },
+          "taxZeroRated": {
+            "type": "boolean",
+            "description": "True if the expense is zero-rated for tax purposes.",
+            "example": false
+          },
+          "taxOutOfScope": {
+            "type": "boolean",
+            "description": "True if the expense is out of scope for tax purposes.",
+            "example": false
+          },
+          "taxExempt": {
+            "type": "boolean",
+            "description": "True if the expense is exempt from tax.",
             "example": false
           },
           "finalized": {
@@ -13123,14 +13116,36 @@
           },
           "tax": {
             "type": "number",
-            "description": "GST amount of the expense in dollars. Only applicable in AU.",
+            "description": "Tax amount of the expense in dollars. Only applicable in AU and UK regions.\r\n\r\nWhen TaxOutOfScope or TaxExempt is true, this value must be 0.\r\nWhen TaxZeroRated is true, this value can be greater than 0.",
             "format": "double",
             "nullable": true,
             "example": 90
           },
+          "outputTax": {
+            "type": "number",
+            "description": "Output tax amount of the expense in dollars. Only applicable in AU and UK regions.\r\n\r\nWhen TaxOutOfScope or TaxZeroRated is true, this value must be 0.\r\nWhen TaxExempt is true, this value can be greater than 0.",
+            "format": "double",
+            "nullable": true,
+            "example": 85
+          },
           "taxInclusive": {
             "type": "boolean",
-            "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\n\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\n\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST.\r\n(Amount = Price * Quantity, GST = value of the Tax field)",
+            "description": "If true, the amount is tax inclusive, otherwise tax exclusive. Only applicable in AU and UK regions.\r\n\r\nTax inclusive means: Amount exc. tax = Amount - Tax, Amount inc. tax = Amount.\r\n\r\nTax exclusive means: Amount exc. tax = Amount, Amount inc. tax = Amount + Tax.\r\n(Amount = Price * Quantity, Tax = value of the Tax field)\r\n\r\nThis field is mutually exclusive with TaxZeroRated, TaxOutOfScope and TaxExempt.",
+            "example": false
+          },
+          "taxZeroRated": {
+            "type": "boolean",
+            "description": "True if the expense is zero-rated for tax purposes. Only supported in UK regions.\r\n\r\nThis field is mutually exclusive with TaxInclusive, TaxOutOfScope and TaxExempt.\r\nWhen true, OutputTax must be 0.",
+            "example": false
+          },
+          "taxOutOfScope": {
+            "type": "boolean",
+            "description": "True if the expense is out of scope for tax purposes. Only supported in UK regions.\r\n\r\nThis field is mutually exclusive with TaxInclusive, TaxZeroRated and TaxExempt.\r\nWhen true, both Tax and OutputTax must be 0.",
+            "example": false
+          },
+          "taxExempt": {
+            "type": "boolean",
+            "description": "True if the expense is exempt from tax.\r\n\r\nThis field is mutually exclusive with TaxInclusive, TaxZeroRated and TaxOutOfScope.\r\nWhen true, Tax must be 0 but OutputTax can be greater than 0.",
             "example": false
           },
           "finalized": {
@@ -13325,6 +13340,16 @@
             "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\n\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\n\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST.",
             "example": false
           },
+          "taxExempt": {
+            "type": "boolean",
+            "description": "True if the fee is tax exempt. In that case, Tax will always be 0.",
+            "example": false
+          },
+          "taxOutOfScope": {
+            "type": "boolean",
+            "description": "True if the fee is out of scope for tax. In that case, Tax will always be 0.",
+            "example": false
+          },
           "duration": {
             "type": "integer",
             "description": "The duration billed - in minutes.",
@@ -13466,14 +13491,24 @@
           },
           "tax": {
             "type": "number",
-            "description": "GST amount of the fee in dollars. Only applicable in AU.",
+            "description": "Tax amount of the fee in dollars. Only applicable in AU and UK regions.\r\n\r\nWhen TaxOutOfScope or TaxExempt is true, this value must be 0.",
             "format": "double",
             "nullable": true,
             "example": 35
           },
           "taxInclusive": {
             "type": "boolean",
-            "description": "If true, the amount is GST inclusive, otherwise GST exclusive. Only applicable in AU.\r\n\r\nGST inclusive means: Amount exc. GST = Amount - GST, Amount inc. GST = Amount.\r\n\r\nGST exclusive means: Amount exc. GST = Amount, Amount inc. GST = Amount + GST.\r\n\r\n(Amount = Price * Quantity, GST = value of the Tax field)",
+            "description": "If true, the amount is tax inclusive, otherwise tax exclusive. Only applicable in AU and UK regions.\r\n\r\nTax inclusive means: Amount exc. tax = Amount - Tax, Amount inc. tax = Amount.\r\n\r\nTax exclusive means: Amount exc. tax = Amount, Amount inc. tax = Amount + Tax.\r\n\r\n(Amount = Rate for fixed fees, or Rate * Duration for time fees, Tax = value of the Tax field)",
+            "example": false
+          },
+          "taxExempt": {
+            "type": "boolean",
+            "description": "True if the fee is exempt from tax.\r\n\r\nThis field is mutually exclusive with TaxOutOfScope.\r\nWhen true, Tax must be 0.",
+            "example": false
+          },
+          "taxOutOfScope": {
+            "type": "boolean",
+            "description": "True if the fee is out of scope for tax purposes. Only supported in UK regions.\r\n\r\nThis field is mutually exclusive with TaxExempt.\r\nWhen true, Tax must be 0.",
             "example": false
           },
           "finalized": {
@@ -16493,8 +16528,9 @@
             "example": "a15086f5-4da7-4271-8fea-b24d479ced2b"
           },
           "type": {
-            "allOf": [{ "$ref": "#/components/schemas/TagType" }],
-            "description": "Tag type."
+            "type": "string",
+            "description": "Tag type.",
+            "example": "Staff"
           },
           "name": {
             "type": "string",
@@ -16531,6 +16567,32 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/MatterTag" },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MatterTagDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id of the tag.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the tag.",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of the tag.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the tag.",
+            "example": "Staff"
           }
         },
         "additionalProperties": false
@@ -16834,12 +16896,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "TagTypeDto": {
-        "enum": [0, 1],
-        "type": "integer",
-        "description": "Type of the tag.",
-        "format": "int32"
       },
       "MatterListItem": {
         "type": "object",
