@@ -4922,7 +4922,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a paged collection of 'Matter' objects.",
+            "description": "When request is successful. Returns a list of `Matter` objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4959,7 +4959,7 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be created.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be created.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -4993,7 +4993,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'Matter' object.",
+            "description": "When request is successful. Returns a `Matter` object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Matter" }
@@ -5001,20 +5001,10 @@
             }
           },
           "403": {
-            "description": "When the authenticated account does not have access to the matter.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When the authenticated account does not have access to the matter."
           },
           "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       },
@@ -5052,7 +5042,7 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be updated.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be updated.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -5068,20 +5058,10 @@
             }
           },
           "403": {
-            "description": "When the authenticated account does not have access to the matter.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When the authenticated account does not have access to the matter."
           },
           "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       },
@@ -5113,7 +5093,7 @@
         },
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be patched.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be patched.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -5129,20 +5109,10 @@
             }
           },
           "403": {
-            "description": "When the authenticated account does not have access to the matter.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When the authenticated account does not have access to the matter."
           },
           "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       },
@@ -5161,7 +5131,7 @@
         ],
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the matter to be deleted.",
+            "description": "When request is accepted. Returns a hypermedia `Link` object of the matter to be deleted.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -5169,7 +5139,7 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ApiError" }
@@ -5177,200 +5147,10 @@
             }
           },
           "403": {
-            "description": "When the authenticated account does not have access to the matter.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When the authenticated account does not have access to the matter."
           },
           "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/tags": {
-      "get": {
-        "tags": ["Matters"],
-        "summary": "Get matter tags",
-        "operationId": "GetMatterTagsByMatterId",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a collection of 'MatterTag' objects.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/MatterTagCollection" }
-              }
-            }
-          },
-          "403": {
-            "description": "When matter with specified id is not associated with authenticated client.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": ["Matters"],
-        "summary": "Add tags to a matter",
-        "operationId": "AddMatterTags",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/MatterTagDto" }
-              }
-            },
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/MatterTagDto" }
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/MatterTagDto" }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "When request is successful. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/tags/{tagId}": {
-      "delete": {
-        "tags": ["Matters"],
-        "summary": "Remove tags from a matter",
-        "description": "Removes the tag from the matter without deleting from the account.",
-        "operationId": "DeleteMatterTag",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "tagId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/MatterTagDto" }
-              }
-            },
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/MatterTagDto" }
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "type": "array",
-                "items": { "$ref": "#/components/schemas/MatterTagDto" }
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "When matter with specified id is not associated with authenticated client.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When matter with specified id does not exist."
           }
         }
       }
@@ -6159,12 +5939,20 @@
         "operationId": "GetReferralTypes",
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a collection of 'ReferralType' objects.",
+            "description": "When request is successful. Returns a list of `ReferralType` objects.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ReferralTypeCollection"
                 }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -6187,7 +5975,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'ReferralType' object.",
+            "description": "When request is successful. Returns a `ReferralType` object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ReferralType" }
@@ -6195,12 +5983,7 @@
             }
           },
           "404": {
-            "description": "When referral type with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
+            "description": "When referral type with specified id does not exist."
           }
         }
       }
@@ -6426,7 +6209,6 @@
       "delete": {
         "tags": ["Relationships"],
         "summary": "Remove relationship from a role in a matter.",
-        "description": "Removes a relationship from a role in a matter.",
         "operationId": "RemoveRelationshipFromRole",
         "parameters": [
           {
@@ -8494,6 +8276,161 @@
           }
         },
         "x-excluded": true
+      }
+    },
+    "/matters/{matterId}/tags": {
+      "get": {
+        "tags": ["Tags"],
+        "summary": "Get matter tags",
+        "operationId": "GetMatterTagsByMatterId",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'Tag' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MatterTagCollection" }
+              }
+            }
+          },
+          "403": {
+            "description": "When matter with specified id is not associated with authenticated client."
+          },
+          "404": {
+            "description": "When matter with specified id does not exist."
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tags"],
+        "summary": "Add custom tag(s) to a matter",
+        "operationId": "AddMatterTags",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "When request is successful.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When adding staff that does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/tags/{tagId}": {
+      "delete": {
+        "tags": ["Tags"],
+        "summary": "Remove a tag from a matter",
+        "description": "Removes the tag from the matter without deleting from the account.",
+        "operationId": "DeleteMatterTag",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/TagDto" }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": { "description": "No Content" },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
       }
     },
     "/tasks/{taskId}/subtasks/{id}": {
@@ -16825,9 +16762,8 @@
             "example": "a15086f5-4da7-4271-8fea-b24d479ced2b"
           },
           "type": {
-            "type": "string",
-            "description": "Tag type.",
-            "example": "Staff"
+            "allOf": [{ "$ref": "#/components/schemas/TagType" }],
+            "description": "Tag type."
           },
           "name": {
             "type": "string",
@@ -16864,32 +16800,6 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/MatterTag" },
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "MatterTagDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Id of the tag.",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "description": "Display name of the tag.",
-            "nullable": true
-          },
-          "color": {
-            "type": "string",
-            "description": "Color of the tag.",
-            "nullable": true
-          },
-          "type": {
-            "type": "string",
-            "description": "Type of the tag.",
-            "example": "Staff"
           }
         },
         "additionalProperties": false
@@ -17193,6 +17103,43 @@
           }
         },
         "additionalProperties": false
+      },
+      "TagDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id of the tag.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the tag.",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "description": "Color of the tag.",
+            "nullable": true
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/TagTypeDto" }],
+            "description": "Type of the tag."
+          }
+        },
+        "additionalProperties": false
+      },
+      "TagType": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "Type of the tag.",
+        "format": "int32"
+      },
+      "TagTypeDto": {
+        "enum": [0, 1],
+        "type": "integer",
+        "description": "Type of the tag.",
+        "format": "int32"
       },
       "MatterListItem": {
         "type": "object",
