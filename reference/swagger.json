@@ -4524,105 +4524,6 @@
         }
       }
     },
-    "/matters/{matterId}/billingconfiguration": {
-      "get": {
-        "tags": ["Matter Billing Configuration"],
-        "summary": "Get matter billing configuration",
-        "description": "Retrieves the specified matters billing configuration.",
-        "operationId": "GetBillingConfiguration",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns the specified memo.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BillingConfiguration"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When the specified memo does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["Matter Billing Configuration"],
-        "summary": "Update matter billing configuration",
-        "description": "Retrieves the specified matters billing configuration.",
-        "operationId": "UpdateBillingConfiguration",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
-                ]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
-                ]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the billing configuration to be updated."
-          },
-          "403": {
-            "description": "When matter with specified id is not associated with authenticated client."
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/matters/{matterId}/items": {
       "get": {
         "tags": ["Matter Items"],
@@ -4813,6 +4714,131 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/StringCollection" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/billingconfiguration": {
+      "get": {
+        "tags": ["Matters"],
+        "summary": "Get matter billing configuration",
+        "description": "Retrieves the billing configuration for the specified matter.",
+        "operationId": "GetBillingConfiguration",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'BillingConfiguration' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingConfiguration"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the matter is not associated with the authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified matter does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Matters"],
+        "summary": "Update matter billing configuration",
+        "description": "Updates the billing configuration for the specified matter.",
+        "operationId": "UpdateBillingConfiguration",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/BillingConfigurationDto" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the billing configuration to be updated.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When matter with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified matter does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -6143,6 +6169,184 @@
           },
           "404": {
             "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/portal/tasks": {
+      "post": {
+        "tags": ["Portal"],
+        "summary": "Creates a new portal task",
+        "description": "Creates a new client portal task associated with the specified matter.",
+        "operationId": "CreatePortalTaskAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PortalTaskDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PortalTaskDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PortalTaskDto" }]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns the id of the task to be created."
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/portal/tasks/{taskId}/complete": {
+      "post": {
+        "tags": ["Portal"],
+        "summary": "Completes a portal task",
+        "description": "Flags the specified client portal task as complete.",
+        "operationId": "CompletePortalTaskAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns the id of the task to be updated."
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/portal/messages": {
+      "post": {
+        "tags": ["Portal"],
+        "summary": "Sends a portal message",
+        "description": "Sends a message to the specified contact on the client portal.",
+        "operationId": "SendPortalMessageAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PortalMessageDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PortalMessageDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PortalMessageDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": { "description": "When request is accepted." },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -18087,6 +18291,76 @@
             "allOf": [{ "$ref": "#/components/schemas/PluginAvailability" }],
             "description": "Optional settings for determining the availability of a plugin.",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortalMessageDto": {
+        "required": ["message"],
+        "type": "object",
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "Unique identifier of the contact.",
+            "format": "uuid",
+            "example": "93421c6f-40bd-465d-bb95-3b3b5e200e30"
+          },
+          "message": { "minLength": 1, "type": "string" },
+          "requireMFA": {
+            "type": "boolean",
+            "description": "Whether MFA is required before showing the message content.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PortalTaskDto": {
+        "required": ["contactId", "externalUserId", "title", "url"],
+        "type": "object",
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "Unique identifier of the contact.",
+            "format": "uuid",
+            "example": "93421c6f-40bd-465d-bb95-3b3b5e200e30"
+          },
+          "externalUserId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The optional external user identifier of the external system."
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The title of the task to be displayed in the UI.",
+            "example": "Sign: Verification of Identity"
+          },
+          "url": { "minLength": 1, "type": "string" },
+          "requireMFA": {
+            "type": "boolean",
+            "description": "Whether MFA is required before showing the task content."
+          },
+          "optional": {
+            "type": "boolean",
+            "description": "Whether the this task is \"Required\" or \"Optional\".\r\n\r\nOptional tasks appear in a separate section in the UI."
+          },
+          "actionText": {
+            "type": "string",
+            "description": "Optional action text, a single word to describe the action the task relates to. \r\n\r\nDefaults to \"Complete\", but other examples could be \"Sign\" or \"Review\".",
+            "nullable": true,
+            "example": "Complete"
+          },
+          "completedText": {
+            "type": "string",
+            "description": "Optional completed text, used on the task success screen if provided.",
+            "nullable": true,
+            "example": "Signing Complete!"
+          },
+          "completedUrl": {
+            "type": "string",
+            "description": "Optional completed URL, which is a URL that is loaded in the task content body instead of the default success screen if provided.\r\n\r\nThis option overrides CompletedText if provided.",
+            "nullable": true,
+            "example": "http://www.yourwebsite.com"
           }
         },
         "additionalProperties": false
