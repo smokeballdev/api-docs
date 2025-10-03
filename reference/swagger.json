@@ -6213,7 +6213,7 @@
     "/matters/{matterId}/portal/tasks": {
       "post": {
         "tags": ["Portal"],
-        "summary": "Creates a new portal task",
+        "summary": "Creates a portal task",
         "description": "Creates a new client portal task associated with the specified matter.",
         "operationId": "CreatePortalTaskAsync",
         "parameters": [
@@ -6247,57 +6247,6 @@
         "responses": {
           "202": {
             "description": "When request is accepted. Returns the id of the task to be created."
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
-              }
-            }
-          },
-          "403": {
-            "description": "When the authenticated account does not have access to the matter.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "When matter with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/matters/{matterId}/portal/tasks/{taskId}/complete": {
-      "post": {
-        "tags": ["Portal"],
-        "summary": "Completes a portal task",
-        "description": "Flags the specified client portal task as complete.",
-        "operationId": "CompletePortalTaskAsync",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "taskId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns the id of the task to be updated."
           },
           "400": {
             "description": "When an unsupported request is made.",
@@ -6361,6 +6310,76 @@
         },
         "responses": {
           "202": { "description": "When request is accepted." },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the authenticated account does not have access to the matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When matter with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/portal/tasks/{taskId}": {
+      "patch": {
+        "tags": ["Portal"],
+        "summary": "Updates a portal task",
+        "description": "Updates a client portal task.",
+        "operationId": "PatchPortalTaskAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PatchPortalTaskDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PatchPortalTaskDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/PatchPortalTaskDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns the id of the task to be updated."
+          },
           "400": {
             "description": "When an unsupported request is made.",
             "content": {
@@ -13450,6 +13469,11 @@
             "description": "The matter associated to the expense.",
             "nullable": true
           },
+          "invoice": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The invoice associated to the expense.",
+            "nullable": true
+          },
           "staffId": {
             "type": "string",
             "description": "Deprecated, use Staff.",
@@ -13500,6 +13524,11 @@
             "description": "The date of the expense.",
             "format": "date-time",
             "example": "2022-07-01"
+          },
+          "costType": {
+            "type": "string",
+            "description": "The cost type of the expense",
+            "example": "Hard"
           },
           "quantity": {
             "type": "number",
@@ -13636,6 +13665,11 @@
             "nullable": true,
             "example": "Print documents"
           },
+          "costType": {
+            "type": "string",
+            "description": "The cost type of the expense.",
+            "example": "Hard"
+          },
           "quantity": {
             "type": "number",
             "description": "The quantity of the expense in units (if not applicable, use 1).\r\n\r\nThe expense amount will be calculated as Quantity * Price.",
@@ -13704,7 +13738,7 @@
           },
           "assignToFirmOwner": {
             "type": "boolean",
-            "description": "Assigns expense to a firm owner if true. Ignored if a StaffId is provided.\r\n\r\nNote: It is not guaranteed that the same firm owner will be assigned everytime."
+            "description": "Assigns expense to a firm owner if true. Ignored if a StaffId is provided.\r\n\r\nNote: If there are multiple firm owners, it is not guaranteed that the same firm owner will be assigned everytime."
           }
         },
         "additionalProperties": false
@@ -18327,6 +18361,17 @@
         },
         "additionalProperties": false
       },
+      "PatchPortalTaskDto": {
+        "type": "object",
+        "properties": {
+          "completed": {
+            "type": "boolean",
+            "description": "Whether the task is Completed",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PortalMessageDto": {
         "required": ["message"],
         "type": "object",
@@ -18374,7 +18419,7 @@
           },
           "optional": {
             "type": "boolean",
-            "description": "Whether the this task is \"Required\" or \"Optional\".\r\n\r\nOptional tasks appear in a separate section in the UI."
+            "description": "Whether the task is \"Required\" or \"Optional\".\r\n\r\nOptional tasks appear in a separate section in the UI."
           },
           "actionText": {
             "type": "string",
