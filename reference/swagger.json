@@ -6279,7 +6279,7 @@
       "post": {
         "tags": ["Portal"],
         "summary": "Sends a portal message",
-        "description": "Sends a message to the specified contact on the client portal.",
+        "description": "Sends a message to the specified contact on the client portal. \r\n\r\nWhen using the Client Credentials grant type, include the UserId header to impersonate\r\nthe lawyer in the firm who is sending the message.",
         "operationId": "SendPortalMessageAsync",
         "parameters": [
           {
@@ -6340,7 +6340,7 @@
     "/matters/{matterId}/portal/tasks/{taskId}": {
       "patch": {
         "tags": ["Portal"],
-        "summary": "Updates a portal task",
+        "summary": "Patch a portal task",
         "description": "Updates a client portal task.",
         "operationId": "PatchPortalTaskAsync",
         "parameters": [
@@ -9395,7 +9395,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9434,9 +9434,8 @@
           }
         ],
         "responses": {
-          "200": { "description": "When request is successful." },
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the user to be removed.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -9444,7 +9443,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9452,7 +9451,12 @@
             }
           },
           "403": {
-            "description": "When the user is not associated to the specified account."
+            "description": "When the user is not associated to the specified account.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -9483,11 +9487,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'User' object."
-          },
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the user to be created.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -9539,9 +9540,8 @@
           }
         },
         "responses": {
-          "200": { "description": "When request is successful." },
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the user to be invited.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -9549,7 +9549,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9557,7 +9557,12 @@
             }
           },
           "403": {
-            "description": "When the user is not associated to the specified account."
+            "description": "When the user is not associated to the specified account.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -20642,6 +20647,11 @@
             "type": "boolean",
             "description": "Returns true if the user is flagged as an internal user.",
             "example": true
+          },
+          "bypassMFA": {
+            "type": "boolean",
+            "description": "Returns true if multi-factor authentication is bypassed for the user.",
+            "example": true
           }
         },
         "additionalProperties": false
@@ -20670,7 +20680,12 @@
           },
           "isInternal": {
             "type": "boolean",
-            "description": "Creates the user as an internal user.",
+            "description": "Creates the user as an internal user.\r\n\r\nInternal users are excluded from billing and license counts.\r\n\r\nUse this option for testing, background services, or other non-customer-facing purposes.",
+            "example": true
+          },
+          "bypassMFA": {
+            "type": "boolean",
+            "description": "Bypasses multi-factor authentication for the user.\r\n\r\nWhen enabled, the user will not be prompted for two factor authentication during login.",
             "example": true
           }
         },
