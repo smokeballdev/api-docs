@@ -3357,7 +3357,14 @@
               }
             }
           },
-          "404": { "description": "When firm does not exist." }
+          "404": {
+            "description": "When firm does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "put": {
@@ -3393,7 +3400,14 @@
               }
             }
           },
-          "404": { "description": "When firm does not exist." }
+          "404": {
+            "description": "When firm does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "post": {
@@ -3430,17 +3444,29 @@
             }
           },
           "400": {
-            "description": "When staff user does not exist or is already associated with another firm."
+            "description": "When staff user does not exist or is already associated with another firm.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
     },
-    "/firmusers": {
+    "/firm/users": {
       "get": {
-        "tags": ["Firm Users"],
+        "tags": ["Firm"],
         "summary": "Get firm staff/user mappings",
         "description": "Retrieves a list of staff/user mappings in the firm associated with the authenticated client.",
-        "operationId": "GetFirmUsers",
         "responses": {
           "200": {
             "description": "When request is successful. Returns an array of one or more 'FirmUser' objects.",
@@ -3456,12 +3482,11 @@
         }
       }
     },
-    "/firmusers/{id}": {
+    "/firm/users/{id}": {
       "get": {
-        "tags": ["Firm Users"],
+        "tags": ["Firm"],
         "summary": "Get firm staff/user mapping",
         "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
-        "operationId": "GetFirmUserById",
         "parameters": [
           {
             "name": "id",
@@ -3482,10 +3507,9 @@
         }
       },
       "put": {
-        "tags": ["Firm Users"],
+        "tags": ["Firm"],
         "summary": "Update firm staff/user mapping",
         "description": "Updates a staff/user mapping in the firm associated with the authenticated client.",
-        "operationId": "UpdateFirmUser",
         "parameters": [
           {
             "name": "id",
@@ -3528,10 +3552,9 @@
         }
       },
       "delete": {
-        "tags": ["Firm Users"],
+        "tags": ["Firm"],
         "summary": "Delete firm staff/user mapping",
         "description": "Removes the user from the firm associated with the authenticated client.\r\n\r\nThe staff member is set as a former staff member and a former user. User access is also disabled.",
-        "operationId": "DeleteFirmUser",
         "parameters": [
           {
             "name": "id",
@@ -4881,7 +4904,7 @@
       "get": {
         "tags": ["Matters"],
         "summary": "Get matters",
-        "description": "Returns a list of matters. To return leads, set the `isLead` search option to true.",
+        "description": "Returns a list of matters.",
         "operationId": "GetMatters",
         "parameters": [
           {
@@ -4940,14 +4963,14 @@
           {
             "name": "IsLead",
             "in": "query",
-            "description": "Boolean flag to return 'Leads'. This is false by default.\r\n\r\nA Lead is a potential matter that has not yet been converted to a full matter. The data structure of a lead is similar to a matter, but with some small variances.",
+            "description": "Boolean flag to restrict search to 'Leads'.",
             "schema": { "type": "boolean", "example": true },
             "example": true
           },
           {
             "name": "UpdatedSince",
             "in": "query",
-            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime). Cannot be used in conjunction with `LastUpdated`.\r\n\r\nThis field will not be supported in future, please use LastUpdated instead.",
+            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime). Cannot be used in conjunction with `LastUpdated`.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -6989,7 +7012,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a paged collection of 'Staff' objects",
+            "description": "When request is successful. Returns a paged collection of 'Staff' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -7033,7 +7056,14 @@
               }
             }
           },
-          "400": { "description": "When request is invalid" }
+          "400": {
+            "description": "When request is invalid.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -7053,7 +7083,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'Staff' object",
+            "description": "When request is successful. Returns a 'Staff' object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Staff" }
@@ -7061,9 +7091,21 @@
             }
           },
           "400": {
-            "description": "When staff id parameter invalid or not provided"
+            "description": "When staff id parameter invalid or not provided.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
-          "404": { "description": "When staff member does not exist" }
+          "404": {
+            "description": "When staff member does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "put": {
@@ -7107,7 +7149,14 @@
               }
             }
           },
-          "404": { "description": "When staff member does not exist" }
+          "404": {
+            "description": "When staff member does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -7132,7 +7181,14 @@
               }
             }
           },
-          "404": { "description": "When staff member does not exist" }
+          "404": {
+            "description": "When staff member does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
