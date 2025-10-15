@@ -3465,8 +3465,8 @@
     "/firm/users": {
       "get": {
         "tags": ["Firm"],
-        "summary": "Get firm staff/user mappings",
-        "description": "Retrieves a list of staff/user mappings in the firm associated with the authenticated client.",
+        "summary": "Get firm user mappings",
+        "description": "Retrieves a list of user mappings in the firm associated with the authenticated client.",
         "responses": {
           "200": {
             "description": "When request is successful. Returns an array of one or more 'FirmUser' objects.",
@@ -3485,8 +3485,8 @@
     "/firm/users/{id}": {
       "get": {
         "tags": ["Firm"],
-        "summary": "Get firm staff/user mapping",
-        "description": "Retrieves a staff/user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
+        "summary": "Get firm user mapping",
+        "description": "Retrieves a user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
         "parameters": [
           {
             "name": "id",
@@ -3508,8 +3508,8 @@
       },
       "put": {
         "tags": ["Firm"],
-        "summary": "Update firm staff/user mapping",
-        "description": "Updates a staff/user mapping in the firm associated with the authenticated client.",
+        "summary": "Update firm user mapping",
+        "description": "Updates a user mapping in the firm associated with the authenticated client.",
         "parameters": [
           {
             "name": "id",
@@ -3522,17 +3522,20 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/FirmUserDto" }]
+                "allOf": [{ "$ref": "#/components/schemas/FirmUserDto" }],
+                "description": "Represents a mapping between a user and a staff member in a firm."
               }
             },
             "application/json": {
               "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/FirmUserDto" }]
+                "allOf": [{ "$ref": "#/components/schemas/FirmUserDto" }],
+                "description": "Represents a mapping between a user and a staff member in a firm."
               }
             },
             "application/*+json": {
               "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/FirmUserDto" }]
+                "allOf": [{ "$ref": "#/components/schemas/FirmUserDto" }],
+                "description": "Represents a mapping between a user and a staff member in a firm."
               }
             }
           }
@@ -3553,7 +3556,7 @@
       },
       "delete": {
         "tags": ["Firm"],
-        "summary": "Delete firm staff/user mapping",
+        "summary": "Delete firm user mapping",
         "description": "Removes the user from the firm associated with the authenticated client.\r\n\r\nThe staff member is set as a former staff member and a former user. User access is also disabled.",
         "parameters": [
           {
@@ -14819,7 +14822,8 @@
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Represents a mapping between a user and a staff member in a firm."
       },
       "LicenceNumber": {
         "type": "object",
