@@ -4907,7 +4907,7 @@
       "get": {
         "tags": ["Matters"],
         "summary": "Get matters",
-        "description": "Returns a list of matters.",
+        "description": "Returns a list of matters. To return leads, set the `isLead` search option to true.",
         "operationId": "GetMatters",
         "parameters": [
           {
@@ -4966,14 +4966,14 @@
           {
             "name": "IsLead",
             "in": "query",
-            "description": "Boolean flag to restrict search to 'Leads'.",
+            "description": "Boolean flag to return 'Leads'. This is false by default.\r\n\r\nA Lead is a potential matter that has not yet been converted to a full matter. The data structure of a lead is similar to a matter, but with some small variances.",
             "schema": { "type": "boolean", "example": true },
             "example": true
           },
           {
             "name": "UpdatedSince",
             "in": "query",
-            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime). Cannot be used in conjunction with `LastUpdated`.",
+            "description": "Filter by matters updated since a specified time (.net ticks representation of the UTC datetime). Cannot be used in conjunction with `LastUpdated`.\r\n\r\nThis field will not be supported in future, please use LastUpdated instead.",
             "schema": {
               "type": "integer",
               "format": "int64",
