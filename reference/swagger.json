@@ -18429,9 +18429,19 @@
       "PatchPortalTaskDto": {
         "type": "object",
         "properties": {
+          "cancelled": {
+            "type": "boolean",
+            "description": "Whether the task is Cancelled",
+            "example": true
+          },
           "completed": {
             "type": "boolean",
             "description": "Whether the task is Completed",
+            "example": true
+          },
+          "expired": {
+            "type": "boolean",
+            "description": "Whether the task is Expired",
             "example": true
           }
         },
