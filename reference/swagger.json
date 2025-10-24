@@ -4722,6 +4722,14 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -4749,6 +4757,14 @@
               }
             }
           },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
           "404": {
             "description": "When matter type with specified id does not exist.",
             "content": {
@@ -4768,10 +4784,18 @@
         "operationId": "GetCategories",
         "responses": {
           "200": {
-            "description": "When request is successful. Returns all 'Categories'.",
+            "description": "When request is successful. Returns a collection of 'Categories'.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/StringCollection" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -18429,20 +18453,82 @@
       "PatchPortalTaskDto": {
         "type": "object",
         "properties": {
+          "externalUserId": {
+            "type": "string",
+            "description": "The optional external user identifier of the external system.",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the task to be displayed in the UI.",
+            "nullable": true,
+            "example": "Sign: Verification of Identity"
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL that will be displayed within the task content.",
+            "nullable": true,
+            "example": "http://www.yourwebsite.com"
+          },
+          "actionText": {
+            "type": "string",
+            "description": "Optional action text, a single word to describe the action the task relates to. \r\n\r\nDefaults to \"Complete\", but other examples could be \"Sign\" or \"Review\".",
+            "nullable": true,
+            "example": "Complete"
+          },
           "cancelled": {
             "type": "boolean",
             "description": "Whether the task is Cancelled",
+            "nullable": true,
             "example": true
+          },
+          "cancelledText": {
+            "type": "string",
+            "description": "Optional cancelled text, used on the task cancelled screen if provided.",
+            "nullable": true,
+            "example": "Signing Cancelled!"
+          },
+          "cancelledUrl": {
+            "type": "string",
+            "description": "Optional cancelled URL, which is a URL that is loaded in the task content body instead of the default cancelled screen if provided.\r\n\r\nThis option overrides CancelledText if provided.",
+            "nullable": true,
+            "example": "http://www.yourwebsite.com"
           },
           "completed": {
             "type": "boolean",
             "description": "Whether the task is Completed",
+            "nullable": true,
             "example": true
+          },
+          "completedText": {
+            "type": "string",
+            "description": "Optional completed text, used on the task success screen if provided.",
+            "nullable": true,
+            "example": "Signing Complete!"
+          },
+          "completedUrl": {
+            "type": "string",
+            "description": "Optional completed URL, which is a URL that is loaded in the task content body instead of the default success screen if provided.\r\n\r\nThis option overrides CompletedText if provided.",
+            "nullable": true,
+            "example": "http://www.yourwebsite.com"
           },
           "expired": {
             "type": "boolean",
             "description": "Whether the task is Expired",
+            "nullable": true,
             "example": true
+          },
+          "expiredText": {
+            "type": "string",
+            "description": "Optional expired text, used on the task expired screen if provided.",
+            "nullable": true,
+            "example": "Signing Expired!"
+          },
+          "expiredUrl": {
+            "type": "string",
+            "description": "Optional expired URL, which is a URL that is loaded in the task content body instead of the default expired screen if provided.\r\n\r\nThis option overrides ExpiredText if provided.",
+            "nullable": true,
+            "example": "http://www.yourwebsite.com"
           }
         },
         "additionalProperties": false
@@ -18487,7 +18573,12 @@
             "description": "The title of the task to be displayed in the UI.",
             "example": "Sign: Verification of Identity"
           },
-          "url": { "minLength": 1, "type": "string" },
+          "url": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The URL that will be displayed within the task content.",
+            "example": "http://www.yourwebsite.com"
+          },
           "requireMFA": {
             "type": "boolean",
             "description": "Whether MFA is required before showing the task content."
