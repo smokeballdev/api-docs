@@ -623,7 +623,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -631,7 +631,12 @@
             }
           },
           "403": {
-            "description": "When bank account balance with specified id is not associated with authenticated client."
+            "description": "When bank account balance with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
             "description": "When bank account balance with specified id does not exist.",
@@ -668,7 +673,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -676,7 +681,12 @@
             }
           },
           "403": {
-            "description": "When bank account with specified id is not associated with authenticated client."
+            "description": "When bank account with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
             "description": "When bank account with specified id does not exist.",
@@ -697,12 +707,20 @@
         "operationId": "GetBankAccounts",
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a list of 'BankAccount' objects.",
+            "description": "When request is successful. Returns a collection of 'BankAccount' objects.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BankAccountCollection"
                 }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -739,7 +757,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -747,7 +765,12 @@
             }
           },
           "403": {
-            "description": "When transaction with specified id is not associated with authenticated client."
+            "description": "When transaction with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
             "description": "When transaction with specified id does not exist.",
@@ -763,7 +786,7 @@
     "/bankaccounts/{bankAccountId}/transactions": {
       "post": {
         "tags": ["Bank Accounts"],
-        "summary": "Create bank account transaction",
+        "summary": "Create a bank account transaction",
         "description": "Creates a bank account transaction.",
         "operationId": "CreateTransactionForBankAccount",
         "parameters": [
@@ -794,16 +817,13 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the transaction to be created.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
               }
             }
-          },
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia `Link` object of the receipt to be created."
           },
           "400": {
             "description": "When an unsupported request is made.",
@@ -5196,7 +5216,7 @@
       },
       "patch": {
         "tags": ["Matters"],
-        "summary": "Patch a matter (beta)",
+        "summary": "Patch a matter",
         "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead`, convert `Lead` to `Matter` and change the `Lead`/`Matter` type.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `clientRole` cannot be updated, unless converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `Matter` cannot be converted back to `Lead`\r\n            \r\n- `splitOriginatingStaffSettings` cannot be updated without also providing `originatingStaffIds` in the same PATCH request\r\n            \r\n- `personAssistingStaffIds` cannot contain `personAssistingStaffId`\r\n            \r\n- `originatingStaffIds` cannot contain `originatingStaffId`\r\n            \r\n- If split originating staff settings are enabled, `originatingStaffIds` and `originatingStaffId` cannot be updated",
         "operationId": "PatchMatter",
         "parameters": [
