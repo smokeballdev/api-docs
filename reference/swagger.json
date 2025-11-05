@@ -4050,7 +4050,7 @@
       "get": {
         "tags": ["Invoices"],
         "summary": "Get invoices",
-        "description": "Returns a list of invoices for a specified matter.",
+        "description": "Returns a list of invoices for the specified matter.",
         "operationId": "GetInvoices",
         "parameters": [
           {
@@ -4089,12 +4089,20 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the invoices",
+            "description": "When request is successful. Returns a paged collection of 'Invoice' objects.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/InvoicePagedCollection"
                 }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -4123,7 +4131,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'InvoiceFileInfo' object.",
+            "description": "When request is successful. Returns an 'InvoiceFileInfo' object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/InvoiceFileInfo" }
@@ -4131,7 +4139,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
