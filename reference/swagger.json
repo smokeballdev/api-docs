@@ -20673,13 +20673,13 @@
         "additionalProperties": false
       },
       "SubTaskDto": {
-        "required": ["subject"],
+        "required": ["staffId", "subject"],
         "type": "object",
         "properties": {
           "staffId": {
+            "minLength": 1,
             "type": "string",
             "description": "Unique identifier of the associated staff member creating or updating the subtask.",
-            "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "completedByStaffId": {
@@ -20895,6 +20895,7 @@
         "description": "Data transfer object for a task document."
       },
       "TaskDto": {
+        "required": ["staffId"],
         "type": "object",
         "properties": {
           "matterId": {
@@ -20904,9 +20905,9 @@
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "staffId": {
+            "minLength": 1,
             "type": "string",
             "description": "Unique identifier of the associated staff member creating or updating the task.",
-            "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "completedByStaffId": {
