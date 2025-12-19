@@ -640,57 +640,6 @@
         }
       }
     },
-    "/bankaccountbalances/{id}": {
-      "get": {
-        "tags": ["Bank Accounts"],
-        "summary": "Get a bank account balance",
-        "description": "Retrieves a specified bank account balance.",
-        "operationId": "GetBankAccountBalanceById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the bank account.",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a 'BankAccountBalance' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/BankAccountBalance" }
-              }
-            }
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "403": {
-            "description": "When bank account balance with specified id is not associated with authenticated client.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "When bank account balance with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/bankaccounts/{id}": {
       "get": {
         "tags": ["Bank Accounts"],
@@ -747,6 +696,10 @@
         "summary": "Get bank accounts",
         "description": "Returns a list of bank accounts.",
         "operationId": "GetBankAccounts",
+        "parameters": [
+          { "name": "type", "in": "query", "schema": { "type": "string" } },
+          { "name": "matterId", "in": "query", "schema": { "type": "string" } }
+        ],
         "responses": {
           "200": {
             "description": "When request is successful. Returns a collection of 'BankAccount' objects.",
@@ -772,7 +725,7 @@
     "/bankaccounts/{bankAccountId}/transactions/{id}": {
       "get": {
         "tags": ["Bank Accounts"],
-        "summary": "Get a bank account transaction",
+        "summary": "Get a transaction",
         "description": "Retrieves a specified bank account transaction.",
         "operationId": "GetTransactionById",
         "parameters": [
@@ -828,8 +781,8 @@
     "/bankaccounts/{bankAccountId}/transactions": {
       "post": {
         "tags": ["Bank Accounts"],
-        "summary": "Create a bank account transaction",
-        "description": "Creates a bank account transaction.",
+        "summary": "Create a transaction",
+        "description": "Creates a transaction.",
         "operationId": "CreateTransactionForBankAccount",
         "parameters": [
           {
@@ -10218,11 +10171,7 @@
   },
   "components": {
     "schemas": {
-      "AccountTypes": {
-        "enum": [0, 1, 2, 3],
-        "type": "integer",
-        "format": "int32"
-      },
+      "AccountState": { "enum": [0, 1], "type": "integer", "format": "int32" },
       "ApiError": {
         "type": "object",
         "properties": {
@@ -10247,10 +10196,19 @@
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
-          "accountType": {
-            "allOf": [{ "$ref": "#/components/schemas/AccountTypes" }],
-            "description": "The type of the bank account (Operating = 0, Trust = 1, Credit = 2, ControlledMoney = 3).",
-            "example": 0
+          "type": {
+            "type": "string",
+            "description": "The type of the bank account (Operating, Trust, Credit, ControlledMoney).",
+            "example": "Trust"
+          },
+          "status": {
+            "allOf": [{ "$ref": "#/components/schemas/AccountState" }],
+            "description": "The status of the account (Open, Closed)."
+          },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The Matter associated to the account. \r\n\r\nApplies to 'ControlledMoney' accounts only.",
+            "nullable": true
           },
           "accountName": {
             "type": "string",
@@ -10281,25 +10239,6 @@
             "description": "Branch Name.",
             "nullable": true,
             "example": "Sydney"
-          }
-        },
-        "additionalProperties": false
-      },
-      "BankAccountBalance": {
-        "type": "object",
-        "properties": {
-          "href": { "type": "string", "nullable": true },
-          "relation": { "type": "string", "nullable": true },
-          "method": { "type": "string", "default": "GET", "nullable": true },
-          "self": {
-            "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "nullable": true
-          },
-          "id": {
-            "type": "string",
-            "description": "Unique identifier of the bank account. This is the same id used for BankAccount.",
-            "nullable": true,
-            "example": "611ccf16-df18-433c-9900-2496f3ab902c"
           },
           "balance": {
             "type": "number",
@@ -10312,7 +10251,7 @@
             "items": {
               "$ref": "#/components/schemas/BankAccountContactBalance"
             },
-            "description": "List of contact balances. If balances are stored by matter, not by contact, then there can be\r\na contact balance with no contact id. In this case, MatterBalances should be used instead.",
+            "description": "List of contact balances.\r\n\r\nIf balances are stored by matter, not by contact, then there can be\r\na contact balance with no contact id. In this case, MatterBalances are used instead.\r\n\r\nOnly supported in US.",
             "nullable": true
           },
           "matterBalances": {
@@ -10320,7 +10259,7 @@
             "items": {
               "$ref": "#/components/schemas/BankAccountMatterBalance"
             },
-            "description": "List of matter balances. A matter balance will be equal to the sum of all contact balances with\r\nthe same MatterId.",
+            "description": "List of matter balances.\r\n\r\nA matter balance will be equal to the sum of all contact balances with the same MatterId.",
             "nullable": true
           }
         },
@@ -10348,21 +10287,31 @@
       "BankAccountContactBalance": {
         "type": "object",
         "properties": {
-          "contactId": {
-            "type": "string",
-            "description": "Unique identifier of the contact.",
-            "nullable": true,
-            "example": "18c05819-c321-4907-800c-d5a608729c5a"
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated matter.",
+            "nullable": true
           },
-          "matterId": {
-            "type": "string",
-            "description": "Unique identifier of the matter.",
-            "nullable": true,
-            "example": "39a0a7d0-dd1c-4dea-a3f6-f8b35656f168"
+          "contact": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated contact.",
+            "nullable": true
           },
           "balance": {
             "type": "number",
-            "description": "Balance belonging to the specified contact and matter.",
+            "description": "The balance belonging for the specified matter contact.",
+            "format": "double",
+            "example": 1000
+          },
+          "protectedBalance": {
+            "type": "number",
+            "description": "The protected balance for the specified matter and contact.",
+            "format": "double",
+            "example": 1000
+          },
+          "availableBalance": {
+            "type": "number",
+            "description": "The available balance for the specified matter and contact.\r\n            \r\nThis value is calculated as the total balance minus the protected balance.",
             "format": "double",
             "example": 1000
           }
@@ -10372,15 +10321,26 @@
       "BankAccountMatterBalance": {
         "type": "object",
         "properties": {
-          "matterId": {
-            "type": "string",
-            "description": "Unique identifier of the matter.",
-            "nullable": true,
-            "example": "39a0a7d0-dd1c-4dea-a3f6-f8b35656f168"
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated matter.",
+            "nullable": true
           },
           "balance": {
             "type": "number",
-            "description": "Balance belonging to the specified matter.",
+            "description": "The balance belonging for the specified matter.",
+            "format": "double",
+            "example": 1000
+          },
+          "protectedBalance": {
+            "type": "number",
+            "description": "The protected balance for the specified matter.",
+            "format": "double",
+            "example": 1000
+          },
+          "availableBalance": {
+            "type": "number",
+            "description": "The available balance for the specified matter.\r\n            \r\nThis value is calculated as the total balance minus the protected balance.",
             "format": "double",
             "example": 1000
           },
