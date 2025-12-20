@@ -722,6 +722,138 @@
         }
       }
     },
+    "/bankaccounts/{bankAccountId}/transactions": {
+      "get": {
+        "tags": ["Bank Accounts"],
+        "summary": "Get transactions",
+        "description": "Retrieves a specified bank accounts transaction.",
+        "operationId": "GetTransactions",
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "LastUpdated",
+            "in": "query",
+            "description": "Returns items updated since the specified date and time.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-23T14:00:00Z"
+            },
+            "example": "2022-04-23T14:00:00Z"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Transaction' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Transaction" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When transaction with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When transaction with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Bank Accounts"],
+        "summary": "Create a transaction",
+        "description": "Creates a transaction.",
+        "operationId": "CreateTransactionForBankAccount",
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object of the transaction to be created.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/bankaccounts/{bankAccountId}/transactions/{id}": {
       "get": {
         "tags": ["Bank Accounts"],
@@ -772,59 +904,6 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/bankaccounts/{bankAccountId}/transactions": {
-      "post": {
-        "tags": ["Bank Accounts"],
-        "summary": "Create a transaction",
-        "description": "Creates a transaction.",
-        "operationId": "CreateTransactionForBankAccount",
-        "parameters": [
-          {
-            "name": "bankAccountId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/TransactionDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a hypermedia 'Link' object of the transaction to be created.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
               }
             }
           }
@@ -4056,9 +4135,20 @@
             "schema": { "type": "string" }
           },
           {
-            "name": "updatedSince",
+            "name": "LastUpdated",
             "in": "query",
-            "description": "Timestamp in ticks. Use this to only get invoices which have been updated",
+            "description": "Returns items updated since the specified date and time.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-23T14:00:00Z"
+            },
+            "example": "2022-04-23T14:00:00Z"
+          },
+          {
+            "name": "UpdatedSince",
+            "in": "query",
+            "description": "Returns items updated since a specified time (.net ticks representation of the UTC datetime).",
             "schema": { "type": "integer", "format": "int64" }
           },
           {
@@ -4095,6 +4185,62 @@
           },
           "400": {
             "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/invoices/{invoiceId}": {
+      "get": {
+        "tags": ["Invoices"],
+        "summary": "Get an invoice",
+        "description": "Retrieves a specified invoice.",
+        "operationId": "GetInvoiceById",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Invoice' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Invoice" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When invoice with specified id is not associated with authenticated client or matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -10390,15 +10536,19 @@
             "nullable": true,
             "example": "64818ee0-c7b4-46ec-862e-514d8b29540a"
           },
-          "matterId": {
-            "type": "string",
-            "description": "Unique identifier of the associated matter.",
-            "nullable": true,
-            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated matter.",
+            "nullable": true
           },
-          "payorId": {
-            "type": "string",
-            "description": "Unique identifier of the associated contact.",
+          "payor": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated contact that paid the funds.",
+            "nullable": true
+          },
+          "bankAccount": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The bank account where the transaction took place.",
             "nullable": true
           },
           "type": {
@@ -10413,9 +10563,14 @@
             "format": "double",
             "example": 102.65
           },
+          "enteredDate": {
+            "type": "string",
+            "description": "Date the transaction was entered.",
+            "format": "date-time"
+          },
           "effectiveDate": {
             "type": "string",
-            "description": "Date of the transaction.",
+            "description": "Date the transaction took effect.",
             "format": "date-time"
           },
           "reference": {
@@ -10436,6 +10591,21 @@
           "note": {
             "type": "string",
             "description": "Note for the transaction (for internal use).",
+            "nullable": true
+          },
+          "reversed": {
+            "type": "boolean",
+            "description": "True if this transaction has been reversed.",
+            "example": true
+          },
+          "reversedToTransaction": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The transaction that was created as a result of reversing this transaction.",
+            "nullable": true
+          },
+          "reversedFromTransaction": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The transaction that was recversed to create this transaction.",
             "nullable": true
           }
         },
