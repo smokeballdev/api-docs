@@ -1247,7 +1247,7 @@
           {
             "name": "Fields",
             "in": "query",
-            "description": " Available fields: passportDetails, deathDetails, citizenshipDetails, utbmsDetails, tags",
+            "description": " Available fields: passportDetails, deathDetails, citizenshipDetails, utbmsDetails, tags, executionOptions, voiDetails",
             "schema": { "type": "string" }
           }
         ],
@@ -4360,6 +4360,18 @@
             "in": "path",
             "description": "Layout design Id",
             "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "matterTypeId",
+            "in": "query",
+            "description": "Matter type identifier (optional)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "State identifier (optional)",
             "schema": { "type": "string" }
           }
         ],
@@ -11694,6 +11706,11 @@
             "description": "Deprecated - use Staff instead. This field may not be supported in future.",
             "nullable": true,
             "readOnly": true
+          },
+          "executionOptions": {
+            "allOf": [{ "$ref": "#/components/schemas/ExecutionOptions" }],
+            "description": "Company's execution options for document signing and VOI details.\r\n\r\nOnly supported in AU.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -11783,6 +11800,11 @@
               "73481c13-b7f8-4610-b221-aaccbf7aaade",
               "18cd6029-4a9e-4b99-bae5-710a7d79a19b"
             ]
+          },
+          "executionOptions": {
+            "allOf": [{ "$ref": "#/components/schemas/ExecutionOptionsDto" }],
+            "description": "Company's execution options for document signing and VOI details.\r\n\r\nOnly supported in AU.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12092,6 +12114,182 @@
           "state": { "type": "string", "nullable": true }
         },
         "additionalProperties": false
+      },
+      "ExecutionOptions": {
+        "type": "object",
+        "properties": {
+          "person1": {
+            "allOf": [{ "$ref": "#/components/schemas/ExecutionPerson" }],
+            "description": "First authorized person for execution",
+            "nullable": true
+          },
+          "person2": {
+            "allOf": [{ "$ref": "#/components/schemas/ExecutionPerson" }],
+            "description": "Second authorized person for execution",
+            "nullable": true
+          },
+          "executingUnder127": {
+            "type": "boolean",
+            "description": "Indicates if executing under section 127",
+            "nullable": true
+          },
+          "executingAuthority": {
+            "type": "string",
+            "description": "Executing authority details",
+            "nullable": true
+          },
+          "sealType": {
+            "type": "string",
+            "description": "Seal type for execution.",
+            "nullable": true,
+            "example": "WithSeal"
+          },
+          "authorisedDepositTakingInstitution": {
+            "type": "boolean",
+            "description": "Indicates if organization is an Authorised Deposit Taking Institution",
+            "nullable": true
+          },
+          "poaRegistrationNumber": {
+            "type": "string",
+            "description": "Power of Attorney registration number",
+            "nullable": true
+          },
+          "attorneyNames": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of attorney names",
+            "nullable": true
+          },
+          "executionType": {
+            "type": "string",
+            "description": "Execution type.",
+            "nullable": true,
+            "example": "JointDirectors"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Execution options for organizations\r\n\r\nOnly supported in AU."
+      },
+      "ExecutionOptionsDto": {
+        "type": "object",
+        "properties": {
+          "person1": {
+            "allOf": [{ "$ref": "#/components/schemas/ExecutionPersonDto" }],
+            "description": "First authorized person for execution",
+            "nullable": true
+          },
+          "person2": {
+            "allOf": [{ "$ref": "#/components/schemas/ExecutionPersonDto" }],
+            "description": "Second authorized person for execution",
+            "nullable": true
+          },
+          "executingUnder127": {
+            "type": "boolean",
+            "description": "Indicates if executing under section 127",
+            "nullable": true
+          },
+          "executingAuthority": {
+            "type": "string",
+            "description": "Executing authority details",
+            "nullable": true
+          },
+          "sealType": {
+            "type": "string",
+            "description": "Seal type for execution.\r\n\r\nPossible values: 'WithSeal', 'WithoutSeal', 'Unset'",
+            "nullable": true,
+            "example": "WithSeal"
+          },
+          "authorisedDepositTakingInstitution": {
+            "type": "boolean",
+            "description": "Indicates if organization is an Authorised Deposit Taking Institution",
+            "nullable": true
+          },
+          "poaRegistrationNumber": {
+            "type": "string",
+            "description": "Power of Attorney registration number",
+            "nullable": true
+          },
+          "attorneyNames": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of attorney names",
+            "nullable": true,
+            "example": ["John Smith", "Jane Doe"]
+          },
+          "executionType": {
+            "type": "string",
+            "description": "Execution type.\r\n\r\nPossible values: 'Individual', 'SoleDirector', 'JointDirectors', 'Director', 'Secretary', 'Authorised', 'Other', 'Unset', 'None'",
+            "nullable": true,
+            "example": "JointDirectors"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Execution options for organizations (Company, Partnership, Sole Proprietor)\r\n\r\nOnly supported in AU."
+      },
+      "ExecutionPerson": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Person's full name",
+            "nullable": true,
+            "example": "John Smith"
+          },
+          "address": {
+            "allOf": [{ "$ref": "#/components/schemas/Address" }],
+            "description": "Person's address",
+            "nullable": true
+          },
+          "personType": {
+            "type": "string",
+            "description": "Person type for execution.\r\n\r\nOnly supported in AU.",
+            "nullable": true,
+            "example": "Director"
+          },
+          "selectedOfficeHeld": {
+            "type": "string",
+            "description": "Office held by the person.",
+            "nullable": true,
+            "example": "Director"
+          },
+          "voiDetails": {
+            "allOf": [{ "$ref": "#/components/schemas/VoiDetails" }],
+            "description": "Verification of identity details for this person",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an authorized person for organization execution\r\n\r\nOnly supported in AU."
+      },
+      "ExecutionPersonDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Person's full name",
+            "nullable": true,
+            "example": "John Smith"
+          },
+          "address": {
+            "allOf": [{ "$ref": "#/components/schemas/AddressDto" }],
+            "description": "Person's address",
+            "nullable": true
+          },
+          "personType": {
+            "type": "string",
+            "description": "Person type for execution.\r\n\r\nPossible values: 'Director', 'Secretary', 'SoleDirectorAndSecretary', 'AuthorisedSignatory', 'Other', 'Unset'",
+            "nullable": true,
+            "example": "Director"
+          },
+          "selectedOfficeHeld": {
+            "type": "string",
+            "description": "Office held by the person.\r\n\r\nPossible values: 'Director', 'Secretary', 'SoleDirectorAndSecretary', 'Partner', 'AuthorisedRepresentative', 'Other', 'Unset'",
+            "nullable": true,
+            "example": "Director"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an authorized person for organization execution\r\n\r\nOnly supported in AU."
       },
       "GroupOfPeople": {
         "type": "object",
@@ -12499,6 +12697,18 @@
             "allOf": [{ "$ref": "#/components/schemas/UtbmsDetails" }],
             "description": "Contact's UTBMS Details.\r\n\r\nOnly supported in the US.",
             "nullable": true
+          },
+          "executionOptions": {
+            "allOf": [
+              { "$ref": "#/components/schemas/PersonExecutionOptions" }
+            ],
+            "description": "Person's execution options including Power of Attorney and VOI details.\r\n\r\nOnly supported in AU.",
+            "nullable": true
+          },
+          "voiDetails": {
+            "allOf": [{ "$ref": "#/components/schemas/VoiDetails" }],
+            "description": "Person's verification of identity details.\r\n\r\nOnly supported in AU.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12707,9 +12917,115 @@
             "allOf": [{ "$ref": "#/components/schemas/UtbmsDetailsDto" }],
             "description": "Contact's UTBMS Details\r\n\r\nOnly supported in the US.",
             "nullable": true
+          },
+          "executionOptions": {
+            "allOf": [
+              { "$ref": "#/components/schemas/PersonExecutionOptionsDto" }
+            ],
+            "description": "Person's execution options including Power of Attorney and VOI details.\r\n\r\nOnly supported in AU.",
+            "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "PersonExecutionOptions": {
+        "type": "object",
+        "properties": {
+          "poaType": {
+            "type": "string",
+            "description": "Power of Attorney type.",
+            "nullable": true,
+            "example": "Enduring"
+          },
+          "poaDate": {
+            "type": "string",
+            "description": "Date the Power of Attorney was executed",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2023-05-15"
+          },
+          "attorneyName": {
+            "type": "string",
+            "description": "Name of the attorney",
+            "nullable": true,
+            "example": "Jane Doe"
+          },
+          "address": {
+            "allOf": [{ "$ref": "#/components/schemas/Address" }],
+            "description": "Attorney's address",
+            "nullable": true
+          },
+          "poaRegisteredBook": {
+            "type": "string",
+            "description": "Power of Attorney registration book reference",
+            "nullable": true
+          },
+          "poaRegisteredNumber": {
+            "type": "string",
+            "description": "Power of Attorney registration number",
+            "nullable": true
+          },
+          "executionType": {
+            "type": "string",
+            "description": "Person execution type.",
+            "nullable": true,
+            "example": "PowerOfAttorney"
+          },
+          "poaVoiDetails": {
+            "allOf": [{ "$ref": "#/components/schemas/VoiDetails" }],
+            "description": "Verification of identity details for the attorney (Power of Attorney)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Execution options for individual persons (Power of Attorney)\r\n\r\nOnly supported in AU."
+      },
+      "PersonExecutionOptionsDto": {
+        "type": "object",
+        "properties": {
+          "poaType": {
+            "type": "string",
+            "description": "Power of Attorney type.\r\n\r\nPossible values: 'None', 'General', 'Enduring', 'Medical', 'Financial', 'Other', 'Unset'",
+            "nullable": true,
+            "example": "Enduring"
+          },
+          "poaDate": {
+            "type": "string",
+            "description": "Date the Power of Attorney was executed",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2023-05-15"
+          },
+          "attorneyName": {
+            "type": "string",
+            "description": "Name of the attorney",
+            "nullable": true,
+            "example": "Jane Doe"
+          },
+          "address": {
+            "allOf": [{ "$ref": "#/components/schemas/AddressDto" }],
+            "description": "Attorney's address",
+            "nullable": true
+          },
+          "poaRegisteredBook": {
+            "type": "string",
+            "description": "Power of Attorney registration book reference",
+            "nullable": true
+          },
+          "poaRegisteredNumber": {
+            "type": "string",
+            "description": "Power of Attorney registration number",
+            "nullable": true
+          },
+          "executionType": {
+            "type": "string",
+            "description": "Person execution type.\r\n\r\nPossible values: 'Individual', 'PowerOfAttorney', 'Other', 'Unset', 'None'",
+            "nullable": true,
+            "example": "PowerOfAttorney"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Execution options for individual persons (Power of Attorney)\r\n\r\nOnly supported in AU."
       },
       "PhoneNumber": {
         "type": "object",
@@ -13099,6 +13415,43 @@
         },
         "additionalProperties": false,
         "description": "Utbms Details"
+      },
+      "VoiDetails": {
+        "type": "object",
+        "properties": {
+          "isCompleted": {
+            "type": "boolean",
+            "description": "Indicates if VOI has been completed",
+            "example": true
+          },
+          "completedDateTime": {
+            "type": "string",
+            "description": "Date and time when VOI was completed",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Reference number or order ID from the VOI service",
+            "nullable": true,
+            "example": "12345678"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source/provider of the VOI service",
+            "nullable": true,
+            "example": "InfoTrackID"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the VOI check",
+            "nullable": true,
+            "example": "Complete"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Verification of Identity (VOI) details\r\n\r\nOnly supported in AU."
       },
       "AddFileDto": {
         "required": ["fileName"],
