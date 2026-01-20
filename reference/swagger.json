@@ -722,6 +722,277 @@
         }
       }
     },
+    "/bankaccounts/{id}/protected-balances/{protectionId}": {
+      "get": {
+        "tags": ["Bank Accounts"],
+        "summary": "Get a rotected bank account balance",
+        "description": "Retrieves a specified protected account balance record.",
+        "operationId": "GetProtectedAccountBalanceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "protectionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'ProtectedAccountBalance' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProtectedAccountBalance"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When protected balance record is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When protected balance record does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccounts/{id}/protect-funds": {
+      "post": {
+        "tags": ["Bank Accounts"],
+        "summary": "Protect bank account funds",
+        "description": "Protects funds in a trust bank account. Only trust accounts are supported.",
+        "operationId": "ProtectFundsAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ProtectFundsDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ProtectFundsDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ProtectFundsDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When bank account is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When bank account does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccounts/{id}/unprotect-funds/{protectionId}": {
+      "post": {
+        "tags": ["Bank Accounts"],
+        "summary": "Unprotect bank account funds",
+        "description": "Unprotects funds in a trust bank account. Only trust accounts are supported.",
+        "operationId": "UnprotectFundsAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "protectionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/UnprotectFundsDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/UnprotectFundsDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/UnprotectFundsDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a hypermedia 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When bank account is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When bank account or protection record does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bankaccounts/{id}/requisitions": {
+      "post": {
+        "tags": ["Bank Accounts"],
+        "summary": "Create a requisition",
+        "description": "Creates a requisition from a trust account. This endpoint supports the approval workflow. The requisition may or may not require approval depending on account settings.",
+        "operationId": "CreateRequisitionAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/RequisitionDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/RequisitionDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/RequisitionDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns requisition status and balances.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Requisition" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When bank account is not associated with authenticated client or client credentials are used.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When bank account does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/bankaccounts/{bankAccountId}/transactions": {
       "get": {
         "tags": ["Bank Accounts"],
@@ -847,7 +1118,23 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -10330,14 +10617,6 @@
   "components": {
     "schemas": {
       "AccountState": { "enum": [0, 1], "type": "integer", "format": "int32" },
-      "ApiError": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string", "nullable": true },
-          "detail": { "type": "string", "nullable": true }
-        },
-        "additionalProperties": false
-      },
       "BankAccount": {
         "type": "object",
         "properties": {
@@ -10532,6 +10811,266 @@
         },
         "additionalProperties": {}
       },
+      "ProtectFundsDto": {
+        "required": ["amount", "matterId"],
+        "type": "object",
+        "properties": {
+          "matterId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique identifier of the associated matter. Required.",
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+          },
+          "contactId": {
+            "type": "string",
+            "description": "Unique identifier of the associated contact. Required in US only.",
+            "nullable": true,
+            "example": "18c05819-c321-4907-800c-d5a608729c5a"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for protecting the funds.",
+            "nullable": true,
+            "example": "Court order requiring protection of funds"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Date of protecting the funds.",
+            "format": "date-time"
+          },
+          "amount": {
+            "minimum": 0.01,
+            "type": "number",
+            "description": "The amount to protect in dollars. Limited to 2 decimal places (cents).",
+            "format": "double",
+            "example": 100.5
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProtectedAccountBalance": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the protection record.",
+            "nullable": true,
+            "example": "p1"
+          },
+          "bankAccount": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The bank account where the protection was applied.",
+            "nullable": true
+          },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated matter.",
+            "nullable": true
+          },
+          "contact": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "The associated contact (US only).",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "The amount protected in dollars. Limited to 2 decimal places (cents).",
+            "format": "double",
+            "example": 100.5
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for protecting the funds.",
+            "nullable": true,
+            "example": "Court order requiring protection of funds"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Date the protection took effect.",
+            "format": "date-time",
+            "example": "2024-01-15T00:00:00Z"
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Timestamp when the protection was created.",
+            "format": "date-time",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "isProtected": {
+            "type": "boolean",
+            "description": "True if the funds are currently protected.",
+            "example": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "Unique identifier of the user who protected the funds.",
+            "nullable": true,
+            "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          },
+          "unprotectingUserId": {
+            "type": "string",
+            "description": "Unique identifier of the user who unprotected the funds (if applicable).",
+            "nullable": true,
+            "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "Timestamp when the protection was last updated (e.g. protected or unprotected).",
+            "format": "date-time",
+            "example": "2024-01-15T10:30:00Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Requisition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Requisition ID if requisition requires approval.",
+            "nullable": true,
+            "example": "18c05819-c321-4907-800c-d5a608729c5a"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the requisition (e.g., Pending, Approved).",
+            "example": "Approved"
+          },
+          "protectedBalance": {
+            "type": "number",
+            "description": "Protected balance after the requisition.",
+            "format": "double",
+            "example": 1000
+          },
+          "availableBalance": {
+            "type": "number",
+            "description": "Available balance after the requisition.",
+            "format": "double",
+            "example": 5000
+          },
+          "totalBalance": {
+            "type": "number",
+            "description": "Total balance after the requisition.",
+            "format": "double",
+            "example": 6000
+          },
+          "pdfPaymentDetail": {
+            "type": "string",
+            "description": "Link to the PDF payment detail document.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequisitionDto": {
+        "required": ["amount", "matterId", "payeeId", "transactionType"],
+        "type": "object",
+        "properties": {
+          "matterId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique identifier of the associated matter. Required.",
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+          },
+          "approverUserId": {
+            "type": "string",
+            "description": "Approver user ID. Optional. If not provided, default approver will be used.",
+            "nullable": true,
+            "example": "18c05819-c321-4907-800c-d5a608729c5a"
+          },
+          "payorId": {
+            "type": "string",
+            "description": "Unique identifier of the Payor/Contact ID. Required in US region only.",
+            "nullable": true,
+            "example": "18c05819-c321-4907-800c-d5a608729c5a"
+          },
+          "payeeId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Unique identifier of the person or organisation being paid. Required.",
+            "example": "18c05819-c321-4907-800c-d5a608729c5a"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Payment reference.",
+            "nullable": true,
+            "example": "REF123456"
+          },
+          "transactionType": {
+            "type": "string",
+            "description": "Transaction type. Required.",
+            "example": "ElectronicPayment"
+          },
+          "amount": {
+            "minimum": 0.01,
+            "type": "number",
+            "description": "The payment amount in dollars. Limited to 2 decimal places (cents).",
+            "format": "double",
+            "example": 100.5
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Date of requisition.",
+            "format": "date-time"
+          },
+          "accountName": {
+            "type": "string",
+            "description": "Account name. Required when TransactionType is ElectronicPayment and using DirectDeposit (provide AccountName, BSB, and AccountNumber).",
+            "nullable": true,
+            "example": "John Doe"
+          },
+          "bsb": {
+            "type": "string",
+            "description": "BSB (Bank State Branch). Required when TransactionType is ElectronicPayment and using DirectDeposit (provide AccountName, BSB, and AccountNumber).",
+            "nullable": true,
+            "example": "123456"
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "Account number. Required when TransactionType is ElectronicPayment and using DirectDeposit (provide AccountName, BSB, and AccountNumber).",
+            "nullable": true,
+            "example": "12345678"
+          },
+          "organizationOrCompanyName": {
+            "type": "string",
+            "description": "Organization or company name. Required when TransactionType is ElectronicPayment and using BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
+            "nullable": true,
+            "example": "ACME Corporation"
+          },
+          "billerCode": {
+            "type": "string",
+            "description": "Biller code. Required when TransactionType is ElectronicPayment and using BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
+            "nullable": true,
+            "example": "12345"
+          },
+          "billerReference": {
+            "type": "string",
+            "description": "Biller reference. Required when TransactionType is ElectronicPayment and using BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
+            "nullable": true,
+            "example": "REF123456"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the payment. Free format string.",
+            "nullable": true,
+            "example": "Payment for services rendered"
+          },
+          "internalNote": {
+            "type": "string",
+            "description": "Internal note. Free format string.",
+            "nullable": true,
+            "example": "Internal note about this payment"
+          }
+        },
+        "additionalProperties": false
+      },
       "Transaction": {
         "type": "object",
         "properties": {
@@ -10649,6 +11188,11 @@
             "format": "double",
             "example": 102.65
           },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Date of the transaction.",
+            "format": "date-time"
+          },
           "reference": {
             "type": "string",
             "description": "Reference for the transaction.",
@@ -10668,11 +11212,26 @@
             "type": "string",
             "description": "Note for the transaction (for internal use).",
             "nullable": true
-          },
-          "effectiveDate": {
+          }
+        },
+        "additionalProperties": false
+      },
+      "UnprotectFundsDto": {
+        "type": "object",
+        "properties": {
+          "reason": {
             "type": "string",
-            "description": "Date of the transaction.",
-            "format": "date-time"
+            "description": "Reason for unprotected the funds (if applicable).",
+            "nullable": true,
+            "example": "Court order has been satisfied"
+          },
+          "amount": {
+            "minimum": 0.01,
+            "type": "number",
+            "description": "The amount to unprotect in dollars. Limited to 2 decimal places (cents).\r\nIf not specified, the full protected amount will be unprotected.",
+            "format": "double",
+            "nullable": true,
+            "example": 50.25
           }
         },
         "additionalProperties": false
@@ -11570,6 +12129,14 @@
             "description": "DX address of the company (only applicable for AUS).",
             "nullable": true
           }
+        },
+        "additionalProperties": false
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "nullable": true },
+          "detail": { "type": "string", "nullable": true }
         },
         "additionalProperties": false
       },
