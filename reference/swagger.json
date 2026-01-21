@@ -725,7 +725,7 @@
     "/bankaccounts/{id}/protected-balances/{protectionId}": {
       "get": {
         "tags": ["Bank Accounts"],
-        "summary": "Get a rotected bank account balance",
+        "summary": "Get a protected bank account balance",
         "description": "Retrieves a specified protected account balance record.",
         "operationId": "GetProtectedAccountBalanceById",
         "parameters": [
