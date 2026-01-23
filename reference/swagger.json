@@ -1036,6 +1036,16 @@
               "example": "2022-04-23T14:00:00Z"
             },
             "example": "2022-04-23T14:00:00Z"
+          },
+          {
+            "name": "MatterId",
+            "in": "query",
+            "description": "Filters transactions by the associated matter ID.",
+            "schema": {
+              "type": "string",
+              "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
+            },
+            "example": "da4e7fd1-5394-4ca9-b1c6-e18c4e2bf262"
           }
         ],
         "responses": {
@@ -11086,6 +11096,12 @@
             "description": "Unique identifier of the transaction.",
             "nullable": true,
             "example": "64818ee0-c7b4-46ec-862e-514d8b29540a"
+          },
+          "payorName": {
+            "type": "string",
+            "description": "The name of the associated contact.",
+            "nullable": true,
+            "example": "John Smith"
           },
           "matter": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
