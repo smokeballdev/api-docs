@@ -3095,7 +3095,7 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get files on a matter",
-        "description": "Returns a list of files associated with a matter in ascending order of date created, i.e. oldest first.",
+        "description": "Returns a list of files associated with a matter. \r\nDefaults to ascending order of date created, i.e. oldest first, unless sort option is supplied.\r\nCustom sorting and searching options does not apply to cursor-based pagination.",
         "operationId": "GetFiles",
         "parameters": [
           {
@@ -3124,7 +3124,19 @@
               "format": "int32"
             }
           },
-          { "name": "Cursor", "in": "query", "schema": { "type": "string" } }
+          { "name": "Cursor", "in": "query", "schema": { "type": "string" } },
+          {
+            "name": "Sort",
+            "in": "query",
+            "description": " Available fields: dateCreated",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Search",
+            "in": "query",
+            "description": " Available fields: fileExtension",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          }
         ],
         "responses": {
           "200": {
