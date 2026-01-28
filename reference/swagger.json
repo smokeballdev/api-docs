@@ -6427,7 +6427,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6475,7 +6475,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6576,7 +6576,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6590,6 +6590,87 @@
           },
           "404": {
             "description": "When required resources are not found.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plugins/{pluginId}/url": {
+      "post": {
+        "tags": ["Plugins"],
+        "summary": "Request plugin URL",
+        "description": "Requests a secure URL from the plugin's endpoint for invoking the plugin.\r\nAccepts additional key/value pairs to pass to the plugin endpoint.\r\nReserved keys (AccountId, UserId, UserEmail, MatterId, AppId, EmbedToken) cannot be included in AdditionalData.",
+        "operationId": "RequestPluginUrlAsync",
+        "parameters": [
+          {
+            "name": "pluginId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/PluginUrlRequestDto" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/PluginUrlRequestDto" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/PluginUrlRequestDto" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the plugin URL.",
+            "content": {
+              "application/json": { "schema": { "type": "string" } }
+            }
+          },
+          "400": {
+            "description": "When plugin does not return a valid URL or reserved keys are used.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "401": {
+            "description": "When request is not authenticated with client credentials.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When plugin with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -6632,7 +6713,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6686,7 +6767,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6758,7 +6839,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6806,7 +6887,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -19722,6 +19803,24 @@
         "enum": ["Button", "Tab"],
         "type": "string",
         "description": "The type of component the plugin should represent."
+      },
+      "PluginUrlRequestDto": {
+        "type": "object",
+        "properties": {
+          "matterId": {
+            "type": "string",
+            "description": "The matter id associated with the request, if applicable.",
+            "nullable": true,
+            "example": "0c5a2296-9e02-4c58-bd14-b7467d4c9bcb"
+          },
+          "additionalData": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Additional key/value pairs to pass to the plugin endpoint.\r\nReserved keys (AccountId, UserId, UserEmail, MatterId) will be rejected.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "PluginVersion": {
         "type": "object",
