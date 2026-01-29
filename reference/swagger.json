@@ -290,7 +290,12 @@
             }
           },
           "404": {
-            "description": "When the specified matter's archive does not exist."
+            "description": "When the specified matter's archive does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       },
@@ -335,7 +340,14 @@
               }
             }
           },
-          "400": { "description": "When an unsupported request is made." }
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "patch": {
@@ -373,7 +385,14 @@
               }
             }
           },
-          "400": { "description": "When an unsupported request is made." }
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -391,6 +410,14 @@
                 "schema": {
                   "$ref": "#/components/schemas/GroupPagedCollection"
                 }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -429,7 +456,15 @@
               }
             }
           },
-          "400": { "description": "When request is invalid." }
+          "400": { "description": "When request is invalid." },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -456,7 +491,14 @@
               }
             }
           },
-          "404": { "description": "When authorization group does not exist." }
+          "404": {
+            "description": "When authorization group does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "put": {
@@ -501,7 +543,14 @@
             }
           },
           "400": { "description": "When request is invalid." },
-          "404": { "description": "When authorization group does not exist" }
+          "404": {
+            "description": "When authorization group does not exist",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -526,7 +575,15 @@
               }
             }
           },
-          "400": { "description": "When request is invalid." }
+          "400": { "description": "When request is invalid." },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -553,7 +610,14 @@
               }
             }
           },
-          "404": { "description": "When authorization Policy does not exist." }
+          "404": {
+            "description": "When authorization Policy does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "put": {
@@ -598,7 +662,14 @@
             }
           },
           "400": { "description": "When request is invalid." },
-          "404": { "description": "When authorization policy does not exist" }
+          "404": {
+            "description": "When authorization policy does not exist",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -636,7 +707,15 @@
               }
             }
           },
-          "400": { "description": "When request is invalid." }
+          "400": { "description": "When request is invalid." },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -1293,7 +1372,7 @@
             "description": "When related contact id is not provided.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -1414,7 +1493,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -3944,6 +4023,14 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -3967,6 +4054,14 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/FirmUser" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -4015,9 +4110,30 @@
               }
             }
           },
-          "400": { "description": "When staff or user has not been provided." },
-          "403": { "description": "When staff does not belong to the firm." },
-          "404": { "description": "When 'FirmUser' does not exist." }
+          "400": {
+            "description": "When staff or user has not been provided.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When staff does not belong to the firm.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When 'FirmUser' does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -4044,7 +4160,14 @@
           "202": {
             "description": "When request is accepted. Returns a hypermedia 'Link' object of the user to be deleted."
           },
-          "404": { "description": "When 'FirmUser' object does not exist." }
+          "404": {
+            "description": "When 'FirmUser' object does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -4818,7 +4941,14 @@
               }
             }
           },
-          "503": { "description": "Service Unavailable" }
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -4957,7 +5087,14 @@
               }
             }
           },
-          "503": { "description": "Service Unavailable" }
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -5015,7 +5152,14 @@
               }
             }
           },
-          "503": { "description": "Service Unavailable" }
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -5643,7 +5787,7 @@
             "description": "When an unsupported request is made or a mandatory field - i.e. client, matter type, status - is not provided.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           }
@@ -5736,7 +5880,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -5797,7 +5941,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -5845,7 +5989,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -6134,7 +6278,14 @@
               }
             }
           },
-          "400": { "description": "When an unsupported request is made." }
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -6167,7 +6318,14 @@
               }
             }
           },
-          "404": { "description": "When the specified memo does not exist." }
+          "404": {
+            "description": "When the specified memo does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "put": {
@@ -6217,8 +6375,22 @@
               }
             }
           },
-          "400": { "description": "When an unsupported request is made." },
-          "404": { "description": "When the specified memo does not exist." }
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified memo does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       },
       "delete": {
@@ -6249,8 +6421,22 @@
               }
             }
           },
-          "400": { "description": "When an unsupported request is made." },
-          "404": { "description": "When the specified memo does not exist." }
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified memo does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
         }
       }
     },
@@ -6952,7 +7138,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -7014,7 +7200,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -7084,7 +7270,7 @@
             "description": "When an unsupported request is made.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -7256,7 +7442,7 @@
             "description": "When an invalid relationship is provided for the specified role.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -7512,7 +7698,7 @@
             "description": "When an invalid role is provided for the specified matter.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ApiError" }
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -9808,10 +9994,20 @@
             }
           },
           "403": {
-            "description": "When task with specified id is not associated with authenticated client."
+            "description": "When task with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
-            "description": "When task with specified id does not exist."
+            "description": "When task with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       },
@@ -9860,10 +10056,20 @@
             }
           },
           "403": {
-            "description": "When task with specified id is not associated with authenticated client."
+            "description": "When task with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
-            "description": "When task with specified task id and/or document id does not exist."
+            "description": "When task with specified task id and/or document id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -9898,10 +10104,20 @@
             }
           },
           "403": {
-            "description": "When task with specified id is not associated with authenticated client."
+            "description": "When task with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
-            "description": "When task with specified task id and/or document id does not exist."
+            "description": "When task with specified task id and/or document id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       },
@@ -9934,10 +10150,20 @@
             }
           },
           "403": {
-            "description": "When task with specified id is not associated with authenticated client."
+            "description": "When task with specified id is not associated with authenticated client.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           },
           "404": {
-            "description": "When task with specified task id and/or document id does not exist."
+            "description": "When task with specified task id and/or document id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         }
       }
@@ -12238,14 +12464,6 @@
             "description": "DX address of the company (only applicable for AUS).",
             "nullable": true
           }
-        },
-        "additionalProperties": false
-      },
-      "ApiError": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string", "nullable": true },
-          "detail": { "type": "string", "nullable": true }
         },
         "additionalProperties": false
       },
@@ -15882,9 +16100,9 @@
           "addOnIds": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* Intake (ADD001)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\n* SSO (ADD010)\r\n\r\nPossible values: ADD01, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008, ADD010",
+            "description": "The optional add-ons the firm is subscribed to. Must be specified with an accompanying productId.\r\n\r\nThe supported add-ons are listed below, the identifier (listed in brackets) must be used.\r\n\r\n* Intake (ADD001)\r\n\r\n* AutoTime (ADD003)\r\n\r\n* FamilyPro (ADD004)\r\n\r\n* Api (ADD005)\r\n\r\n* Workflows (ADD006)\r\n\r\n* PowerBI (ADD007)\r\n\r\n* Archie (ADD008)\r\n\r\n* SSO (ADD010)\r\n\r\n* PracticeEvolve (ADD011)\r\n\r\n* CustomReporting (ADD012)\r\n\r\nPossible values: ADD001, ADD003, ADD004, ADD005, ADD006, ADD007, ADD008, ADD010, ADD011, ADD012",
             "nullable": true,
-            "example": ["ADD01", "ADD003"]
+            "example": ["ADD001", "ADD003"]
           },
           "email": {
             "type": "string",
@@ -20024,14 +20242,21 @@
         "additionalProperties": false
       },
       "PortalTaskDto": {
-        "required": ["contactId", "externalUserId", "title", "url"],
+        "required": ["externalUserId", "title", "url"],
         "type": "object",
         "properties": {
           "contactId": {
             "type": "string",
             "description": "Unique identifier of the contact.",
             "format": "uuid",
+            "nullable": true,
             "example": "93421c6f-40bd-465d-bb95-3b3b5e200e30"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the contact. If provided, this takes precedence over ContactId.",
+            "nullable": true,
+            "example": "contact@example.com"
           },
           "externalUserId": {
             "minLength": 1,
