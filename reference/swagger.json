@@ -11554,16 +11554,10 @@
       "UnprotectFundsDto": {
         "type": "object",
         "properties": {
-          "reason": {
-            "type": "string",
-            "description": "Reason for unprotected the funds (if applicable).",
-            "nullable": true,
-            "example": "Court order has been satisfied"
-          },
           "amount": {
             "minimum": 0.01,
             "type": "number",
-            "description": "The amount to unprotect in dollars. Limited to 2 decimal places (cents).\r\nIf not specified, the full protected amount will be unprotected.",
+            "description": "The amount to unprotect in dollars. Limited to 2 decimal places (cents).\r\n            \r\nThis value must exactly match the originally protected amount.\r\nPartial unprotect is not supported - the full protected amount must be unprotected.\r\n            \r\nIf not specified, the full protected amount will be unprotected automatically.\r\nSpecifying this value provides validation to ensure you're unprotecting the expected amount.",
             "format": "double",
             "nullable": true,
             "example": 50.25
