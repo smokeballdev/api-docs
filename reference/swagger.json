@@ -11299,7 +11299,7 @@
         "additionalProperties": false
       },
       "RequisitionDto": {
-        "required": ["amount", "matterId", "payeeId", "transactionType"],
+        "required": ["amount", "matterId", "payeeId", "source"],
         "type": "object",
         "properties": {
           "matterId": {
@@ -11326,16 +11326,17 @@
             "description": "Unique identifier of the person or organisation being paid. Required.",
             "example": "18c05819-c321-4907-800c-d5a608729c5a"
           },
+          "source": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Payment source. Required.\r\nPossible values:\r\n- \"Bank Transfer\" - always available\r\n- \"Bank Check\" - available in AU and UK only\r\n- \"Trust Check\" - available in AU and UK only\r\n- \"Direct Debit\" - available in AU and UK only\r\n- \"Check\" - available in US only",
+            "example": "Bank Transfer"
+          },
           "reference": {
             "type": "string",
             "description": "Payment reference.",
             "nullable": true,
             "example": "REF123456"
-          },
-          "transactionType": {
-            "type": "string",
-            "description": "Transaction type. Required.",
-            "example": "ElectronicPayment"
           },
           "amount": {
             "minimum": 0.01,
@@ -11351,37 +11352,37 @@
           },
           "accountName": {
             "type": "string",
-            "description": "Account name. Required when TransactionType is ElectronicPayment and using DirectDeposit (provide AccountName, BSB, and AccountNumber).",
+            "description": "Account name. Required when Source is an electronic payment ('Bank Transfer' or 'Direct Debit') and transfer is expected to be via Direct Deposit (provide AccountName, BSB, and AccountNumber).",
             "nullable": true,
             "example": "John Doe"
           },
           "bsb": {
             "type": "string",
-            "description": "BSB (Bank State Branch). Required when TransactionType is ElectronicPayment and using DirectDeposit (provide AccountName, BSB, and AccountNumber).",
+            "description": "BSB (Bank State Branch). Required when Source is an electronic payment ('Bank Transfer' or 'Direct Debit') and transfer is expected to be via Direct Deposit (provide AccountName, BSB, and AccountNumber).",
             "nullable": true,
             "example": "123456"
           },
           "accountNumber": {
             "type": "string",
-            "description": "Account number. Required when TransactionType is ElectronicPayment and using DirectDeposit (provide AccountName, BSB, and AccountNumber).",
+            "description": "Account number. Required when Source is an electronic payment ('Bank Transfer' or 'Direct Debit') and transfer is expected to be via Direct Deposit (provide AccountName, BSB, and AccountNumber).",
             "nullable": true,
             "example": "12345678"
           },
           "organizationOrCompanyName": {
             "type": "string",
-            "description": "Organization or company name. Required when TransactionType is ElectronicPayment and using BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
+            "description": "Organization or company name. Required when Source is an electronic payment ('Bank Transfer' or 'Direct Debit') and transfer is expected to be via BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
             "nullable": true,
             "example": "ACME Corporation"
           },
           "billerCode": {
             "type": "string",
-            "description": "Biller code. Required when TransactionType is ElectronicPayment and using BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
+            "description": "Biller code. Required when Source is an electronic payment ('Bank Transfer' or 'Direct Debit') and transfer is expected to be via BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
             "nullable": true,
             "example": "12345"
           },
           "billerReference": {
             "type": "string",
-            "description": "Biller reference. Required when TransactionType is ElectronicPayment and using BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
+            "description": "Biller reference. Required when Source is an electronic payment ('Bank Transfer' or 'Direct Debit') and transfer is expected to be via BPAY (provide OrganizationOrCompanyName, BillerCode, and BillerReference).",
             "nullable": true,
             "example": "REF123456"
           },
