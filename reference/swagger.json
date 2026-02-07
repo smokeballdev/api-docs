@@ -10976,6 +10976,12 @@
             "description": "The Matter associated to the account. \r\n\r\nApplies to 'ControlledMoney' accounts only.",
             "nullable": true
           },
+          "accountType": {
+            "type": "integer",
+            "description": "The type of the bank account (Operating = 0, Trust = 1, Credit = 2, ControlledMoney = 3).\r\n\r\nThis field is deprecated and scheduled for removal - use the Type field instead.",
+            "format": "int32",
+            "example": 0
+          },
           "accountName": {
             "type": "string",
             "description": "Account Name.",
