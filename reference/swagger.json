@@ -5699,8 +5699,20 @@
             "name": "IsLead",
             "in": "query",
             "description": "Boolean flag to return 'Leads'. This is false by default.\r\n\r\nA Lead is a potential matter that has not yet been converted to a full matter. The data structure of a lead is similar to a matter, but with some small variances.",
-            "schema": { "type": "boolean", "example": true },
+            "schema": {
+              "type": "boolean",
+              "example": true,
+              "deprecated": true
+            },
             "example": true
+          },
+          {
+            "name": "Type",
+            "in": "query",
+            "description": "Type of matter to search for. This is set to Matters by default.\r\n            \r\nA Lead is a potential matter that has not yet been converted to a full matter. The data structure of a lead is similar to a matter, but with some small variances.",
+            "schema": {
+              "allOf": [{ "$ref": "#/components/schemas/MatterSearchTypeEnum" }]
+            }
           },
           {
             "name": "UpdatedSince",
@@ -5905,7 +5917,7 @@
       "patch": {
         "tags": ["Matters"],
         "summary": "Patch a matter",
-        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead`, convert `Lead` to `Matter` and change the `Lead`/`Matter` type.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `clientRole` cannot be updated, unless converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `Matter` cannot be converted back to `Lead`\r\n            \r\n- `splitOriginatingStaffSettings` cannot be updated without also providing `originatingStaffIds` in the same PATCH request\r\n            \r\n- `personAssistingStaffIds` cannot contain `personAssistingStaffId`\r\n            \r\n- `originatingStaffIds` cannot contain `originatingStaffId`\r\n            \r\n- If split originating staff settings are enabled, `originatingStaffIds` and `originatingStaffId` cannot be updated",
+        "description": "Patches a specified matter.\r\n            \r\nNote: This endpoint can also be used to update a `Lead`, convert `Lead` to `Matter` and change the `Lead`/`Matter` type.\r\n            \r\nSee `Matters` documentation for more details on how to use this.\r\n\r\nThe following actions are not supported:\r\n\r\n- `items` cannot be updated where either `clientIds` and/or `otherSideIds` are being updated\r\n            \r\n- `items` cannot be updated when converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `clientRole` cannot be updated, unless converting a `Lead` to `Matter` or changing the `Lead`/`Matter` type\r\n            \r\n- `Matter` cannot be converted back to `Lead`\r\n            \r\n- `splitOriginatingStaffSettings` cannot be updated without also providing `originatingStaffIds` in the same PATCH request\r\n            \r\n- `personAssistingStaffIds` cannot contain `personAssistingStaffId`\r\n            \r\n- `originatingStaffIds` cannot contain `originatingStaffId`\r\n            \r\n- If split originating staff settings are enabled, `originatingStaffIds` and `originatingStaffId` cannot be updated\r\n            \r\n- When updating via `items`, client role items and their sub-items must contain at least one item (cannot be empty), while non-client role items and their sub-items can be empty arrays to remove all items",
         "operationId": "PatchMatter",
         "parameters": [
           {
@@ -18859,6 +18871,11 @@
           }
         },
         "additionalProperties": false
+      },
+      "MatterSearchTypeEnum": {
+        "enum": [1, 2],
+        "type": "integer",
+        "format": "int32"
       },
       "MatterTag": {
         "type": "object",
