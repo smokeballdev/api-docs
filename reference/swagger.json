@@ -5709,10 +5709,9 @@
           {
             "name": "Type",
             "in": "query",
-            "description": "Type of matter to search for. This is set to Matters by default.\r\n            \r\nA Lead is a potential matter that has not yet been converted to a full matter. The data structure of a lead is similar to a matter, but with some small variances.",
-            "schema": {
-              "allOf": [{ "$ref": "#/components/schemas/MatterSearchTypeEnum" }]
-            }
+            "description": "Type of matter to search for. This is set to Matters by default. \r\n            \r\nA Lead is a potential matter that has not yet been converted to a full matter. The data structure of a lead is similar to a matter, but with some small variances.\r\n            \r\nPossible values: \"Matters\", \"Leads\", \"Matters,Leads\".",
+            "schema": { "type": "string", "example": "Leads" },
+            "example": "Leads"
           },
           {
             "name": "UpdatedSince",
@@ -11695,6 +11694,20 @@
             "type": "boolean",
             "description": "True if the activity is deleted.",
             "example": true
+          },
+          "inputTaxRate": {
+            "type": "number",
+            "description": "Input tax rate of the activity percentage accurate to two decimal places.",
+            "format": "double",
+            "nullable": true,
+            "example": 45.63
+          },
+          "outputTaxRate": {
+            "type": "number",
+            "description": "Output tax rate of the activity percentage accurate to two decimal places.",
+            "format": "double",
+            "nullable": true,
+            "example": 45.63
           }
         },
         "additionalProperties": false
@@ -11768,6 +11781,18 @@
             "type": "boolean",
             "description": "True if the activity is out of scope for tax purposes. Only supported in UK regions.\r\n\r\nThis field is mutually exclusive with TaxZeroRated and TaxExempt.",
             "example": false
+          },
+          "inputTaxRate": {
+            "type": "number",
+            "description": "Input tax rate of the activity in a percentage accurate to two decimal places.\r\ne.g: 45.63",
+            "format": "double",
+            "nullable": true
+          },
+          "outputTaxRate": {
+            "type": "number",
+            "description": "Output tax rate of the activity percentage accurate to two decimal places.\r\ne.g: 45.63",
+            "format": "double",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -11997,7 +12022,7 @@
             "allOf": [
               { "$ref": "#/components/schemas/TimekeeperClassificationType" }
             ],
-            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n\r\nPossible values: Length6 = 0, Length2 = 1.\r\n\r\nOnly supported in the US.",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n            \r\nPossible values: Length6 = 0, Length2 = 1, UseFirmDefault = 2.\r\n            \r\nOnly supported in the US.",
             "example": 0
           }
         },
@@ -12062,7 +12087,7 @@
             "allOf": [
               { "$ref": "#/components/schemas/TimekeeperClassificationType" }
             ],
-            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n\r\nPossible values: Length6 = 0, Length2 = 1.\r\n\r\nOnly supported in the US.",
+            "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n            \r\nPossible values: Length6 = 0, Length2 = 1, UseFirmDefault = 2.\r\n            \r\nOnly supported in the US.",
             "example": 0
           },
           "rateSetId": {
@@ -12081,9 +12106,9 @@
         "format": "int32"
       },
       "TimekeeperClassificationType": {
-        "enum": [0, 1],
+        "enum": [0, 1, 2],
         "type": "integer",
-        "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n\r\nPossible values: Length6 = 0, Length2 = 1.\r\n\r\nOnly supported in the US.",
+        "description": "The associated Legal Electronic Data Exchange Standard (LEDES) classification type.\r\n            \r\nPossible values: Length6 = 0, Length2 = 1, UseFirmDefault = 2.\r\n            \r\nOnly supported in the US.",
         "format": "int32"
       },
       "Address": {
@@ -16196,6 +16221,13 @@
             "items": { "$ref": "#/components/schemas/LicenceNumber" },
             "description": "Licence numbers of the firm.",
             "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The date when the firm was created in UTC.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2024-01-15T10:30:00Z"
           }
         },
         "additionalProperties": false
@@ -18872,11 +18904,6 @@
         },
         "additionalProperties": false
       },
-      "MatterSearchTypeEnum": {
-        "enum": [1, 2],
-        "type": "integer",
-        "format": "int32"
-      },
       "MatterTag": {
         "type": "object",
         "properties": {
@@ -18942,22 +18969,22 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Id of the tag.",
+            "description": "Unique identifier for the tag.",
             "nullable": true
           },
           "name": {
             "type": "string",
-            "description": "Display name of the tag.",
+            "description": "Human-readable display name of the tag.",
             "nullable": true
           },
           "color": {
             "type": "string",
-            "description": "Color of the tag.",
+            "description": "Visual color associated with the tag.",
             "nullable": true
           },
           "type": {
             "type": "string",
-            "description": "Type of the tag.",
+            "description": "Defines what kind of tag this is.",
             "example": "Staff"
           }
         },
