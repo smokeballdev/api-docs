@@ -18539,7 +18539,7 @@
             "allOf": [
               { "$ref": "#/components/schemas/SplitMatterStaffSettingsDto" }
             ],
-            "description": "Settings for splitting originating staff members on a matter.",
+            "description": "Settings for splitting originating staff members on a matter.\n\nWhen enabled, this allows distribution of originating staff responsibilities across multiple staff members\nusing either equal splits or custom ratios. The staff IDs specified in SplitMatterStaffs must exactly\nmatch the OriginatingStaffIds provided.\n\nValidation rules:\n- OriginatingStaffIds must be provided when this setting is enabled\n- Staff ratios must sum to 10000 (100%) when using UseRatio split method\n- RemainderStaffId must be one of the staff members in the SplitMatterStaffs collection\n- No duplicate staff members allowed",
             "nullable": true
           },
           "supervisorStaffId": {
@@ -18700,7 +18700,7 @@
             "allOf": [
               { "$ref": "#/components/schemas/SplitMatterStaffSettingsDto" }
             ],
-            "description": "Settings for splitting originating staff members on a matter.",
+            "description": "Settings for splitting originating staff members on a matter.\n\nWhen enabled, this allows distribution of originating staff responsibilities across multiple staff members\nusing either equal splits or custom ratios. The staff IDs specified in SplitMatterStaffs must exactly\nmatch the OriginatingStaffIds provided.\n\nOriginatingStaffIds must be included in the same request when updating these settings.\n\nValidation rules:\n- OriginatingStaffIds must be provided when this setting is enabled\n- Staff ratios must sum to 10000 (100%) when using UseRatio split method\n- RemainderStaffId must be one of the staff members in the SplitMatterStaffs collection\n- No duplicate staff members allowed",
             "nullable": true
           },
           "supervisorStaffId": {
@@ -18933,13 +18933,13 @@
           },
           "color": {
             "type": "string",
-            "description": "Color associated with the tag.",
+            "description": "Color associated with the tag.\n\nDefaults to 'Brown' if not specified.",
             "nullable": true,
             "example": "Light Blue"
           },
           "staff": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "description": "Link to staff.",
+            "description": "Link to staff.\n\nAvailable when `P:MatterManagement.Api.Shared.Resources.MatterTag.Type` is `F:MatterManagement.Api.Shared.Resources.MatterTagType.Staff`.",
             "nullable": true
           }
         },
@@ -18969,22 +18969,22 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier for the tag.",
+            "description": "Unique identifier for the tag.\n\nWhen the tag Type is Staff, this value represents the staff member's ID.\n\nWhen GET tags, this value represents the tag's unique identifier after creation.\n\nNot required when posting standard custom tags.",
             "nullable": true
           },
           "name": {
             "type": "string",
-            "description": "Human-readable display name of the tag.",
+            "description": "Human-readable display name of the tag.\n\nAPI would know you are adding the same tag to multiple matters as long as they have the same Name.\n\nYou can put any string you like and you can re-use strings as they are stored and re-used per account.\n\nTheoretically an Id would be the same across matters for a custom tag.",
             "nullable": true
           },
           "color": {
             "type": "string",
-            "description": "Visual color associated with the tag.",
+            "description": "Visual color associated with the tag.\n\nMust be one of the supported color values (the valid list is documented separately).\n\nIf not provided, the color will default to Brown.\n\nIf the tag already exists, this field will be ignored and the existing color will be retained.",
             "nullable": true
           },
           "type": {
             "type": "string",
-            "description": "Defines what kind of tag this is.",
+            "description": "Defines what kind of tag this is.\n\nAccepted values:\n\nStaff – The tag represents a firm staff member.\n\nCustom – The tag is a user-defined custom label.",
             "example": "Staff"
           }
         },
