@@ -18120,7 +18120,7 @@
           "key": { "type": "string", "nullable": true },
           "value": { "type": "string", "nullable": true },
           "state": {
-            "description": "Gets or sets the object that contains supplemental data about the key/value pair.",
+            "description": "Gets or sets the object that contains supplemental data about the key/value pair.\n\nThis property was introduced in NV-2643, and is usage-specific. It contains data which is used together with Value.\nFor example, if a layout contains a textbox control with an override checkbox, their Text and IsChecked properties\ncan be persisted in Value and State respectively. In this case, the type of State would be bool or bool?.",
             "nullable": true
           }
         },
