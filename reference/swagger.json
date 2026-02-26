@@ -4552,6 +4552,31 @@
         }
       }
     },
+    "/matters/{matterId}/integrated-search/mapping": {
+      "get": {
+        "tags": ["IntegratedSearch"],
+        "summary": "Get integrated search mapping",
+        "description": "Retrieves integrated search mapping data associated with the authenticated client.\r\n            \r\nUses the integrated search provider used by the firm (e.g. InfoTrack).",
+        "operationId": "GetMappingAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'Mapping' object.",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "400": {
+            "description": "When matter type could not be found for the supplied matter id."
+          }
+        }
+      }
+    },
     "/matters/{matterId}/invoices": {
       "get": {
         "tags": ["Invoices"],
