@@ -4554,8 +4554,8 @@
     },
     "/matters/{matterId}/integrated-search/mapping": {
       "get": {
-        "tags": ["IntegratedSearch"],
-        "summary": "Get integrated search mapping",
+        "tags": ["Integrated Search"],
+        "summary": "Get mapping",
         "description": "Retrieves integrated search mapping data associated with the authenticated client.\r\n            \r\nUses the integrated search provider used by the firm (e.g. InfoTrack).",
         "operationId": "GetMappingAsync",
         "parameters": [
