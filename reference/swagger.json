@@ -4040,6 +4040,7 @@
         "tags": ["Firm"],
         "summary": "Get firm user mapping",
         "description": "Retrieves a user mapping (based on staff or user id parameter provided) in the firm associated with the authenticated client.",
+        "operationId": "GetFirmUserByIdAsync",
         "parameters": [
           {
             "name": "id",
