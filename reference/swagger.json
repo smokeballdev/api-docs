@@ -18821,6 +18821,16 @@
             "description": "Associated contact.\r\n\r\nOnly applicable for 'role' matter items.",
             "nullable": true
           },
+          "roleDescription": {
+            "type": "string",
+            "description": "Displayed name for the matter item.\r\n            \r\nOnly applicable for 'role' matter items.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Description for the matter item.\r\n            \r\nOnly applicable for 'role' matter items.",
+            "nullable": true
+          },
           "subItems": {
             "type": "object",
             "additionalProperties": {
@@ -19159,6 +19169,18 @@
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Hypermedia link of the associated contact.",
             "nullable": true
+          },
+          "roleDescription": {
+            "type": "string",
+            "description": "Name of the role (user editable).",
+            "nullable": true,
+            "example": "Head Honcho"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the role.",
+            "nullable": true,
+            "example": "The person for whom I am working"
           },
           "representatives": {
             "type": "array",
