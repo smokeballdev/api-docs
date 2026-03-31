@@ -4007,6 +4007,32 @@
         }
       }
     },
+    "/firm/users2": {
+      "get": {
+        "tags": ["Firm"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/FirmUser" }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/firm/users": {
       "get": {
         "tags": ["Firm"],
