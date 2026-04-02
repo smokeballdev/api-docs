@@ -18088,6 +18088,13 @@
             "format": "int32",
             "example": 0
           },
+          "parentIndex": {
+            "type": "integer",
+            "description": "Zero-based index of the parent layout matter item, if one exists.",
+            "format": "int32",
+            "nullable": true,
+            "example": 0
+          },
           "layoutDesign": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Hypermedia link of the layout design.",
