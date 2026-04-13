@@ -15801,6 +15801,12 @@
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
+          "createdDate": {
+            "type": "string",
+            "description": "Date the fee was created.",
+            "format": "date-time",
+            "example": "2026-04-13T11:00:00Z"
+          },
           "lastUpdatedByUserId": {
             "type": "string",
             "description": "Unique identifier of the user that updated the fee.",
