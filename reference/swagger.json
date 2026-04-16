@@ -4588,6 +4588,57 @@
         }
       }
     },
+    "/matters/{matterId}/documents/folders/{folderId}/path": {
+      "get": {
+        "tags": ["Folders"],
+        "summary": "Get folder path hierarchy",
+        "description": "Returns the full folder hierarchy (path) as a collection ordered from the root folder down to the supplied folder.\r\n\r\nThe root folder is not included in the response.",
+        "operationId": "GetFolderPath",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the folder path hierarchy.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/FolderPathSegment" }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "When the requested matter does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When folder with the specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/matters/{matterId}/documents/folders/{folderId}/history": {
       "get": {
         "tags": ["Folders"],
@@ -15096,6 +15147,36 @@
             "description": "Name of the folder",
             "nullable": true,
             "example": "Property Documents"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FolderPathSegment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the folder",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the folder",
+            "nullable": true,
+            "example": "Property Documents"
+          },
+          "parentId": {
+            "type": "string",
+            "description": "Unique identifier of the parent folder",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
+          "depth": {
+            "type": "integer",
+            "description": "The depth of the folder in the folder path hierarchy.\r\n\r\n0 indicates the root folder, 1 indicates a direct child of that folder, and so on.",
+            "format": "int32",
+            "example": 2
           }
         },
         "additionalProperties": false
