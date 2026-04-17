@@ -1084,7 +1084,7 @@
       "post": {
         "tags": ["Bank Accounts"],
         "summary": "Create a requisition",
-        "description": "Creates a requisition from a trust account. This endpoint supports the approval workflow. The requisition may or may not require approval depending on account settings.",
+        "description": "Creates a requisition against a trust account and supports the account approval workflow.\r\n\r\nWhether the requisition requires approval depends on the trust account configuration:\r\n- If approvals are enabled, firm owners can create requisitions without approval, while all other users require approval.\r\n- If approvals are disabled, the requisition is automatically approved upon creation.",
         "operationId": "CreateRequisitionAsync",
         "parameters": [
           {
@@ -4614,8 +4614,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/FolderPathSegment" }
+                  "$ref": "#/components/schemas/FolderPathSegmentCollection"
                 }
               }
             }
@@ -11553,7 +11552,7 @@
           },
           "approverUserId": {
             "type": "string",
-            "description": "Approver user ID. Optional. If not provided, default approver will be used.",
+            "description": "Approver user ID.\r\n\r\nCannot be the same user ID as the user making the requisition request. If provided, must be a valid user ID in the system.\r\n\r\nOptional. If not provided, default approver will be used.",
             "nullable": true,
             "example": "18c05819-c321-4907-800c-d5a608729c5a"
           },
@@ -15177,6 +15176,25 @@
             "description": "The depth of the folder in the folder path hierarchy.\r\n\r\n0 indicates the root folder, 1 indicates a direct child of that folder, and so on.",
             "format": "int32",
             "example": 2
+          }
+        },
+        "additionalProperties": false
+      },
+      "FolderPathSegmentCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/FolderPathSegment" },
+            "nullable": true
           }
         },
         "additionalProperties": false
