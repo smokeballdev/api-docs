@@ -3290,7 +3290,7 @@
           {
             "name": "Search",
             "in": "query",
-            "description": " Available fields: fileExtension",
+            "description": " Available fields: query, fileExtension",
             "schema": { "type": "array", "items": { "type": "string" } }
           }
         ],
@@ -3481,7 +3481,7 @@
       },
       "patch": {
         "tags": ["Files"],
-        "summary": "Patch version or metadata of a file",
+        "summary": "Patch a file",
         "description": "Updates the metadata for a file or uploads a new version of the file",
         "operationId": "PatchFile",
         "parameters": [
@@ -5718,7 +5718,7 @@
         "tags": ["Matters"],
         "summary": "Update matter billing configuration",
         "description": "Updates the billing configuration for the specified matter.",
-        "operationId": "UpdateBillingConfiguration",
+        "operationId": "UpdateBillingConfigurationAsync",
         "parameters": [
           {
             "name": "matterId",
