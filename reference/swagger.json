@@ -5363,7 +5363,7 @@
       "post": {
         "tags": ["Layout Matter Items"],
         "summary": "Add a contact to a layout",
-        "description": "Adds a new contact on a specified layout.\r\nIf contactData.Key already refers a contact, the current role/relationship will need to be removed manually using\r\n`DELETE /matters/{matterId}/roles/{id}` or `DELETE /matters/{matterId}/roles/{roleId}/relationships/{id}`.",
+        "description": "Adds a new contact on a specified layout.",
         "operationId": "AddLayoutMatterItemContact",
         "parameters": [
           {
@@ -5402,6 +5402,45 @@
           "202": { "description": "When request is accepted" },
           "404": {
             "description": "When layout item with specified id does not exist on the matter.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Layout Matter Items"],
+        "summary": "Remove a contact from a layout",
+        "description": "Removes a contact from a specified layout, deleting the associated role or relationship from the matter.",
+        "operationId": "RemoveLayoutMatterItemContact",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "Matter Id",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "ItemId of the layout",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "description": "Layout contact key identifying the contact to remove.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "202": { "description": "When request is accepted." },
+          "404": {
+            "description": "When the layout item does not exist on the matter or no contact is assigned at the specified key.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -8014,6 +8053,63 @@
               }
             }
           }
+        }
+      }
+    },
+    "/search/files": {
+      "post": {
+        "tags": ["Search"],
+        "summary": "Search files with advanced filters.",
+        "operationId": "SearchFilesAsync",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/FileSearchRequest" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/FileSearchRequest" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/FileSearchRequest" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the matching files.",
+            "content": {
+              "application/json": { "schema": { "type": "array", "items": {} } }
+            }
+          },
+          "400": { "description": "When request body fields are invalid." }
         }
       }
     },
@@ -20654,6 +20750,65 @@
             "description": "Optional completed URL, which is a URL that is loaded in the task content body instead of the default success screen if provided.\r\n\r\nThis option overrides CompletedText if provided.",
             "nullable": true,
             "example": "http://www.yourwebsite.com"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileSearchFilters": {
+        "type": "object",
+        "properties": {
+          "searchFields": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Which file fields to match the search query against. Allowed values: `Name`, `Content`.\r\nOmit the property (or pass an empty array) to default to both.",
+            "nullable": true,
+            "example": ["Name", "Content"]
+          },
+          "includeFileExtensions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "File extensions to include in the results (e.g. `pdf`, `docx`). When empty or null, all extensions are allowed.",
+            "nullable": true,
+            "example": ["pdf", "docx"]
+          },
+          "excludeFileExtensions": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "File extensions to exclude from the results. Applied after IncludeFileExtensions.",
+            "nullable": true,
+            "example": ["tmp", "bak"]
+          },
+          "authorIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "User identifiers of file authors to filter by. Results match files authored by any of the supplied users.",
+            "nullable": true,
+            "example": ["750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"]
+          },
+          "contactIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Contact identifiers to filter by. Results match files associated with any of the supplied contacts.",
+            "nullable": true,
+            "example": ["b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"]
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileSearchRequest": {
+        "required": ["query"],
+        "type": "object",
+        "properties": {
+          "query": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Full-text search expression. Required and non-empty.",
+            "example": "contract"
+          },
+          "filters": {
+            "allOf": [{ "$ref": "#/components/schemas/FileSearchFilters" }],
+            "description": "Filters narrowing the search to specific extensions, date ranges, authors, contacts, and which fields to match against.",
+            "nullable": true
           }
         },
         "additionalProperties": false
