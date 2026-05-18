@@ -8059,7 +8059,8 @@
     "/search/files": {
       "post": {
         "tags": ["Search"],
-        "summary": "Search files with advanced filters.",
+        "summary": "Search files with advanced filters",
+        "description": "Performs a full-account file search and returns files matching the provided query, paging options and filters.",
         "operationId": "SearchFilesAsync",
         "parameters": [
           {
@@ -9272,6 +9273,413 @@
         "x-excluded": true
       }
     },
+    "/subscriptions/{subscriptionId}/charges": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "operationId": "GetSubscriptionUsageCharges",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "From",
+            "in": "query",
+            "description": "Optional start date used to filter usage charges by created date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-01T00:00:00Z"
+            },
+            "example": "2022-04-01T00:00:00Z"
+          },
+          {
+            "name": "To",
+            "in": "query",
+            "description": "Optional end date used to filter usage charges by created date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-30T23:59:59Z"
+            },
+            "example": "2022-04-30T23:59:59Z"
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "description": "Optional usage charge status filter.\r\n            \r\nPossible values: Pending, Succeeded, Failed, Canceled, Refunded.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "MatterId",
+            "in": "query",
+            "description": "Optional matter id used to filter usage charges.",
+            "schema": { "type": "string", "example": "123456" },
+            "example": "123456"
+          },
+          {
+            "name": "UserId",
+            "in": "query",
+            "description": "Optional user id used to filter usage charges.",
+            "schema": {
+              "type": "string",
+              "example": "3f44b470-5d39-41d0-a1ef-96e09e0eb5bb"
+            },
+            "example": "3f44b470-5d39-41d0-a1ef-96e09e0eb5bb"
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "description": "Optional internal product id used to filter usage charges.",
+            "schema": {
+              "type": "string",
+              "example": "6b07d1fc-a7ea-4da7-966f-eaa971f0e72c"
+            },
+            "example": "6b07d1fc-a7ea-4da7-966f-eaa971f0e72c"
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChargePagedCollection"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/usages/{usageId}/charges": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "operationId": "GetUsageCharges",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "usageId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "From",
+            "in": "query",
+            "description": "Optional start date used to filter usage charges by created date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-01T00:00:00Z"
+            },
+            "example": "2022-04-01T00:00:00Z"
+          },
+          {
+            "name": "To",
+            "in": "query",
+            "description": "Optional end date used to filter usage charges by created date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2022-04-30T23:59:59Z"
+            },
+            "example": "2022-04-30T23:59:59Z"
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "description": "Optional usage charge status filter.\r\n            \r\nPossible values: Pending, Succeeded, Failed, Canceled, Refunded.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "MatterId",
+            "in": "query",
+            "description": "Optional matter id used to filter usage charges.",
+            "schema": { "type": "string", "example": "123456" },
+            "example": "123456"
+          },
+          {
+            "name": "UserId",
+            "in": "query",
+            "description": "Optional user id used to filter usage charges.",
+            "schema": {
+              "type": "string",
+              "example": "3f44b470-5d39-41d0-a1ef-96e09e0eb5bb"
+            },
+            "example": "3f44b470-5d39-41d0-a1ef-96e09e0eb5bb"
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "description": "Optional internal product id used to filter usage charges.",
+            "schema": {
+              "type": "string",
+              "example": "6b07d1fc-a7ea-4da7-966f-eaa971f0e72c"
+            },
+            "example": "6b07d1fc-a7ea-4da7-966f-eaa971f0e72c"
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChargePagedCollection"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      },
+      "post": {
+        "tags": ["Subscriptions"],
+        "operationId": "CreateUsageChargeAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "usageId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CreateUsageChargeRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CreateUsageChargeRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CreateUsageChargeRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/charges/{id}": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "operationId": "GetUsageCharge",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Charge" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/charges/{id}/cancel": {
+      "post": {
+        "tags": ["Subscriptions"],
+        "operationId": "CancelUsageChargeAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CancelUsageChargeRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CancelUsageChargeRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/CancelUsageChargeRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
     "/subscriptions": {
       "get": {
         "tags": ["Subscriptions"],
@@ -9956,6 +10364,137 @@
           },
           "500": {
             "description": "Internal server error occurred while switching tiers",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/usages": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UsageCollection" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/usages/{id}": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "operationId": "GetUsageAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Usage" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/usages/{id}": {
+      "post": {
+        "tags": ["Subscriptions"],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      },
+      "delete": {
+        "tags": ["Subscriptions"],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -15577,27 +16116,12 @@
       "ReminderDto": {
         "type": "object",
         "properties": {
-          "offset": {
-            "type": "integer",
-            "description": "Offset of the reminder.\r\n\r\nValue must be between 0 and 100.",
-            "format": "int32",
-            "example": 10
-          },
-          "offsetTypeId": {
-            "type": "integer",
-            "description": "Offset Type id of the reminder.\r\n\r\nPossible values:\r\n    1 = Minute\r\n       \r\n    2 = Hourly\r\n            \r\n    3 = Daily\r\n            \r\n    4 = Weekly\r\n            \r\n    5 = Monthly",
-            "format": "int32",
-            "example": 1
-          },
-          "isAllDayReminder": {
-            "type": "boolean",
-            "description": "Boolean flag indicating if the reminder is an all day reminder.",
-            "example": false
-          },
+          "offset": { "type": "integer", "format": "int32" },
+          "offsetTypeId": { "type": "integer", "format": "int32" },
+          "isAllDayReminder": { "type": "boolean" },
           "userIds": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "Array of unique identifier of the users of the reminder.",
             "nullable": true
           }
         },
@@ -21166,6 +21690,11 @@
         },
         "additionalProperties": false
       },
+      "CancelUsageChargeRequest": {
+        "type": "object",
+        "properties": { "reason": { "type": "string", "nullable": true } },
+        "additionalProperties": false
+      },
       "CancellationResponse": {
         "type": "object",
         "properties": {
@@ -21201,6 +21730,176 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/AddOn" },
             "description": "The add-ons that will be set at the as a result of the cancellation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Charge": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the usage charge.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "The subscription id.",
+            "nullable": true
+          },
+          "accountId": {
+            "type": "string",
+            "description": "The Smokeball firm id.",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "The user id that created the usage charge.",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "description": "The product id.",
+            "nullable": true
+          },
+          "priceId": {
+            "type": "string",
+            "description": "The internal price id.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Caller-supplied metadata associated with the charge.",
+            "nullable": true
+          },
+          "matterId": {
+            "type": "string",
+            "description": "The matter id associated with the usage charge.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The description associated with the usage charge.",
+            "nullable": true
+          },
+          "supplierTransactionId": {
+            "type": "string",
+            "description": "The supplier transaction id associated with the usage charge.",
+            "nullable": true
+          },
+          "supplierTransactionAmount": {
+            "type": "number",
+            "description": "The supplier transaction amount associated with the usage charge.",
+            "format": "double",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The usage quantity recorded for the charge.",
+            "format": "int64",
+            "example": 1
+          },
+          "status": {
+            "type": "string",
+            "description": "The usage charge status.\r\n\r\n* Pending\r\n\r\n* Succeeded\r\n\r\n* Failed\r\n\r\n* Canceled\r\n\r\n* Refunded"
+          },
+          "failureReason": {
+            "type": "string",
+            "description": "The reason the usage charge failed.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the usage charge.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The updated date of the usage charge.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          },
+          "occurredDate": {
+            "type": "string",
+            "description": "The date the usage occurred.",
+            "format": "date-time",
+            "example": "2022-04-23T14:00:00Z"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChargePagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Charge" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateUsageChargeRequest": {
+        "required": ["priceId"],
+        "type": "object",
+        "properties": {
+          "priceId": {
+            "type": "string",
+            "description": "The price to charge for this usage product.",
+            "format": "uuid"
+          },
+          "matterId": {
+            "type": "string",
+            "description": "The matter id associated with the usage charge.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The description associated with the usage charge.",
+            "nullable": true
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Optional metadata associated with the usage charge.",
             "nullable": true
           }
         },
@@ -21512,6 +22211,16 @@
       "Price": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "The internal price id.",
+            "nullable": true
+          },
+          "externalPriceId": {
+            "type": "string",
+            "description": "The external price id.",
+            "nullable": true
+          },
           "default": {
             "type": "boolean",
             "description": "Returns `true` if the price is the default price.",
@@ -21637,6 +22346,11 @@
       "ProductPrice": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "The id of the Price.",
+            "nullable": true
+          },
           "externalPriceId": {
             "type": "string",
             "description": "The external Price id.",
@@ -21669,10 +22383,31 @@
             "type": "string",
             "description": "The interval of the Price."
           },
+          "meter": {
+            "allOf": [{ "$ref": "#/components/schemas/ProductPriceMeter" }],
+            "description": "Usage-based metering details.",
+            "nullable": true
+          },
           "metadata": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Metadata" },
             "description": "The metadata of the Price.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductPriceMeter": {
+        "type": "object",
+        "properties": {
+          "externalMeterId": {
+            "type": "string",
+            "description": "The external meter id to incur charges.",
+            "nullable": true
+          },
+          "eventName": {
+            "type": "string",
+            "description": "The meter event name used to record usage.",
             "nullable": true
           }
         },
@@ -21787,7 +22522,7 @@
         "additionalProperties": false
       },
       "SmokeballProductType": {
-        "enum": [0, 1, 2],
+        "enum": [0, 1, 2, 3],
         "type": "integer",
         "format": "int32"
       },
@@ -21826,6 +22561,11 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/AddOn" },
             "description": "List of of 'AddOn' products that the subscription is subscribed to.",
+            "nullable": true
+          },
+          "usages": {
+            "allOf": [{ "$ref": "#/components/schemas/SubscriptionUsages" }],
+            "description": "Usage products subscribed through the hidden usage subscription.",
             "nullable": true
           },
           "discounts": {
@@ -22347,6 +23087,33 @@
         },
         "additionalProperties": false
       },
+      "SubscriptionUsageItem": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "string", "nullable": true },
+          "subscribedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionUsages": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Represents the current status of a subscription."
+          },
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SubscriptionUsageItem" },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TaxRate": {
         "type": "object",
         "properties": {
@@ -22540,6 +23307,86 @@
           "reason": {
             "type": "string",
             "description": "Optional reason for changing the subscription tier.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Usage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the usage product.",
+            "format": "uuid",
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "smokeballId": {
+            "type": "string",
+            "description": "Unique Smokeball identifier of the usage product.",
+            "nullable": true
+          },
+          "productSuite": {
+            "type": "string",
+            "description": "The product suite that this usage product belongs to.",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the usage product.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the usage product.",
+            "nullable": true
+          },
+          "trialPeriodDays": {
+            "type": "integer",
+            "description": "The number of days the usage product can be trialed for.",
+            "format": "int64",
+            "nullable": true
+          },
+          "prices": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Price" },
+            "description": "The chargeable metered price options for the usage product.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "The created date of the usage product.",
+            "format": "date-time"
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The updated date of the usage product.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsageCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Usage" },
             "nullable": true
           }
         },
