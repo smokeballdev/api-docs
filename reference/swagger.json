@@ -1289,7 +1289,7 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "When transaction with specified id is not associated with authenticated client.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -1297,7 +1297,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When transaction with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4671,6 +4671,265 @@
           },
           "403": {
             "description": "When the requested matter does not belong to the account making the request.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intake/forms": {
+      "get": {
+        "tags": ["Intake"],
+        "summary": "List intake forms for a matter type.",
+        "operationId": "GetFormsAsync",
+        "parameters": [
+          {
+            "name": "matterTypeId",
+            "in": "query",
+            "description": "The matter type to filter forms by.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeFormPagedCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intake/{matterId}/submissions": {
+      "get": {
+        "tags": ["Intake"],
+        "summary": "List intake submissions for a matter.",
+        "operationId": "GetSubmissionsAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "The matter to filter submissions by.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmissionPagedCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Intake"],
+        "summary": "Create an intake submission for a matter and form.",
+        "operationId": "CreateSubmissionAsync",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "description": "Matter to associate the submission with.",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "description": "The submission payload including matter, form, delivery method, and recipient.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateIntakeSubmissionRequestDto"
+                  }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateIntakeSubmissionRequestDto"
+                  }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateIntakeSubmissionRequestDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmissionCreated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/intake/{matterId}/submissions/{submissionId}": {
+      "get": {
+        "tags": ["Intake"],
+        "summary": "Get an intake submission by id.",
+        "operationId": "GetSubmissionAsync",
+        "parameters": [
+          {
+            "name": "submissionId",
+            "in": "path",
+            "description": "The intake submission identifier.",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeSubmissionDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9680,6 +9939,154 @@
         "x-excluded": true
       }
     },
+    "/subscriptions/{id}/invoices": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get subscription invoices",
+        "description": "Retrieves invoices for the specified subscription.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
+        "operationId": "GetSubscriptionInvoicesAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'SubscriptionInvoice' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionInvoiceCollection"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When subscription with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "When an error occurs while retrieving the subscription invoices."
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/invoices/{invoiceId}/download": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Download invoice PDF",
+        "description": "Streams the invoice PDF retrieved from the payment provider as an attachment.",
+        "operationId": "DownloadInvoiceAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "The unique identifier of the invoice",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the invoice PDF."
+          },
+          "404": {
+            "description": "When the subscription or invoice does not exist, or the invoice has no PDF available (for example, draft invoices).",
+            "content": {
+              "application/pdf": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "When an error occurs while downloading the invoice."
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/invoices/{invoiceId}/url": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get invoice download URL",
+        "description": "Returns a URL that can be used to download the invoice PDF directly from the payment provider.",
+        "operationId": "GetInvoiceDownloadUrlAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "The unique identifier of the invoice",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns an 'InvoiceDownloadUrl' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InvoiceDownloadUrl" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the subscription or invoice does not exist, or the invoice has no PDF available (for example, draft invoices).",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "When an error occurs while retrieving the invoice URL."
+          }
+        },
+        "x-excluded": true
+      }
+    },
     "/subscriptions": {
       "get": {
         "tags": ["Subscriptions"],
@@ -9809,52 +10216,6 @@
           },
           "500": {
             "description": "When an error occurs while updating the subscription."
-          }
-        },
-        "x-excluded": true
-      }
-    },
-    "/subscriptions/{id}/invoices": {
-      "get": {
-        "tags": ["Subscriptions"],
-        "summary": "Get subscription invoices",
-        "description": "Retrieves invoices for the specified subscription. \r\n\r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
-        "operationId": "GetSubscriptionInvoicesAsync",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": { "type": "integer", "format": "int32", "default": 10 }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns a collection of 'SubscriptionInvoice' objects.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubscriptionInvoiceCollection"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "When subscription with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "When an error occurs while retrieving the subscription invoices."
           }
         },
         "x-excluded": true
@@ -13444,6 +13805,12 @@
             "nullable": true,
             "example": "contact@brown.com"
           },
+          "website": {
+            "type": "string",
+            "description": "Company's website URL.",
+            "nullable": true,
+            "example": "https://www.brownllc.com"
+          },
           "notes": {
             "type": "string",
             "description": "Additional notes for company (if applicable).",
@@ -13467,6 +13834,24 @@
             "description": "Company's Australian Company Number.\r\n            \r\nOnly supported in AU.",
             "nullable": true,
             "example": "234567890"
+          },
+          "doingBusinessAsName": {
+            "type": "string",
+            "description": "Doing Business As (DBA) name.\r\n            \r\nOnly supported in US.",
+            "nullable": true,
+            "example": "Brown Holdings"
+          },
+          "tradingAs": {
+            "type": "string",
+            "description": "Trading As type (e.g. 'Trading As', 'Doing Business As').\r\n            \r\nOnly supported in AU.",
+            "nullable": true,
+            "example": "Trading As"
+          },
+          "tradingName": {
+            "type": "string",
+            "description": "Trading name of the organisation.\r\n            \r\nOnly supported in AU and UK.",
+            "nullable": true,
+            "example": "Brown Trading Co"
           },
           "mailingAddress": {
             "allOf": [{ "$ref": "#/components/schemas/Address" }],
@@ -13538,6 +13923,12 @@
             "nullable": true,
             "example": "contact@brown.com"
           },
+          "website": {
+            "type": "string",
+            "description": "Company's website URL.",
+            "nullable": true,
+            "example": "https://www.brownllc.com"
+          },
           "notes": {
             "type": "string",
             "description": "Additional notes for company (if applicable).",
@@ -13572,6 +13963,24 @@
             "description": "Company's Australian Company Number.\r\n\r\nOnly supported in AU.",
             "nullable": true,
             "example": "234567890"
+          },
+          "doingBusinessAsName": {
+            "type": "string",
+            "description": "Doing Business As (DBA) name.\r\n            \r\nOnly supported in US.",
+            "nullable": true,
+            "example": "Brown Holdings"
+          },
+          "tradingAs": {
+            "type": "string",
+            "description": "Trading As type (e.g. 'Trading As', 'Doing Business As').\r\n            \r\nOnly supported in AU.",
+            "nullable": true,
+            "example": "Trading As"
+          },
+          "tradingName": {
+            "type": "string",
+            "description": "Trading name of the organisation.\r\n            \r\nOnly supported in AU and UK.",
+            "nullable": true,
+            "example": "Brown Trading Co"
           },
           "staffIds": {
             "type": "array",
@@ -18103,6 +18512,457 @@
         },
         "additionalProperties": false
       },
+      "CreateIntakeSubmissionRequestDto": {
+        "type": "object",
+        "properties": {
+          "formId": {
+            "type": "string",
+            "description": "Id of the intake form to create a submission for.",
+            "nullable": true,
+            "example": "ae4bc84e-b601-4767-9d0f-5d078832418e"
+          },
+          "communicationMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CreateSubmissionCommunicationMethod"
+              }
+            ],
+            "description": "How the form will be delivered.",
+            "example": "email"
+          },
+          "recipient": {
+            "allOf": [{ "$ref": "#/components/schemas/IntakeRecipientDto" }],
+            "description": "Recipient details for the submission.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateSubmissionCommunicationMethod": {
+        "enum": ["email", "communicate"],
+        "type": "string",
+        "description": "Specifies the communication method used when creating an intake submission"
+      },
+      "IntakeForm": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "isSmokeballForm": {
+            "type": "boolean",
+            "description": "Whether the form is a Smokeball form.\n\nThere are some forms that are created / can only be modified by Smokeball staff. The user can choose to use these “preset” forms if they don’t want to create their own ones.",
+            "example": true
+          },
+          "title": {
+            "type": "string",
+            "description": "Display title of the intake form.",
+            "nullable": true,
+            "example": "Client Intake Form"
+          },
+          "category": {
+            "allOf": [{ "$ref": "#/components/schemas/IntakeFormCategory" }],
+            "description": "Category of the form.",
+            "example": "matter"
+          },
+          "matterTypes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Link" },
+            "description": "Links to matter types that this form is available for.",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Whether the form is active.",
+            "nullable": true,
+            "example": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When the form was created.",
+            "format": "date-time",
+            "example": "2026-01-01T00:00:00.0000000+00:00"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "When the form was last updated.",
+            "format": "date-time",
+            "example": "2026-01-01T00:00:00.0000000+00:00"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Intake form."
+      },
+      "IntakeFormCategory": { "enum": ["lead", "matter"], "type": "string" },
+      "IntakeFormPagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/IntakeForm" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeRecipientDto": {
+        "type": "object",
+        "properties": {
+          "contactId": {
+            "type": "string",
+            "description": "Contact id that the submission is sent to.",
+            "nullable": true,
+            "example": "5d9b8697-8c6f-45dd-b22d-87045ed4df35"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address of the recipient.",
+            "nullable": true,
+            "example": "client@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the recipient.",
+            "nullable": true,
+            "example": "Sample Client"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeSubmission": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "formId": {
+            "type": "string",
+            "description": "Id of the form that the submission is for.",
+            "nullable": true,
+            "example": "ae4bc84e-b601-4767-9d0f-5d078832418e"
+          },
+          "formTitle": {
+            "type": "string",
+            "description": "Title of the form that the submission is for.",
+            "nullable": true,
+            "example": "Client Intake Form"
+          },
+          "status": {
+            "allOf": [
+              { "$ref": "#/components/schemas/IntakeSubmissionStatus" }
+            ],
+            "description": "Current status of the submission.",
+            "example": "draft"
+          },
+          "communicationMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IntakeSubmissionCommunicationMethod"
+              }
+            ],
+            "description": "How the form was sent.",
+            "example": "email"
+          },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Link to matter that the submission is associated with.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When the submission was created.",
+            "format": "date-time",
+            "example": "2026-01-01T00:00:00.0000000+00:00"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "When the submission was last updated.",
+            "format": "date-time",
+            "example": "2026-01-01T00:00:00.0000000+00:00"
+          },
+          "recipient": {
+            "allOf": [{ "$ref": "#/components/schemas/IntakeRecipientDto" }],
+            "description": "Recipient that the submission is sent to.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Intake submission."
+      },
+      "IntakeSubmissionCommunicationMethod": {
+        "enum": ["email", "communicate", "embed", "internalUse", "document"],
+        "type": "string",
+        "description": "Intake submission communication method."
+      },
+      "IntakeSubmissionCreated": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "link": {
+            "type": "string",
+            "description": "URL to complete the intake submission.",
+            "nullable": true,
+            "example": "https://example.smokeball.com/intake/submissions/e8b673fe-5493-4b1f-986c-af82542fb6d8"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Intake submission created response."
+      },
+      "IntakeSubmissionDetail": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "formId": {
+            "type": "string",
+            "description": "Id of the form that the submission is for.",
+            "nullable": true,
+            "example": "ae4bc84e-b601-4767-9d0f-5d078832418e"
+          },
+          "formTitle": {
+            "type": "string",
+            "description": "Title of the form that the submission is for.",
+            "nullable": true,
+            "example": "Client Intake Form"
+          },
+          "status": {
+            "allOf": [
+              { "$ref": "#/components/schemas/IntakeSubmissionStatus" }
+            ],
+            "description": "Current status of the submission.",
+            "example": "draft"
+          },
+          "communicationMethod": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IntakeSubmissionCommunicationMethod"
+              }
+            ],
+            "description": "How the form was sent.",
+            "example": "email"
+          },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Link to matter that the submission is associated with.",
+            "nullable": true
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "When the submission was created.",
+            "format": "date-time",
+            "example": "2026-01-01T00:00:00.0000000+00:00"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "When the submission was last updated.",
+            "format": "date-time",
+            "example": "2026-01-01T00:00:00.0000000+00:00"
+          },
+          "recipient": {
+            "allOf": [{ "$ref": "#/components/schemas/IntakeRecipientDto" }],
+            "description": "Recipient that the submission is sent to.",
+            "nullable": true
+          },
+          "responses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntakeSubmissionResponseSectionDto"
+            },
+            "description": "Ordered list of sections with submitted values.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Intake submission detail."
+      },
+      "IntakeSubmissionPagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/IntakeSubmission" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeSubmissionResponseFieldDto": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SubmissionResponseFieldType" }
+            ],
+            "description": "Field control type.",
+            "example": "text"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the field.",
+            "nullable": true,
+            "example": "Phone number"
+          },
+          "value": {
+            "type": "string",
+            "description": "Submitted value as a string.",
+            "nullable": true,
+            "example": "0400 000 000"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeSubmissionResponseGroupDto": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display label for the group.",
+            "nullable": true,
+            "example": "Primary Contact"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntakeSubmissionResponseFieldDto"
+            },
+            "description": "Fields within the group.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeSubmissionResponseSectionDto": {
+        "type": "object",
+        "properties": {
+          "sectionTitle": {
+            "type": "string",
+            "description": "Title of the section.",
+            "nullable": true,
+            "example": "Contact Details"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntakeSubmissionResponseGroupDto"
+            },
+            "description": "Groups within the section.",
+            "nullable": true
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IntakeSubmissionResponseFieldDto"
+            },
+            "description": "Fields directly under the section.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntakeSubmissionStatus": {
+        "enum": ["draft", "active", "completed", "cancelled"],
+        "type": "string",
+        "description": "Intake submission status."
+      },
+      "SubmissionResponseFieldType": {
+        "enum": [
+          "text",
+          "multilineText",
+          "number",
+          "currency",
+          "choice",
+          "info",
+          "date",
+          "checkbox",
+          "address",
+          "yesNo",
+          "phoneNumber",
+          "email",
+          "file",
+          "appointment",
+          "payment",
+          "signature"
+        ],
+        "type": "string",
+        "description": "Submission response field type."
+      },
       "Debtor": {
         "type": "object",
         "properties": {
@@ -21905,6 +22765,17 @@
         },
         "additionalProperties": false
       },
+      "InvoiceDownloadUrl": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "A URL to a downloadable PDF of the invoice from the payment provider.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "InvoicePreview": {
         "type": "object",
         "properties": {
@@ -22777,6 +23648,11 @@
       "SubscriptionInvoice": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the invoice.",
+            "nullable": true
+          },
           "status": {
             "type": "string",
             "description": "The invoice status.",
