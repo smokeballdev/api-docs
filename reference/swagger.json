@@ -266,136 +266,6 @@
         }
       }
     },
-    "/matters/{matterId}/archive": {
-      "get": {
-        "tags": ["Archive"],
-        "summary": "Get the archive for a matter",
-        "description": "Retrieves an archive for a matter.",
-        "operationId": "GetArchiveForMatter",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "When request is successful. Returns an 'Archive' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Archive" }
-              }
-            }
-          },
-          "404": {
-            "description": "When the specified matter's archive does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["Archive"],
-        "summary": "Update an archive for a matter.",
-        "description": "Updates a specified matter's archive",
-        "operationId": "UpdateArchive",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/ArchiveDto" }]
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/ArchiveDto" }]
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [{ "$ref": "#/components/schemas/ArchiveDto" }]
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": ["Archive"],
-        "summary": "Patch an archive for a matter",
-        "description": "Updates a specified matter's archive with patch operations.",
-        "operationId": "PatchArchive",
-        "parameters": [
-          {
-            "name": "matterId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": { "$ref": "#/components/schemas/ArchiveDto" }
-            },
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/ArchiveDto" }
-            },
-            "application/*+json": {
-              "schema": { "$ref": "#/components/schemas/ArchiveDto" }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": {
-            "description": "When an unsupported request is made.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          }
-        }
-      }
-    },
     "/groups": {
       "get": {
         "tags": ["Authorization"],
@@ -4683,7 +4553,7 @@
     "/intake/forms": {
       "get": {
         "tags": ["Intake"],
-        "summary": "List intake forms for a matter type.",
+        "summary": "Get intake forms for a matter type",
         "operationId": "GetFormsAsync",
         "parameters": [
           {
@@ -4740,13 +4610,14 @@
               }
             }
           }
-        }
+        },
+        "x-excluded": true
       }
     },
     "/intake/{matterId}/submissions": {
       "get": {
         "tags": ["Intake"],
-        "summary": "List intake submissions for a matter.",
+        "summary": "Get intake submissions for a matter",
         "operationId": "GetSubmissionsAsync",
         "parameters": [
           {
@@ -4804,11 +4675,12 @@
               }
             }
           }
-        }
+        },
+        "x-excluded": true
       },
       "post": {
         "tags": ["Intake"],
-        "summary": "Create an intake submission for a matter and form.",
+        "summary": "Create an intake submission for a matter",
         "operationId": "CreateSubmissionAsync",
         "parameters": [
           {
@@ -4878,13 +4750,14 @@
               }
             }
           }
-        }
+        },
+        "x-excluded": true
       }
     },
     "/intake/{matterId}/submissions/{submissionId}": {
       "get": {
         "tags": ["Intake"],
-        "summary": "Get an intake submission by id.",
+        "summary": "Get an intake submission",
         "operationId": "GetSubmissionAsync",
         "parameters": [
           {
@@ -4936,7 +4809,8 @@
               }
             }
           }
-        }
+        },
+        "x-excluded": true
       }
     },
     "/matters/{matterId}/integrated-search/mapping": {
@@ -5947,6 +5821,136 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/StringCollection" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matters/{matterId}/archive": {
+      "get": {
+        "tags": ["Matters"],
+        "summary": "Get the archive for a matter",
+        "description": "Retrieves an archive for a matter.",
+        "operationId": "GetArchiveForMatter",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns an 'Archive' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Archive" }
+              }
+            }
+          },
+          "404": {
+            "description": "When the specified matter's archive does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Matters"],
+        "summary": "Update an archive for a matter.",
+        "description": "Updates a specified matter's archive",
+        "operationId": "UpdateArchive",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ArchiveDto" }]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ArchiveDto" }]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [{ "$ref": "#/components/schemas/ArchiveDto" }]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Matters"],
+        "summary": "Patch an archive for a matter",
+        "description": "Updates a specified matter's archive with patch operations.",
+        "operationId": "PatchArchive",
+        "parameters": [
+          {
+            "name": "matterId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": { "$ref": "#/components/schemas/ArchiveDto" }
+            },
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ArchiveDto" }
+            },
+            "application/*+json": {
+              "schema": { "$ref": "#/components/schemas/ArchiveDto" }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
               }
             }
           },
@@ -9177,6 +9181,82 @@
         "x-excluded": true
       }
     },
+    "/subscriptions/{subscriptionId}/paymentmethods/default": {
+      "put": {
+        "tags": ["Subscription Payments"],
+        "operationId": "UpdateDefaultPaymentMethodAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
+                  }
+                ],
+                "description": "Request to set or clear a subscription default payment method."
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
+                  }
+                ],
+                "description": "Request to set or clear a subscription default payment method."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
+                  }
+                ],
+                "description": "Request to set or clear a subscription default payment method."
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": { "description": "Internal Server Error" }
+        },
+        "x-excluded": true
+      }
+    },
     "/subscriptions/promotions": {
       "get": {
         "tags": ["Subscription Promotions"],
@@ -10216,6 +10296,106 @@
           },
           "500": {
             "description": "When an error occurs while updating the subscription."
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{id}/settings": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get subscription settings",
+        "description": "Retrieves settings for a subscription.",
+        "operationId": "GetSubscriptionSettings",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a 'SubscriptionSettings' object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionSettings"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When subscription with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        },
+        "x-excluded": true
+      },
+      "patch": {
+        "tags": ["Subscriptions"],
+        "summary": "Patch subscription settings",
+        "description": "Updates settings for a subscription.",
+        "operationId": "PatchSubscriptionSettingsAsync",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the subscription to update settings for",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "requestBody": {
+          "description": "The subscription settings patch payload",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionSettingsDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionSettingsDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionSettingsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When subscription with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
           }
         },
         "x-excluded": true
@@ -23370,6 +23550,23 @@
         "type": "object",
         "additionalProperties": false
       },
+      "SetDefaultPaymentMethodRequest": {
+        "type": "object",
+        "properties": {
+          "paymentMethodId": {
+            "type": "string",
+            "description": "Public payment method id. Null clears the subscription override which reverts behavior to the Customer's default.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "subscriptionType": {
+            "allOf": [{ "$ref": "#/components/schemas/SubscriptionType" }],
+            "description": "Subscription default to update. Defaults to platform for backwards compatibility."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request to set or clear a subscription default payment method."
+      },
       "SetSubscriptionTierRequest": {
         "type": "object",
         "properties": {
@@ -23962,6 +24159,76 @@
           }
         },
         "additionalProperties": false
+      },
+      "SubscriptionSettings": {
+        "type": "object",
+        "properties": {
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The Smokeball firm id.",
+            "nullable": true
+          },
+          "createExpensesFromUsageCharges": {
+            "type": "boolean",
+            "description": "Whether usage charges should create expenses/disbursements."
+          },
+          "platformDefaultPaymentMethodId": {
+            "type": "string",
+            "description": "The public payment method id to use as the default for the platform subscription.",
+            "nullable": true
+          },
+          "usageDefaultPaymentMethodId": {
+            "type": "string",
+            "description": "The public payment method id to use as the default for the usage subscription.",
+            "nullable": true
+          },
+          "updatedDate": {
+            "type": "string",
+            "description": "The date the settings were last updated.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedByUserId": {
+            "type": "string",
+            "description": "The user id that last updated the settings.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Settings for an account's subscription behavior."
+      },
+      "SubscriptionSettingsDto": {
+        "type": "object",
+        "properties": {
+          "createExpensesFromUsageCharges": {
+            "type": "boolean",
+            "description": "Whether usage charges should create expenses/disbursements."
+          },
+          "platformDefaultPaymentMethodId": {
+            "type": "string",
+            "description": "The public payment method id to use as the default for the platform subscription.",
+            "nullable": true
+          },
+          "usageDefaultPaymentMethodId": {
+            "type": "string",
+            "description": "The public payment method id to use as the default for the usage subscription.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Subscription settings patch payload."
+      },
+      "SubscriptionType": {
+        "enum": [0, 1],
+        "type": "integer",
+        "format": "int32"
       },
       "SubscriptionUsageItem": {
         "type": "object",
