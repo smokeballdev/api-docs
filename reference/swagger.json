@@ -23644,7 +23644,8 @@
           },
           "status": {
             "type": "string",
-            "description": "Represents the current status of a subscription."
+            "description": "Current status of the subscription.\r\n\r\nIf missing, then the firm does not have a platform subscription.\r\n\r\nPossible values: Trialing, Active, Canceled, PastDue, Unpaid, Incomplete, IncompleteExpired.",
+            "nullable": true
           },
           "interval": {
             "type": "string",
