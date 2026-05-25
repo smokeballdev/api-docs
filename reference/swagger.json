@@ -23851,6 +23851,11 @@
             "description": "The unique identifier of the invoice.",
             "nullable": true
           },
+          "number": {
+            "type": "string",
+            "description": "The human-readable invoice number (e.g. ABC-001).",
+            "nullable": true
+          },
           "status": {
             "type": "string",
             "description": "The invoice status.",
