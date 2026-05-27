@@ -22791,6 +22791,21 @@
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
+          "externalId": {
+            "type": "string",
+            "description": "The external usage charge id.",
+            "nullable": true
+          },
+          "externalAdjustmentId": {
+            "type": "string",
+            "description": "The external adjustment id created when the usage charge is canceled.",
+            "nullable": true
+          },
+          "expenseId": {
+            "type": "string",
+            "description": "The Billing expense id created for the usage charge.",
+            "nullable": true
+          },
           "subscriptionId": {
             "type": "string",
             "description": "The subscription id.",
@@ -24195,6 +24210,16 @@
             "description": "The public payment method id to use as the default for the usage subscription.",
             "nullable": true
           },
+          "usageAccessPermission": {
+            "type": "string",
+            "description": "Controls which staff at a firm can use Usage-based Products.\r\nMissing settings should be treated as Finance.Subscriptions.Entities.UsageAccessPermission.All."
+          },
+          "usageAccessSelectedUserIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Staff user ids granted access when Finance.Subscriptions.Api.Resources.SubscriptionSettings.UsageAccessPermission\r\nis Finance.Subscriptions.Entities.UsageAccessPermission.SelectedUsersAndFirmOwners.",
+            "nullable": true
+          },
           "updatedDate": {
             "type": "string",
             "description": "The date the settings were last updated.",
@@ -24225,6 +24250,16 @@
           "usageDefaultPaymentMethodId": {
             "type": "string",
             "description": "The public payment method id to use as the default for the usage subscription.",
+            "nullable": true
+          },
+          "usageAccessPermission": {
+            "type": "string",
+            "description": "Controls which staff at a firm can use Usage-based Products.\r\nMissing settings should be treated as Finance.Subscriptions.Entities.UsageAccessPermission.All."
+          },
+          "usageAccessSelectedUserIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "User ids granted access when Finance.Subscriptions.Api.Models.SubscriptionSettingsDto.UsageAccessPermission\r\nis Finance.Subscriptions.Entities.UsageAccessPermission.SelectedUsersAndFirmOwners.",
             "nullable": true
           }
         },
