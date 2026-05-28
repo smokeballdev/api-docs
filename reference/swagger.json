@@ -10019,20 +10019,13 @@
         "x-excluded": true
       }
     },
-    "/subscriptions/{id}/invoices": {
+    "/subscriptions/invoices": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get subscription invoices",
         "description": "Retrieves invoices for the specified subscription.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
         "operationId": "GetSubscriptionInvoicesAsync",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
           {
             "name": "Offset",
             "in": "query",
@@ -10080,20 +10073,13 @@
         "x-excluded": true
       }
     },
-    "/subscriptions/{subscriptionId}/invoices/{invoiceId}/download": {
+    "/subscriptions/invoices/{invoiceId}/download": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Download invoice PDF",
         "description": "Streams the invoice PDF retrieved from the payment provider as an attachment.",
         "operationId": "DownloadInvoiceAsync",
         "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
           {
             "name": "invoiceId",
             "in": "path",
@@ -10121,20 +10107,13 @@
         "x-excluded": true
       }
     },
-    "/subscriptions/{subscriptionId}/invoices/{invoiceId}/url": {
+    "/subscriptions/invoices/{invoiceId}/url": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get invoice download URL",
         "description": "Returns a URL that can be used to download the invoice PDF directly from the payment provider.",
         "operationId": "GetInvoiceDownloadUrlAsync",
         "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          },
           {
             "name": "invoiceId",
             "in": "path",
@@ -10301,21 +10280,12 @@
         "x-excluded": true
       }
     },
-    "/subscriptions/{id}/settings": {
+    "/subscriptions/settings": {
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get subscription settings",
         "description": "Retrieves settings for a subscription.",
         "operationId": "GetSubscriptionSettings",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
         "responses": {
           "200": {
             "description": "When request is successful. Returns a 'SubscriptionSettings' object.",
@@ -10343,15 +10313,6 @@
         "summary": "Patch subscription settings",
         "description": "Updates settings for a subscription.",
         "operationId": "PatchSubscriptionSettingsAsync",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The unique identifier of the subscription to update settings for",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
         "requestBody": {
           "description": "The subscription settings patch payload",
           "content": {
@@ -16506,10 +16467,10 @@
             "description": "Hypermedia link of all the contacts of the external or third party attendees.",
             "nullable": true
           },
-          "eventType": {
+          "type": {
             "allOf": [{ "$ref": "#/components/schemas/EventType" }],
-            "description": "The type of the event.\r\n\r\nPossible values: Non Recurring Event = 0, Recurring Pattern Series = 1, Single Recurring Occurrence = 2, Modified Recurring Occurrence = 3, Deleted Recurring Occurrence = 4",
-            "example": 0
+            "description": "The type of the event.\r\n\r\nPossible values: Normal, Pattern, Occurrence, ChangedOccurrence, DeletedOccurrence",
+            "example": "Normal"
           },
           "subject": {
             "type": "string",
@@ -16614,10 +16575,11 @@
             "description": "Whether or not the event is billable.\r\nNote events with a duration greater than 12 hours automatically become non-billable.",
             "example": false
           },
-          "eventType": {
+          "type": {
             "allOf": [{ "$ref": "#/components/schemas/EventType" }],
-            "description": "The type of the event.\r\n\r\nWe currently support create and updates requests for non recurring events (EventType = 0).",
-            "example": 0
+            "description": "The type of the event.\r\n\r\nWe currently support create and updates requests for non recurring events (Type = Normal).",
+            "nullable": true,
+            "example": "Normal"
           },
           "attendees": {
             "type": "array",
@@ -16697,10 +16659,15 @@
         "additionalProperties": false
       },
       "EventType": {
-        "enum": [0, 1, 2, 3, 4],
-        "type": "integer",
-        "description": "The type of the event.\r\n\r\nPossible values: Non Recurring Event = 0, Recurring Pattern Series = 1, Single Recurring Occurrence = 2, Modified Recurring Occurrence = 3, Deleted Recurring Occurrence = 4",
-        "format": "int32"
+        "enum": [
+          "Normal",
+          "Pattern",
+          "Occurrence",
+          "ChangedOccurrence",
+          "DeletedOccurrence"
+        ],
+        "type": "string",
+        "description": "The type of the event.\r\n\r\nPossible values: Non Recurring Event = 0, Recurring Pattern Series = 1, Single Recurring Occurrence = 2, Modified Recurring Occurrence = 3, Deleted Recurring Occurrence = 4"
       },
       "ReminderDto": {
         "type": "object",
