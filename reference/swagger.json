@@ -8859,7 +8859,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "Offset",
@@ -8926,7 +8926,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -8999,7 +8999,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9051,7 +9051,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9147,7 +9147,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9190,7 +9190,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -9355,7 +9355,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9407,7 +9407,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9519,7 +9519,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9570,7 +9570,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9621,7 +9621,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "From",
@@ -9731,7 +9731,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "usageId",
@@ -9845,7 +9845,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "usageId",
@@ -9917,7 +9917,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -9956,7 +9956,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -10182,7 +10182,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -10219,7 +10219,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription to update",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -10374,7 +10374,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "Offset",
@@ -10434,7 +10434,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "Offset",
@@ -10487,7 +10487,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -10560,7 +10560,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -10634,7 +10634,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
@@ -10818,7 +10818,7 @@
             "in": "path",
             "description": "The unique identifier of the subscription to update",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -10933,7 +10933,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -10977,7 +10977,7 @@
             "name": "subscriptionId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": { "type": "string" }
           },
           {
             "name": "id",
@@ -23227,9 +23227,10 @@
             "description": "Optional add-on ids subscription update to preview.\r\n\r\nAn error is thrown if the supplied or existing add-ons are not valid for the existing or supplied tier id.",
             "nullable": true
           },
-          "promotionId": {
-            "type": "string",
-            "description": "Optional promotion Id subscription update to preview.",
+          "promotionIds": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional promotion ids subscription update to preview.",
             "nullable": true
           },
           "interval": {
@@ -23321,6 +23322,11 @@
           "productSuite": {
             "type": "string",
             "description": "The suite that the Product belongs to.",
+            "nullable": true
+          },
+          "iconIdentifier": {
+            "type": "string",
+            "description": "Opaque icon identifier of the product.",
             "nullable": true
           },
           "name": {
@@ -23543,7 +23549,7 @@
           },
           "subscriptionType": {
             "allOf": [{ "$ref": "#/components/schemas/SubscriptionType" }],
-            "description": "Subscription default to update. Defaults to platform for backwards compatibility."
+            "description": "Deprecated. The subscription type is inferred from the route subscription id."
           }
         },
         "additionalProperties": false,
@@ -23579,18 +23585,22 @@
       "Subscription": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier of the subscription.",
-            "format": "uuid",
-            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
-          },
           "href": { "type": "string", "nullable": true },
           "relation": { "type": "string", "nullable": true },
           "method": { "type": "string", "default": "GET", "nullable": true },
           "self": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the subscription.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "type": {
+            "allOf": [{ "$ref": "#/components/schemas/SubscriptionType" }],
+            "description": "The kind of subscription represented by this resource."
           },
           "productSuite": {
             "type": "string",
@@ -24487,6 +24497,11 @@
           "productSuite": {
             "type": "string",
             "description": "The product suite that this usage product belongs to.",
+            "nullable": true
+          },
+          "iconIdentifier": {
+            "type": "string",
+            "description": "Icon identifier for the product.",
             "nullable": true
           },
           "name": {
