@@ -16467,6 +16467,12 @@
             "description": "Hypermedia link of all the contacts of the external or third party attendees.",
             "nullable": true
           },
+          "eventType": {
+            "allOf": [{ "$ref": "#/components/schemas/EventType" }],
+            "description": "**Deprecated.** Use `type` instead.\n\nThe type of the event.\r\n\r\nPossible values: Non Recurring Event = 0, Recurring Pattern Series = 1, Single Recurring Occurrence = 2, Modified Recurring Occurrence = 3, Deleted Recurring Occurrence = 4",
+            "example": "0",
+            "deprecated": true
+          },
           "type": {
             "allOf": [{ "$ref": "#/components/schemas/EventType" }],
             "description": "The type of the event.\r\n\r\nPossible values: Normal, Pattern, Occurrence, ChangedOccurrence, DeletedOccurrence",
@@ -16577,9 +16583,16 @@
           },
           "type": {
             "allOf": [{ "$ref": "#/components/schemas/EventType" }],
-            "description": "The type of the event.\r\n\r\nWe currently support create and updates requests for non recurring events (Type = Normal).",
+            "description": "The type of the event.\r\n\r\nWe currently support create and updates requests for non recurring events (type = Normal).",
             "nullable": true,
             "example": "Normal"
+          },
+          "eventType": {
+            "allOf": [{ "$ref": "#/components/schemas/EventType" }],
+            "description": "**Deprecated.** Use `type` instead.\n\nThe type of the event.\r\n\r\nWe currently support create and updates requests for non recurring events (EventType = 0).",
+            "nullable": true,
+            "example": "0",
+            "deprecated": true
           },
           "attendees": {
             "type": "array",
