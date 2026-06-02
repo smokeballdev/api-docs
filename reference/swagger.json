@@ -8847,11 +8847,71 @@
         }
       }
     },
+    "/subscriptions/paymentmethods": {
+      "get": {
+        "tags": ["Subscription Payments"],
+        "summary": "Get all customer payment methods",
+        "description": "Returns all payment methods attached to the current account's payment customer.",
+        "operationId": "GetCustomerPaymentMethodsAsync",
+        "parameters": [
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "maximum": 500,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodPagedCollection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": { "description": "Internal Server Error" }
+        },
+        "x-excluded": true
+      }
+    },
     "/subscriptions/{subscriptionId}/paymentmethods": {
       "get": {
         "tags": ["Subscription Payments"],
         "summary": "Get payment methods",
-        "description": "Returns all payment methods associated with a subscriptions customer sorted by the most recently added payment methods first.",
+        "description": "Returns the payment methods actively set on the specified subscription.",
         "operationId": "GetPaymentMethodsAsync",
         "parameters": [
           {
@@ -9508,7 +9568,7 @@
         "x-excluded": true
       }
     },
-    "/subscriptions/{subscriptionId}/addons/{id}": {
+    "/{id}": {
       "post": {
         "tags": ["Subscriptions"],
         "summary": "Add add-on",
@@ -9516,9 +9576,8 @@
         "parameters": [
           {
             "name": "subscriptionId",
-            "in": "path",
+            "in": "query",
             "description": "The unique identifier of the subscription",
-            "required": true,
             "schema": { "type": "string" }
           },
           {
@@ -9567,9 +9626,8 @@
         "parameters": [
           {
             "name": "subscriptionId",
-            "in": "path",
+            "in": "query",
             "description": "The unique identifier of the subscription",
-            "required": true,
             "schema": { "type": "string" }
           },
           {
@@ -10023,7 +10081,7 @@
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get subscription invoices",
-        "description": "Retrieves invoices for the specified subscription.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
+        "description": "Retrieves invoices for the account.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
         "operationId": "GetSubscriptionInvoicesAsync",
         "parameters": [
           {
@@ -10045,6 +10103,53 @@
               "type": "integer",
               "format": "int32"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns a collection of 'SubscriptionInvoice' objects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionInvoicePagedCollection"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When subscription with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "When an error occurs while retrieving the subscription invoices."
+          }
+        },
+        "x-excluded": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/invoices": {
+      "get": {
+        "tags": ["Subscriptions"],
+        "summary": "Get subscription invoices",
+        "description": "DEPRECATED - Use GET /subscriptions/invoices instead.\r\n\r\nRetrieves invoices for the specified subscription.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
+        "operationId": "GetSubscriptionInvoicesBackgroundsCompatibleAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The unique identifier of the subscription",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of invoices to return.",
+            "schema": { "type": "integer", "format": "int32", "default": 10 }
           }
         ],
         "responses": {
@@ -10942,6 +11047,31 @@
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/SubscribeUsageRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/SubscribeUsageRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/SubscribeUsageRequest" }
+                ]
+              }
+            }
+          }
+        },
         "responses": {
           "202": {
             "description": "Accepted",
@@ -23595,6 +23725,18 @@
         "type": "integer",
         "format": "int32"
       },
+      "SubscribeUsageRequest": {
+        "type": "object",
+        "properties": {
+          "defaultPaymentMethodId": {
+            "type": "string",
+            "description": "Public id of the payment method to set as the default for the usage subscription.",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Subscription": {
         "type": "object",
         "properties": {
@@ -23633,12 +23775,13 @@
           "addOns": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/AddOn" },
-            "description": "List of of 'AddOn' products that the subscription is subscribed to.",
+            "description": "List of 'AddOn' products that the subscription is subscribed to.",
             "nullable": true
           },
           "usages": {
-            "allOf": [{ "$ref": "#/components/schemas/SubscriptionUsages" }],
-            "description": "Usage products subscribed through the hidden usage subscription.",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Usage" },
+            "description": "List of 'Usage' products that the subscription is subscribed to.",
             "nullable": true
           },
           "discounts": {
@@ -23976,6 +24119,44 @@
         },
         "additionalProperties": false
       },
+      "SubscriptionInvoicePagedCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SubscriptionInvoice" },
+            "nullable": true
+          },
+          "offset": { "type": "integer", "format": "int32", "nullable": true },
+          "limit": { "type": "integer", "format": "int32", "nullable": true },
+          "size": { "type": "integer", "format": "int64" },
+          "first": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "previous": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "next": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "last": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "SubscriptionPreview": {
         "type": "object",
         "properties": {
@@ -24190,16 +24371,6 @@
             "type": "boolean",
             "description": "Whether usage charges should create expenses/disbursements."
           },
-          "platformDefaultPaymentMethodId": {
-            "type": "string",
-            "description": "The public payment method id to use as the default for the platform subscription.",
-            "nullable": true
-          },
-          "usageDefaultPaymentMethodId": {
-            "type": "string",
-            "description": "The public payment method id to use as the default for the usage subscription.",
-            "nullable": true
-          },
           "usageAccessPermission": {
             "type": "string",
             "description": "Controls which staff at a firm can use Usage-based Products.\r\nMissing settings should be treated as Finance.Subscriptions.Entities.UsageAccessPermission.All."
@@ -24232,16 +24403,6 @@
             "type": "boolean",
             "description": "Whether usage charges should create expenses/disbursements."
           },
-          "platformDefaultPaymentMethodId": {
-            "type": "string",
-            "description": "The public payment method id to use as the default for the platform subscription.",
-            "nullable": true
-          },
-          "usageDefaultPaymentMethodId": {
-            "type": "string",
-            "description": "The public payment method id to use as the default for the usage subscription.",
-            "nullable": true
-          },
           "usageAccessPermission": {
             "type": "string",
             "description": "Controls which staff at a firm can use Usage-based Products.\r\nMissing settings should be treated as Finance.Subscriptions.Entities.UsageAccessPermission.All."
@@ -24260,33 +24421,6 @@
         "enum": [0, 1],
         "type": "integer",
         "format": "int32"
-      },
-      "SubscriptionUsageItem": {
-        "type": "object",
-        "properties": {
-          "productId": { "type": "string", "nullable": true },
-          "subscribedAt": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "SubscriptionUsages": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Represents the current status of a subscription."
-          },
-          "items": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/SubscriptionUsageItem" },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "TaxRate": {
         "type": "object",
@@ -24616,17 +24750,33 @@
           },
           "completedDate": {
             "type": "string",
-            "description": "When the subtask was completed.",
+            "description": "**Deprecated.** Use `CompletedDateOnly` instead.\n\nWhen the subtask was completed in UTC.",
             "format": "date-time",
             "nullable": true,
-            "example": "2020-02-15T00:00:00Z"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "completedDateOnly": {
+            "type": "string",
+            "description": "The date when the subtask was completed.\n\nThe time portion will always be set to 00:00:00\nand should be ignored. Only the date portion is relevant.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00"
           },
           "createdDate": {
             "type": "string",
-            "description": "When the subtask was created.",
+            "description": "**Deprecated.** Use `CreatedDateOnly` instead.\n\nWhen the subtask was created in UTC.",
             "format": "date-time",
             "nullable": true,
-            "example": "2020-02-15T00:00:00Z"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "createdDateOnly": {
+            "type": "string",
+            "description": "The date when the subtask was created.\n\nThe time portion will always be set to 00:00:00\nand should be ignored. Only the date portion is relevant.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00"
           },
           "isCompleted": {
             "type": "boolean",
@@ -24696,10 +24846,18 @@
           },
           "completedDate": {
             "type": "string",
-            "description": "Completed date of the subtask. \r\nIf not provided and IsCompleted is set to true, the current date will be used.",
+            "description": "**Deprecated.** Use `CompletedDateOnly` instead.\n\nCompleted date of the subtask in UTC.\r\nIf not provided and Tasking.ManageTasks.Api.Model.SubTaskDto.IsCompleted is set to true, the current date will be used.",
             "format": "date-time",
             "nullable": true,
-            "example": "2022-07-01"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "completedDateOnly": {
+            "type": "string",
+            "description": "Completed date of the subtask. Takes precendence over Tasking.ManageTasks.Api.Model.SubTaskDto.CompletedDate if set.\r\nIf not provided and Tasking.ManageTasks.Api.Model.SubTaskDto.IsCompleted is set to true, the current date will be used.\n\nAny time/timezone information will be discarded\nand only the date portion will be considered.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15"
           }
         },
         "additionalProperties": false,
@@ -24773,24 +24931,48 @@
           },
           "dueDate": {
             "type": "string",
-            "description": "The due date of the task.",
+            "description": "**Deprecated.** Use `DueDateOnly` instead.\n\nThe due date of the task in UTC.",
             "format": "date-time",
             "nullable": true,
-            "example": "2020-02-15T00:00:00Z"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "dueDateOnly": {
+            "type": "string",
+            "description": "The due date of the task.\n\nThe time portion will always be set to 00:00:00\nand should be ignored. Only the date portion is relevant.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00"
           },
           "completedDate": {
             "type": "string",
-            "description": "When the task was completed.",
+            "description": "**Deprecated.** Use `CompletedDateOnly` instead.\n\nWhen the task was completed in UTC.",
             "format": "date-time",
             "nullable": true,
-            "example": "2020-02-15T00:00:00Z"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "completedDateOnly": {
+            "type": "string",
+            "description": "The date when the task was completed.\n\nThe time portion will always be set to 00:00:00\nand should be ignored. Only the date portion is relevant.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00"
           },
           "createdDate": {
             "type": "string",
-            "description": "When the task was created.",
+            "description": "**Deprecated.** Use `CreatedDateOnly` instead.\n\nWhen the task was created in UTC.",
             "format": "date-time",
             "nullable": true,
-            "example": "2020-02-15T00:00:00Z"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "createdDateOnly": {
+            "type": "string",
+            "description": "The date when the task was created.\n\nThe time portion will always be set to 00:00:00\nand should be ignored. Only the date portion is relevant.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15T00:00:00"
           },
           "isCompleted": {
             "type": "boolean",
@@ -24942,17 +25124,33 @@
           },
           "completedDate": {
             "type": "string",
-            "description": "Completed date of the task.",
+            "description": "**Deprecated.** Use `CompletedDateOnly` instead.\n\nCompleted date of the task in UTC.\r\nIf not provided and Tasking.ManageTasks.Api.Model.TaskDto.IsCompleted is set to true, the current date will be used.",
             "format": "date-time",
             "nullable": true,
-            "example": "2022-07-01"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "completedDateOnly": {
+            "type": "string",
+            "description": "Completed date of the task. Takes precendence over Tasking.ManageTasks.Api.Model.TaskDto.CompletedDate if set.\r\nIf not provided and Tasking.ManageTasks.Api.Model.TaskDto.IsCompleted is set to true, the current date will be used.\n\nAny time/timezone information will be discarded\nand only the date portion will be considered.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15"
           },
           "dueDate": {
             "type": "string",
-            "description": "Due date of the task.",
+            "description": "**Deprecated.** Use `DueDateOnly` instead.\n\nDue date of the task in UTC.",
             "format": "date-time",
             "nullable": true,
-            "example": "2022-07-01"
+            "example": "2020-02-15T13:00:00Z",
+            "deprecated": true
+          },
+          "dueDateOnly": {
+            "type": "string",
+            "description": "Due date of the task. Takes precendence over Tasking.ManageTasks.Api.Model.TaskDto.DueDate if set.\n\nAny time/timezone information will be discarded\nand only the date portion will be considered.",
+            "format": "date-time",
+            "nullable": true,
+            "example": "2020-02-15"
           },
           "duration": {
             "type": "string",
