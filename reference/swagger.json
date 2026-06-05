@@ -10103,6 +10103,18 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "From",
+            "in": "query",
+            "description": "Search for invoices created on or after From (inclusive lower bound).",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "To",
+            "in": "query",
+            "description": "Search for invoices created on or before To (inclusive upper bound).",
+            "schema": { "type": "string", "format": "date-time" }
           }
         ],
         "responses": {
@@ -22965,6 +22977,12 @@
           "supplierTransactionAmount": {
             "type": "number",
             "description": "The supplier transaction amount associated with the usage charge.",
+            "format": "double",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "description": "The total customer billing amount for the usage charge, in dollars.",
             "format": "double",
             "nullable": true
           },
