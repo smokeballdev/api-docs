@@ -8905,6 +8905,68 @@
           "500": { "description": "Internal Server Error" }
         },
         "x-excluded": true
+      },
+      "post": {
+        "tags": ["Subscription Payments"],
+        "summary": "Add payment method",
+        "description": "Adds a new payment method to the account.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
+        "operationId": "AddPaymentMethodAsync",
+        "requestBody": {
+          "description": "Payment method details including system and payment information",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/AddPaymentMethodRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "When request is accepted. Returns a 'Link' object.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When an unsupported request is made.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "When subscription with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": {
+            "description": "When an error occurs while adding payment method."
+          }
+        },
+        "x-excluded": true
       }
     },
     "/subscriptions/{subscriptionId}/paymentmethods": {
@@ -8975,11 +9037,85 @@
         },
         "x-excluded": true
       },
+      "put": {
+        "tags": ["Subscription Payments"],
+        "operationId": "UpdateSubscriptionPaymentMethodAsync",
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
+                  }
+                ],
+                "description": "Request to set or clear a subscription default payment method."
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
+                  }
+                ],
+                "description": "Request to set or clear a subscription default payment method."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
+                  }
+                ],
+                "description": "Request to set or clear a subscription default payment method."
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "500": { "description": "Internal Server Error" }
+        },
+        "x-excluded": true
+      },
       "post": {
         "tags": ["Subscription Payments"],
         "summary": "Add payment method",
-        "description": "Adds a new payment method to a subscription.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
-        "operationId": "AddPaymentMethodAsync",
+        "description": "DEPRECATED - use /subscriptions/paymentmethods instead. Use /subscriptions/{subscription_id/paymentmethods to set the payment method for a subscription.\r\n\r\nAdds a new payment method to the account.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
+        "operationId": "AddSubscriptionPaymentMethodAsync",
         "parameters": [
           {
             "name": "subscriptionId",
@@ -9191,128 +9327,6 @@
           "500": {
             "description": "When an error occurs while retrieving supported payment systems."
           }
-        },
-        "x-excluded": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/paymentmethods/{id}/default": {
-      "put": {
-        "tags": ["Subscription Payments"],
-        "summary": "Set default payment method",
-        "description": "Sets a payment method as the default for a subscription.\r\n\r\nImportant notes:\r\n* Replaces any existing default payment method\r\n* No-op if payment method is already default",
-        "operationId": "SetDefaultPaymentMethodAsync",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "description": "The unique identifier of the subscription",
-            "required": true,
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "The ID of the payment method to set as default",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "When request is accepted. Returns a 'Link' object.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "404": {
-            "description": "When subscription or payment method with specified id does not exist.",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": {
-            "description": "When an error occurs while setting default payment method."
-          }
-        },
-        "x-excluded": true
-      }
-    },
-    "/subscriptions/{subscriptionId}/paymentmethods/default": {
-      "put": {
-        "tags": ["Subscription Payments"],
-        "operationId": "UpdateDefaultPaymentMethodAsync",
-        "parameters": [
-          {
-            "name": "subscriptionId",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
-                  }
-                ],
-                "description": "Request to set or clear a subscription default payment method."
-              }
-            },
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
-                  }
-                ],
-                "description": "Request to set or clear a subscription default payment method."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/SetDefaultPaymentMethodRequest"
-                  }
-                ],
-                "description": "Request to set or clear a subscription default payment method."
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Accepted",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Link" }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
-            }
-          },
-          "500": { "description": "Internal Server Error" }
         },
         "x-excluded": true
       }
@@ -10115,6 +10129,12 @@
             "in": "query",
             "description": "Search for invoices created on or before To (inclusive upper bound).",
             "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "SubscriptionId",
+            "in": "query",
+            "description": "Search for invoices belonging to the specified internal subscription id.",
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -22814,7 +22834,7 @@
           },
           "chargeImmediately": {
             "type": "boolean",
-            "description": "Whether to charge immediately if subscription is overdue.",
+            "description": "Whether to charge immediately if subscription(s) are overdue.",
             "nullable": true,
             "example": true
           }
