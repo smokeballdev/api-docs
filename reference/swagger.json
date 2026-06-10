@@ -8909,7 +8909,7 @@
       "post": {
         "tags": ["Subscription Payments"],
         "summary": "Add payment method",
-        "description": "Adds a new payment method to the account.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
+        "description": "Adds a new payment method to the account.\r\n\r\nImportant notes:\r\n* Can optionally set as default payment method for the entire account\r\n* Can force immediate charge for overdue invoices for all active subscriptions\r\n* Payment information format depends on payment system",
         "operationId": "AddPaymentMethodAsync",
         "requestBody": {
           "description": "Payment method details including system and payment information",
@@ -9114,7 +9114,7 @@
       "post": {
         "tags": ["Subscription Payments"],
         "summary": "Add payment method",
-        "description": "DEPRECATED - use /subscriptions/paymentmethods instead. Use /subscriptions/{subscription_id/paymentmethods to set the payment method for a subscription.\r\n\r\nAdds a new payment method to the account.\r\n\r\nImportant notes:\r\n* First payment method added becomes default automatically\r\n* Can optionally set as default payment method\r\n* Can force immediate charge for overdue invoices\r\n* Payment information format depends on payment system",
+        "description": "Adds a new payment method to the account and sets it for the specified subscription \r\n\r\nImportant notes:\r\n* Can optionally set as default payment method for the entire account, or the specified subscription\r\n* Can force immediate charge for overdue invoices for the specified subscription\r\n* Payment information format depends on payment system",
         "operationId": "AddSubscriptionPaymentMethodAsync",
         "parameters": [
           {
@@ -16114,6 +16114,11 @@
             "description": "Hypermedia link of the folder to which the file belongs.",
             "nullable": true
           },
+          "matter": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "description": "Hypermedia link of the matter to which the file belongs.",
+            "nullable": true
+          },
           "name": {
             "type": "string",
             "description": "Name of the file, excluding file extension.",
@@ -22828,13 +22833,13 @@
           },
           "isDefault": {
             "type": "boolean",
-            "description": "Whether to set this as the default payment method.",
+            "description": "Whether to set this as the default payment method for the entire account \r\n\r\nThis does not set the default payment method for the subscription.",
             "nullable": true,
             "example": true
           },
           "chargeImmediately": {
             "type": "boolean",
-            "description": "Whether to charge immediately if subscription(s) are overdue.",
+            "description": "Whether to charge immediately if subscription(s) are overdue.\r\n\r\nIf true, the payment system will attempt to charge the customer immediately if there are any overdue subscriptions.\r\n\r\nIf a subscription id is passed as a parameter to the request, only that subscription will be charged immediately if overdue.",
             "nullable": true,
             "example": true
           }
