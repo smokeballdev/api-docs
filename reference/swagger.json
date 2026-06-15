@@ -8877,7 +8877,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "When request is successful. Returns a paged collection of 'PaymentMethod' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8887,7 +8887,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When the account is not associated to a payment customer.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -8895,14 +8895,16 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the account does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
-          "500": { "description": "Internal Server Error" }
+          "500": {
+            "description": "When an error occurs while retrieving payment methods."
+          }
         },
         "x-excluded": true
       },
@@ -9039,16 +9041,20 @@
       },
       "put": {
         "tags": ["Subscription Payments"],
+        "summary": "Set default payment method",
+        "description": "Sets or clears the default payment method on a subscription. The update is processed asynchronously.\r\n            \r\nImportant considerations:\r\n* Omitting the payment method id clears the subscription's default payment method\r\n* Usage subscriptions must always have a default payment method, so clearing is not allowed for them",
         "operationId": "UpdateSubscriptionPaymentMethodAsync",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the subscription",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The request containing the payment method to set as default, or no payment method to clear it",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -9084,7 +9090,7 @@
         },
         "responses": {
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a 'Link' object to the payment method, or to the subscription when clearing.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -9092,7 +9098,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When clearing the default on a usage subscription, or the subscription is not associated to a customer.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9100,14 +9106,16 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the subscription or payment method does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
-          "500": { "description": "Internal Server Error" }
+          "500": {
+            "description": "When an error occurs while updating the payment method."
+          }
         },
         "x-excluded": true
       },
@@ -9387,6 +9395,7 @@
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the promotion",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
@@ -9403,7 +9412,7 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When promotion with specified id does not exist or is not valid.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9548,12 +9557,13 @@
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get an add-on",
-        "description": "Returns the specified product add-on with its features and pricing.\r\n\r\nUse this endpoint to retreive add-on information when only an id is available.",
+        "description": "Returns the specified product add-on with its features and pricing.\r\n\r\nUse this endpoint to retrieve add-on information when only an id is available.",
         "operationId": "GetAddOnAsync",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the add-on",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
@@ -9687,11 +9697,14 @@
     "/subscriptions/{subscriptionId}/charges": {
       "get": {
         "tags": ["Subscriptions"],
+        "summary": "Get subscription usage charges",
+        "description": "Returns a paged list of usage charges across all usage products on the account's usage subscription,\r\nsorted by created date descending.\r\n            \r\nResults can be filtered via query parameters:\r\n* From/To (created date range)\r\n* Status\r\n* MatterId\r\n* UserId\r\n* ProductId",
         "operationId": "GetSubscriptionUsageCharges",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
@@ -9773,7 +9786,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "When request is successful. Returns a paged collection of 'Charge' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -9783,7 +9796,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the usage subscription does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9797,17 +9810,21 @@
     "/subscriptions/{subscriptionId}/usages/{usageId}/charges": {
       "get": {
         "tags": ["Subscriptions"],
+        "summary": "Get usage charges for a usage product",
+        "description": "Returns a paged list of usage charges for a single usage product on the account's usage subscription,\r\nsorted by created date descending.\r\n            \r\nSupports the same filters as the subscription-wide charges endpoint, except the product filter:\r\nthe `usageId` route parameter takes precedence over any ProductId supplied in the query.",
         "operationId": "GetUsageCharges",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "usageId",
             "in": "path",
+            "description": "The unique identifier of the usage product to list charges for",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           },
@@ -9889,7 +9906,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "When request is successful. Returns a paged collection of 'Charge' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -9899,7 +9916,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the usage subscription does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9911,22 +9928,27 @@
       },
       "post": {
         "tags": ["Subscriptions"],
+        "summary": "Create usage charge",
+        "description": "Creates a one-off charge (quantity 1) against a usage product the account is subscribed to.\r\nThe charge is processed asynchronously.\r\n            \r\nImportant considerations:\r\n* The usage product must already be subscribed on the account's usage subscription\r\n* The price must exist on the usage product and be active\r\n* Charges are rejected while the usage subscription is overdue (past due, unpaid, canceled, or incomplete-expired)\r\n* The caller must be authorized for usage billing on the product",
         "operationId": "CreateUsageChargeAsync",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "usageId",
             "in": "path",
+            "description": "The unique identifier of the usage product to charge",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "requestBody": {
+          "description": "The usage charge request, including the price to charge and optional matter, description, and metadata",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -9953,7 +9975,7 @@
         },
         "responses": {
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a 'Link' object to the created charge.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -9961,7 +9983,15 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When the request is missing or invalid, the usage is not subscribed, the price is inactive, or the account is overdue.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the user is not authorized for usage billing on the product.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9969,7 +9999,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the usage subscription, usage product, or price does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -9983,24 +10013,28 @@
     "/subscriptions/{subscriptionId}/charges/{id}": {
       "get": {
         "tags": ["Subscriptions"],
+        "summary": "Get usage charge",
+        "description": "Retrieves a single usage charge belonging to the account's usage subscription.",
         "operationId": "GetUsageCharge",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the usage charge",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "When request is successful. Returns a 'Charge' object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Charge" }
@@ -10008,7 +10042,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the charge does not exist or does not belong to the caller's account.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -10022,22 +10056,27 @@
     "/subscriptions/{subscriptionId}/charges/{id}/cancel": {
       "post": {
         "tags": ["Subscriptions"],
+        "summary": "Cancel usage charge",
+        "description": "Cancels (refunds) a usage charge. The cancellation is processed asynchronously.\r\n            \r\nImportant considerations:\r\n* Only charges in the 'Succeeded' status can be canceled\r\n* Charges can only be canceled within 24 hours of the charge being created\r\n* The caller must be authorized for usage billing on the charged product",
         "operationId": "CancelUsageChargeAsync",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the usage charge to cancel",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "requestBody": {
+          "description": "Optional cancellation details, including a reason",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -10064,7 +10103,7 @@
         },
         "responses": {
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a 'Link' object to the charge.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -10072,7 +10111,15 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When the charge is not in the 'Succeeded' status or is outside the 24 hour cancellation window.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the user is not authorized for usage billing on the product.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -10080,7 +10127,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the charge does not exist or does not belong to the caller's account.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -10139,7 +10186,7 @@
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a collection of 'SubscriptionInvoice' objects.",
+            "description": "When request is successful. Returns a paged collection of 'SubscriptionInvoice' objects.",
             "content": {
               "application/json": {
                 "schema": {
@@ -10149,7 +10196,7 @@
             }
           },
           "404": {
-            "description": "When subscription with specified id does not exist.",
+            "description": "When a subscription id filter is supplied and that subscription does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -10166,8 +10213,8 @@
     "/subscriptions/{subscriptionId}/invoices": {
       "get": {
         "tags": ["Subscriptions"],
-        "summary": "Get subscription invoices",
-        "description": "DEPRECATED - Use GET /subscriptions/invoices instead.\r\n\r\nRetrieves invoices for the specified subscription.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
+        "summary": "Get invoices for a subscription (deprecated)",
+        "description": "DEPRECATED - Use GET /subscriptions/invoices instead.\r\n            \r\nRetrieves invoices for the specified subscription.\r\n            \r\nInvoices are returned sorted by creation date with the most recent invoices appearing first.",
         "operationId": "GetSubscriptionInvoicesBackgroundsCompatibleAsync",
         "parameters": [
           {
@@ -10207,6 +10254,7 @@
             "description": "When an error occurs while retrieving the subscription invoices."
           }
         },
+        "deprecated": true,
         "x-excluded": true
       }
     },
@@ -10864,30 +10912,36 @@
       "get": {
         "tags": ["Subscriptions"],
         "summary": "Get a tier",
-        "description": "Returns the specified product tier with its features and pricing.\r\n\r\nUse this endpoint to retreive tier information when only an id is available.",
+        "description": "Returns the specified product tier with its features and pricing.\r\n            \r\nUse this endpoint to retrieve tier information when only an id is available.",
         "operationId": "GetTierAsync",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The identifier of the product tier",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved the list of product tiers",
+            "description": "When request is successful. Returns a 'Tier' object.",
             "content": {
               "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Tier" }
-                }
+                "schema": { "$ref": "#/components/schemas/Tier" }
+              }
+            }
+          },
+          "404": {
+            "description": "When tier with specified id does not exist.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
           "500": {
-            "description": "Internal server error occurred while retrieving tiers",
+            "description": "Internal server error occurred while retrieving the tier",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -10921,6 +10975,14 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/AddOn" }
                 }
+              }
+            }
+          },
+          "400": {
+            "description": "When the tier does not map to a known Smokeball tier.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
               }
             }
           },
@@ -10966,6 +11028,7 @@
           }
         ],
         "requestBody": {
+          "description": "Optional change details: billing interval, promotion to apply, and a reason for the change",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -10991,8 +11054,22 @@
           }
         },
         "responses": {
-          "200": { "description": "Successfully switched the product tier" },
-          "202": { "description": "Accepted" },
+          "202": {
+            "description": "When request is accepted. Returns a 'Link' object to the subscription.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Link" }
+              }
+            }
+          },
+          "400": {
+            "description": "When the requested tier change fails validation.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
           "404": {
             "description": "Subscription or tier not found",
             "content": {
@@ -11016,9 +11093,11 @@
     "/subscriptions/usages": {
       "get": {
         "tags": ["Subscriptions"],
+        "summary": "Get usage products",
+        "description": "Returns a list of all usage-billed products available for subscription.",
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "When request is successful. Returns a collection of 'Usage' objects.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/UsageCollection" }
@@ -11032,18 +11111,21 @@
     "/subscriptions/usages/{id}": {
       "get": {
         "tags": ["Subscriptions"],
+        "summary": "Get usage product",
+        "description": "Retrieves detailed information for a specific usage-billed product, including its prices.",
         "operationId": "GetUsageAsync",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the usage product",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "When request is successful. Returns a 'Usage' object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Usage" }
@@ -11051,7 +11133,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When usage product with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -11065,21 +11147,26 @@
     "/subscriptions/{subscriptionId}/usages/{id}": {
       "post": {
         "tags": ["Subscriptions"],
+        "summary": "Subscribe to usage product",
+        "description": "Subscribes the account's usage subscription to a usage product. The subscription is processed asynchronously.\r\n            \r\nImportant considerations:\r\n* If the account has no usage subscription yet, one is created as part of processing the request\r\n* A default payment method can optionally be supplied; it must already exist for the customer",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the usage product to subscribe to",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "requestBody": {
+          "description": "Optional request details, including a default payment method for usage charges",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -11106,7 +11193,7 @@
         },
         "responses": {
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a 'Link' object to the subscription.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -11114,7 +11201,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "When the request is invalid.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -11122,7 +11209,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When the usage product or the supplied payment method does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -11134,23 +11221,27 @@
       },
       "delete": {
         "tags": ["Subscriptions"],
+        "summary": "Unsubscribe from usage product",
+        "description": "Removes a usage product from the account's usage subscription. The removal is processed asynchronously.",
         "parameters": [
           {
             "name": "subscriptionId",
             "in": "path",
+            "description": "The unique identifier of the usage subscription",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "id",
             "in": "path",
+            "description": "The unique identifier of the usage product to unsubscribe from",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
         ],
         "responses": {
           "202": {
-            "description": "Accepted",
+            "description": "When request is accepted. Returns a 'Link' object to the subscription.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/Link" }
@@ -11158,7 +11249,7 @@
             }
           },
           "404": {
-            "description": "Not Found",
+            "description": "When usage product with specified id does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
