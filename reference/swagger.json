@@ -22952,7 +22952,7 @@
           },
           "cancelSubscription": {
             "type": "boolean",
-            "description": "Optional flag to force cancellation of the subscription instead of applying default cancellation behaviour.",
+            "description": "Optional flag to force cancellation of a subscription.\r\n\r\nWhen set to `true`, immediately cancels the subscription and bypasses any configured cancellation behaviour.\r\n            \r\nFor example, if cancellation would normally trigger trial-specific cancellation handling such as revoking a trial,\r\nsetting this flag to `true` cancels the subscription directly instead.",
             "nullable": true
           },
           "reason": {
