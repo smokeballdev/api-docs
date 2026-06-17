@@ -19106,7 +19106,7 @@
             "allOf": [
               { "$ref": "#/components/schemas/IntakeSubmissionStatus" }
             ],
-            "description": "Current status of the submission.",
+            "description": "Intake submission status.",
             "example": "draft"
           },
           "communicationMethod": {
@@ -19115,7 +19115,7 @@
                 "$ref": "#/components/schemas/IntakeSubmissionCommunicationMethod"
               }
             ],
-            "description": "How the form was sent.",
+            "description": "Intake submission communication method.",
             "example": "email"
           },
           "matter": {
@@ -19197,7 +19197,7 @@
             "allOf": [
               { "$ref": "#/components/schemas/IntakeSubmissionStatus" }
             ],
-            "description": "Current status of the submission.",
+            "description": "Intake submission status.",
             "example": "draft"
           },
           "communicationMethod": {
@@ -19206,7 +19206,7 @@
                 "$ref": "#/components/schemas/IntakeSubmissionCommunicationMethod"
               }
             ],
-            "description": "How the form was sent.",
+            "description": "Intake submission communication method.",
             "example": "email"
           },
           "matter": {
