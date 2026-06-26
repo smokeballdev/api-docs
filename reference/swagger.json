@@ -23098,7 +23098,7 @@
           },
           "amount": {
             "type": "number",
-            "description": "The total customer billing amount for the usage charge, in dollars.",
+            "description": "The total customer billing amount for the usage charge, in cents.",
             "format": "double",
             "nullable": true
           },
@@ -23555,7 +23555,7 @@
           },
           "amount": {
             "type": "number",
-            "description": "The per user amount for this pricing option for the specified interval (in cents).",
+            "description": "The per unit amount for this pricing option for the specified interval (in cents).",
             "format": "double",
             "nullable": true,
             "example": 5900
@@ -23691,7 +23691,7 @@
           },
           "amount": {
             "type": "number",
-            "description": "The per user amount for this pricing option for the specified interval.",
+            "description": "The per unit amount for this pricing option for the specified interval.\n\nThe value is stored as cents.",
             "format": "double",
             "nullable": true
           },
