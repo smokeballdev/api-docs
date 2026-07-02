@@ -1788,6 +1788,65 @@
         }
       }
     },
+    "/contacts/batch": {
+      "post": {
+        "tags": ["Contacts"],
+        "summary": "Get contacts by ids",
+        "description": "Returns the contacts matching the supplied IDs, in the same order as the request.\r\nIDs that do not resolve, or that belong to another account, are omitted.",
+        "operationId": "GetContactsBatch",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/ContactsBatchRequest" }
+                ]
+              }
+            },
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/ContactsBatchRequest" }
+                ]
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  { "$ref": "#/components/schemas/ContactsBatchRequest" }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "When request is successful. Returns the matching 'Contact' objects.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ContactCollection" }
+              }
+            }
+          },
+          "400": {
+            "description": "When more than 500 ids are supplied.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          },
+          "403": {
+            "description": "When the request is not associated with an authenticated account.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+              }
+            }
+          }
+        }
+      }
+    },
     "/contacts/{id}/tags": {
       "get": {
         "tags": ["Contacts"],
@@ -14217,6 +14276,51 @@
             "nullable": true,
             "example": "1234567890"
           },
+          "ein": {
+            "type": "string",
+            "description": "Employer Identification Number (EIN) of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "registeredDate": {
+            "type": "string",
+            "description": "Date the company was registered.\r\n            \r\nOnly supported in US.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "stateId": {
+            "type": "string",
+            "description": "State ID of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "stateRegisteredIn": {
+            "type": "string",
+            "description": "state in which the company is registered.\r\n\r\nOnly supported in US.",
+            "nullable": true
+          },
+          "countryRegisteredIn": {
+            "type": "string",
+            "description": "Country in which the company is registered.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "branch": {
+            "type": "string",
+            "description": "Branch of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "registeredAddress": {
+            "allOf": [{ "$ref": "#/components/schemas/Address" }],
+            "description": "Registered address of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "firmIsRegisteredAgent": {
+            "type": "boolean",
+            "description": "Whether the firm is a registered agent.\r\n            \r\nOnly supported in US."
+          },
+          "companyManagedBy": {
+            "type": "string",
+            "description": "Company managed by.\r\nValid values: 'Members', 'Managers'\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
           "companyNumberType": {
             "type": "string",
             "description": "Company's Australian company number type.\r\n\r\nAccepted values - ACN, ARBN\r\n\r\nOnly supported in AU.",
@@ -14346,6 +14450,52 @@
             "nullable": true,
             "example": "1234567890"
           },
+          "ein": {
+            "type": "string",
+            "description": "Employer Identification Number (EIN) of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "registeredDate": {
+            "type": "string",
+            "description": "Date the company was registered.\r\n            \r\nOnly supported in US.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "stateId": {
+            "type": "string",
+            "description": "State ID of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "stateRegisteredIn": {
+            "type": "string",
+            "description": "state in which the company is registered.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "countryRegisteredIn": {
+            "type": "string",
+            "description": "Country in which the company is registered.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "branch": {
+            "type": "string",
+            "description": "Branch of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "registeredAddress": {
+            "allOf": [{ "$ref": "#/components/schemas/AddressDto" }],
+            "description": "Registered address of the company.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "firmIsRegisteredAgent": {
+            "type": "boolean",
+            "description": "Whether the firm is a registered agent.\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
+          "companyManagedBy": {
+            "allOf": [{ "$ref": "#/components/schemas/CompanyManagedBy" }],
+            "description": "Company managed by.\r\nValid values: 'Members', 'Managers'\r\n            \r\nOnly supported in US.",
+            "nullable": true
+          },
           "companyNumberType": {
             "type": "string",
             "description": "Company's Australian company number type.\r\n\r\nPossible values: 'ACN', 'ARBN'\r\n\r\nOnly supported in AU.",
@@ -14403,6 +14553,11 @@
           }
         },
         "additionalProperties": false
+      },
+      "CompanyManagedBy": {
+        "enum": [0, 1],
+        "type": "integer",
+        "format": "int32"
       },
       "Contact": {
         "type": "object",
@@ -14467,6 +14622,25 @@
             "type": "array",
             "items": { "$ref": "#/components/schemas/Tag" },
             "description": "Set of contact's tags.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContactCollection": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "nullable": true },
+          "href": { "type": "string", "nullable": true },
+          "relation": { "type": "string", "nullable": true },
+          "method": { "type": "string", "default": "GET", "nullable": true },
+          "self": {
+            "allOf": [{ "$ref": "#/components/schemas/Link" }],
+            "nullable": true
+          },
+          "value": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Contact" },
             "nullable": true
           }
         },
@@ -14561,6 +14735,18 @@
             "description": "Business role of related contact.\r\n\r\nOnly applicable for companies (not trusts).",
             "nullable": true,
             "example": "Bookkeeper"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContactsBatchRequest": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "The IDs of the contacts to retrieve. A maximum of 500 ids may be supplied per request.",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -14972,11 +15158,6 @@
             "type": "string",
             "description": "Medicare number",
             "nullable": true
-          },
-          "nhsNumber": {
-            "type": "string",
-            "description": "NHS (National Health Service) number\r\nOnly supported in UK.",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -15133,6 +15314,11 @@
             "description": "Contact person's custom name to be used in letters (if applicable).",
             "nullable": true,
             "example": "Johnny"
+          },
+          "otherNames": {
+            "type": "string",
+            "description": "Contact person's other names (if applicable).\r\n            \r\nOnly supported in the US.",
+            "nullable": true
           },
           "residentialAddress": {
             "allOf": [{ "$ref": "#/components/schemas/Address" }],
@@ -15346,6 +15532,11 @@
             "description": "Contact person's custom name to be used in letters (if applicable).",
             "nullable": true,
             "example": "Johnny"
+          },
+          "otherNames": {
+            "type": "string",
+            "description": "Contact person's other names (if applicable).\r\n            \r\nOnly supported in the US.",
+            "nullable": true
           },
           "residentialAddress": {
             "allOf": [{ "$ref": "#/components/schemas/AddressDto" }],
