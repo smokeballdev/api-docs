@@ -23446,6 +23446,7 @@
           "matterId": {
             "type": "string",
             "description": "The matter id associated with the usage charge.",
+            "format": "uuid",
             "nullable": true
           },
           "description": {
