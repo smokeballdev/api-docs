@@ -13354,7 +13354,7 @@
           },
           "type": {
             "allOf": [{ "$ref": "#/components/schemas/EntryType" }],
-            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'",
+            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2', Surcharge = '3'",
             "example": 0
           },
           "description": {
@@ -13563,9 +13563,9 @@
         "format": "int32"
       },
       "EntryType": {
-        "enum": [0, 1, 2],
+        "enum": [0, 1, 2, 3],
         "type": "integer",
-        "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'",
+        "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2', Surcharge = '3'",
         "format": "int32"
       },
       "Archive": {
@@ -19979,7 +19979,7 @@
           "versionId": { "type": "string", "nullable": true },
           "type": {
             "allOf": [{ "$ref": "#/components/schemas/EntryType" }],
-            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2'"
+            "description": "Type of the activity.\r\n\r\nPossible values: Fixed = '0', Time = '1', Expense = '2', Surcharge = '3'"
           }
         },
         "additionalProperties": false
@@ -23435,13 +23435,13 @@
         "additionalProperties": false
       },
       "CreateUsageChargeRequest": {
-        "required": ["priceId"],
         "type": "object",
         "properties": {
           "priceId": {
             "type": "string",
             "description": "The price to charge for this usage product.",
-            "format": "uuid"
+            "format": "uuid",
+            "nullable": true
           },
           "matterId": {
             "type": "string",
