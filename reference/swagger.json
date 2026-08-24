@@ -19727,7 +19727,7 @@
           },
           "status": {
             "allOf": [{ "$ref": "#/components/schemas/InvoiceStatus" }],
-            "description": "The status of the invoice.\r\n\r\nPossible values: Draft = 0, Final = 1, Paid = 2, Deleted = 3 or Void = 4.",
+            "description": "The current status of the invoice.\r\n\r\nPossible values: Draft = 0, Final = 1, Paid = 2, Deleted = 3 or Void = 4.",
             "example": 0
           },
           "invoiceNumber": {
