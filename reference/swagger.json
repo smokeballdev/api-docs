@@ -3180,12 +3180,13 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get files on a matter",
-        "description": "Returns a list of files associated with a matter. \r\nDefaults to ascending order of date created, i.e. oldest first, unless sort option is supplied.\r\nCustom sorting and searching options does not apply to cursor-based pagination.",
+        "description": "Returns a paged list of files associated with a matter. Deleted files are excluded.\r\n            \r\nPaging defaults: offset 0, limit equal to the maximum page size when not supplied.\r\n            \r\nOrdering: ascending by date created (oldest first) unless a sort option is supplied.\r\n            \r\nThree query modes are used depending on the supplied options:\r\n- Search (a search query is supplied): results come from the document search index. Sort, paging and the cursor all apply.\r\n- Cursor only (no search query): returns files modified since the cursor. Sort options are ignored in this mode.\r\n- Standard (neither): sort, paging and file extension include/exclude filters apply.",
         "operationId": "GetFiles",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
@@ -3232,6 +3233,16 @@
               }
             }
           },
+          "400": {
+            "description": "When the supplied matterId is not a valid GUID or the paging, cursor, sort or search options are invalid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "403": {
             "description": "When the requested matter does not belong to the account making the request.",
             "content": {
@@ -3245,17 +3256,19 @@
       "post": {
         "tags": ["Files"],
         "summary": "Add file to a matter",
-        "description": "Uploads a new file for the specified matter.",
+        "description": "Registers a new file on the matter and returns a presigned PUT URL (valid for 1 hour) to upload its content.\r\nThe file is created only after the content has been PUT to the URL and confirmed by the storage callback;\r\nthe 'Location' link to 'GetFileById' returns 404 until then.\r\n            \r\n'fileName' is split on the last '.' into name and extension. The name is normalised to XML-safe characters and\r\nmust contain at least one valid character.\r\n'folderId' and 'folderPath' are mutually exclusive (400 when both are set). 'folderId' is not validated for\r\nexistence or matter membership; an unknown value is accepted as-is.\r\nAdditional data values must be strings, integers, numbers, booleans or null; keys must not be blank.",
         "operationId": "AddFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The file to add.",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -3285,11 +3298,9 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When the supplied matterId is not a valid GUID; when the body fails validation; when the file name contains no valid XML characters; when both 'folderId' and 'folderPath' are set; or when the additional data contains a blank key or a non-primitive value.",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           }
         }
@@ -3299,12 +3310,13 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get a file",
-        "description": "Retrieves a specified file.",
+        "description": "Retrieves a specified file. The matterId in the route is used for authorisation only and is not cross-checked\r\nagainst the matter the file belongs to.",
         "operationId": "GetFileById",
         "parameters": [
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string" }
           },
@@ -3324,6 +3336,16 @@
               }
             }
           },
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "403": {
             "description": "When the requested file does not belong to the account making the request.",
             "content": {
@@ -3333,7 +3355,7 @@
             }
           },
           "404": {
-            "description": "When file with the specified id does not exist.",
+            "description": "When the file does not exist or has no uploaded version yet (e.g. it was just created and the upload has not completed).",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3345,23 +3367,26 @@
       "put": {
         "tags": ["Files"],
         "summary": "Upload/update version or metadata of a file",
-        "description": "Updates the metadata for a file or uploads a new version of the file",
+        "description": "Replaces all editable fields of a file with the supplied values. Use PATCH to change only some fields.\r\n            \r\nBecause this is a full replace, omitting 'folderId' (or setting it to null) moves the file to the root folder.\r\nThe destination folder is not validated for existence.\r\n'fileName' is required (maximum 256 characters). 'userId' falls back to the authenticated user when omitted.\r\nAdditional data values are merged with existing keys; null or empty additional data is a no-op.\r\n'isFavorite' is ignored when null.\r\n            \r\nThe response always includes a presigned PUT URL (valid for 1 hour) that can optionally be used to upload a new\r\nversion of the file. Every call records a new upload request whether or not the URL is used.",
         "operationId": "UpdateFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The full set of editable file properties.",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -3391,15 +3416,13 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied id is not a valid GUID; when the body fails validation; when the file does not belong to this matter or account (returned as 400, not 403); when the file name contains no valid XML characters; or when the additional data contains a null key or a non-primitive value.",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           },
           "404": {
-            "description": "When file or matter with the specified id does not exist.",
+            "description": "When the file does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3411,23 +3434,26 @@
       "patch": {
         "tags": ["Files"],
         "summary": "Patch a file",
-        "description": "Updates the metadata for a file or uploads a new version of the file",
+        "description": "Partially updates a file's metadata. Only the fields supplied in the request are changed; all other fields keep\r\ntheir current values. Use PUT to replace all fields.\r\n            \r\nThe response always includes a presigned PUT URL (valid for 1 hour) that can optionally be used to upload a new\r\nversion of the file. Every call records a new upload request whether or not the URL is used.",
         "operationId": "PatchFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The properties to change, as a merge-style object or a JSON Patch document.",
           "content": {
             "application/json-patch+json": {
               "schema": { "$ref": "#/components/schemas/EditFileDto" }
@@ -3450,15 +3476,13 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied id is not a valid GUID; when the file does not belong to this matter or account; when 'folderId' is not a valid GUID; when the file name contains no valid XML characters; or when the additional data contains a null key or a non-primitive value.",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           },
           "404": {
-            "description": "When file or matter with the specified id does not exist.",
+            "description": "When the file does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3476,12 +3500,14 @@
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
@@ -3496,11 +3522,9 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied id is not a valid GUID, or when the file does not belong to the specified matter.",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           },
           "403": {
@@ -3518,22 +3542,29 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get download url for a file",
-        "description": "Retrieves download details for a specified matter file.",
+        "description": "Returns a presigned download URL for the current version of the file, or for a specific version when 'versionId' is supplied.\r\nThe URL is valid for 1 hour. The response 'Content-Disposition' uses the file name and extension.",
         "operationId": "DownloadFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string" }
           },
-          { "name": "versionId", "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "versionId",
+            "in": "query",
+            "description": "Optional. Unique identifier of the file version to download. Must be a version of this file. Defaults to the current version.",
+            "schema": { "type": "string" }
+          }
         ],
         "responses": {
           "200": {
@@ -3545,11 +3576,9 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied id is not a valid GUID, or when 'versionId' is not a version of this file (\"Provided invalid versionId\").",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           },
           "403": {
@@ -3561,11 +3590,9 @@
             }
           },
           "404": {
-            "description": "When file or matter with the specified id does not exist.",
+            "description": "When the file does not exist, does not belong to the specified matter, or has no uploaded version yet.",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           }
         }
@@ -3575,18 +3602,20 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get upload url for a file",
-        "description": "Retrieves upload details for a specified matter file.",
+        "description": "Returns a presigned PUT URL for uploading a new version of an existing file. The URL is valid for 1 hour.",
         "operationId": "UploadFile",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string" }
           }
@@ -3600,6 +3629,16 @@
               }
             }
           },
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "403": {
             "description": "When the requested file does not belong to the account making the request.",
             "content": {
@@ -3609,7 +3648,7 @@
             }
           },
           "404": {
-            "description": "When file or matter with the specified id does not exist.",
+            "description": "When the file does not exist or does not belong to the specified matter.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3623,18 +3662,20 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get file history on a matter",
-        "description": "Returns a list of history entries for the specified file",
+        "description": "Returns the full list of history entries for the specified file. The result is not paged.",
         "operationId": "GetFileHistory",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the file.",
             "required": true,
             "schema": { "type": "string" }
           }
@@ -3650,11 +3691,13 @@
               }
             }
           },
-          "403": {
-            "description": "When the requested matter does not belong to the account making the request.",
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
               }
             }
           }
@@ -3665,17 +3708,19 @@
       "post": {
         "tags": ["Files"],
         "summary": "Add files to a matter",
-        "description": "Uploads a batch of files for the specified matter. Used for data migrations.",
+        "description": "Registers a batch of new files on the matter and returns one 'UploadFileInfo' (presigned PUT URL, valid for 1 hour)\r\nper file, in request order. Intended for data migrations. The same rules as 'AddFile' apply to each item.\r\n            \r\nThe operation is not atomic: items are validated in order and a 400 on item n leaves the upload requests for\r\nitems before it in place. No 'Location' header is returned. There is no cap on the array size.",
         "operationId": "BulkAddFiles",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier (GUID) of the matter.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The files to add.",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -3711,11 +3756,9 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When the supplied matterId is not a valid GUID; when the body fails validation; or when any item has a file name with no valid XML characters, has both 'folderId' and 'folderPath' set, or has additional data with a blank key or a non-primitive value.",
             "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
-              }
+              "application/json": { "schema": { "type": "string" } }
             }
           }
         }
@@ -3725,25 +3768,27 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get preview info for a file",
-        "description": "Returns info to preview a file.",
+        "description": "Returns a presigned URL to the PDF preview of the current version of the specified file.\r\nThe URL is valid for 1 day from the time of the request.\r\n            \r\nThis endpoint never creates a preview. Use CreatePreview to request one; while the conversion is still pending\r\nthis endpoint returns 404.",
         "operationId": "GetPreview",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter to which the file belongs.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier of the file.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'PreviewFileInfo' object.",
+            "description": "When the request is successful. Returns a 'PreviewFileInfo' object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
@@ -3751,15 +3796,17 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied id is not a valid GUID.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
               }
             }
           },
           "403": {
-            "description": "When the file is not associated with the authenticated client.",
+            "description": "When the file does not belong to the authenticated account or does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3767,7 +3814,7 @@
             }
           },
           "404": {
-            "description": "When the file name does not exist or isn't uploaded yet.",
+            "description": "When the file has no uploaded version yet, or no preview exists for the current version (for example the conversion requested by CreatePreview is still pending).",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3778,26 +3825,28 @@
       },
       "post": {
         "tags": ["Files"],
-        "summary": "Create a preview request",
-        "description": "Creates a preview for the specified file.",
+        "summary": "Get or create a preview",
+        "description": "Returns a PDF preview of the current version of the specified file, creating it if it does not exist yet.\r\n            \r\nThe 202 response has two shapes:\r\n- Preview already exists: 'downloadUrl' contains a presigned URL to the PDF preview and 'expiry' is its expiry time.\r\n  The URL is valid for 1 day.\r\n- Preview does not exist yet: a conversion is requested and processed asynchronously; 'downloadUrl' and 'expiry' are null.\r\n  Poll the 'Location' header (GetPreviewById) until it returns 200.\r\n            \r\nThe preview is always generated as a PDF, regardless of the source file type.\r\nPreviews are keyed by document version, so uploading a new version of the file produces a new preview.",
         "operationId": "CreatePreview",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter to which the file belongs.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier of the file.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "responses": {
           "202": {
-            "description": "When request is accepted. Returns a 'PreviewFileInfo' object.",
+            "description": "When the request is accepted. Returns a 'PreviewFileInfo' object, with 'downloadUrl' and 'expiry' populated if the preview already exists and null if conversion is still pending.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
@@ -3805,15 +3854,17 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied id is not a valid GUID.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
               }
             }
           },
           "403": {
-            "description": "When the file is not associated with the authenticated client.",
+            "description": "When the file does not belong to the authenticated account or does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3821,7 +3872,7 @@
             }
           },
           "404": {
-            "description": "When the file name does not exist or isn't uploaded yet.",
+            "description": "When the file exists but has no uploaded version yet.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3835,31 +3886,34 @@
       "get": {
         "tags": ["Files"],
         "summary": "Get preview info for a file by document version",
-        "description": "Returns info to preview a file by document version.",
+        "description": "Returns a presigned URL to the PDF preview of a specific document version of the file.\r\nThe URL is valid for 1 day from the time of the request.",
         "operationId": "GetPreviewById",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter to which the file belongs.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "fileId",
             "in": "path",
+            "description": "Unique identifier of the file.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "documentVersionId",
             "in": "path",
+            "description": "Unique identifier of the document version to preview, as returned in 'documentVersionId' by CreatePreview or 'versionId' on the file.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "responses": {
           "200": {
-            "description": "When request is successful. Returns a 'PreviewFileInfo' object.",
+            "description": "When the request is successful. Returns a 'PreviewFileInfo' object.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/PreviewFileInfo" }
@@ -3867,15 +3921,17 @@
             }
           },
           "400": {
-            "description": "When an unsupported request is made.",
+            "description": "When a supplied matterId or fileId is not a valid GUID.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
               }
             }
           },
           "403": {
-            "description": "When the file is not associated with the authenticated client.",
+            "description": "When the file does not belong to the authenticated account or does not exist.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -3883,7 +3939,7 @@
             }
           },
           "404": {
-            "description": "When the file name does not exist or isn't uploaded yet.",
+            "description": "When the file has no uploaded version yet, or no preview exists for the specified document version (for example the conversion requested by CreatePreview is still pending).",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4182,12 +4238,13 @@
       "get": {
         "tags": ["Folders"],
         "summary": "Get folders/files under root folder",
-        "description": "Returns a list of sub folders and files under the root folder of a matter.",
+        "description": "Returns a list of sub folders and files under the root folder of a matter.\r\n            \r\nFolders are listed before files. Paging applies across the combined list: `offset` defaults to 0 and `limit`\r\ndefaults to the maximum page size (`PagingOptions.MaxPageSize`). Deleted folders and deleted files are excluded.",
         "operationId": "GetFolders",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
@@ -4223,6 +4280,16 @@
               }
             }
           },
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "403": {
             "description": "When the requested matter does not belong to the account making the request.",
             "content": {
@@ -4236,17 +4303,19 @@
       "post": {
         "tags": ["Folders"],
         "summary": "Create a folder",
-        "description": "Creates a new folder under the specified matter.",
+        "description": "Creates a new folder under the specified matter.\r\n            \r\nWhen `parentFolderId` is null or omitted the folder is created under the matter root.",
         "operationId": "CreateRootFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The folder to create.",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -4275,7 +4344,7 @@
             }
           },
           "400": {
-            "description": "When folder name is not provided.",
+            "description": "When folder name is not provided or is whitespace, exceeds 256 characters, or a supplied id (`matterId`, `parentFolderId`, `userId`) is not a valid GUID.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4289,18 +4358,20 @@
       "get": {
         "tags": ["Folders"],
         "summary": "Get folders/files under a folder",
-        "description": "Returns a list of sub folders and files under a specified folder of a matter.",
+        "description": "Returns a list of sub folders and files under a specified folder of a matter.\r\n            \r\nThe `parentId` and `name` properties of the response describe the requested folder itself, not its children.\r\nA deleted folder is still returned, with `isDeleted: true` and an empty listing.\r\n            \r\nFolders are listed before files. Paging applies across the combined list: `offset` defaults to 0 and `limit`\r\ndefaults to the maximum page size (`PagingOptions.MaxPageSize`). Deleted sub folders and deleted files are excluded.",
         "operationId": "GetFolderById",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "folderId",
             "in": "path",
+            "description": "Unique identifier of the folder.",
             "required": true,
             "schema": { "type": "string" }
           },
@@ -4336,6 +4407,16 @@
               }
             }
           },
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "403": {
             "description": "When the requested matter does not belong to the account making the request.",
             "content": {
@@ -4357,23 +4438,26 @@
       "put": {
         "tags": ["Folders"],
         "summary": "Update a folder",
-        "description": "Updates a folder belonging to the specified matter.",
+        "description": "Replaces the editable fields of a folder belonging to the specified matter. All fields are applied, not only the ones\r\nthat changed: `name` is required, and omitting `parentFolderId` (or setting it to null) moves the folder to the matter root.\r\nUse PATCH to change individual fields.\r\n            \r\nThe destination folder must be on the same matter (400 otherwise); a destination that does not exist is not rejected.\r\nIf `userId` is omitted the authenticated user is recorded. A deleted folder cannot be updated with PUT; use PATCH with `isDeleted: false` to restore it.",
         "operationId": "UpdateFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "folderId",
             "in": "path",
+            "description": "Unique identifier of the folder.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The full set of folder fields to apply.",
           "content": {
             "application/json-patch+json": {
               "schema": {
@@ -4402,7 +4486,7 @@
             }
           },
           "400": {
-            "description": "When folder name is not provided or folder does not belong to the specified matter.",
+            "description": "When a supplied id is not a valid GUID, folder name is not provided or exceeds 256 characters, the folder does not belong to the specified matter, or the destination folder belongs to another matter.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4422,32 +4506,35 @@
       "patch": {
         "tags": ["Folders"],
         "summary": "Patch a folder",
-        "description": "Updates a folder belonging to the specified matter.",
+        "description": "Partially updates a folder belonging to the specified matter. Only the fields supplied in the request are applied.\r\n            \r\nA deleted folder can be restored by setting `isDeleted` to `false`. Only the folder itself is restored;\r\nsubfolders and files that were deleted remain deleted. Other fields supplied in the same request are applied after the restore.",
         "operationId": "PatchFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "folderId",
             "in": "path",
+            "description": "Unique identifier of the folder.",
             "required": true,
             "schema": { "type": "string" }
           }
         ],
         "requestBody": {
+          "description": "The fields to update, as a merge-style object or a JSON Patch document.",
           "content": {
             "application/json-patch+json": {
-              "schema": { "$ref": "#/components/schemas/FolderDto" }
+              "schema": { "$ref": "#/components/schemas/PatchFolderDto" }
             },
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/FolderDto" }
+              "schema": { "$ref": "#/components/schemas/PatchFolderDto" }
             },
             "application/*+json": {
-              "schema": { "$ref": "#/components/schemas/FolderDto" }
+              "schema": { "$ref": "#/components/schemas/PatchFolderDto" }
             }
           }
         },
@@ -4461,7 +4548,7 @@
             }
           },
           "400": {
-            "description": "When folder name is not provided or folder does not belong to the specified matter.",
+            "description": "When a supplied id is not a valid GUID, no fields are supplied, folder name is empty, `isDeleted` is set to true, the folder is deleted and is not being restored, the folder does not belong to the specified matter, or the destination folder belongs to another matter.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4481,18 +4568,20 @@
       "delete": {
         "tags": ["Folders"],
         "summary": "Delete a folder",
-        "description": "Deletes a folder belonging to the specified matter.",
+        "description": "Deletes a folder belonging to the specified matter.\r\n            \r\nAn unknown folder id returns 400 rather than 404, because the folder may have been created but not yet processed.\r\nThe change is processed asynchronously; the returned Link continues to resolve the folder with `isDeleted: true` once applied.",
         "operationId": "DeleteFolder",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           },
           {
             "name": "folderId",
             "in": "path",
+            "description": "Unique identifier of the folder.",
             "required": true,
             "schema": { "type": "string", "format": "uuid" }
           }
@@ -4507,7 +4596,7 @@
             }
           },
           "400": {
-            "description": "When the folder does not belong to the specified matter.",
+            "description": "When a supplied id is not a valid GUID, or the folder does not exist or does not belong to the specified matter.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4527,12 +4616,14 @@
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "folderId",
             "in": "path",
+            "description": "Unique identifier of the folder.",
             "required": true,
             "schema": { "type": "string" }
           }
@@ -4548,8 +4639,18 @@
               }
             }
           },
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
           "403": {
-            "description": "When the requested matter does not belong to the account making the request.",
+            "description": "When the requested matter does not belong to the account making the request, or the folder does not belong to the specified matter.",
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ProblemDetails" }
@@ -4571,18 +4672,20 @@
       "get": {
         "tags": ["Folders"],
         "summary": "Get folder history on a matter",
-        "description": "Returns a list of history entries for the specified folder.",
+        "description": "Returns a list of history entries for the specified folder.\r\n            \r\nThe response is not paged. An unknown folder id returns 200 with an empty collection rather than 404.",
         "operationId": "GetFolderHistory",
         "parameters": [
           {
             "name": "matterId",
             "in": "path",
+            "description": "Unique identifier of the matter.",
             "required": true,
             "schema": { "type": "string" }
           },
           {
             "name": "folderId",
             "in": "path",
+            "description": "Unique identifier of the folder.",
             "required": true,
             "schema": { "type": "string" }
           }
@@ -4598,11 +4701,13 @@
               }
             }
           },
-          "403": {
-            "description": "When the requested matter does not belong to the account making the request.",
+          "400": {
+            "description": "When a supplied id is not a valid GUID.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ProblemDetails" }
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
               }
             }
           }
@@ -16314,32 +16419,33 @@
             "maxLength": 256,
             "minLength": 0,
             "type": "string",
-            "description": "Full name of the file including the file extension",
+            "description": "Full name of the file including the file extension. Required, maximum 256 characters.\r\nThe name is split on the last '.' into name and extension, and the name is normalised to XML-safe characters.\r\nIt must contain at least one valid character after normalisation.",
             "example": "court filing.pdf"
           },
           "folderId": {
             "type": "string",
-            "description": "Unique identifier of the folder to add the file to. If null it will be placed in the root folder",
+            "description": "Unique identifier (GUID) of the folder to add the file to. If null (and FolderPath is not set) the file is placed in the root folder.\r\nMutually exclusive with FolderPath. The folder is not validated for existence.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "userId": {
             "type": "string",
-            "description": "Unique identifier of the file owner. If null it will fallback to the authenticated user",
+            "description": "Unique identifier (GUID) of the file owner. If null it will fallback to the authenticated user",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "folderPath": {
             "type": "string",
-            "description": "Path of the folder to add the file to. If null then the FolderId will be used",
+            "description": "Path of the folder to add the file to, relative to the matter root, with '/' separating folder names.\r\nMutually exclusive with FolderId: set at most one of the two. If neither is set the file is placed in the root folder.",
             "nullable": true,
             "example": "Court Filings/2023/January"
           },
           "fileAdditionalData": {
             "type": "object",
             "additionalProperties": { "nullable": true },
-            "description": "Collection of KeyValuePair(string, string) to update File meta data.",
-            "nullable": true
+            "description": "Dictionary of custom metadata to store against the file. Keys must not be blank.\r\nValues must be strings, integers, numbers, booleans or null; objects and arrays are rejected.",
+            "nullable": true,
+            "example": { "Author": "Jane Smith", "Pages": 12, "Signed": true }
           },
           "dateCreated": {
             "type": "string",
@@ -16381,19 +16487,19 @@
           },
           "downloadUrl": {
             "type": "string",
-            "description": "Temporary Link to download file",
+            "description": "Temporary presigned URL to download the file content with an HTTP GET request. Valid for 1 hour from the time of the API call (see Expiry).",
             "nullable": true,
-            "example": ""
+            "example": "https://example-bucket.s3.amazonaws.com/files/2f1c9a3e-6b1d-4c7e-9a0f-1d2e3f4a5b6c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Signature=..."
           },
           "expiry": {
             "type": "string",
-            "description": "Expiry date/time when the download link is no longer accessible",
+            "description": "UTC date/time when the download link is no longer accessible (1 hour after issue)",
             "format": "date-time",
             "example": "2022-04-23T14:30:00Z"
           },
           "sizeBytes": {
             "type": "integer",
-            "description": "Size of the requested file (in bytes)",
+            "description": "Size of the content behind DownloadUrl (in bytes). For the extracted text endpoint this is the size of the extracted text, not of the original file.",
             "format": "int64",
             "example": 19104768
           }
@@ -16408,31 +16514,33 @@
             "maxLength": 256,
             "minLength": 0,
             "type": "string",
-            "description": "Full name of the file including the file extension",
+            "description": "Full name of the file. Required on PUT, maximum 256 characters. The name is normalised to XML-safe characters\r\nand must contain at least one valid character.\r\nThe file's existing extension is kept unless the supplied name ends with that same extension; a trailing\r\n'.something' that differs from the current extension is treated as part of the name, so the extension cannot be changed by renaming.",
             "example": "court filing.pdf"
           },
           "folderId": {
             "type": "string",
-            "description": "Unique identifier of the folder to add the file to. If null it will be placed in the root folder",
+            "description": "Unique identifier (GUID) of the folder to move the file to. Null means the root folder.\r\nOn PUT, omitting this property moves the file to the root folder. On PATCH, the file is moved only when '/folderId' is present in the request.\r\nThe destination folder is not validated for existence.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "userId": {
             "type": "string",
-            "description": "Unique identifier of the user modifying the file. If null it will fallback to the authenticated user",
+            "description": "Unique identifier (GUID) of the user modifying the file. If null it will fallback to the authenticated user",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
           "fileAdditionalData": {
             "type": "object",
             "additionalProperties": { "nullable": true },
-            "description": "Collection of KeyValuePair(string, string) to update File meta data.",
-            "nullable": true
+            "description": "Dictionary of custom metadata to set on the file. Keys must not be blank.\r\nValues must be strings, integers, numbers, booleans or null; objects and arrays are rejected.\r\nSupplied keys are added or overwritten. Null or empty is a no-op, so existing values cannot be cleared through this property.",
+            "nullable": true,
+            "example": { "Author": "Jane Smith", "Pages": 12, "Signed": true }
           },
           "isFavorite": {
             "type": "boolean",
             "description": "Flag indicating whether this file is a favorite. If null it will be ignored",
-            "nullable": true
+            "nullable": true,
+            "example": true
           }
         },
         "additionalProperties": false
@@ -16455,18 +16563,25 @@
           },
           "versionId": {
             "type": "string",
-            "description": "Unique identifier of the file's current version.",
-            "nullable": true
+            "description": "Unique identifier of the file's current version. Changes each time new content is uploaded for the file.",
+            "nullable": true,
+            "example": "0f8fad5b-d9cb-469f-a165-70867728950e"
           },
           "folder": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "description": "Hypermedia link of the folder to which the file belongs.",
-            "nullable": true
+            "description": "Hypermedia link of the folder to which the file belongs. Null when the file is in the matter's root folder.",
+            "nullable": true,
+            "example": {
+              "href": "/matters/f1f9ab2c-3f2a-4a3c-9b6e-0e2d6f6a1b3c/documents/folders/2c1e8a0d-4b5f-4d2e-8a9b-7c6d5e4f3a2b"
+            }
           },
           "matter": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Hypermedia link of the matter to which the file belongs.",
-            "nullable": true
+            "nullable": true,
+            "example": {
+              "href": "/matters/f1f9ab2c-3f2a-4a3c-9b6e-0e2d6f6a1b3c"
+            }
           },
           "name": {
             "type": "string",
@@ -16518,14 +16633,22 @@
           },
           "downloadInfo": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
-            "description": "Hypermedia link to the download details of the file.",
-            "nullable": true
+            "description": "Hypermedia link to the download details of the file (a presigned download URL and its expiry).",
+            "nullable": true,
+            "example": {
+              "href": "/matters/f1f9ab2c-3f2a-4a3c-9b6e-0e2d6f6a1b3c/documents/files/b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2/download"
+            }
           },
           "additionalData": {
             "type": "object",
             "additionalProperties": { "nullable": true },
-            "description": "Collection of file meta data as KeyValuePair(string, object).",
-            "nullable": true
+            "description": "Collection of file meta data as key/value pairs. Values may be strings, numbers, booleans or dates.",
+            "nullable": true,
+            "example": {
+              "source": "Outlook",
+              "pageCount": 12,
+              "isSigned": true
+            }
           },
           "isFavorite": {
             "type": "boolean",
@@ -16544,7 +16667,8 @@
           },
           "isDuplicate": {
             "type": "boolean",
-            "description": "Flag indicating whether the file data is duplicated. Applies to emails only for now."
+            "description": "Flag indicating whether the file data is duplicated. Applies to emails only for now.",
+            "example": false
           },
           "isDeleted": {
             "type": "boolean",
@@ -16572,12 +16696,12 @@
           },
           "type": {
             "type": "string",
-            "description": "The type of entity this log entry refers to.",
+            "description": "The type of entity this log entry refers to. Possible values: `File`, `Folder`.",
             "example": "File"
           },
           "changeType": {
             "type": "string",
-            "description": "The type of change that occurred.",
+            "description": "The type of change that occurred. Possible values: `Revert`, `Copy`, `CopyToAnotherMatter`, `CopyFromAnotherMatter`,\r\n`Restore`, `Rename`, `Move`, `MoveToAnotherMatter`, `MoveFromAnotherMatter`, `Delete`, `Created`, `Modified`, `Cancelled`,\r\n`AddedToFavorites`, `RemovedFromFavorites`, `FolderPinned`, `FolderUnpinned`.",
             "example": "Move"
           },
           "timestamp": {
@@ -16589,12 +16713,20 @@
           "file": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Link to the file affected by this entry (only populated when Type is File).",
-            "nullable": true
+            "nullable": true,
+            "example": {
+              "href": "/matters/f9e1a9d5-1d2b-4bd2-9a72-6a6e7b5c2f01/documents/files/bb3a6c1d-1e2f-4a7b-9c01-0d9a8c7b6e5f",
+              "id": "bb3a6c1d-1e2f-4a7b-9c01-0d9a8c7b6e5f"
+            }
           },
           "folder": {
             "allOf": [{ "$ref": "#/components/schemas/Link" }],
             "description": "Link to the folder affected by this entry (only populated when Type is Folder).",
-            "nullable": true
+            "nullable": true,
+            "example": {
+              "href": "/matters/f9e1a9d5-1d2b-4bd2-9a72-6a6e7b5c2f01/documents/folders/6a5c3b2e-0f1e-4c7e-90e2-2ad3c3e8b0b9",
+              "id": "6a5c3b2e-0f1e-4c7e-90e2-2ad3c3e8b0b9"
+            }
           },
           "oldName": {
             "type": "string",
@@ -16652,8 +16784,9 @@
           },
           "userId": {
             "type": "string",
-            "description": "The user who is responsible for this change.",
-            "nullable": true
+            "description": "Unique identifier of the user who is responsible for this change.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           }
         },
         "additionalProperties": false,
@@ -16734,7 +16867,7 @@
           },
           "parentId": {
             "type": "string",
-            "description": "Unique identifier of the parent folder",
+            "description": "Unique identifier of the parent folder. Null when the folder sits directly under the matter root.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
@@ -16743,6 +16876,11 @@
             "description": "Name of the folder",
             "nullable": true,
             "example": "Property Documents"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Flag indicating whether the folder has been deleted.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -16755,18 +16893,18 @@
             "maxLength": 256,
             "minLength": 1,
             "type": "string",
-            "description": "Name of the folder",
+            "description": "Name of the folder. Required; must not be empty or whitespace. Maximum 256 characters.",
             "example": "Property Documents"
           },
           "parentFolderId": {
             "type": "string",
-            "description": "Unique identifier of the parent folder",
+            "description": "Unique identifier of the parent folder. Must be a valid GUID when supplied.\r\nNull or omitted means the matter root: on create the folder is created under the root, on PUT the folder is moved to the root.\r\nThe parent folder is not validated for existence.",
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
           "userId": {
             "type": "string",
-            "description": "Unique identifier of the user modifying the folder. If null it will fallback to the authenticated user",
+            "description": "Unique identifier of the user modifying the folder. Must be a valid GUID when supplied. If null it will fallback to the authenticated user.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           }
@@ -16787,14 +16925,14 @@
           "folders": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/Folder" },
-            "description": "List of folders",
+            "description": "Sub folders in this page of the listing. Empty when the page falls entirely within the files.",
             "nullable": true,
             "readOnly": true
           },
           "files": {
             "type": "array",
             "items": { "$ref": "#/components/schemas/File" },
-            "description": "List of files",
+            "description": "Files in this page of the listing. Files are only returned once the sub folders have been exhausted by the paging offset.",
             "nullable": true,
             "readOnly": true
           }
@@ -16847,6 +16985,11 @@
             "description": "Name of the folder",
             "nullable": true,
             "example": "Property Documents"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Flag indicating whether the folder has been deleted. A deleted folder can be restored via PATCH with `isDeleted: false`.",
+            "example": false
           }
         },
         "additionalProperties": false
@@ -16868,7 +17011,7 @@
           },
           "parentId": {
             "type": "string",
-            "description": "Unique identifier of the parent folder",
+            "description": "Unique identifier of the parent folder. Null when the folder sits directly under the matter root.",
             "nullable": true,
             "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
           },
@@ -16900,6 +17043,38 @@
         },
         "additionalProperties": false
       },
+      "PatchFolderDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 256,
+            "type": "string",
+            "description": "Name of the folder. If omitted the current name is kept. Must not be empty or whitespace when supplied.",
+            "nullable": true,
+            "example": "Property Documents"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Unique identifier of the parent folder. Must be a valid GUID when supplied. If omitted the folder is not moved.\r\nSet to null to move the folder to the matter root. The destination must belong to the same matter; it is not validated for existence.",
+            "nullable": true,
+            "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Unique identifier of the user modifying the folder. Must be a valid GUID when supplied. If null it will fallback to the authenticated user.",
+            "nullable": true,
+            "example": "750eb5c5-ac0b-7d11-4997-e0ce9d8896c8"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "A deleted folder can be restored by setting this to false. Only the folder itself is restored;\r\npreviously deleted subfolders and files remain deleted. Setting this to true is not supported, use DELETE instead.",
+            "nullable": true,
+            "example": false
+          }
+        },
+        "additionalProperties": false,
+        "description": "Partial update of a folder. Only the fields supplied in the request are applied.\r\nAccepted as an `application/json` merge-style object or as an `application/json-patch+json` document\r\nwith paths `/name`, `/parentFolderId`, `/userId` and `/isDeleted`."
+      },
       "PreviewFileInfo": {
         "type": "object",
         "properties": {
@@ -16909,16 +17084,21 @@
             "nullable": true,
             "example": "b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2"
           },
-          "documentVersionId": { "type": "string", "nullable": true },
+          "documentVersionId": {
+            "type": "string",
+            "description": "Unique identifier of the document version the preview was generated from. Pass this to GetPreviewById.",
+            "nullable": true,
+            "example": "0f8fad5b-d9cb-469f-a165-70867728950e"
+          },
           "downloadUrl": {
             "type": "string",
-            "description": "Temporary Link to download file",
+            "description": "Temporary presigned URL to download the PDF preview. Valid for 1 day.\r\nNull when the preview has not been generated yet (conversion is pending); poll GetPreviewById until it is available.",
             "nullable": true,
-            "example": ""
+            "example": "https://bucket.s3.amazonaws.com/previews/accounts/b471682e-fa17-4e46-b7fe-9b2b8fdcb3c2/documents/0f8fad5b-d9cb-469f-a165-70867728950e?X-Amz-Expires=86400&X-Amz-Signature=..."
           },
           "expiry": {
             "type": "string",
-            "description": "Expiry date/time when the download link is no longer accessible",
+            "description": "Expiry date/time (UTC) after which the download link is no longer accessible.\r\nNull when the preview has not been generated yet (conversion is pending).",
             "format": "date-time",
             "nullable": true,
             "example": "2022-04-23T14:30:00Z"
@@ -16937,18 +17117,37 @@
           },
           "uploadUrl": {
             "type": "string",
-            "description": "Temporary Link to upload file.\r\n\r\nImportant note: When uploading to this URL, set the 'Content-Type' header to an empty value.\r\n\r\nExample cURL: curl --location --request PUT 'URL_GOES_HERE' \\ --header 'Content-Type: \"\"' \\ --data '@/C:/dir/test.pdf'",
+            "description": "Temporary presigned URL to upload the file content to. Send the raw file bytes with an HTTP PUT request.\r\nThe URL is valid for 1 hour from the time of the API call (see Expiry).\r\n            \r\nImportant note: When uploading to this URL, set the 'Content-Type' header to an empty value.\r\n            \r\nExample cURL: curl --location --request PUT 'URL_GOES_HERE' \\ --header 'Content-Type: \"\"' \\ --data '@/C:/dir/test.pdf'",
             "nullable": true,
-            "example": ""
+            "example": "https://example-bucket.s3.amazonaws.com/apiuploads/2f1c9a3e-6b1d-4c7e-9a0f-1d2e3f4a5b6c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=3600&X-Amz-Signature=..."
           },
           "expiry": {
             "type": "string",
-            "description": "Expiry date/time when the upload link is no longer accessible.",
+            "description": "UTC date/time when the upload link is no longer accessible (1 hour after issue).",
             "format": "date-time",
             "example": "2022-04-23T14:30:00Z"
           }
         },
         "additionalProperties": false
+      },
+      "ValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "nullable": true },
+          "title": { "type": "string", "nullable": true },
+          "status": { "type": "integer", "format": "int32", "nullable": true },
+          "detail": { "type": "string", "nullable": true },
+          "instance": { "type": "string", "nullable": true },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
       },
       "Event": {
         "type": "object",
